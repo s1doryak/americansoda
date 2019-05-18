@@ -1,3 +1,16 @@
+### Запуск
+```bash
+git clone git@gitlab.crmplease.me:gtp/wholesale-web-service.git && cd wholesale-web-service
+git submodule update --init --recursive
+
+cp .env.example .env
+
+docker-compose run composer install
+docker-compose run artisan key:generate
+docker-compose run artisan migrate
+docker-compose up -d
+```
+
 ### Название проекта
 В файл `composer.json` необходимо добавить следующие директивы:
 ```json
