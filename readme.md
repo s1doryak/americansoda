@@ -314,3 +314,24 @@ docker-compose run artisan queue:failed-table
 
 docker-compose run artisan migrate
 ```
+
+### Локализация
+```bash
+docker-compose run artisan generate:locale ru_RU
+```
+
+### Пространства имён
+```bash
+docker-compose run artisan generate:namespace App
+```
+
+### Ресурсы
+#### Очередь задач
+```bash
+docker-compose run artisan generate:resource Job
+```
+
+#### Очередь незавершенных задач
+```bash
+docker-compose run artisan generate:resource FailedJob
+```
