@@ -1,0 +1,316 @@
+### Название проекта
+В файл `composer.json` необходимо добавить следующие директивы:
+```json
+{
+    "type": "project",
+    "name": "gtp/wholesale-web-service",
+    "description": "Wholesale Web Service for Global Trade Partners Oy",
+    "license": "proprietary",
+    "version": "1.0.0"
+}
+```
+
+### Параметры приложения и переменные окружения
+
+Измените значения по умолчанию переменных в файле `config/app.php`:
+```php
+'timezone' => env('APP_TIMEZONE', 'UTC'),
+'locale' => env('APP_LOCALE', 'en'),
+'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
+'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
+```
+
+Добавьте пользовательские параметры приложения в файл `config/app.php`:
+```php
+/*
+|--------------------------------------------------------------------------
+| Application Logo URL
+|--------------------------------------------------------------------------
+*/
+
+'logo' => env('APP_LOGO', ''),
+
+/*
+|--------------------------------------------------------------------------
+| Application Icon URL
+|--------------------------------------------------------------------------
+*/
+
+'icon' => env('APP_ICON', ''),
+
+/*
+|--------------------------------------------------------------------------
+| Application Theme
+|--------------------------------------------------------------------------
+*/
+
+'theme' => env('APP_THEME', 'blue'),
+
+/*
+|--------------------------------------------------------------------------
+| Application Scheme
+|--------------------------------------------------------------------------
+*/
+
+'scheme' => env('APP_SCHEME', 'http'),
+
+/*
+|--------------------------------------------------------------------------
+| Application Deep Link URL
+|--------------------------------------------------------------------------
+*/
+
+'deeplink' => env('APP_DEEPLINK', ''),
+
+/*
+|--------------------------------------------------------------------------
+| Application Version
+|--------------------------------------------------------------------------
+*/
+
+'version' => env('APP_VERSION', '1.0.0'),
+```
+
+В файл `.env.example` необходимо добавить следующие директивы:
+```bash
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+APP_THEME=blue
+APP_SCHEME=http
+APP_DEEPLINK=laravel
+APP_VERSION=1.0.0
+APP_TIMEZONE=UTC
+APP_LOCALE=en
+APP_FALLBACK_LOCALE=en
+APP_FAKER_LOCALE=en_US
+APP_LOGO=http://localhost/vendor/material-admin/logo.svg
+APP_ICON=http://localhost/vendor/material-admin/icon.svg
+
+DB_CONNECTION=mysql
+DB_HOST=database
+DB_PORT=3306
+DB_DATABASE=forge
+DB_USERNAME=forge
+DB_PASSWORD=forge
+
+BROADCAST_DRIVER=redis
+CACHE_DRIVER=file
+QUEUE_CONNECTION=database
+SESSION_DRIVER=file
+SESSION_LIFETIME=43200
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=
+REDIS_PORT=6379
+REDIS_DATABASE=0
+
+MAIL_FROM_ADDRESS=
+MAIL_FROM_NAME=
+```
+
+### Докер контейнеры
+```bash
+wget -c https://gitlab.crmplease.me/docker/laravel/raw/master/docker-compose.yml
+```
+
+### Зависимости пакета
+```bash
+docker-compose run composer require \
+   barryvdh/laravel-snappy \
+   doctrine/dbal \
+   h4cc/wkhtmltoimage-amd64 \
+   h4cc/wkhtmltopdf-amd64 \
+   imagine/imagine \
+   kris/laravel-form-builder \
+   laravelcollective/html \
+   prettus/l5-repository \
+   ramsey/uuid \
+   yajra/laravel-datatables
+```
+
+Для разработки
+```bash
+docker-compose run composer require --dev barryvdh/laravel-ide-helper
+
+docker-compose run artisan ide-helper:generate # phpDoc generation for Laravel Facades
+docker-compose run artisan ide-helper:models # phpDocs for models
+docker-compose run artisan ide-helper:meta # PhpStorm Meta file
+
+```
+
+### Каталог с пакетом
+
+```bash
+mkdir -p packages/crmplease/material-admin
+git clone git@gitlab.crmplease.me:crmplease/material-admin.git packages/crmplease/material-admin
+```
+
+### Автозагрузка классов
+
+В файл `composer.json` необходимо добавить следующие директивы:
+```json
+{
+    "autoload": {
+        "psr-4": {
+            "Crmplease\\MaterialAdmin\\": "packages/crmplease/material-admin/src/"
+        },
+        "files": [
+            "packages/crmplease/material-admin/src/helpers.php"
+        ]
+    }
+}
+```
+
+И выполните команду:
+```bash
+docker-compose run composer dump-autoload
+```
+
+### Провайдеры
+
+Добавьте необходимые провайдеры в файл `config/app.php`:
+```php
+'providers' => [
+    /*
+     * Package Service Providers...
+     */
+    \Crmplease\MaterialAdmin\Providers\MaterialAdminServiceProvider::class,
+    \Crmplease\MaterialAdmin\Providers\CustomDataTablesServiceProvider::class,
+],
+```
+
+### Ресурсы
+```bash
+docker-compose run artisan vendor:publish
+```
+
+### События
+
+Зарегистрируйте новые события в провайдере `app/Providers/EventServiceProvider.php`:
+```php
+/**
+ * @var array
+ */
+protected $listen = [
+
+    \Crmplease\MaterialAdmin\Events\ResourceRequested::class => [
+
+    ],
+
+    \Crmplease\MaterialAdmin\Events\ResourceStored::class => [
+
+    ],
+
+    \Crmplease\MaterialAdmin\Events\ResourceUpdated::class => [
+
+    ],
+
+    \Crmplease\MaterialAdmin\Events\ResourceDestroyed::class => [
+
+    ],
+
+    \Crmplease\MaterialAdmin\Events\ResourceTrashed::class => [
+
+    ],
+
+    \Crmplease\MaterialAdmin\Events\ResourceRestored::class => [
+
+    ],
+    
+];
+```
+
+### Формы
+Добавьте параметры по умолчанию для полей форм в файл `config/laravel-form-builder.php`:
+```php
+'defaults'      => [
+    
+    ...
+    
+    'entity'                => [
+        'wrapper_class'   => 'form-group',
+        'label_class'     => 'control-label',
+        'field_class'     => 'form-control selectpicker',
+    ],
+    
+    'choice'                => [
+        'wrapper_class'   => 'form-group',
+        'label_class'     => 'control-label',
+        'field_class'     => 'form-control selectpicker',
+    ],
+    
+    'select'                => [
+        'wrapper_class'   => 'form-group',
+        'label_class'     => 'control-label',
+        'field_class'     => 'form-control selectpicker',
+    ],
+],
+```
+
+Добавьте пользовательские шаблоны и типы полей для форм в файл `config/laravel-form-builder.php`:
+```php
+'colorpicker' => 'laravel-form-builder::custom.colorpicker',
+'datepicker' => 'laravel-form-builder::custom.datepicker',
+'editor' => 'laravel-form-builder::custom.editor',
+'file' => 'laravel-form-builder::custom.file',
+'image' => 'laravel-form-builder::custom.image',
+
+'custom_fields' => [
+    'colorpicker' => \Crmplease\MaterialAdmin\Forms\Fields\Colorpicker::class,
+    'datepicker' => \Crmplease\MaterialAdmin\Forms\Fields\Datepicker::class,
+    'editor' => \Crmplease\MaterialAdmin\Forms\Fields\Editor::class,
+    'file' => \Crmplease\MaterialAdmin\Forms\Fields\File::class,
+    'image' => \Crmplease\MaterialAdmin\Forms\Fields\Image::class,
+]
+```
+
+### .gitignore
+Создайте файл `.gitignore`:
+```git
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+
+.env
+.phpunit.result.cache
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+access.log
+error.log
+```
+
+### Структура
+Удалите лишнее:
+```bash
+rm -rf app/Http/Controllers/Auth
+rm app/Http/Controllers/Controller.php
+
+rm app/User.php
+
+rm database/factories/UserFactory.php
+rm database/migrations/2014_10_12_000000_create_users_table.php
+rm database/migrations/2014_10_12_100000_create_password_resets_table.php
+
+touch app/Http/Controllers/.gitkeep
+touch database/factories/.gitkeep
+touch database/migrations/.gitkeep
+```
+
+### Таблицы
+```bash
+docker-compose run artisan queue:table
+docker-compose run artisan queue:failed-table
+
+docker-compose run artisan migrate
+```

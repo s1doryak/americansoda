@@ -1,0 +1,14 @@
+<?php return [
+	'path' => 'uploads/images/{model}/{attribute}',
+	'library' => 'gd',
+	'quality' => 90,
+	'default_dimensions' => [
+		'width' => 150,
+		'height' => 150,
+		'crop' => true,
+		'quality' => 90,
+	],
+	'dimensions' => [
+
+	]
+];

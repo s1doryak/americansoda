@@ -1,0 +1,90 @@
+version: '2' 
+services: 
+  storage:  
+    image: crmplease/laravel-storage
+    volumes:
+      - ./:/data
+    privileged: true
+
+  database:
+    image: mysql:5.7
+    command: mysqld --sql_mode="" --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=forge
+      - MYSQL_USER=forge
+      - MYSQL_PASSWORD=forge
+    volumes_from:
+      - storage
+    ports:
+      - 3306:3306
+    privileged: true
+
+  phpfpm:
+    image: crmplease/laravel-phpfpm
+    volumes_from:
+      - storage
+    links:
+      - database:database
+    ports:
+      - 9000:9000
+    privileged: true
+
+  nginx:
+    image: crmplease/laravel-nginx
+    volumes_from:
+      - storage
+    links:
+      - phpfpm:phpfpm
+    depends_on:
+      - database
+      - phpfpm
+    ports:
+      - 80:80
+    privileged: true
+
+  artisan:
+    image: crmplease/laravel-artisan
+    volumes_from:
+      - storage
+    depends_on:
+      - database
+      - phpfpm
+      - nginx
+    links:
+      - database:database
+    privileged: true
+
+  composer:
+    image: crmplease/laravel-composer
+    volumes_from:
+      - storage
+    depends_on:
+      - database
+      - phpfpm
+      - nginx
+    privileged: true
+
+  queue:
+    image: crmplease/laravel-queue
+    volumes_from:
+      - storage
+    depends_on:
+      - database
+      - phpfpm
+      - nginx
+    links:
+      - database:database
+    privileged: true
+
+  cron:
+    image: crmplease/laravel-cron
+    volumes_from:
+      - storage
+    depends_on:
+      - database
+      - phpfpm
+      - nginx
+    links:
+      - database:database
+    privileged: true
