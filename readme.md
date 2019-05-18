@@ -151,7 +151,6 @@ docker-compose run composer require --dev barryvdh/laravel-ide-helper
 docker-compose run artisan ide-helper:generate # phpDoc generation for Laravel Facades
 docker-compose run artisan ide-helper:models # phpDocs for models
 docker-compose run artisan ide-helper:meta # PhpStorm Meta file
-
 ```
 
 ### Каталог с пакетом

@@ -1,0 +1,1 @@
+@extends('material-admin::auth.passwords.email')
