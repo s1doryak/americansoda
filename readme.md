@@ -340,10 +340,52 @@ docker-compose run artisan generate:namespace App
 ### Ресурсы
 #### Очередь задач
 ```bash
-docker-compose run artisan generate:resource Job
+docker-compose run artisan generate:resource Job \
+    --namespace App \
+    \
+    --field=queue:string \
+    --field=payload:json \
+    --field=attempts:integer \
+    --field=reserved_at:timestamp \
+    --field=available_at:timestamp \
+    --field=created_at:timestamp \
+    \
+    --policy=false \
+    \
+    --translate=ru:"Фоновая задача":"Фоновые задачи":"Фоновую задачу":"Фоновых задач" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=queue:ru:"Очередь" \
+    --translate-field=payload:ru:"Параметры" \
+    --translate-field=attempts:ru:"Попыток" \
+    --translate-field=reserved_at:ru:"Назначена" \
+    --translate-field=available_at:ru:"Выполнить" \
+    --translate-field=created_at:ru:"Создана" \
+    \
+    --force
 ```
 
 #### Очередь незавершенных задач
 ```bash
-docker-compose run artisan generate:resource FailedJob
+docker-compose run artisan generate:resource FailedJob \
+    --namespace App \
+    \
+    --field=connection:string \
+    --field=queue:string \
+    --field=payload:json \
+    --field=exception:textarea \
+    --field=failed_at:timestamp \
+    \
+    --policy=false \
+    \
+    --translate=ru:"Невыполненная задача":"Невыполненные задачи":"Невыполненную задачу":"Невыполненных задач" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=connection:ru:"Драйвер" \
+    --translate-field=queue:ru:"Очередь" \
+    --translate-field=payload:ru:"Параметры" \
+    --translate-field=exception:ru:"Исключение" \
+    --translate-field=failed_at:ru:"Провалена" \
+    \
+    --force
 ```
