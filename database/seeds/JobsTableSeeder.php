@@ -6,14 +6,6 @@ class JobsTableSeeder extends Seeder
 {
     public function run()
     {
-
-
-
-
-        factory(App\Job::class, 5)->create()->each(function (App\Job $job) {
-
-
-
-        });
+        factory(App\Job::class, 10)->create();
     }
 }

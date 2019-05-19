@@ -5,6 +5,4 @@
         <i class="badge-circle {{ implode(' ', $classes) }}" style="background-color: {{ $color }}"></i>
     @endif
 @endif
-@if($title)
-    {!! $title !!}
-@endif
+{!! $title !!}

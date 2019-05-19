@@ -141,7 +141,8 @@ docker-compose run composer require \
    laravelcollective/html \
    prettus/l5-repository \
    ramsey/uuid \
-   yajra/laravel-datatables
+   yajra/laravel-datatables \
+   jenssegers/date
 ```
 
 Для разработки

@@ -71,4 +71,15 @@ return [
     'filters' => [
 
     ],
+    'formatting' => [
+        'timestamp' => [
+            'default' => '%s',
+            'year' => '%s',
+            'month' => '%s',
+            'day' => 'Сегодня в %s',
+        ],
+        'aggregate' => [
+            'attempts' => 'шт.'
+        ]
+    ]
 ];

@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Job extends Model
 {
+    const CREATED_AT = null;
     const UPDATED_AT = null;
 
     protected $fillable = [
@@ -35,9 +36,7 @@ class Job extends Model
     ];
 
     protected $dates = [
-        'reserved_at',
-        'available_at',
-        'created_at',
+
     ];
 
     protected $hidden = [

@@ -11,6 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(JobsTableSeeder::class);
+        if (is_local()) {
+            $this->call([
+                JobsTableSeeder::class
+            ]);
+        }
     }
 }
