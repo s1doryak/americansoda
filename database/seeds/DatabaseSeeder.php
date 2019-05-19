@@ -13,7 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         if (is_local()) {
             $this->call([
-                JobsTableSeeder::class
+                JobsTableSeeder::class,
+                FailedJobsTableSeeder::class
             ]);
         }
     }

@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\JobCreator::class,
+        \App\Console\Commands\FailedJobCreator::class,
     ];
 
     /**

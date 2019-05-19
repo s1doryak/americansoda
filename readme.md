@@ -29,8 +29,8 @@ docker-compose up -d
 ```php
 'timezone' => env('APP_TIMEZONE', 'UTC'),
 'locale' => env('APP_LOCALE', 'en'),
-'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
+'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 ```
 
 Добавьте пользовательские параметры приложения в файл `config/app.php`:
@@ -96,9 +96,9 @@ APP_SCHEME=http
 APP_DEEPLINK=laravel
 APP_VERSION=1.0.0
 APP_TIMEZONE=UTC
-APP_LOCALE=en
+APP_LOCALE=ru
+APP_FAKER_LOCALE=ru_RU
 APP_FALLBACK_LOCALE=en
-APP_FAKER_LOCALE=en_US
 APP_LOGO=http://localhost/vendor/material-admin/logo.svg
 APP_ICON=http://localhost/vendor/material-admin/icon.svg
 
