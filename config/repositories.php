@@ -1,3 +1,3 @@
 <?php return [
-	// App\Repositories\Contracts\UserRepository::class => App\Repositories\Eloquent\UserRepositoryEloquent::class,
+    App\Repositories\Contracts\JobRepository::class => App\Repositories\Eloquent\JobRepositoryEloquent::class,
 ];

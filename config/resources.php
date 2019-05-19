@@ -1,3 +1,3 @@
 <?php return [
-	// 'user' => \App\User::class,
+    'job' => \App\Job::class,
 ];

@@ -50,7 +50,7 @@ Route::group(['middleware' => 'web'], function () {
 
         }
 
-        Route::view('/', 'app::home')->name('app.home');
+        Route::view('/', 'app::home')->name('app');
 
     });
 
