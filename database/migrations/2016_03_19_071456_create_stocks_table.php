@@ -5,7 +5,7 @@ use Crmplease\MaterialAdmin\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
 
-class CreateFailedJobsTable extends Migration
+class CreateStocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,16 @@ class CreateFailedJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('failed_jobs', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('connection');
-            $table->text('queue');
-            $table->longText('payload');
-            $table->longText('exception');
-            $table->timestamp('failed_at')->useCurrent();
+			$table->fk('region_id', 'set null', true);
+
+            $table->string('name')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string('address')->nullable();
+
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +34,6 @@ class CreateFailedJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('failed_jobs');
+        Schema::dropIfExists('stocks');
     }
 }

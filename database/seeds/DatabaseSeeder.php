@@ -4,18 +4,20 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        if (is_local()) {
-            $this->call([
-                JobsTableSeeder::class,
-                FailedJobsTableSeeder::class
-            ]);
-        }
-    }
+	/**
+	 * Seed the application's database.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		if (is_local()) {
+			$this->call([
+				RegionsTableSeeder::class,
+
+				JobsTableSeeder::class,
+				FailedJobsTableSeeder::class
+			]);
+		}
+	}
 }

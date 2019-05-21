@@ -13,6 +13,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+		\App\Region::class => \App\Policies\RegionPolicy::class,
+
         \App\Job::class => \App\Policies\JobPolicy::class,
         \App\FailedJob::class => \App\Policies\FailedJobPolicy::class,
     ];

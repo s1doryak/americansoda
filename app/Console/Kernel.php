@@ -13,6 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+		\App\Console\Commands\RegionCreator::class,
+
         \App\Console\Commands\JobCreator::class,
         \App\Console\Commands\FailedJobCreator::class,
     ];

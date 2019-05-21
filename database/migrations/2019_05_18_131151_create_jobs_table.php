@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use Crmplease\MaterialAdmin\Database\Schema\Blueprint;
+use Crmplease\MaterialAdmin\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
+
 
 class CreateJobsTable extends Migration
 {
