@@ -9,6 +9,21 @@
 		'quality' => 90,
 	],
 	'dimensions' => [
-
+		\App\User::class => [
+			'avatar' => [
+				'width' => 150,
+				'height' => 150,
+				'crop' => true,
+				'quality' => 90,
+			],
+		],
+		\App\Administrator::class => [
+			'avatar' => [
+				'width' => 150,
+				'height' => 150,
+				'crop' => true,
+				'quality' => 90,
+			],
+		],
 	]
 ];

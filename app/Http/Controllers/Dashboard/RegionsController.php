@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use App\Repositories\Contracts\RegionRepository;
 use Illuminate\Contracts\Auth\Access\Gate;
@@ -13,6 +14,8 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class RegionsController extends ResourceController
 {
+	use DashboardSidebar;
+
 	/**
 	 * @var Gate
 	 */
@@ -51,5 +54,6 @@ class RegionsController extends ResourceController
 		$this->repository = $regionRepository;
 
 	    $this->middleware('dashboard');
+	    $this->shareSidebar();
 	}
 }

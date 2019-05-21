@@ -1,5 +1,7 @@
 <?php
 
+use App\Administrator;
+
 return [
 
     /*
@@ -14,7 +16,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'app',
         'passwords' => 'users',
     ],
 
@@ -46,6 +48,16 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+		'app' => [
+			'driver' => 'session',
+			'provider' => 'users',
+		],
+
+		'dashboard' => [
+			'driver' => 'session',
+			'provider' => 'administrator',
+		],
     ],
 
     /*
@@ -66,15 +78,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
-        ],
+		'users' => [
+			'driver' => 'eloquent',
+			'model' => \App\User::class,
+		],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+		'administrators' => [
+			'driver' => 'eloquent',
+			'model' => App\Administrator::class,
+		],
     ],
 
     /*
@@ -93,11 +105,16 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
+		'users' => [
+			'provider' => 'users',
+			'table' => 'users_password_resets',
+			'expire' => 60,
+		],
+		'administrators' => [
+			'provider' => 'users',
+			'table' => 'administrators_password_resets',
+			'expire' => 60,
+		],
     ],
 
 ];

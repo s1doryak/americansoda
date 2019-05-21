@@ -14,6 +14,10 @@ class DatabaseSeeder extends Seeder
 		if (is_local()) {
 			$this->call([
 				RegionsTableSeeder::class,
+				CompaniesTableSeeder::class,
+				RolesTableSeeder::class,
+				UsersTableSeeder::class,
+				AdministratorsTableSeeder::class,
 
 				JobsTableSeeder::class,
 				FailedJobsTableSeeder::class
