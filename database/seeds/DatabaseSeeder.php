@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
 				RolesTableSeeder::class,
 				UsersTableSeeder::class,
 				AdministratorsTableSeeder::class,
+				BrandsTableSeeder::class,
+				PackageTypesTableSeeder::class,
+				ProductGroupsTableSeeder::class,
 
 				JobsTableSeeder::class,
 				FailedJobsTableSeeder::class

@@ -18,6 +18,9 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\RoleCreator::class,
 		\App\Console\Commands\UserCreator::class,
 		\App\Console\Commands\AdministratorCreator::class,
+		\App\Console\Commands\BrandCreator::class,
+		\App\Console\Commands\PackageTypeCreator::class,
+		\App\Console\Commands\ProductGroupCreator::class,
 
 		\App\Console\Commands\JobCreator::class,
 		\App\Console\Commands\FailedJobCreator::class,

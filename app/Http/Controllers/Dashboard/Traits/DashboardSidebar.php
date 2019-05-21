@@ -24,9 +24,9 @@ trait DashboardSidebar
 			'title' => 'sidebar.nomenclature',
 			'resources' => [
 				// 'product',
-				// 'product_group',
-				// 'brand',
-				// 'package_type',
+				'product_group',
+				'brand',
+				'package_type',
 			],
 		],
 		[

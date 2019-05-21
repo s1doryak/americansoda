@@ -25,5 +25,13 @@
 				'quality' => 90,
 			],
 		],
+		\App\Brand::class => [
+			'logo' => [
+				'width' => 150,
+				'height' => 150,
+				'crop' => true,
+				'quality' => 90,
+			],
+		],
 	]
 ];

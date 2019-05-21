@@ -167,10 +167,63 @@ docker-compose run artisan generate:resource Administrator \
 ```
 
 -[ ] ❌ Car
--[ ] Brand
--[ ] PackageType
--[ ] ProductGroup
-`ProductGroupRepositoryEloquent`
+-[x] Brand
+```bash
+docker-compose run artisan generate:resource Brand \
+    --namespace=Dashboard \
+    \
+    --field=name \
+    --field=logo:image \
+    \
+    --translate=ru:"Бренд":"Бренды":"Бренд":"Брендов" \
+    --translate-modifier=ru:male \
+    --translate-field=name:ru:"Название" \
+    --translate-field=logo:ru:"Логотип" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
+-[x] PackageType
+```bash
+docker-compose run artisan generate:resource PackageType \
+    --namespace=Dashboard \
+    \
+    --field=name \
+    --field=description:textarea \
+    \
+    --translate=ru:"Тип упаковки":"Типы упаковки":"Тип упаковки":"Типов упаковки" \
+    --translate-modifier=ru:male \
+    --translate-field=name:ru:"Название" \
+    --translate-field=description:ru:"Описание" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
+-[x] ProductGroup
+```bash
+docker-compose run artisan generate:resource ProductGroup \
+    --namespace=Dashboard \
+    \
+    --field=name \
+    --field=vat:integer \
+    --field=sales_unit_volume:integer \
+    \
+    --translate=ru:"Товарная категория":"Товарные категории":"Товарную категорию":"Товарных категорий" \
+    --translate-modifier=ru:female \
+    --translate-field=name:ru:"Название" \
+    --translate-field=vat:ru:"НДС" \
+    --translate-field=sales_unit_volume:ru:"Размер лоты" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+-[x] `ProductGroupRepositoryEloquent`
+
 -[ ] Product
 -[ ] ❌ Supplier
 -[ ] ❌ SupplierOrder
