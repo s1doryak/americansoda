@@ -36,10 +36,9 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
         $this->mapWebRoutes();
-
         $this->mapAppRoutes();
+        $this->mapDashboardRoutes();
     }
 
     /**
@@ -81,6 +80,18 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('app')
             ->namespace(config('namespaces.app'))
             ->group(base_path('routes/app.php'));
+    }
+
+    /**
+     * Define the "dashboard" routes for the application.
+     *
+     * @return void
+     */
+    protected function mapDashboardRoutes()
+    {
+        Route::middleware('dashboard')
+            ->namespace(config('namespaces.dashboard'))
+            ->group(base_path('routes/dashboard.php'));
     }
 
 }

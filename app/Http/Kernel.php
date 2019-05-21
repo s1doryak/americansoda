@@ -46,6 +46,10 @@ class Kernel extends HttpKernel
             // \App\Http\Middleware\App\Authenticate::class,
         ],
 
+        'dashboard' => [
+            // \App\Http\Middleware\Dashboard\Authenticate::class,
+        ],
+
     ];
 
     /**

@@ -24,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(resource_path('views/app'), 'app');
+        $this->loadViewsFrom(resource_path('views/dashboard'), 'dashboard');
     }
 }
