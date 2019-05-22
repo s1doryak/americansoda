@@ -12,6 +12,9 @@
 	App\Repositories\Contracts\PaymentTypeRepository::class => App\Repositories\Eloquent\PaymentTypeRepositoryEloquent::class,
 	App\Repositories\Contracts\CustomerTypeRepository::class => App\Repositories\Eloquent\CustomerTypeRepositoryEloquent::class,
 	App\Repositories\Contracts\CustomerRepository::class => App\Repositories\Eloquent\CustomerRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerRevisionRepository::class => App\Repositories\Eloquent\CustomerRevisionRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerOrderRepository::class => App\Repositories\Eloquent\CustomerOrderRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerShipmentRepository::class => App\Repositories\Eloquent\CustomerShipmentRepositoryEloquent::class,
 
     App\Repositories\Contracts\JobRepository::class => App\Repositories\Eloquent\JobRepositoryEloquent::class,
     App\Repositories\Contracts\FailedJobRepository::class => App\Repositories\Eloquent\FailedJobRepositoryEloquent::class,

@@ -12,6 +12,9 @@
 	'payment_type' => \App\PaymentType::class,
 	'customer_type' => \App\CustomerType::class,
 	'customer' => \App\Customer::class,
+	'customer_revision' => \App\CustomerRevision::class,
+	'customer_order' => \App\CustomerOrder::class,
+	'customer_shipment' => \App\CustomerShipment::class,
 
     'job' => \App\Job::class,
     'failed_job' => \App\FailedJob::class,

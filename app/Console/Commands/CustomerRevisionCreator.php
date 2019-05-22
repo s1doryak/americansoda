@@ -1,0 +1,134 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\CustomerRevision;
+use App\Repositories\Contracts\CustomerRevisionRepository;
+use App\Repositories\Contracts\UserRepository;
+use App\Repositories\Contracts\StockRepository;
+use App\Repositories\Contracts\CustomerTypeRepository;
+use App\Repositories\Contracts\PaymentTypeRepository;
+use App\Repositories\Contracts\RegionRepository;
+use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
+
+/**
+ * CustomerRevision resource creator.
+ *
+ * @package App\Console\Commands
+ */
+class CustomerRevisionCreator extends ResourceCreator
+{
+    protected $name = 'resource:create:customer_revision';
+
+	/**
+	 * @var CustomerRevisionRepository
+	 */
+	protected $revisions;
+	
+	/**
+	 * @var UserRepository
+	 */
+	protected $editors;
+	
+	/**
+	 * @var StockRepository
+	 */
+	protected $stocks;
+	
+	/**
+	 * @var CustomerTypeRepository
+	 */
+	protected $customerTypes;
+	
+	/**
+	 * @var PaymentTypeRepository
+	 */
+	protected $paymentTypes;
+	
+	/**
+	 * @var UserRepository
+	 */
+	protected $users;
+	
+	/**
+	 * @var RegionRepository
+	 */
+	protected $billingRegions;
+	
+	/**
+	 * @var RegionRepository
+	 */
+	protected $shippingRegions;
+	
+
+	/**
+	 * @var array
+	 */
+	protected $findOrCreateData = [
+		'revisions' => 'name',
+		'editors' => 'name',
+		'stocks' => 'name',
+		'customerTypes' => 'name',
+		'paymentTypes' => 'name',
+		'users' => 'name',
+		'billingRegions' => 'name',
+		'shippingRegions' => 'name',
+	];
+
+	public function __construct(
+	    CustomerRevision $customerRevision,
+		CustomerRevisionRepository $customerRevisionRepository,
+		UserRepository $userRepository,
+		StockRepository $stockRepository,
+		CustomerTypeRepository $customerTypeRepository,
+		PaymentTypeRepository $paymentTypeRepository,
+		RegionRepository $regionRepository
+	)
+	{
+	    $this->resource = $customerRevision;
+		$this->repository = $customerRevisionRepository;
+		$this->revisions = $customerRevisionRepository;
+		$this->editors = $userRepository;
+		$this->stocks = $stockRepository;
+		$this->customerTypes = $customerTypeRepository;
+		$this->paymentTypes = $paymentTypeRepository;
+		$this->users = $userRepository;
+		$this->billingRegions = $regionRepository;
+		$this->shippingRegions = $regionRepository;
+
+        parent::__construct();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getEventNamespace()
+	{
+		return 'cli';
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getEventResource()
+	{
+		return 'customer_revision';
+	}
+
+	/**
+	 * @param CustomerRevision $customer_revision
+	 * @return array
+	 */
+	public function getEventAttributes($customer_revision)
+	{
+		return $customer_revision->getAttributes();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getEventParams()
+	{
+		return [];
+	}
+}

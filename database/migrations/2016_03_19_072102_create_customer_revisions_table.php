@@ -57,7 +57,7 @@ class CreateCustomerRevisionsTable extends Migration
 			$table->text('terms_of_equipment')->nullable();
 			$table->string('delivery_payer')->default('');
 			$table->string('payment_conditions')->default('');
-			$table->boolean('pays_vat')->nullable()->defaulf(false);
+			$table->boolean('pays_vat')->nullable()->defaults(false);
 
 			$table->unsignedBigInteger('revision_id')->nullable();
 			$table->foreign('revision_id', 'crv_id')

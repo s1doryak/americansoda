@@ -430,11 +430,159 @@ docker-compose run artisan generate:resource Customer \
     --force
 ```
 
--[ ] CustomerRevision
+-[x] CustomerRevision
+```bash
+docker-compose run artisan generate:resource CustomerRevision \
+    --namespace=Dashboard \
+    \
+    --field=revision_type \
+    --belongs-to=CustomerRevision:revision \
+    --belongs-to=User:editor \
+    \
+    --field=name \
+    --field=legal_name \
+    --field=billing_postcode \
+    --field=billing_address \
+    --field=shipping_postcode \
+    --field=shipping_address \
+    --field=bid \
+    --field=iban \
+    --field=swift \
+    --field=email \
+    --field=phone \
+    --field=order_interval:integer \
+    --field=comment:editor \
+    --field=calendar_comment:editor \
+    --field=incomterms \
+    --field=terms_of_cooperation:textarea \
+    --field=terms_of_delivery:textarea \
+    --field=terms_of_equipment:textarea \
+    --field=delivery_payer \
+    --field=payment_conditions \
+    --field=pays_vat:boolean \
+    \
+    --belongs-to=Stock \
+    --belongs-to=CustomerType \
+    --belongs-to=PaymentType \
+    --belongs-to=User \
+    --belongs-to=Region:billingRegion \
+    --belongs-to=Region:shippingRegion \
+    \
+    --translate=ru:"История клиента":"Истории клиентов":"Историю клиента":"Историй клиентов" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=revision_type:ru:"Тип" \
+    --translate-belongs-to=revision:"История клиента":"Историю клиента" \
+    --translate-belongs-to=editor:"Редактор":"Редактора" \
+    \
+    --translate-field=name:ru:"Наименование" \
+    --translate-field=legal_name:ru:"Юридическое название" \
+    --translate-field=billing_postcode:ru:"Юр. индекс" \
+    --translate-field=billing_address:ru:"Юр. адрес" \
+    --translate-field=shipping_postcode:ru:"Факт. индекс" \
+    --translate-field=shipping_address:ru:"Факт. адрес" \
+    --translate-field=bid:ru:"ИНН" \
+    --translate-field=iban:ru:"IBAN" \
+    --translate-field=swift:ru:"SWIFT" \
+    --translate-field=email:ru:"Эл.почта" \
+    --translate-field=phone:ru:"Телефон" \
+    --translate-field=order_interval:ru:"Интервал заказов" \
+    --translate-field=comment:ru:"Комментарий" \
+    --translate-field=calendar_comment:ru:"Комментарий в календаре" \
+    --translate-field=incomterms:ru:"Инкомтермс" \
+    --translate-field=terms_of_cooperation:ru:"Условия сотрудничества" \
+    --translate-field=terms_of_delivery:ru:"Условия доставки" \
+    --translate-field=terms_of_equipment:ru:"Условия поставки оборудования" \
+    --translate-field=delivery_payer:ru:"Доставку оплачивает" \
+    --translate-field=payment_conditions:ru:"Условия оплаты" \
+    --translate-field=pays_vat:ru:"Плательщик НДС" \
+    \
+    --translate-belongs-to=stock:"Склад":"Склад" \
+    --translate-belongs-to=customerType:"Тип клиента":"Тип клиента" \
+    --translate-belongs-to=paymentType:"Тип оплаты":"Тип оплаты" \
+    --translate-belongs-to=user:"Ответственный":"Ответственного" \
+    --translate-belongs-to=billingRegion:ru:"Юр. регион":"Юр. регион" \
+    --translate-belongs-to=shippingRegion:ru:"Факт. регион":"Факт. регион" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
 `CustomerRevisionRepositoryEloquent`
--[ ] CustomerOrder
+-[x] CustomerOrder
+```bash
+docker-compose run artisan generate:resource CustomerOrder \
+    --namespace=Dashboard \
+    \
+    --field=number \
+    --field=batch_number \
+    --field=comment:editor \
+    --field=fc_overdue:integer \
+    --field=fc_comment:editor \
+    --field=fc_future_comment:editor \
+    --field=sent_at:timestamp \
+    \
+    --belongs-to=Customer \
+    --belongs-to=User \
+    \
+    --translate=ru:"Заказ":"Заказы":"Заказ":"Заказов" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=number:ru:"Номер" \
+    --translate-field=batch_number:ru:"Номер в системе клиента" \
+    --translate-field=comment:ru:"Комментарий" \
+    --translate-field=fc_overdue:ru:"Просрочен" \
+    --translate-field=fc_comment:ru:"Комментарий в календаре" \
+    --translate-field=fc_future_comment:ru:"Комментарий к заказу в календаре" \
+    --translate-field=sent_at:ru:"Отправлен клиенту" \
+    \
+    --translate-belongs-to=customer:ru:"Клиент":"Клиента" \
+    --translate-belongs-to=user:ru:"Менеджер":"Менеджера" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
 `CustomerOrderRepositoryEloquent`
--[ ] CustomerShipment
+-[x] CustomerShipment
+```bash
+docker-compose run artisan generate:resource CustomerShipment \
+    --namespace=Dashboard \
+    \
+    --field=number \
+    --field=assembly_number \
+    --field=invoice_number \
+    --field=status \
+    --field=delivery_type \
+    --field=packages_quantity:integer \
+    --field=comment:editor \
+    \
+    --belongs-to=PackageType \
+    --belongs-to=Customer \
+    --belongs-to=User \
+    \
+    --translate=ru:"Отгрузка":"Отгрузки":"Отгрузку":"Отгрузок" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=number:ru:"Номер отгурзки" \
+    --translate-field=assembly_number:ru:"Номер сборки" \
+    --translate-field=invoice_number:ru:"Номер счёта" \
+    --translate-field=status:ru:"Статус" \
+    --translate-field=delivery_type:ru:"Тип доставки" \
+    --translate-field=packages_quantity:ru:"Количество упаковок" \
+    --translate-field=comment:ru:"Комментарий" \
+    \
+    --translate-belongs-to=packageType:ru:"Тип упаковки":"Тип упаковки" \
+    --translate-belongs-to=customer:ru:"Клиент":"Клиента" \
+    --translate-belongs-to=user:ru:"Менеджер":"Менеджера" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
 `CustomerShipmentRepositoryEloquent`
 -[ ] CustomerOrderItem
 `CustomerOrderItemRepositoryEloquent`

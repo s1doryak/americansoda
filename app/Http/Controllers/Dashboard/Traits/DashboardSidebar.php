@@ -13,9 +13,9 @@ trait DashboardSidebar
 			'resources' => [
 				// 'assembly',
 				'customer',
-				// 'customer_order',
+				'customer_order',
 				// 'customer_order_item',
-				// 'customer_shipment',
+				'customer_shipment',
 				'customer_type',
 				'payment_type',
 				'region',

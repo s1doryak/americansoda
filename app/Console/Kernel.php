@@ -26,6 +26,9 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\PaymentTypeCreator::class,
 		\App\Console\Commands\CustomerTypeCreator::class,
 		\App\Console\Commands\CustomerCreator::class,
+		\App\Console\Commands\CustomerRevisionCreator::class,
+		\App\Console\Commands\CustomerOrderCreator::class,
+		\App\Console\Commands\CustomerShipmentCreator::class,
 
 		\App\Console\Commands\JobCreator::class,
 		\App\Console\Commands\FailedJobCreator::class,
