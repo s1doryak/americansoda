@@ -797,7 +797,7 @@ docker-compose run artisan generate:resource StockMovementProduct \
 
 `StockMovementProductRepositoryEloquent`
 
--[ ] StockProduct
+-[x] StockProduct
 ```bash
 docker-compose run artisan generate:resource StockProduct \
     --namespace=Dashboard \
@@ -826,10 +826,10 @@ docker-compose run artisan generate:resource StockProduct \
 
 `StockProductRepositoryEloquent`
 
--[ ] ❌ TransportSheet
--[ ] ❌ CalendarEvent
--[ ] ❌ OptionGroup
--[ ] ❌ Option
+-[x] ❌ TransportSheet
+-[x] ❌ CalendarEvent
+-[x] ❌ OptionGroup
+-[x] ❌ Option
 
 ## [1.0.0] - 2019-05-20
 Init project semantic versioning.
