@@ -34,8 +34,8 @@ trait DashboardSidebar
 			'title' => 'sidebar.inventory',
 			'resources' => [
 				'stock',
-				// 'stock_movement_product',
-				// 'stock_product',
+				'stock_movement_product',
+				'stock_product',
 			],
 		],
 		[

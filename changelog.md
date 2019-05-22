@@ -739,12 +739,93 @@ docker-compose run artisan generate:resource Assembly \
     --force
 ```
 
--[ ] StockMovement
+-[x] StockMovement
+```bash
+docker-compose run artisan generate:resource StockMovement \
+    --namespace=Dashboard \
+    \
+    --field=movement_type \
+    \
+    --belongs-to=Stock \
+    \
+    --translate=ru:"Движение по складу":"Движения по складу":"Движение по складу":"Движений по складу" \
+    --translate-modifier=ru:middle \
+    \
+    --translate-field=movement_type:ru:"Тип" \
+    \
+    --translate-belongs-to=Stock:ru:"Склад":"Склад" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
 `StockMovementTypeRepositoryConfig`
--[ ] StockMovementProduct
+
+-[x] StockMovementProduct
+```bash
+docker-compose run artisan generate:resource StockMovementProduct \
+    --namespace=Dashboard \
+    \
+    --field=product_name \
+    --field=products_quantity:integer \
+    --field=delivery_number \
+    --field=expiration_date:timestamp \
+    --field=movement_type \
+    --field=comment:textarea \
+    \
+    --belongs-to=StockMovement \
+    --belongs-to=Product \
+    \
+    --translate=ru:"Движение товаров":"Движения товаров":"Движение товаров":"Движений товаров" \
+    --translate-modifier=ru:middle \
+    \
+    --translate-field=product_name:ru:"Товар" \
+    --translate-field=products_quantity:ru:"Количество" \
+    --translate-field=delivery_number:ru:"L-номер" \
+    --translate-field=expiration_date:ru:"Срок годности" \
+    --translate-field=movement_type:ru:"Тип движения" \
+    --translate-field=comment:ru:"Комментарий" \
+    \
+    --translate-belongs-to=StockMovement:ru:"Движение товаров":"Движение товаров" \
+    --translate-belongs-to=Product:ru:"Товар":"Товар" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
 `StockMovementProductRepositoryEloquent`
+
 -[ ] StockProduct
+```bash
+docker-compose run artisan generate:resource StockProduct \
+    --namespace=Dashboard \
+    \
+    --field=delivery_number \
+    --field=expiration_date:timestamp \
+    \
+    --belongs-to=Stock \
+    --belongs-to=Product \
+    --belongs-to=CustomerOrderItem \
+    \
+    --translate=ru:"Товар на складе":"Товары на складе":"Товар на складе":"Товаров на складе" \
+    --translate-modifier=ru:middle \
+    \
+    --translate-field=delivery_number:ru:"L-номер" \
+    --translate-field=expiration_date:ru:"Срок годности" \
+    \
+    --translate-belongs-to=Stock:ru:"Склад":"Склад" \
+    --translate-belongs-to=Product:ru:"Товар":"Товар" \
+    --translate-belongs-to=CustomerOrderItem:ru:"Позиция заказа":"Позицию заказа" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
 `StockProductRepositoryEloquent`
+
 -[ ] ❌ TransportSheet
 -[ ] ❌ CalendarEvent
 -[ ] ❌ OptionGroup

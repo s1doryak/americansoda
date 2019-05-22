@@ -19,7 +19,9 @@
 	'customer_pricing_policy' => \App\CustomerPricingPolicy::class,
 	'customer_pricing_policy_revision' => \App\CustomerPricingPolicyRevision::class,
 	'assembly' => \App\Assembly::class,
-
+	'stock_movement' => \App\StockMovement::class,
+	'stock_movement_product' => \App\StockMovementProduct::class,
+	'stock_product' => \App\StockProduct::class,
     'job' => \App\Job::class,
     'failed_job' => \App\FailedJob::class,
 ];

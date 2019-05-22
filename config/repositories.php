@@ -19,7 +19,9 @@
 	App\Repositories\Contracts\CustomerPricingPolicyRepository::class => App\Repositories\Eloquent\CustomerPricingPolicyRepositoryEloquent::class,
 	App\Repositories\Contracts\CustomerPricingPolicyRevisionRepository::class => App\Repositories\Eloquent\CustomerPricingPolicyRevisionRepositoryEloquent::class,
 	App\Repositories\Contracts\AssemblyRepository::class => App\Repositories\Eloquent\AssemblyRepositoryEloquent::class,
-
+	App\Repositories\Contracts\StockMovementRepository::class => App\Repositories\Eloquent\StockMovementRepositoryEloquent::class,
+	App\Repositories\Contracts\StockMovementProductRepository::class => App\Repositories\Eloquent\StockMovementProductRepositoryEloquent::class,
+	App\Repositories\Contracts\StockProductRepository::class => App\Repositories\Eloquent\StockProductRepositoryEloquent::class,
     App\Repositories\Contracts\JobRepository::class => App\Repositories\Eloquent\JobRepositoryEloquent::class,
     App\Repositories\Contracts\FailedJobRepository::class => App\Repositories\Eloquent\FailedJobRepositoryEloquent::class,
 ];

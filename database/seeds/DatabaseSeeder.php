@@ -33,7 +33,9 @@ class DatabaseSeeder extends Seeder
 				CustomerPricingPoliciesTableSeeder::class,
 				CustomerPricingPolicyRevisionsTableSeeder::class,
 				AssembliesTableSeeder::class,
-
+				StockMovementsTableSeeder::class,
+				StockMovementProductsTableSeeder::class,
+				StockProductsTableSeeder::class,
 				JobsTableSeeder::class,
 				FailedJobsTableSeeder::class
 			]);

@@ -33,7 +33,9 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\CustomerPricingPolicyCreator::class,
 		\App\Console\Commands\CustomerPricingPolicyRevisionCreator::class,
 		\App\Console\Commands\AssemblyCreator::class,
-
+		\App\Console\Commands\StockMovementCreator::class,
+		\App\Console\Commands\StockMovementProductCreator::class,
+		\App\Console\Commands\StockProductCreator::class,
 		\App\Console\Commands\JobCreator::class,
 		\App\Console\Commands\FailedJobCreator::class,
 	];
