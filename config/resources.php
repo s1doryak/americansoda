@@ -15,6 +15,10 @@
 	'customer_revision' => \App\CustomerRevision::class,
 	'customer_order' => \App\CustomerOrder::class,
 	'customer_shipment' => \App\CustomerShipment::class,
+	'customer_order_item' => \App\CustomerOrderItem::class,
+	'customer_pricing_policy' => \App\CustomerPricingPolicy::class,
+	'customer_pricing_policy_revision' => \App\CustomerPricingPolicyRevision::class,
+	'assembly' => \App\Assembly::class,
 
     'job' => \App\Job::class,
     'failed_job' => \App\FailedJob::class,

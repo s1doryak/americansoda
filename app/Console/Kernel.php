@@ -29,6 +29,10 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\CustomerRevisionCreator::class,
 		\App\Console\Commands\CustomerOrderCreator::class,
 		\App\Console\Commands\CustomerShipmentCreator::class,
+		\App\Console\Commands\CustomerOrderItemCreator::class,
+		\App\Console\Commands\CustomerPricingPolicyCreator::class,
+		\App\Console\Commands\CustomerPricingPolicyRevisionCreator::class,
+		\App\Console\Commands\AssemblyCreator::class,
 
 		\App\Console\Commands\JobCreator::class,
 		\App\Console\Commands\FailedJobCreator::class,

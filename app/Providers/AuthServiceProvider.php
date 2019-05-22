@@ -29,6 +29,10 @@ class AuthServiceProvider extends ServiceProvider
 		\App\CustomerRevision::class => \App\Policies\CustomerRevisionPolicy::class,
 		\App\CustomerOrder::class => \App\Policies\CustomerOrderPolicy::class,
 		\App\CustomerShipment::class => \App\Policies\CustomerShipmentPolicy::class,
+		\App\CustomerOrderItem::class => \App\Policies\CustomerOrderItemPolicy::class,
+		\App\CustomerPricingPolicy::class => \App\Policies\CustomerPricingPolicyPolicy::class,
+		\App\CustomerPricingPolicyRevision::class => \App\Policies\CustomerPricingPolicyRevisionPolicy::class,
+		\App\Assembly::class => \App\Policies\AssemblyPolicy::class,
 
         \App\Job::class => \App\Policies\JobPolicy::class,
         \App\FailedJob::class => \App\Policies\FailedJobPolicy::class,

@@ -29,6 +29,10 @@ class DatabaseSeeder extends Seeder
 				CustomerRevisionsTableSeeder::class,
 				CustomerOrdersTableSeeder::class,
 				CustomerShipmentsTableSeeder::class,
+				CustomerOrderItemsTableSeeder::class,
+				CustomerPricingPoliciesTableSeeder::class,
+				CustomerPricingPolicyRevisionsTableSeeder::class,
+				AssembliesTableSeeder::class,
 
 				JobsTableSeeder::class,
 				FailedJobsTableSeeder::class

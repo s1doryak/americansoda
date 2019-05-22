@@ -584,13 +584,161 @@ docker-compose run artisan generate:resource CustomerShipment \
 ```
 
 `CustomerShipmentRepositoryEloquent`
--[ ] CustomerOrderItem
+-[x] CustomerOrderItem
+```bash
+docker-compose run artisan generate:resource CustomerOrderItem \
+    --namespace=Dashboard \
+    \
+    --field=status \
+    --field=product_name \
+    --field=sales_unit_quantity:float \
+    --field=product_manual_price:boolean \
+    --field=product_price:float \
+    --field=vat:integer \
+    --field=product_vat_price:float \
+    --field=products_quantity:integer \
+    --field=packages_quantity:integer \
+    --field=total_price:float \
+    --field=total_vat_price:float \
+    --field=deposit_enabled:boolean \
+    --field=deposit_price:float \
+    --field=deposit_vat:integer \
+    --field=deposit_vat_price:float \
+    --field=deposit_total_price:float \
+    --field=deposit_total_vat:float \
+    --field=deposit_total_vat_price:float \
+    --field=bypass:boolean \
+    --field=back_order:boolean \
+    --field=cancelled:boolean \
+    --field=expected_date:timestamp \
+    \
+    --belongs-to=Product \
+    --belongs-to=Customer \
+    --belongs-to=CustomerOrder \
+    --belongs-to=CustomerShipment \
+    \
+    --translate=ru:"Строка заказа":"Строки заказа":"Строку заказа":"Строк заказов" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=status:ru:"Статус" \
+    --translate-field=product_name:ru:"Товар" \
+    --translate-field=sales_unit_quantity:ru:"Лот" \
+    --translate-field=product_manual_price:ru:"Произвольная цена" \
+    --translate-field=product_price:ru:"Цена" \
+    --translate-field=vat:ru:"НДС" \
+    --translate-field=product_vat_price:ru:"Цена с НДС" \
+    --translate-field=products_quantity:ru:"Кол-во товаров" \
+    --translate-field=packages_quantity:ru:"Кол-во упакеовок" \
+    --translate-field=total_price:ru:"Сумма" \
+    --translate-field=total_vat_price:ru:"Сумма с НДС" \
+    --translate-field=deposit_enabled:ru:"Депозит" \
+    --translate-field=deposit_price:ru:"Цена депозита" \
+    --translate-field=deposit_vat:ru:"НДС депозита" \
+    --translate-field=deposit_vat_price:ru:"Цена депозита с НДС" \
+    --translate-field=deposit_total_price:ru:"Сумма с депозитом" \
+    --translate-field=deposit_total_vat:ru:"Сумма НДС депозита" \
+    --translate-field=deposit_total_vat_price:ru:"Сумма с НДС депозита" \
+    --translate-field=bypass:ru:"Не списывать со склада" \
+    --translate-field=back_order:ru:"Отложенный заказ" \
+    --translate-field=cancelled:ru:"Отмененный заказ" \
+    --translate-field=expected_date:ru:"Будет поставлен" \
+    \
+    --translate-belongs-to=product:ru:"Товар":"Товар" \
+    --translate-belongs-to=customer:ru:"Клиент":"Клиента" \
+    --translate-belongs-to=customerOrder:ru:"Заказ":"Заказ" \
+    --translate-belongs-to=customerShipment:ru:"Отгрузка":"Отгрузку" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
 `CustomerOrderItemRepositoryEloquent`
--[ ] CustomerPricingPolicy
+
+-[x] CustomerPricingPolicy
+```bash
+docker-compose run artisan generate:resource CustomerPricingPolicy \
+    --namespace=Dashboard \
+    \
+    --field=products_range:integer \
+    --field=price:float \
+    \
+    --belongs-to=ProductGroup \
+    --belongs-to=Customer \
+    \
+    --translate=ru:"Ценовая политика":"Ценовые политики":"Ценовую политику":"Ценовых политик" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=products_range:ru:"Кол-во лот" \
+    --translate-field=price:ru:"Цена" \
+    \
+    --translate-belongs-to=productGroup:ru:"Товарная группа":"Товарную группу" \
+    --translate-belongs-to=customer:ru:"Клиент":"Клиента" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
 `CustomerPricingPolicyRepositoryEloquent`
--[ ] CustomerPricingPolicyRevision
+-[x] CustomerPricingPolicyRevision
+```bash
+docker-compose run artisan generate:resource CustomerPricingPolicyRevision \
+    --namespace=Dashboard \
+    \
+    --field=revision_type \
+    --field=revision_number:integer \
+    --belongs-to=CustomerPricingPolicyRevision:revision \
+    --belongs-to=CustomerPricingPolicy:customerPricingPolicy \
+    --belongs-to=User:editor \
+    \
+    --field=products_range:integer \
+    --field=price:float \
+    \
+    --belongs-to=ProductGroup \
+    --belongs-to=Customer \
+    \
+    --translate=ru:"История ценовой политики":"Истории ценовых политики":"Историю ценовой политики":"Историй ценовых политик" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=revision_type:ru:"Тип" \
+    --translate-field=revision_number:ru:"Номер ревизии" \
+    --translate-belongs-to=revision:"История цен":"Историю цен" \
+    --translate-belongs-to=customerPricingPolicy:"Ценовая политика":"Ценовую политику" \
+    --translate-belongs-to=editor:"Редактор":"Редактора" \
+    \
+    --translate-field=products_range:ru:"Кол-во лот" \
+    --translate-field=price:ru:"Цена" \
+    \
+    --translate-belongs-to=productGroup:ru:"Товарная группа":"Товарную группу" \
+    --translate-belongs-to=customer:ru:"Клиент":"Клиента" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
 `CustomerPricingPolicyRevisionRepositoryEloquent`
--[ ] Assembly
+
+-[x] Assembly
+```bash
+docker-compose run artisan generate:resource Assembly \
+    --namespace=Dashboard \
+    \
+    --field=number \
+    --field=comment:editor \
+    \
+    --translate=ru:"Сборка":"Сборки":"Сборку":"Сборок" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=number:ru:"Номер сборки" \
+    --translate-field=comment:ru:"Комментарий" \
+    \
+    --skip-migration \
+    \
+    --force
+```
+
 -[ ] StockMovement
 `StockMovementTypeRepositoryConfig`
 -[ ] StockMovementProduct

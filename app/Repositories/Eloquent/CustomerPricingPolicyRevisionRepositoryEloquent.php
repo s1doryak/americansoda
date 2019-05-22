@@ -1,0 +1,8 @@
+<?php
+
+namespace App\Repositories\Eloquent;
+
+use App\Repositories\Contracts\CustomerPricingPolicyRevisionRepository;
+use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
+
+class CustomerPricingPolicyRevisionRepositoryEloquent extends BaseRepositoryEloquent implements CustomerPricingPolicyRevisionRepository {}

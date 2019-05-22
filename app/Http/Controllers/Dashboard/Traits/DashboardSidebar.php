@@ -11,10 +11,10 @@ trait DashboardSidebar
 		[
 			'title' => 'sidebar.sales',
 			'resources' => [
-				// 'assembly',
+				'assembly',
 				'customer',
 				'customer_order',
-				// 'customer_order_item',
+				'customer_order_item',
 				'customer_shipment',
 				'customer_type',
 				'payment_type',
@@ -36,8 +36,6 @@ trait DashboardSidebar
 				'stock',
 				// 'stock_movement_product',
 				// 'stock_product',
-				// 'supplier',
-				// 'supplier_order',
 			],
 		],
 		[

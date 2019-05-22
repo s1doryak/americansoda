@@ -1,0 +1,110 @@
+<?php
+
+namespace App;
+
+use Crmplease\MaterialAdmin\Database\Eloquent\Model;
+
+/**
+ * CustomerPricingPolicyRevision
+ *
+ * @property string $revision_type
+ * @property integer $revision_number
+ * @property integer $products_range
+ * @property float $price
+ *
+ * @property \App\CustomerPricingPolicyRevision $revision
+ * @property \App\CustomerPricingPolicy $customerPricingPolicy
+ * @property \App\User $editor
+ * @property \App\ProductGroup $productGroup
+ * @property \App\Customer $customer
+ *
+ *
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo revision()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerPricingPolicy()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo editor()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo productGroup()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
+ *
+ *
+ * @package App
+ */
+class CustomerPricingPolicyRevision extends Model
+{
+	protected $fillable = [
+		'revision_type',
+		'revision_number',
+		'products_range',
+		'price',
+		'revision_id',
+		'customer_pricing_policy_id',
+		'editor_id',
+		'product_group_id',
+		'customer_id',
+	];
+
+	protected $casts = [
+		'revision_number' => 'integer',
+		'products_range' => 'integer',
+		'price' => 'float',
+	];
+
+	protected $dates = [
+
+	];
+
+    protected $hidden = [
+
+    ];
+
+    protected $belongsTo = [
+		'revision' => \App\CustomerPricingPolicyRevision::class,
+		'customerPricingPolicy' => \App\CustomerPricingPolicy::class,
+		'editor' => \App\User::class,
+		'productGroup' => \App\ProductGroup::class,
+		'customer' => \App\Customer::class,
+    ];
+
+    protected $belongsToMany = [
+
+    ];
+
+    protected $belongsToManyPivot = [
+
+    ];
+
+    protected $belongsToManyPivotTimestamps = [
+
+    ];
+
+    protected $hasMany = [
+
+    ];
+
+    protected $hasManyThrough = [
+
+    ];
+
+    protected $morphTo = [
+
+    ];
+
+    protected $morphMany = [
+
+    ];
+
+    protected $with = [
+		'revision',
+		'customerPricingPolicy',
+		'editor',
+		'productGroup',
+		'customer',
+    ];
+
+    protected $images = [
+
+    ];
+
+    protected $files = [
+
+    ];
+}

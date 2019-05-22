@@ -15,6 +15,10 @@
 	App\Repositories\Contracts\CustomerRevisionRepository::class => App\Repositories\Eloquent\CustomerRevisionRepositoryEloquent::class,
 	App\Repositories\Contracts\CustomerOrderRepository::class => App\Repositories\Eloquent\CustomerOrderRepositoryEloquent::class,
 	App\Repositories\Contracts\CustomerShipmentRepository::class => App\Repositories\Eloquent\CustomerShipmentRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerOrderItemRepository::class => App\Repositories\Eloquent\CustomerOrderItemRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerPricingPolicyRepository::class => App\Repositories\Eloquent\CustomerPricingPolicyRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerPricingPolicyRevisionRepository::class => App\Repositories\Eloquent\CustomerPricingPolicyRevisionRepositoryEloquent::class,
+	App\Repositories\Contracts\AssemblyRepository::class => App\Repositories\Eloquent\AssemblyRepositoryEloquent::class,
 
     App\Repositories\Contracts\JobRepository::class => App\Repositories\Eloquent\JobRepositoryEloquent::class,
     App\Repositories\Contracts\FailedJobRepository::class => App\Repositories\Eloquent\FailedJobRepositoryEloquent::class,
