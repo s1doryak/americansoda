@@ -50,6 +50,8 @@ class Kernel extends HttpKernel
             // \App\Http\Middleware\Dashboard\Authenticate::class,
         ],
 
+        // ...$middlewareGroups
+
     ];
 
     /**

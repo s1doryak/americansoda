@@ -38,6 +38,7 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\StockProductCreator::class,
 		\App\Console\Commands\JobCreator::class,
 		\App\Console\Commands\FailedJobCreator::class,
+        // ...$commands
 	];
 
 	/**

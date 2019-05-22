@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
         $this->mapAppRoutes();
         $this->mapDashboardRoutes();
+        // ...$this->mapRoutes()
     }
 
     /**
@@ -93,5 +94,8 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace(config('namespaces.dashboard'))
             ->group(base_path('routes/dashboard.php'));
     }
+
+
+    // ...mapRoutes()
 
 }

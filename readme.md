@@ -328,6 +328,77 @@ docker-compose run artisan queue:failed-table
 docker-compose run artisan migrate
 ```
 
+### Генераторы
+Добавьте комментарий-триггер `// ...$middlewareGroups` в файл `app/Http/Kernel.php`:
+```php
+/**
+ * @var array
+ */
+protected $middlewareGroups = [
+    'web' => [
+        \App\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        // \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Http\Middleware\VerifyCsrfToken::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    ],
+
+    'api' => [
+        'throttle:60,1',
+        'bindings',
+    ],
+    
+    // ...$middlewareGroups
+
+];
+```
+
+Добавьте комментарий-триггер `// ...$commands` в файл `app/Console/Kernel.php`:
+```php
+/**
+ * @var array
+ */
+protected $commands = [
+    // ...$commands
+];
+```
+
+Добавьте комментарий-триггер `// ...$this->mapRoutes();` в файл `app/Providers/RouteServiceProvider.php`:
+```php
+/**
+ * @return void
+ */
+public function map()
+{
+    $this->mapApiRoutes();
+    $this->mapWebRoutes();
+    // ...$this->mapRoutes()
+}
+```
+
+Добавьте комментарий-триггер `// ...mapRoutes()` в файл `app/Providers/RouteServiceProvider.php`:
+```php
+class RouteServiceProvider extends ServiceProvider
+{
+    ...
+    
+    // ...mapRoutes()
+}
+```
+
+Добавьте комментарий-триггер `// ...views` в файл `app/Providers/AppServiceProvider.php`:
+```php
+/**
+ * @return void
+ */
+public function boot()
+{
+    // ...views
+}
+```
+
 ### Локализация
 ```bash
 docker-compose run artisan generate:locale ru_RU
