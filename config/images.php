@@ -33,5 +33,19 @@
 				'quality' => 90,
 			],
 		],
+		\App\Product::class => [
+			'product_image' => [
+				'width' => 150,
+				'height' => 150,
+				'crop' => true,
+				'quality' => 90,
+			],
+			'package_image' => [
+				'width' => 150,
+				'height' => 150,
+				'crop' => true,
+				'quality' => 90,
+			],
+		],
 	]
 ];

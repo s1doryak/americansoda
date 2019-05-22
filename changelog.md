@@ -232,7 +232,7 @@ docker-compose run artisan generate:resource ProductGroup \
 ```
 -[x] `ProductGroupRepositoryEloquent`
 
--[ ] Product
+-[x] Product
 ```bash
 docker-compose run artisan generate:resource Product \
     --namespace=Dashboard \
@@ -284,9 +284,9 @@ docker-compose run artisan generate:resource Product \
     --translate-field=deposit_vat_price:ru:"Цена с НДС депозита" \
     --translate-field=comment:ru:"Комментарий" \
     \
-    --translate-belongs-to=Brand:ru:"Бренд":"Бренд" \
-    --translate-belongs-to=PackageType:ru:"Тип упаковки":"Тип упаковки" \
-    --translate-belongs-to=ProductGroup:ru:"Товарная категория":"Товарную категорию" \
+    --translate-belongs-to=brand:ru:"Бренд":"Бренд" \
+    --translate-belongs-to=packageType:ru:"Тип упаковки":"Тип упаковки" \
+    --translate-belongs-to=productGroup:ru:"Товарная категория":"Товарную категорию" \
     \
     --skip-migration \
     \
@@ -296,7 +296,7 @@ docker-compose run artisan generate:resource Product \
 -[ ] ❌ Supplier
 -[ ] ❌ SupplierOrder
 -[ ] ❌ SupplierOrderItem
--[ ] Stock
+-[x] Stock
 ```bash
 docker-compose run artisan generate:resource Stock \
     --namespace=Dashboard \
@@ -314,14 +314,14 @@ docker-compose run artisan generate:resource Stock \
     --translate-field=postcode:ru:"Индекс" \
     --translate-field=address:ru:"Адрес" \
     \
-    --translate-belongs-to=Region:ru:"Регион":"Регион" \
+    --translate-belongs-to=region:ru:"Регион":"Регион" \
     \
     --skip-migration \
     \
     --force
 ```
 
--[ ] PaymentType
+-[x] PaymentType
 ```bash
 docker-compose run artisan generate:resource PaymentType \
     --namespace=Dashboard \
@@ -338,7 +338,7 @@ docker-compose run artisan generate:resource PaymentType \
     --force
 ```
 
--[ ] CustomerType
+-[x] CustomerType
 ```bash
 docker-compose run artisan generate:resource CustomerType \
     --namespace=Dashboard \
@@ -352,14 +352,14 @@ docker-compose run artisan generate:resource CustomerType \
     \
     --translate-field=name:ru:"Название" \
     \
-    --translate-belongs-to=CustomerType:ru:"Тип клиента":"Тип клиента" \
+    --translate-belongs-to=customerType:ru:"Тип клиента":"Тип клиента" \
     \
     --skip-migration \
     \
     --force
 ```
 
--[ ] Customer
+-[x] Customer
 ```bash
 docker-compose run artisan generate:resource Customer \
     --namespace=Dashboard \
@@ -418,12 +418,12 @@ docker-compose run artisan generate:resource Customer \
     --translate-field=payment_conditions:ru:"Условия оплаты" \
     --translate-field=pays_vat:ru:"Плательщик НДС" \
     \
-    --translate-belongs-to=Stock:"Склад":"Склад" \
-    --translate-belongs-to=CustomerType:"Тип клиента":"Тип клиента" \
-    --translate-belongs-to=PaymentType:"Тип оплаты":"Тип оплаты" \
-    --translate-belongs-to=User:"Ответственный":"Ответственного" \
-    --translate-belongs-to=Region:ru:"Юр. регион":"Юр. регион" \
-    --translate-belongs-to=Region:ru:"Факт. регион":"Факт. регион" \
+    --translate-belongs-to=stock:"Склад":"Склад" \
+    --translate-belongs-to=customerType:"Тип клиента":"Тип клиента" \
+    --translate-belongs-to=paymentType:"Тип оплаты":"Тип оплаты" \
+    --translate-belongs-to=user:"Ответственный":"Ответственного" \
+    --translate-belongs-to=billingRegion:ru:"Юр. регион":"Юр. регион" \
+    --translate-belongs-to=shippingRegion:ru:"Факт. регион":"Факт. регион" \
     \
     --skip-migration \
     \

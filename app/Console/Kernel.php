@@ -21,6 +21,11 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\BrandCreator::class,
 		\App\Console\Commands\PackageTypeCreator::class,
 		\App\Console\Commands\ProductGroupCreator::class,
+		\App\Console\Commands\ProductCreator::class,
+		\App\Console\Commands\StockCreator::class,
+		\App\Console\Commands\PaymentTypeCreator::class,
+		\App\Console\Commands\CustomerTypeCreator::class,
+		\App\Console\Commands\CustomerCreator::class,
 
 		\App\Console\Commands\JobCreator::class,
 		\App\Console\Commands\FailedJobCreator::class,

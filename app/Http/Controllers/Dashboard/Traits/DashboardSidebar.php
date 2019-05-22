@@ -12,18 +12,19 @@ trait DashboardSidebar
 			'title' => 'sidebar.sales',
 			'resources' => [
 				// 'assembly',
-				// 'customer',
+				'customer',
 				// 'customer_order',
 				// 'customer_order_item',
 				// 'customer_shipment',
-				// 'customer_type',
+				'customer_type',
+				'payment_type',
 				'region',
 			],
 		],
 		[
 			'title' => 'sidebar.nomenclature',
 			'resources' => [
-				// 'product',
+				'product',
 				'product_group',
 				'brand',
 				'package_type',
@@ -32,7 +33,7 @@ trait DashboardSidebar
 		[
 			'title' => 'sidebar.inventory',
 			'resources' => [
-				// 'stock',
+				'stock',
 				// 'stock_movement_product',
 				// 'stock_product',
 				// 'supplier',

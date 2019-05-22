@@ -52,7 +52,7 @@ class FailedJobsController extends ResourceController
         $this->gate = $gate;
         $this->repository = $failedJobRepository;
 
-        $this->middleware('dashboard'); //  $this->middleware('auth:dashboard');
+        $this->middleware('dashboard');
         $this->shareSidebar();
     }
 }

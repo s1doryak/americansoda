@@ -21,6 +21,11 @@ class DatabaseSeeder extends Seeder
 				BrandsTableSeeder::class,
 				PackageTypesTableSeeder::class,
 				ProductGroupsTableSeeder::class,
+				ProductsTableSeeder::class,
+				StocksTableSeeder::class,
+				PaymentTypesTableSeeder::class,
+				CustomerTypesTableSeeder::class,
+				CustomersTableSeeder::class,
 
 				JobsTableSeeder::class,
 				FailedJobsTableSeeder::class

@@ -1,0 +1,28 @@
+<?php
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Customer::class, function (Faker\Generator $faker) {
+    return [
+		'name' => $faker->unique()->name,
+		'legal_name' => null,
+		'billing_postcode' => null,
+		'billing_address' => null,
+		'shipping_postcode' => null,
+		'shipping_address' => null,
+		'bid' => null,
+		'iban' => null,
+		'swift' => null,
+		'email' => $faker->unique()->safeEmail,
+		'phone' => $faker->unique()->phoneNumber,
+		'order_interval' => null,
+		'comment' => null,
+		'calendar_comment' => null,
+		'incomterms' => null,
+		'terms_of_cooperation' => null,
+		'terms_of_delivery' => null,
+		'terms_of_equipment' => null,
+		'delivery_payer' => null,
+		'payment_conditions' => null,
+		'pays_vat' => $faker->boolean,
+    ];
+});

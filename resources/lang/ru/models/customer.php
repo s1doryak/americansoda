@@ -1,0 +1,160 @@
+<?php
+
+return [
+    'labels' => [
+        'singular' => 'Клиент',
+        'plural' => 'Клиенты',
+		'create' => 'Создать'
+    ],
+	'index' => [
+		'title' => 'Список клиентов',
+	],
+    'trashed' => [
+        'title' => 'Удаленные клиенты',
+    ],
+	'create' => [
+		'title' => 'Новый клиент',
+	],
+    'store' => [
+	    'success' => 'Клиент успешно создан!',
+	    'error' => 'Не удалось создать клиент!'
+    ],
+    'show' => [
+        'title' => 'Клиент',
+    ],
+	'edit' => [
+		'title' => 'Редактировать клиент',
+	],
+	'update' => [
+		'success' => 'Клиент успешно обновлён!',
+		'error' => 'Не удалось обновить клиент!'
+	],
+	'trash' => [
+        'title' => 'Переместить клиент в корзину',
+		'success' => 'Клиент успешно перемещен в корзину!',
+		'error' => 'Не удалось переместить клиент в корзину!'
+	],
+    'restore' => [
+        'title' => 'Восстановить клиент',
+        'success' => 'Клиент успешно восстановлен!',
+        'error' => 'Не удалось восстановить клиент!'
+    ],
+    'destroy' => [
+        'title' => 'Удалить клиент',
+        'success' => 'Клиент успешно удалён!',
+        'error' => 'Не удалось удалить клиент!'
+    ],
+	'fields' => [
+		'name' => 'Наименование',
+		'legal_name' => 'Юридическое название',
+		'billing_postcode' => 'Юр. индекс',
+		'billing_address' => 'Юр. адрес',
+		'shipping_postcode' => 'Факт. индекс',
+		'shipping_address' => 'Факт. адрес',
+		'bid' => 'ИНН',
+		'iban' => 'IBAN',
+		'swift' => 'SWIFT',
+		'email' => 'Эл. почта',
+		'phone' => 'Телефон',
+		'order_interval' => 'Интервал заказов',
+		'comment' => 'Комментарий',
+		'calendar_comment' => 'Комментарий в календаре',
+		'incomterms' => 'Инкомтермс',
+		'terms_of_cooperation' => 'Условия сотрудничества',
+		'terms_of_delivery' => 'Условия доставки',
+		'terms_of_equipment' => 'Условия поставки оборудования',
+		'delivery_payer' => 'Доставку оплачивает',
+		'payment_conditions' => 'Условия оплаты',
+		'pays_vat' => 'Плательщик НДС',
+		'stock' => [
+			'name' => 'Stock',
+		],
+		'customerType' => [
+			'name' => 'Customer Type',
+		],
+		'paymentType' => [
+			'name' => 'Payment Type',
+		],
+		'user' => [
+			'name' => 'User',
+		],
+		'billingRegion' => [
+			'name' => 'Юр. регион',
+		],
+		'shippingRegion' => [
+			'name' => 'Факт. регион',
+		],
+	],
+    'placeholders' => [
+		'stock' => 'Выберите Stock',
+		'customerType' => 'Выберите Customer Type',
+		'paymentType' => 'Выберите Payment Type',
+		'user' => 'Выберите User',
+		'billingRegion' => 'Выберите Юр. регион',
+		'shippingRegion' => 'Выберите Факт. регион',
+    ],
+    'columns' => [
+		'name' => 'Наименование',
+		'legal_name' => 'Юридическое название',
+		'billing_postcode' => 'Юр. индекс',
+		'billing_address' => 'Юр. адрес',
+		'shipping_postcode' => 'Факт. индекс',
+		'shipping_address' => 'Факт. адрес',
+		'bid' => 'ИНН',
+		'iban' => 'IBAN',
+		'swift' => 'SWIFT',
+		'email' => 'Эл. почта',
+		'phone' => 'Телефон',
+		'order_interval' => 'Интервал заказов',
+		'comment' => 'Комментарий',
+		'calendar_comment' => 'Комментарий в календаре',
+		'incomterms' => 'Инкомтермс',
+		'terms_of_cooperation' => 'Условия сотрудничества',
+		'terms_of_delivery' => 'Условия доставки',
+		'terms_of_equipment' => 'Условия поставки оборудования',
+		'delivery_payer' => 'Доставку оплачивает',
+		'payment_conditions' => 'Условия оплаты',
+		'pays_vat' => 'Плательщик НДС',
+		'stock' => [
+			'name' => 'Stock',
+		],
+		'customerType' => [
+			'name' => 'Customer Type',
+		],
+		'paymentType' => [
+			'name' => 'Payment Type',
+		],
+		'user' => [
+			'name' => 'User',
+		],
+		'billingRegion' => [
+			'name' => 'Юр. регион',
+		],
+		'shippingRegion' => [
+			'name' => 'Факт. регион',
+		],
+        'created_at' => 'Создан',
+        'updated_at' => 'Изменён',
+        'deleted_at' => 'Удалён',
+    ],
+    'filters' => [
+		'stock' => [
+			'name' => 'Stock',
+		],
+		'customerType' => [
+			'name' => 'Customer Type',
+		],
+		'paymentType' => [
+			'name' => 'Payment Type',
+		],
+		'user' => [
+			'name' => 'User',
+		],
+		'billingRegion' => [
+			'name' => 'Юр. регион',
+		],
+		'shippingRegion' => [
+			'name' => 'Факт. регион',
+		],
+    ],
+];

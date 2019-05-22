@@ -52,7 +52,7 @@ class JobsController extends ResourceController
         $this->gate = $gate;
         $this->repository = $jobRepository;
 
-        $this->middleware('dashboard'); //$this->middleware('auth:dashboard');
+        $this->middleware('dashboard');
         $this->shareSidebar();
     }
 }

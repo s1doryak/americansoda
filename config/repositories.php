@@ -7,6 +7,11 @@
 	App\Repositories\Contracts\BrandRepository::class => App\Repositories\Eloquent\BrandRepositoryEloquent::class,
 	App\Repositories\Contracts\PackageTypeRepository::class => App\Repositories\Eloquent\PackageTypeRepositoryEloquent::class,
 	App\Repositories\Contracts\ProductGroupRepository::class => App\Repositories\Eloquent\ProductGroupRepositoryEloquent::class,
+	App\Repositories\Contracts\ProductRepository::class => App\Repositories\Eloquent\ProductRepositoryEloquent::class,
+	App\Repositories\Contracts\StockRepository::class => App\Repositories\Eloquent\StockRepositoryEloquent::class,
+	App\Repositories\Contracts\PaymentTypeRepository::class => App\Repositories\Eloquent\PaymentTypeRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerTypeRepository::class => App\Repositories\Eloquent\CustomerTypeRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerRepository::class => App\Repositories\Eloquent\CustomerRepositoryEloquent::class,
 
     App\Repositories\Contracts\JobRepository::class => App\Repositories\Eloquent\JobRepositoryEloquent::class,
     App\Repositories\Contracts\FailedJobRepository::class => App\Repositories\Eloquent\FailedJobRepositoryEloquent::class,
