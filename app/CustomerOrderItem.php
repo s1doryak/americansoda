@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Crmplease\MaterialAdmin\Database\Eloquent\Model;
-
 /**
  * CustomerOrderItem
  *
@@ -44,7 +42,7 @@ use Crmplease\MaterialAdmin\Database\Eloquent\Model;
  *
  * @package App
  */
-class CustomerOrderItem extends Model
+class CustomerOrderItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
 	protected $fillable = [
 		'status',

@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Job
  *
@@ -16,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App
  */
-class Job extends Model
+class Job extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
     const CREATED_AT = null;
     const UPDATED_AT = null;

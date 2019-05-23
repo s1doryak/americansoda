@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Crmplease\MaterialAdmin\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 /**
@@ -25,7 +24,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
  *
  * @package App
  */
-class Administrator extends Authenticatable
+class Administrator extends \Crmplease\MaterialAdmin\Foundation\Auth\User
 {
 	protected $fillable = [
 		'email',

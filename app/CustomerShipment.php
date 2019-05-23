@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Crmplease\MaterialAdmin\Database\Eloquent\Model;
-
 /**
  * CustomerShipment
  *
@@ -27,7 +25,7 @@ use Crmplease\MaterialAdmin\Database\Eloquent\Model;
  *
  * @package App
  */
-class CustomerShipment extends Model
+class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
 	protected $fillable = [
 		'number',

@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Crmplease\MaterialAdmin\Database\Eloquent\Model;
-
 /**
  * PaymentType
  *
@@ -15,7 +13,7 @@ use Crmplease\MaterialAdmin\Database\Eloquent\Model;
  *
  * @package App
  */
-class PaymentType extends Model
+class PaymentType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
 	protected $fillable = [
 		'name',

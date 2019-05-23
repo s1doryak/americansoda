@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Crmplease\MaterialAdmin\Database\Eloquent\Model;
-
 /**
  * CustomerRevision
  *
@@ -52,7 +50,7 @@ use Crmplease\MaterialAdmin\Database\Eloquent\Model;
  *
  * @package App
  */
-class CustomerRevision extends Model
+class CustomerRevision extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
 	protected $fillable = [
 		'revision_type',

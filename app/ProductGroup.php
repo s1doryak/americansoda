@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Crmplease\MaterialAdmin\Database\Eloquent\Model;
-
 /**
  * ProductGroup
  *
@@ -17,7 +15,7 @@ use Crmplease\MaterialAdmin\Database\Eloquent\Model;
  *
  * @package App
  */
-class ProductGroup extends Model
+class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
 	protected $fillable = [
 		'name',

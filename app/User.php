@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Crmplease\MaterialAdmin\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 /**
@@ -25,7 +24,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
  *
  * @package App
  */
-class User extends Authenticatable
+class User extends \Crmplease\MaterialAdmin\Foundation\Auth\User
 {
 	protected $fillable = [
 		'email',
@@ -46,54 +45,54 @@ class User extends Authenticatable
 		'email_verified_at',
 	];
 
-    protected $hidden = [
+	protected $hidden = [
 		'password',
 		'remember_token',
-    ];
+	];
 
-    protected $belongsTo = [
+	protected $belongsTo = [
 		'role' => \App\Role::class,
 		'company' => \App\Company::class,
-    ];
+	];
 
-    protected $belongsToMany = [
+	protected $belongsToMany = [
 
-    ];
+	];
 
-    protected $belongsToManyPivot = [
+	protected $belongsToManyPivot = [
 
-    ];
+	];
 
-    protected $belongsToManyPivotTimestamps = [
+	protected $belongsToManyPivotTimestamps = [
 
-    ];
+	];
 
-    protected $hasMany = [
+	protected $hasMany = [
 
-    ];
+	];
 
-    protected $hasManyThrough = [
+	protected $hasManyThrough = [
 
-    ];
+	];
 
-    protected $morphTo = [
+	protected $morphTo = [
 
-    ];
+	];
 
-    protected $morphMany = [
+	protected $morphMany = [
 
-    ];
+	];
 
-    protected $with = [
+	protected $with = [
 		'role',
 		'company',
-    ];
+	];
 
-    protected $images = [
+	protected $images = [
 		'avatar',
-    ];
+	];
 
-    protected $files = [
+	protected $files = [
 
-    ];
+	];
 }
