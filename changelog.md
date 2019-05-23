@@ -5,18 +5,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
--[x] Dashboard namespace:
+
+## [1.1.0] - 2019-05-23
+- Dashboard namespace:
 ```bash
 docker-compose run artisan generate:namespace Dashboard
 ```
 
--[x] Suomen locale:
+- Suomen locale:
 ```bash
 docker-compose run artisan generate:locale fi
 ```
 
 Resources:
--[x] Region
+- Region
 ```bash
 docker-compose run artisan generate:resource Region \
     --namespace=Dashboard \
@@ -33,7 +35,7 @@ docker-compose run artisan generate:resource Region \
     --force
 ```
 
--[x] Company
+- Company
 ```bash
 docker-compose run artisan generate:resource Company \
     --namespace=Dashboard \
@@ -84,7 +86,7 @@ docker-compose run artisan generate:resource Company \
     --force
 ```
 
--[x] Role
+- Role
 ```bash
 docker-compose run artisan generate:resource Role \
     --namespace=Dashboard \
@@ -103,7 +105,7 @@ docker-compose run artisan generate:resource Role \
     --force
 ```
 
--[x] User
+- User
 ```bash
 docker-compose run artisan generate:resource User \
     --namespace=Dashboard \
@@ -137,7 +139,7 @@ docker-compose run artisan generate:resource User \
     --force
 ```
 
--[x] Administrator
+- Administrator
 ```bash
 docker-compose run artisan generate:resource Administrator \
     --namespace=Dashboard \
@@ -171,8 +173,8 @@ docker-compose run artisan generate:resource Administrator \
     --force
 ```
 
--[ ] ❌ Car
--[x] Brand
+- ❌ Car
+- Brand
 ```bash
 docker-compose run artisan generate:resource Brand \
     --namespace=Dashboard \
@@ -191,7 +193,7 @@ docker-compose run artisan generate:resource Brand \
     --force
 ```
 
--[x] PackageType
+- PackageType
 ```bash
 docker-compose run artisan generate:resource PackageType \
     --namespace=Dashboard \
@@ -210,7 +212,7 @@ docker-compose run artisan generate:resource PackageType \
     --force
 ```
 
--[x] ProductGroup
+- ProductGroup
 ```bash
 docker-compose run artisan generate:resource ProductGroup \
     --namespace=Dashboard \
@@ -230,9 +232,9 @@ docker-compose run artisan generate:resource ProductGroup \
     \
     --force
 ```
--[x] `ProductGroupRepositoryEloquent`
+- `ProductGroupRepositoryEloquent`
 
--[x] Product
+- Product
 ```bash
 docker-compose run artisan generate:resource Product \
     --namespace=Dashboard \
@@ -293,10 +295,10 @@ docker-compose run artisan generate:resource Product \
     --force
 ```
 
--[ ] ❌ Supplier
--[ ] ❌ SupplierOrder
--[ ] ❌ SupplierOrderItem
--[x] Stock
+- ❌ Supplier
+- ❌ SupplierOrder
+- ❌ SupplierOrderItem
+- Stock
 ```bash
 docker-compose run artisan generate:resource Stock \
     --namespace=Dashboard \
@@ -321,7 +323,7 @@ docker-compose run artisan generate:resource Stock \
     --force
 ```
 
--[x] PaymentType
+- PaymentType
 ```bash
 docker-compose run artisan generate:resource PaymentType \
     --namespace=Dashboard \
@@ -338,7 +340,7 @@ docker-compose run artisan generate:resource PaymentType \
     --force
 ```
 
--[x] CustomerType
+- CustomerType
 ```bash
 docker-compose run artisan generate:resource CustomerType \
     --namespace=Dashboard \
@@ -359,7 +361,7 @@ docker-compose run artisan generate:resource CustomerType \
     --force
 ```
 
--[x] Customer
+- Customer
 ```bash
 docker-compose run artisan generate:resource Customer \
     --namespace=Dashboard \
@@ -430,7 +432,7 @@ docker-compose run artisan generate:resource Customer \
     --force
 ```
 
--[x] CustomerRevision
+- CustomerRevision
 ```bash
 docker-compose run artisan generate:resource CustomerRevision \
     --namespace=Dashboard \
@@ -510,7 +512,7 @@ docker-compose run artisan generate:resource CustomerRevision \
 ```
 
 `CustomerRevisionRepositoryEloquent`
--[x] CustomerOrder
+- CustomerOrder
 ```bash
 docker-compose run artisan generate:resource CustomerOrder \
     --namespace=Dashboard \
@@ -546,7 +548,7 @@ docker-compose run artisan generate:resource CustomerOrder \
 ```
 
 `CustomerOrderRepositoryEloquent`
--[x] CustomerShipment
+- CustomerShipment
 ```bash
 docker-compose run artisan generate:resource CustomerShipment \
     --namespace=Dashboard \
@@ -584,7 +586,7 @@ docker-compose run artisan generate:resource CustomerShipment \
 ```
 
 `CustomerShipmentRepositoryEloquent`
--[x] CustomerOrderItem
+- CustomerOrderItem
 ```bash
 docker-compose run artisan generate:resource CustomerOrderItem \
     --namespace=Dashboard \
@@ -655,7 +657,7 @@ docker-compose run artisan generate:resource CustomerOrderItem \
 
 `CustomerOrderItemRepositoryEloquent`
 
--[x] CustomerPricingPolicy
+- CustomerPricingPolicy
 ```bash
 docker-compose run artisan generate:resource CustomerPricingPolicy \
     --namespace=Dashboard \
@@ -681,7 +683,7 @@ docker-compose run artisan generate:resource CustomerPricingPolicy \
 ```
 
 `CustomerPricingPolicyRepositoryEloquent`
--[x] CustomerPricingPolicyRevision
+- CustomerPricingPolicyRevision
 ```bash
 docker-compose run artisan generate:resource CustomerPricingPolicyRevision \
     --namespace=Dashboard \
@@ -720,7 +722,7 @@ docker-compose run artisan generate:resource CustomerPricingPolicyRevision \
 
 `CustomerPricingPolicyRevisionRepositoryEloquent`
 
--[x] Assembly
+- Assembly
 ```bash
 docker-compose run artisan generate:resource Assembly \
     --namespace=Dashboard \
@@ -739,7 +741,7 @@ docker-compose run artisan generate:resource Assembly \
     --force
 ```
 
--[x] StockMovement
+- StockMovement
 ```bash
 docker-compose run artisan generate:resource StockMovement \
     --namespace=Dashboard \
@@ -762,7 +764,7 @@ docker-compose run artisan generate:resource StockMovement \
 
 `StockMovementTypeRepositoryConfig`
 
--[x] StockMovementProduct
+- StockMovementProduct
 ```bash
 docker-compose run artisan generate:resource StockMovementProduct \
     --namespace=Dashboard \
@@ -797,7 +799,7 @@ docker-compose run artisan generate:resource StockMovementProduct \
 
 `StockMovementProductRepositoryEloquent`
 
--[x] StockProduct
+- StockProduct
 ```bash
 docker-compose run artisan generate:resource StockProduct \
     --namespace=Dashboard \
@@ -826,10 +828,10 @@ docker-compose run artisan generate:resource StockProduct \
 
 `StockProductRepositoryEloquent`
 
--[x] ❌ TransportSheet
--[x] ❌ CalendarEvent
--[x] ❌ OptionGroup
--[x] ❌ Option
+- ❌ TransportSheet
+- ❌ CalendarEvent
+- ❌ OptionGroup
+- ❌ Option
 
 ## [1.0.0] - 2019-05-20
 Init project semantic versioning.

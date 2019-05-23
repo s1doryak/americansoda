@@ -1,7 +1,5 @@
 <?php
 
-use App\Administrator;
-
 return [
 
     /*
@@ -58,6 +56,8 @@ return [
 			'driver' => 'session',
 			'provider' => 'administrator',
 		],
+
+        // ...guards
     ],
 
     /*
@@ -85,8 +85,10 @@ return [
 
 		'administrators' => [
 			'driver' => 'eloquent',
-			'model' => App\Administrator::class,
+			'model' => \App\Administrator::class,
 		],
+
+        // ...providers
     ],
 
     /*
@@ -115,6 +117,7 @@ return [
 			'table' => 'administrators_password_resets',
 			'expire' => 60,
 		],
+        // ...passwords
     ],
 
 ];

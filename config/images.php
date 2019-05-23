@@ -47,5 +47,6 @@
 				'quality' => 90,
 			],
 		],
+        // ...dimensions
 	]
 ];

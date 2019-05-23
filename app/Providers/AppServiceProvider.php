@@ -25,5 +25,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(resource_path('views/app'), 'app');
         $this->loadViewsFrom(resource_path('views/dashboard'), 'dashboard');
+        // ...views
     }
 }
