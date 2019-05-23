@@ -1,0 +1,62 @@
+.timeline-container {
+  margin-top: 8rem;
+
+  .timeline { padding: 2rem 2rem 2rem 7rem; }
+
+  .t-view {
+    &:before,
+    &:after { top: 2rem; }
+    &:before { font: normal normal normal 2rem/1.65 'Material-Design-Iconic-Font'; }
+    &:last-child:after { display: none; }
+
+    &.created {
+      &:before,
+      &:after { background: #4CAF50; }
+      &:before {
+        content: '\f1ff';
+        box-shadow: 0 0 0 1px #4CAF50;
+      }
+    }
+
+    &.edited {
+      &:before,
+      &:after { background: #00BCD4; }
+      &:before {
+        content: '\f158';
+        box-shadow: 0 0 0 1px #00BCD4;
+      }
+    }
+
+    &.commented {
+      &:before,
+      &:after { background: #FFC107; }
+      &:before {
+        content: '\f262';
+        box-shadow: 0 0 0 1px #FFC107;
+      }
+    }
+
+    &.destroyed,
+    &.trashed {
+      &:before,
+      &:after { background: #F44336; }
+      &:before {
+        content: '\f154';
+        box-shadow: 0 0 0 1px #F44336;
+      }
+    }
+
+    .tv-body {
+      padding-left: 1.75rem;
+      padding-right: 1.75rem;
+    }
+  }
+
+  .attributes-list {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .attribute-text { color: @text-color; }
+}

@@ -1,0 +1,82 @@
+.table {
+  .form-group {
+    position: relative;
+  }
+
+  .td-removed {
+    padding-top: 16px !important;
+    padding-bottom: 17px !important;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .toggle-switch {
+    margin-top: .85rem;
+  }
+}
+
+#productDatatable {
+  td.column-product_barcode,
+  td.column-package_barcode {
+    font-family: viisaseanmatala;
+    font-size: 40px;
+    height: auto;
+  }
+}
+
+#customerOrderDatatable {
+  td.column-sent_at {
+    text-align: center;
+  }
+}
+
+#customerOrderItemDatatable {
+  td.column-status {
+    .status-open {
+      font-weight: 700;
+      color: @m-green;
+    }
+    .status-assembly {
+      font-weight: 700;
+      color: @m-amber;
+    }
+    .status-shipment {
+      font-weight: 700;
+      color: @m-blue;
+    }
+    .status-invoice {
+      font-weight: 700;
+      color: @m-gray;
+    }
+  }
+}
+
+#customerShipmentDatatable {
+  td.column-status {
+    .status-open {
+      font-weight: 700;
+      color: @m-green;
+    }
+    .status-assembly {
+      font-weight: 700;
+      color: @m-amber;
+    }
+    .status-shipment {
+      font-weight: 700;
+      color: @m-blue;
+    }
+    .status-invoice {
+      font-weight: 700;
+      color: @m-gray;
+    }
+  }
+  td.column-actions {
+    min-width: 135px;
+  }
+}
+
+#stockProductDatatable_length {
+  label:first-child {
+    display: none;
+  }
+}
