@@ -8,28 +8,28 @@
 @section('header-menu')
 
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.calendar') }}"><span class="him-label"><i class="zmdi zmdi-calendar zmdi-hc-lg m-r-5"></i> Calendar</span></a>
+        <a href="{{ route('dashboard.calendar') }}"><span class="him-label"><i class="zmdi zmdi-calendar zmdi-hc-lg m-r-5"></i> {{ trans('calendar.index.title') }}</span></a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.customer.index') }}"><span class="him-label"><i class="zmdi zmdi-accounts-add zmdi-hc-lg m-r-5"></i> Customers</span></a>
+        <a href="{{ route('dashboard.customer.index') }}"><span class="him-label"><i class="zmdi zmdi-accounts-add zmdi-hc-lg m-r-5"></i> {{ trans('models/customer.labels.plural') }}</span></a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.customer_order.index') }}"><span class="him-label"><i class="zmdi zmdi-shopping-cart-plus zmdi-hc-lg m-r-5"></i> Orders</span></a>
+        <a href="{{ route('dashboard.customer_order.index') }}"><span class="him-label"><i class="zmdi zmdi-shopping-cart-plus zmdi-hc-lg m-r-5"></i> {{ trans('models/customer_order.labels.plural') }}</span></a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.customer_order_item.index') }}"><span class="him-label"><i class="zmdi zmdi-tune zmdi-hc-lg m-r-5"></i> Items</span></a>
+        <a href="{{ route('dashboard.customer_order_item.index') }}"><span class="him-label"><i class="zmdi zmdi-tune zmdi-hc-lg m-r-5"></i> {{ trans('models/customer_order_item.labels.plural') }}</span></a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.customer_shipment.index') }}"><span class="him-label"><i class="zmdi zmdi-local-shipping zmdi-hc-lg m-r-5"></i> Shipments</span></a>
+        <a href="{{ route('dashboard.customer_shipment.index') }}"><span class="him-label"><i class="zmdi zmdi-local-shipping zmdi-hc-lg m-r-5"></i> {{ trans('models/customer_shipment.labels.plural') }}</span></a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.assembly.index') }}"><span class="him-label"><i class="zmdi zmdi-dropbox zmdi-hc-lg m-r-5"></i> Assemblies</span></a>
+        <a href="{{ route('dashboard.assembly.index') }}"><span class="him-label"><i class="zmdi zmdi-dropbox zmdi-hc-lg m-r-5"></i> {{ trans('models/assembly.labels.plural') }}</span></a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.stock_movement_product.index') }}"><span class="him-label"><i class="zmdi zmdi-swap zmdi-hc-lg m-r-5"></i> Movement</span></a>
+        <a href="{{ route('dashboard.stock_movement_product.index') }}"><span class="him-label"><i class="zmdi zmdi-swap zmdi-hc-lg m-r-5"></i> {{ trans('models/stock_movement_product.labels.plural') }}</span></a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.stock_product.index') }}"><span class="him-label"><i class="zmdi zmdi-chart zmdi-hc-lg m-r-5"></i> Saldo</span></a>
+        <a href="{{ route('dashboard.stock_product.index') }}"><span class="him-label"><i class="zmdi zmdi-chart zmdi-hc-lg m-r-5"></i> {{ trans('models/stock_product.labels.plural') }}</span></a>
     </li>
 
     <li class="dropdown">
