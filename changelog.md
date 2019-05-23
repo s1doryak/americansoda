@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- [ ] Перенести стили
+- [x] Библиотека для трансляций
+- [ ] Счета
+- [ ] Цены
+- [ ] Иконки
+- [ ] Вход по ссылке — https://tighten.co/blog/creating-a-password-less-medium-style-email-only-authentication-system-in-laravel
+- [ ] Онлайн и Предзаказы
+- [ ] Смена магазинов
 
 ## [1.1.0] - 2019-05-23
 - Dashboard namespace:
