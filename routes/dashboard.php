@@ -16,8 +16,8 @@ Route::group(['middleware' => 'web'], function () {
         Route::any('logout', 'Auth\LoginController@logout')->name('dashboard.logout');
 
         // Registration Routes...
-        Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('dashboard.register');
-        Route::post('register', 'Auth\RegisterController@register');
+        // Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('dashboard.register');
+        // Route::post('register', 'Auth\RegisterController@register');
 
         // Password Reset Routes...
         Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('dashboard.password.request');
@@ -29,6 +29,26 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('email/verify', 'Auth\VerificationController@show')->name('dashboard.verification.notice');
         Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('dashboard.verification.verify');
         Route::get('email/resend', 'Auth\VerificationController@resend')->name('dashboard.verification.resend');
+
+        Route::get('/', [
+            'as' => 'dashboard.home',
+            'uses' => 'HomeController@home'
+        ]);
+
+        Route::get('/calendar', [
+            'as' => 'dashboard.calendar',
+            'uses' => 'HomeController@calendar'
+        ]);
+
+        Route::get('/calendar.json', [
+            'as' => 'dashboard.calendar.json',
+            'uses' => 'HomeController@calendarJson'
+        ]);
+
+        Route::post('/calendar', [
+            'as' => 'dashboard.calendar.update',
+            'uses' => 'HomeController@calendarUpdate'
+        ]);
 
 		foreach (get_route_resources() as $resource => $controller) {
 
@@ -47,6 +67,78 @@ Route::group(['middleware' => 'web'], function () {
 			]);
 
 			Route::resource($resource, $controller, ['as' => 'dashboard']);
+
+            if ($resource == 'assembly') {
+
+                Route::get("{$resource}/{{$resource}}/assembly_list", [
+                    'as' => sprintf("%s.{$resource}.assembly_list", 'dashboard'),
+                    'uses' => "{$controller}@assemblyList"
+                ]);
+
+            }
+
+            if ($resource == 'customer_order') {
+
+                Route::get("{$resource}/{{$resource}}/order_review", [
+                    'as' => sprintf("%s.{$resource}.order_review", 'dashboard'),
+                    'uses' => "{$controller}@orderReview"
+                ]);
+
+                Route::get("{$resource}/{{$resource}}/order_review_plain", [
+                    'as' => sprintf("%s.{$resource}.order_review_plain", 'dashboard'),
+                    'uses' => "{$controller}@orderReviewPlain"
+                ]);
+
+                Route::any("{$resource}/{{$resource}}/send_email", [
+                    'as' => sprintf("%s.{$resource}.send_email", 'dashboard'),
+                    'uses' => "{$controller}@sendEmail"
+                ]);
+
+            }
+
+            if ($resource == 'customer_order_item') {
+
+                /**
+                 * Split items
+                 */
+                Route::get("{$resource}/{{$resource}}/split", [
+                    'as' => sprintf("%s.{$resource}.split", 'dashboard'),
+                    'uses' => "{$controller}@getSplitForm"
+                ]);
+
+                Route::post("{$resource}/{{$resource}}/split", [
+                    'as' => sprintf("%s.{$resource}.split", 'dashboard'),
+                    'uses' => "{$controller}@split"
+                ]);
+
+                /**
+                 * Assign shipment number
+                 */
+                Route::get("{$resource}/{{$resource}}/shipment/assign", [
+                    'as' => sprintf("%s.{$resource}.shipment.assign", 'dashboard'),
+                    'uses' => "{$controller}@getShipmentAssignForm"
+                ]);
+
+                Route::post("{$resource}/{{$resource}}/shipment/assign", [
+                    'as' => sprintf("%s.{$resource}.shipment.assign", 'dashboard'),
+                    'uses' => "{$controller}@shipmentAssign"
+                ]);
+
+            }
+
+            if ($resource == 'customer_shipment') {
+
+                Route::get("customer_shipment/{customer_shipment}/package_list", [
+                    'as' => sprintf("%s.{$resource}.package_list", 'dashboard'),
+                    'uses' => "{$controller}@packageList"
+                ]);
+
+                Route::get("customer_shipment/{customer_shipment}/waybill", [
+                    'as' => sprintf("%s.{$resource}.waybill", 'dashboard'),
+                    'uses' => "{$controller}@waybill"
+                ]);
+
+            }
 
 		}
 

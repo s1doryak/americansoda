@@ -13,8 +13,8 @@ const mix = require('laravel-mix');
 
 const path = {
         bower: '../../../bower_components',
-        app: '../../../resources/assets/app',
-        dashboard: '../../../resources/assets/dashboard'
+        app: 'resources/assets/app',
+        dashboard: 'resources/assets/dashboard'
     },
     css = {
         app: path.app + '/less/app.less',
@@ -83,15 +83,10 @@ mix.copy('resources/assets/dashboard/img', 'public/dashboard/img');
  * Styles
  */
 // mix.less(css.app);
-mix.less(css.dashboard);
+mix.less(css.dashboard, 'public/dashboard/css/dashboard.css');
 
 /**
  * Scripts
  */
 // mix.scripts(js.app, 'public/js/dashboard/app.js');
 mix.scripts(js.dashboard, 'public/dashboard/js/dashboard.js');
-
-/**
- * Assets version
- */
-mix.version(['public/css/dashboard.css', 'public/dashboard/js/dashboard.js'/*, 'public/css/app.css', 'public/dashboard/js/app.js'*/]);
