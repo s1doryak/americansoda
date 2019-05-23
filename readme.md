@@ -329,7 +329,27 @@ docker-compose run artisan migrate
 ```
 
 ### Генераторы
-Добавьте комментарий-триггер `// ...$middlewareGroups` в файл `app/Http/Kernel.php`:
+Для того, чтобы генераторы могли автоматически обновлять конфигурационные файлы, необходимо выполнить разметку секций специальными комментариями.
+
+Добавьте комментарии в файл `config/auth.php`:
+```php
+'guards' => [
+    
+    // ...guards
+],
+
+'providers' => [
+
+    // ...providers
+],
+
+'passwords' => [
+
+    // ...passwords
+],
+```
+
+Добавьте комментарий `// ...$middlewareGroups` в файл `app/Http/Kernel.php`:
 ```php
 /**
  * @var array
@@ -355,7 +375,7 @@ protected $middlewareGroups = [
 ];
 ```
 
-Добавьте комментарий-триггер `// ...$commands` в файл `app/Console/Kernel.php`:
+Добавьте комментарий `// ...$commands` в файл `app/Console/Kernel.php`:
 ```php
 /**
  * @var array
@@ -365,7 +385,17 @@ protected $commands = [
 ];
 ```
 
-Добавьте комментарий-триггер `// ...$this->mapRoutes();` в файл `app/Providers/RouteServiceProvider.php`:
+Добавьте комментарий `// ...$policies` в файл `app/Providers/AuthServiceProvider.php`:
+```php
+/**
+ * @var array
+ */
+protected $policies = [
+    // ...$policies
+];
+```
+
+Добавьте комментарий `// ...$this->mapRoutes();` в файл `app/Providers/RouteServiceProvider.php`:
 ```php
 /**
  * @return void
@@ -378,7 +408,7 @@ public function map()
 }
 ```
 
-Добавьте комментарий-триггер `// ...mapRoutes()` в файл `app/Providers/RouteServiceProvider.php`:
+Добавьте комментарий `// ...mapRoutes()` в файл `app/Providers/RouteServiceProvider.php`:
 ```php
 class RouteServiceProvider extends ServiceProvider
 {
@@ -388,7 +418,7 @@ class RouteServiceProvider extends ServiceProvider
 }
 ```
 
-Добавьте комментарий-триггер `// ...views` в файл `app/Providers/AppServiceProvider.php`:
+Добавьте комментарий `// ...views` в файл `app/Providers/AppServiceProvider.php`:
 ```php
 /**
  * @return void
@@ -396,6 +426,17 @@ class RouteServiceProvider extends ServiceProvider
 public function boot()
 {
     // ...views
+}
+```
+
+Добавьте комментарий `// ...seeder` в файл `database/seeds/DatabaseSeeder.php`:
+```php
+/**
+ * @return void
+ */
+public function run()
+{
+    // ...seeder
 }
 ```
 
