@@ -11,8 +11,6 @@ trait AppSidebar
         [
             'title' => 'sidebar.administration',
             'resources' => [
-                'job',
-                'failed_job',
                 // ...
             ],
         ],
