@@ -18,36 +18,40 @@ class ProductTagDataTable extends DataTable
 	protected function getColumns()
 	{
 		return [
-				'name',
-				'icon',
-				'color',
+			'name',
 		];
 	}
 
-    /**
-     * @return array
-     */
-    protected function getAggregateColumns()
-    {
-        return [
+	/**
+	 * @return array
+	 */
+	protected function getRawColumns()
+	{
+		return [
+			'name',
+			'action',
+		];
+	}
 
-        ];
-    }
+	/**
+	 * @return array
+	 */
+	protected function getAggregateColumns()
+	{
+		return [
 
-    /**
-     * @return array
-     */
-    protected function getFilterableColumns()
-    {
-        return [
-				'products.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'products.id',
-					'lists' => 'products.name',
-				],
-        ];
-    }
+		];
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getFilterableColumns()
+	{
+		return [
+
+		];
+	}
 
 	/**
 	 * @param ProductTag $productTag
@@ -58,11 +62,24 @@ class ProductTagDataTable extends DataTable
 		return parent::getActions($productTag);
 	}
 
-    /**
-     * @return array
-     */
-    protected function getButtons()
-    {
-        return parent::getButtons();
-    }
+	/**
+	 * @return array
+	 */
+	protected function getButtons()
+	{
+		return parent::getButtons();
+	}
+
+	/**
+	 * @param ProductTag $productTag
+	 * @return string
+	 */
+	protected function renderNameColumn($productTag)
+	{
+		if ($this->isDataTableRequest()) {
+			return $this->renderIconView($productTag->name, $productTag->icon, $productTag->color);
+		}
+
+		return $productTag->name;
+	}
 }

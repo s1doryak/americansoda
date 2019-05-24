@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
+use App\Repositories\Contracts\ProductTagRepository;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use App\Repositories\Contracts\ProductRepository;
 use App\Repositories\Contracts\BrandRepository;
@@ -24,64 +25,75 @@ class ProductsController extends ResourceController
 	 */
 	protected $gate;
 
-    /**
-     * @var string
-     */
-    protected $prefix = 'dashboard';
+	/**
+	 * @var string
+	 */
+	protected $prefix = 'dashboard';
 
-    /**
-     * @var string
-     */
-    protected $resource = 'product';
+	/**
+	 * @var string
+	 */
+	protected $resource = 'product';
 
 	/**
 	 * @var BrandRepository
 	 */
 	protected $brands;
-	
+
 	/**
 	 * @var PackageTypeRepository
 	 */
 	protected $packageTypes;
-	
+
 	/**
 	 * @var ProductGroupRepository
 	 */
 	protected $productGroups;
-	
 
-    /**
-     * @var array
-     */
+	/**
+	 * @var ProductTagRepository
+	 */
+	protected $productTags;
+
+	/**
+	 * @var array
+	 */
 	protected $editActionFormData = [
 		'brands' => 'name',
 		'packageTypes' => 'name',
 		'productGroups' => 'name',
+		'productTags' => [
+			'lists' => 'name',
+			'extra' => 'content'
+		],
 	];
 
-    /**
-     * ProductsController constructor.
-     * @param Gate $gate
+	/**
+	 * ProductsController constructor.
+	 * @param Gate $gate
 	 * @param ProductRepository $productRepository
 	 * @param BrandRepository $brandRepository
 	 * @param PackageTypeRepository $packageTypeRepository
 	 * @param ProductGroupRepository $productGroupRepository
-     */
+	 * @param ProductTagRepository $productTagRepository
+	 */
 	public function __construct(
-	    Gate $gate,
+		Gate $gate,
 		ProductRepository $productRepository,
 		BrandRepository $brandRepository,
 		PackageTypeRepository $packageTypeRepository,
-		ProductGroupRepository $productGroupRepository
+		ProductGroupRepository $productGroupRepository,
+		ProductTagRepository $productTagRepository
 	)
 	{
-	    $this->gate = $gate;
+		$this->gate = $gate;
 		$this->repository = $productRepository;
 		$this->brands = $brandRepository;
 		$this->packageTypes = $packageTypeRepository;
 		$this->productGroups = $productGroupRepository;
+		$this->productTags = $productTagRepository;
 
-	    $this->middleware('dashboard');
-	    $this->shareSidebar();
+		$this->middleware('dashboard');
+		$this->shareSidebar();
 	}
 }

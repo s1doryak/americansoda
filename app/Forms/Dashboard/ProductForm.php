@@ -13,75 +13,87 @@ use Illuminate\Validation\Rule;
  */
 class ProductForm extends Form
 {
-    /**
-     * @return array
-     */
+	/**
+	 * @return array
+	 */
 	public static function getCreateFormFields()
 	{
-        return [
-				'name' => 'text',
-				'product_barcode' => 'text',
-				'product_barcode_plaintext' => 'text',
-				'package_barcode' => 'text',
-				'package_barcode_plaintext' => 'text',
-				'product_image' => 'image',
-				'package_image' => 'image',
-				'description' => 'textarea',
-				'contents' => 'textarea',
-				'number_in_package' => 'number',
-				'weight' => 'text',
-				'volume' => 'text',
-				'brutto_weight' => 'text',
-				'brutto_volume' => 'text',
-				'deposit_enabled' => 'checkbox',
-				'deposit_price' => 'text',
-				'deposit_vat' => 'number',
-				'deposit_vat_price' => 'text',
-				'comment' => 'textarea',
-				'brand' => 'choice',
-				'packageType' => 'choice',
-				'productGroup' => 'choice',
-        ];
+		return [
+			'name' => 'text',
+			'product_barcode' => 'text',
+			'product_barcode_plaintext' => 'text',
+			'package_barcode' => 'text',
+			'package_barcode_plaintext' => 'text',
+			'product_image' => 'image',
+			'package_image' => 'image',
+			'description' => 'textarea',
+			'contents' => 'textarea',
+			'number_in_package' => 'number',
+			'weight' => 'text',
+			'volume' => 'text',
+			'brutto_weight' => 'text',
+			'brutto_volume' => 'text',
+			'deposit_enabled' => 'checkbox',
+			'deposit_price' => 'text',
+			'deposit_vat' => 'number',
+			'deposit_vat_price' => 'text',
+			'comment' => 'textarea',
+			'brand' => 'choice',
+			'packageType' => 'choice',
+			'productGroup' => 'choice',
+			'productTags' => [
+				'type' => 'choice',
+				'attr' => [
+					'multiple' => true,
+				],
+			],
+		];
 	}
 
-    /**
-     * @param Product $product
-     * @return array
-     */
+	/**
+	 * @param Product $product
+	 * @return array
+	 */
 	public static function getEditFormFields($product)
 	{
-        return [
-				'name' => 'text',
-				'product_barcode' => 'text',
-				'product_barcode_plaintext' => 'text',
-				'package_barcode' => 'text',
-				'package_barcode_plaintext' => 'text',
-				'product_image' => 'image',
-				'package_image' => 'image',
-				'description' => 'textarea',
-				'contents' => 'textarea',
-				'number_in_package' => 'number',
-				'weight' => 'text',
-				'volume' => 'text',
-				'brutto_weight' => 'text',
-				'brutto_volume' => 'text',
-				'deposit_enabled' => 'checkbox',
-				'deposit_price' => 'text',
-				'deposit_vat' => 'number',
-				'deposit_vat_price' => 'text',
-				'comment' => 'textarea',
-				'brand' => 'choice',
-				'packageType' => 'choice',
-				'productGroup' => 'choice',
-        ];
+		return [
+			'name' => 'text',
+			'product_barcode' => 'text',
+			'product_barcode_plaintext' => 'text',
+			'package_barcode' => 'text',
+			'package_barcode_plaintext' => 'text',
+			'product_image' => 'image',
+			'package_image' => 'image',
+			'description' => 'textarea',
+			'contents' => 'textarea',
+			'number_in_package' => 'number',
+			'weight' => 'text',
+			'volume' => 'text',
+			'brutto_weight' => 'text',
+			'brutto_volume' => 'text',
+			'deposit_enabled' => 'checkbox',
+			'deposit_price' => 'text',
+			'deposit_vat' => 'number',
+			'deposit_vat_price' => 'text',
+			'comment' => 'textarea',
+			'brand' => 'choice',
+			'packageType' => 'choice',
+			'productGroup' => 'choice',
+			'productTags' => [
+				'type' => 'select',
+				'attr' => [
+					'multiple' => true,
+				],
+			],
+		];
 	}
 
-    /**
-     * @return array
-     */
+	/**
+	 * @return array
+	 */
 	public static function getStoreValidationRules()
 	{
-        return [
+		return [
 			'name' => 'sometimes',
 			'product_barcode' => 'sometimes',
 			'product_barcode_plaintext' => 'sometimes',
@@ -104,16 +116,17 @@ class ProductForm extends Form
 			'brand' => 'sometimes|exists:brands,id',
 			'packageType' => 'sometimes|exists:package_types,id',
 			'productGroup' => 'sometimes|exists:product_groups,id',
-        ];
+			'productTags' => 'sometimes|exists:product_tags,id',
+		];
 	}
 
-    /**
-     * @param Product $product
-     * @return array
-     */
+	/**
+	 * @param Product $product
+	 * @return array
+	 */
 	public static function getUpdateValidationRules($product)
 	{
-        return [
+		return [
 			'name' => 'sometimes',
 			'product_barcode' => 'sometimes',
 			'product_barcode_plaintext' => 'sometimes',
@@ -135,7 +148,7 @@ class ProductForm extends Form
 			'comment' => 'sometimes',
 			'brand' => 'sometimes|exists:brands,id',
 			'packageType' => 'sometimes|exists:package_types,id',
-			'productGroup' => 'sometimes|exists:product_groups,id',
-        ];
+			'productTags' => 'sometimes|exists:product_tags,id',
+		];
 	}
 }

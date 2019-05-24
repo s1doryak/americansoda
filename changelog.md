@@ -23,7 +23,7 @@ docker-compose run artisan generate:resource ProductTag \
     --field=icon \
     --field=color:color \
     \
-    --has-many=Product \
+    --belongs-to-many=Product \
     \
     --translate=ru:"Тег":"Теги":"Тег":"Тегов" \
     --translate-modifier=ru:male \
@@ -32,9 +32,9 @@ docker-compose run artisan generate:resource ProductTag \
     --translate-field=icon:ru:"Значок" \
     --translate-field=color:ru:"Цвет" \
     \
-    --translate-has-many=Product:ru:"Товары":"Товары" \
-    \
     --force
+    
+docker-compose run artisan db:seed --class=ProductTagsTableSeeder
 ```
 
 ## [1.1.0] - 2019-05-23

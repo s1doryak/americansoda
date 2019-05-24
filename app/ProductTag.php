@@ -86,4 +86,10 @@ class ProductTag extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+	public function getContentAttribute()
+	{
+		return $this->renderIconView($this->name, $this->icon, $this->color);
+	}
+
 }

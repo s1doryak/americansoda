@@ -45,7 +45,7 @@ class ProductTransformer implements TransformerContract
 			'brand' => (integer)$request->get('brand'),
 			'packageType' => (integer)$request->get('packageType'),
 			'productGroup' => (integer)$request->get('productGroup'),
-
+			'productTags' => (array)$request->get('productTags'),
 		];
 	}
 
@@ -78,7 +78,7 @@ class ProductTransformer implements TransformerContract
 			'brand' => (integer)$request->get('brand'),
 			'packageType' => (integer)$request->get('packageType'),
 			'productGroup' => (integer)$request->get('productGroup'),
-
+			'productTags' => (array)$request->get('productTags'),
 		];
 	}
 
@@ -112,6 +112,7 @@ class ProductTransformer implements TransformerContract
 			'brand' => $product->brand ? BrandTransformer::toArray($product->brand) : null,
 			'packageType' => $product->packageType ? PackageTypeTransformer::toArray($product->packageType) : null,
 			'productGroup' => $product->productGroup ? ProductGroupTransformer::toArray($product->productGroup) : null,
+			'productTags' => $product->productTags ? ProductTagTransformer::map($product->productTags) : [],
 
 			'created_at' => (string)$product->created_at,
 			'updated_at' => (string)$product->updated_at,

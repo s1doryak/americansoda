@@ -42,7 +42,7 @@ class ProductTagsController extends ResourceController
 	 * @var array
 	 */
 	protected $editActionFormData = [
-		'products' => 'name',
+
 	];
 
 	/**

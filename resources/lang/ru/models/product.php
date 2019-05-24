@@ -73,11 +73,15 @@ return [
 		'productGroup' => [
 			'name' => 'Товарная категория',
 		],
+		'productTags' => [
+			'name' => 'Теги',
+		],
 	],
     'placeholders' => [
 		'brand' => 'Выберите Бренд',
 		'packageType' => 'Выберите Тип упаковки',
 		'productGroup' => 'Выберите Товарную категорию',
+		'productTags' => 'Выберите теги',
     ],
     'columns' => [
 		'name' => 'Название',
@@ -121,6 +125,9 @@ return [
 		],
 		'productGroup' => [
 			'name' => 'Товарная категория',
+		],
+		'productTags' => [
+			'name' => 'Теги',
 		],
     ],
 ];

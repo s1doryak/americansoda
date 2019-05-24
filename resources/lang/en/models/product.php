@@ -73,11 +73,15 @@ return [
 		'productGroup' => [
 			'name' => 'Product Group',
 		],
+		'productTags' => [
+			'name' => 'Product Tags',
+		],
 	],
     'placeholders' => [
 		'brand' => 'Select Brand',
 		'packageType' => 'Select Package Type',
 		'productGroup' => 'Select Product Group',
+		'productTags' => 'Select Tags',
     ],
     'columns' => [
 		'name' => 'Name',
@@ -108,6 +112,9 @@ return [
 		'productGroup' => [
 			'name' => 'Product Group',
 		],
+		'productGroups' => [
+			'name' => 'Product Tags',
+		],
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',
@@ -119,7 +126,7 @@ return [
 		'packageType' => [
 			'name' => 'Package Type',
 		],
-		'productGroup' => [
+		'productTags' => [
 			'name' => 'Product Group',
 		],
     ],

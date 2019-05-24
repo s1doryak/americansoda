@@ -28,12 +28,13 @@ namespace App;
  * @property \App\Brand $brand
  * @property \App\PackageType $packageType
  * @property \App\ProductGroup $productGroup
+ * @property \Illuminate\Support\Collection|\App\ProductTag[] $productTags
  *
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo brand()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo packageType()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo productGroup()
- *
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany productTags()
  *
  * @package App
  */
@@ -80,88 +81,91 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
 	];
 
-    protected $hidden = [
+	protected $hidden = [
 
-    ];
+	];
 
-    protected $belongsTo = [
+	protected $belongsTo = [
 		'brand' => \App\Brand::class,
 		'packageType' => \App\PackageType::class,
 		'productGroup' => \App\ProductGroup::class,
-    ];
+	];
 
-    protected $belongsToMany = [
+	protected $belongsToMany = [
+		'productTags' => [\App\ProductTag::class, 'product_product_tag'],
+	];
 
-    ];
+	protected $belongsToManyPivot = [
 
-    protected $belongsToManyPivot = [
+	];
 
-    ];
+	protected $belongsToManyPivotTimestamps = [
 
-    protected $belongsToManyPivotTimestamps = [
-
-    ];
+	];
 
 	protected $hasOne = [
 
 	];
 
 	protected $hasMany = [
-        'customerOrderItems' => CustomerOrderItem::class,
-    ];
+		'customerOrderItems' => CustomerOrderItem::class,
+	];
 
-    protected $hasManyThrough = [
+	protected $hasManyThrough = [
 
-    ];
+	];
 
-    protected $morphTo = [
+	protected $morphTo = [
 
-    ];
+	];
 
-    protected $morphMany = [
+	protected $morphMany = [
 
-    ];
+	];
 
-    protected $with = [
+	protected $with = [
 		'brand',
 		'packageType',
 		'productGroup',
-    ];
+		'productTags',
+	];
 
-    protected $images = [
+	protected $images = [
 		'product_image',
 		'package_image',
-    ];
+	];
 
-    protected $files = [
+	protected $files = [
 
-    ];
+	];
 
-    /**
-     * @return array
-     */
-    public function getWith()
-    {
-        $condition = is_resource_page(['product']) || is_datatable(['product']);
+	/**
+	 * @return array
+	 */
+	public function getWith()
+	{
+		$condition = is_resource_page(['product']) || is_datatable(['product']);
 
-        return [
-            $condition ? 'brand' : null,
-            $condition ? 'packageType' : null,
-            $condition ? 'productGroup' : null,
-        ];
-    }
+		return [
+			$condition ? 'brand' : null,
+			$condition ? 'packageType' : null,
+			$condition ? 'productGroup' : null,
+		];
+	}
 
-    /**
-     * @return string
-     */
-    public function getProductBarcodeAttribute() {
-        return transform_barcode($this->attributes['product_barcode']);
-    }
+	/**
+	 * @return string
+	 */
+	public function getProductBarcodeAttribute()
+	{
+		return transform_barcode($this->attributes['product_barcode']);
+	}
 
-    /**
-     * @return string
-     */
-    public function getPackageBarcodeAttribute() {
-        return transform_barcode($this->attributes['package_barcode']);
-    }
+	/**
+	 * @return string
+	 */
+	public function getPackageBarcodeAttribute()
+	{
+		return transform_barcode($this->attributes['package_barcode']);
+	}
 }
