@@ -60,6 +60,10 @@ class StockProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
+    protected $hasOne = [
+
+	];
+
     protected $hasMany = [
 
     ];

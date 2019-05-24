@@ -67,9 +67,13 @@ class User extends \Crmplease\MaterialAdmin\Foundation\Auth\User
 
 	];
 
-	protected $hasMany = [
+	protected $hasOne = [
 
 	];
+
+    protected $hasMany = [
+
+    ];
 
 	protected $hasManyThrough = [
 

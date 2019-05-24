@@ -74,6 +74,10 @@ class CustomerPricingPolicyRevision extends \Crmplease\MaterialAdmin\Database\El
 
     ];
 
+    protected $hasOne = [
+
+	];
+
     protected $hasMany = [
 
     ];

@@ -50,6 +50,10 @@ class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
+    protected $hasOne = [
+
+	];
+
     protected $hasMany = [
 
     ];

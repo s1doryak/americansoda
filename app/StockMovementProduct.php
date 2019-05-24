@@ -68,6 +68,10 @@ class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
 
     ];
 
+    protected $hasOne = [
+
+	];
+
     protected $hasMany = [
 
     ];

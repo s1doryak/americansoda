@@ -14,6 +14,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] Онлайн и Предзаказы
 - [ ] Смена магазинов
 
+-[ ] ProductTag
+```bash
+docker-compose run artisan generate:resource ProductTag \
+    --namespace=Dashboard \
+    \
+    --field=name \
+    --field=icon \
+    --field=color:color \
+    \
+    --has-many=Product \
+    \
+    --translate=ru:"Тег":"Теги":"Тег":"Тегов" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=name:ru:"Название" \
+    --translate-field=icon:ru:"Значок" \
+    --translate-field=color:ru:"Цвет" \
+    \
+    --translate-has-many=Product:ru:"Товары":"Товаров" \
+    \
+    --force
+```
+
 ## [1.1.0] - 2019-05-23
 - Dashboard namespace:
 ```bash

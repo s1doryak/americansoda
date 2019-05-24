@@ -52,7 +52,11 @@ class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
-    protected $hasMany = [
+	protected $hasOne = [
+
+	];
+
+	protected $hasMany = [
         'products' => Product::class,
         'pricingPolicies' => CustomerPricingPolicy::class
     ];

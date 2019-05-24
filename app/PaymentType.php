@@ -47,7 +47,11 @@ class PaymentType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
-    protected $hasMany = [
+	protected $hasOne = [
+
+	];
+
+	protected $hasMany = [
         'customers' => Customer::class,
         'customerOrders' => CustomerOrder::class,
     ];

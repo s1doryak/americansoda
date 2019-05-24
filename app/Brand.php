@@ -29,51 +29,55 @@ class Brand extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
 	];
 
-    protected $hidden = [
+	protected $hidden = [
 
-    ];
+	];
 
-    protected $belongsTo = [
+	protected $belongsTo = [
 
-    ];
+	];
 
-    protected $belongsToMany = [
+	protected $belongsToMany = [
 
-    ];
+	];
 
-    protected $belongsToManyPivot = [
+	protected $belongsToManyPivot = [
 
-    ];
+	];
 
-    protected $belongsToManyPivotTimestamps = [
+	protected $belongsToManyPivotTimestamps = [
 
-    ];
+	];
 
-    protected $hasMany = [
-        'products' => Product::class,
-    ];
+	protected $hasOne = [
 
-    protected $hasManyThrough = [
+	];
 
-    ];
+	protected $hasMany = [
+		'products' => Product::class,
+	];
 
-    protected $morphTo = [
+	protected $hasManyThrough = [
 
-    ];
+	];
 
-    protected $morphMany = [
+	protected $morphTo = [
 
-    ];
+	];
 
-    protected $with = [
+	protected $morphMany = [
 
-    ];
+	];
 
-    protected $images = [
+	protected $with = [
+
+	];
+
+	protected $images = [
 		'logo',
-    ];
+	];
 
-    protected $files = [
+	protected $files = [
 
-    ];
+	];
 }

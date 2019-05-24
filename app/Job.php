@@ -57,6 +57,10 @@ class Job extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
+    protected $hasOne = [
+
+	];
+
     protected $hasMany = [
 
     ];

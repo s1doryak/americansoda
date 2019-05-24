@@ -102,7 +102,11 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
-    protected $hasMany = [
+	protected $hasOne = [
+
+	];
+
+	protected $hasMany = [
         'customerOrderItems' => CustomerOrderItem::class,
     ];
 

@@ -67,6 +67,10 @@ class Administrator extends \Crmplease\MaterialAdmin\Foundation\Auth\User
 
     ];
 
+	protected $hasOne = [
+
+	];
+
     protected $hasMany = [
 
     ];

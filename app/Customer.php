@@ -111,6 +111,10 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
+	protected $hasOne = [
+
+	];
+
     protected $hasMany = [
         'customerOrders' => CustomerOrder::class,
         'customerPricingPolicies' => CustomerPricingPolicy::class,
