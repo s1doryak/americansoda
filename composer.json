@@ -51,7 +51,8 @@
             "database/factories"
         ],
         "files": [
-            "packages/crmplease/material-admin/src/helpers.php"
+            "packages/crmplease/material-admin/src/helpers.php",
+            "bootstrap/helpers.php"
         ]
     },
     "autoload-dev": {

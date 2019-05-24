@@ -17,25 +17,25 @@ namespace App;
  */
 class StockMovement extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'movement_type',
-		'stock_id',
-	];
+    protected $fillable = [
+        'movement_type',
+        'stock_id',
+    ];
 
-	protected $casts = [
+    protected $casts = [
 
-	];
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'stock' => \App\Stock::class,
+        'stock' => \App\Stock::class,
     ];
 
     protected $belongsToMany = [
@@ -51,7 +51,7 @@ class StockMovement extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $hasMany = [
-
+        'stockMovementProducts' => StockMovementProduct::class,
     ];
 
     protected $hasManyThrough = [
@@ -67,7 +67,7 @@ class StockMovement extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-		'stock',
+        'stock',
     ];
 
     protected $images = [
@@ -77,4 +77,35 @@ class StockMovement extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['stock_movement']) || is_datatable(['stock_movement']);
+
+        return [
+            $condition ? 'stock' : null,
+            $condition ? 'supplierOrder' : null,
+        ];
+    }
+
+    /**
+     * ToDo
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(
+            function ($model) {
+                $attr = 'supplier_order_id';
+
+                if (!isset($model->attributes[$attr]) || empty($model->attributes[$attr])) {
+                    $model->{$attr} = null;
+                }
+            }
+        );
+    }
 }

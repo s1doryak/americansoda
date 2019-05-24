@@ -107,4 +107,16 @@ class Company extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['company']) || is_datatable(['company']);
+
+        return [
+            $condition ? 'region' : null,
+        ];
+    }
 }

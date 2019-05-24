@@ -24,32 +24,36 @@ namespace App;
  */
 class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'product_name',
-		'products_quantity',
-		'delivery_number',
-		'expiration_date',
-		'movement_type',
-		'comment',
-		'stock_movement_id',
-		'product_id',
-	];
+    protected $fillable = [
+        'product_name',
+        'products_quantity',
+        'delivery_number',
+        'expiration_date',
+        'movement_type',
+        'comment',
+        'stock_movement_id',
+        'product_id',
+    ];
 
-	protected $casts = [
-		'products_quantity' => 'integer',
-	];
+    protected $appends = [
+        'formatted_products_quantity',
+    ];
 
-	protected $dates = [
-		'expiration_date',
-	];
+    protected $casts = [
+        'products_quantity' => 'integer',
+    ];
+
+    protected $dates = [
+        'expiration_date',
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'stockMovement' => \App\StockMovement::class,
-		'product' => \App\Product::class,
+        'stockMovement' => \App\StockMovement::class,
+        'product' => \App\Product::class,
     ];
 
     protected $belongsToMany = [
@@ -81,8 +85,8 @@ class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
     ];
 
     protected $with = [
-		'stockMovement',
-		'product',
+        'stockMovement',
+        'product',
     ];
 
     protected $images = [
@@ -92,4 +96,56 @@ class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
     protected $files = [
 
     ];
+
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['stock_movement_product', 'stock_movement.product']) || is_datatable(['stock_movement_product', 'stock_movement.product']);
+
+        return [
+            $condition ? 'stockMovement' : null,
+            $condition ? 'stockMovement.stock' : null,
+            $condition ? 'product' : null,
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormattedProductsQuantityAttribute()
+    {
+        if ($this->stockMovement->movement_type === 'receipt') {
+            $class = 'green';
+            $value = '+' . $this->attributes['products_quantity'];
+        } else {
+            $class = 'red';
+            $value = '-' . $this->attributes['products_quantity'];
+        }
+
+        return sprintf('<span class="%s">%s</span>', $class, $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpirationDateAttribute()
+    {
+        return $this->formatDateForForm('expiration_date');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setExpirationDateAttribute($value)
+    {
+        if (is_date($value, 'Y-m-d H:i:s')) {
+            $this->attributes['expiration_date'] = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+        } elseif (is_date($value, 'd/m/Y')) {
+            $this->attributes['expiration_date'] = Carbon::createFromFormat('d/m/Y', $value);
+        } else {
+            $this->attributes['expiration_date'] = null;
+        }
+    }
 }

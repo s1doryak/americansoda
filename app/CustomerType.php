@@ -17,25 +17,25 @@ namespace App;
  */
 class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'name',
-		'customer_type_id',
-	];
+    protected $fillable = [
+        'name',
+        'customer_type_id',
+    ];
 
-	protected $casts = [
+    protected $casts = [
 
-	];
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'customerType' => \App\CustomerType::class,
+        'customerType' => \App\CustomerType::class,
     ];
 
     protected $belongsToMany = [
@@ -67,7 +67,7 @@ class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-		'customerType',
+        'customerType',
     ];
 
     protected $images = [
@@ -77,4 +77,16 @@ class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['customer_type']) || is_datatable(['customer_type']);
+
+        return [
+            $condition ? 'customerType' : null,
+        ];
+    }
 }

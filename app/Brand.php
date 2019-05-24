@@ -50,7 +50,7 @@ class Brand extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $hasMany = [
-
+        'products' => Product::class,
     ];
 
     protected $hasManyThrough = [

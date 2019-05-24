@@ -47,56 +47,56 @@ namespace App;
  */
 class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'name',
-		'legal_name',
-		'billing_postcode',
-		'billing_address',
-		'shipping_postcode',
-		'shipping_address',
-		'bid',
-		'iban',
-		'swift',
-		'email',
-		'phone',
-		'order_interval',
-		'comment',
-		'calendar_comment',
-		'incomterms',
-		'terms_of_cooperation',
-		'terms_of_delivery',
-		'terms_of_equipment',
-		'delivery_payer',
-		'payment_conditions',
-		'pays_vat',
-		'stock_id',
-		'customer_type_id',
-		'payment_type_id',
-		'user_id',
-		'billing_region_id',
-		'shipping_region_id',
-	];
+    protected $fillable = [
+        'name',
+        'legal_name',
+        'billing_postcode',
+        'billing_address',
+        'shipping_postcode',
+        'shipping_address',
+        'bid',
+        'iban',
+        'swift',
+        'email',
+        'phone',
+        'order_interval',
+        'comment',
+        'calendar_comment',
+        'incomterms',
+        'terms_of_cooperation',
+        'terms_of_delivery',
+        'terms_of_equipment',
+        'delivery_payer',
+        'payment_conditions',
+        'pays_vat',
+        'stock_id',
+        'customer_type_id',
+        'payment_type_id',
+        'user_id',
+        'billing_region_id',
+        'shipping_region_id',
+    ];
 
-	protected $casts = [
-		'order_interval' => 'integer',
-		'pays_vat' => 'boolean',
-	];
+    protected $casts = [
+        'order_interval' => 'integer',
+        'pays_vat' => 'boolean',
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'stock' => \App\Stock::class,
-		'customerType' => \App\CustomerType::class,
-		'paymentType' => \App\PaymentType::class,
-		'user' => \App\User::class,
-		'billingRegion' => \App\Region::class,
-		'shippingRegion' => \App\Region::class,
+        'stock' => \App\Stock::class,
+        'customerType' => \App\CustomerType::class,
+        'paymentType' => \App\PaymentType::class,
+        'user' => \App\User::class,
+        'billingRegion' => \App\Region::class,
+        'shippingRegion' => \App\Region::class,
     ];
 
     protected $belongsToMany = [
@@ -112,7 +112,8 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $hasMany = [
-
+        'customerOrders' => CustomerOrder::class,
+        'customerPricingPolicies' => CustomerPricingPolicy::class,
     ];
 
     protected $hasManyThrough = [
@@ -128,12 +129,12 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-		'stock',
-		'customerType',
-		'paymentType',
-		'user',
-		'billingRegion',
-		'shippingRegion',
+        'stock',
+        'customerType',
+        'paymentType',
+        'user',
+        'billingRegion',
+        'shippingRegion',
     ];
 
     protected $images = [
@@ -143,4 +144,21 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['customer']) || is_datatable(['customer']);
+
+        return [
+            $condition ? 'billingRegion' : null,
+            $condition ? 'shippingRegion' : null,
+            $condition ? 'customerType' : null,
+            $condition ? 'paymentType' : null,
+            $condition ? 'user' : null,
+            $condition ? 'stock' : null
+        ];
+    }
 }

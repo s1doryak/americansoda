@@ -89,4 +89,41 @@ class StockProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['stock_product']) || is_datatable(['stock_product']);
+
+        return [
+            $condition ? 'stock' : null,
+            $condition ? 'product' : null,
+            $condition ? 'product.productGroup' : null,
+            $condition ? 'customerOrderItem' : null,
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpirationDateAttribute()
+    {
+        return $this->formatDateForForm('expiration_date');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setExpirationDateAttribute($value)
+    {
+        if(is_date($value, 'Y-m-d H:i:s')) {
+            $this->attributes['expiration_date'] = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+        } elseif(is_date($value, 'd/m/Y')) {
+            $this->attributes['expiration_date'] = Carbon::createFromFormat('d/m/Y', $value);
+        } else {
+            $this->attributes['expiration_date'] = null;
+        }
+    }
 }

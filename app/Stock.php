@@ -19,27 +19,27 @@ namespace App;
  */
 class Stock extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'name',
-		'postcode',
-		'address',
-		'region_id',
-	];
+    protected $fillable = [
+        'name',
+        'postcode',
+        'address',
+        'region_id',
+    ];
 
-	protected $casts = [
+    protected $casts = [
 
-	];
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'region' => \App\Region::class,
+        'region' => \App\Region::class,
     ];
 
     protected $belongsToMany = [
@@ -71,7 +71,7 @@ class Stock extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-		'region',
+        'region',
     ];
 
     protected $images = [
@@ -81,4 +81,16 @@ class Stock extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['stock']) || is_datatable(['stock']);
+
+        return [
+            $condition ? 'region' : null,
+        ];
+    }
 }

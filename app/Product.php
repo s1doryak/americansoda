@@ -103,7 +103,7 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $hasMany = [
-
+        'customerOrderItems' => CustomerOrderItem::class,
     ];
 
     protected $hasManyThrough = [
@@ -132,4 +132,32 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['product']) || is_datatable(['product']);
+
+        return [
+            $condition ? 'brand' : null,
+            $condition ? 'packageType' : null,
+            $condition ? 'productGroup' : null,
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductBarcodeAttribute() {
+        return transform_barcode($this->attributes['product_barcode']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPackageBarcodeAttribute() {
+        return transform_barcode($this->attributes['package_barcode']);
+    }
 }

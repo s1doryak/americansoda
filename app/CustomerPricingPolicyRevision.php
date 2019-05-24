@@ -28,38 +28,38 @@ namespace App;
  */
 class CustomerPricingPolicyRevision extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'revision_type',
-		'revision_number',
-		'products_range',
-		'price',
-		'revision_id',
-		'customer_pricing_policy_id',
-		'editor_id',
-		'product_group_id',
-		'customer_id',
-	];
+    protected $fillable = [
+        'revision_type',
+        'revision_number',
+        'products_range',
+        'price',
+        'revision_id',
+        'customer_pricing_policy_id',
+        'editor_id',
+        'product_group_id',
+        'customer_id',
+    ];
 
-	protected $casts = [
-		'revision_number' => 'integer',
-		'products_range' => 'integer',
-		'price' => 'float',
-	];
+    protected $casts = [
+        'revision_number' => 'integer',
+        'products_range' => 'integer',
+        'price' => 'float',
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'revision' => \App\CustomerPricingPolicyRevision::class,
-		'customerPricingPolicy' => \App\CustomerPricingPolicy::class,
-		'editor' => \App\User::class,
-		'productGroup' => \App\ProductGroup::class,
-		'customer' => \App\Customer::class,
+        'revision' => \App\CustomerPricingPolicyRevision::class,
+        'customerPricingPolicy' => \App\CustomerPricingPolicy::class,
+        'editor' => \App\User::class,
+        'productGroup' => \App\ProductGroup::class,
+        'customer' => \App\Customer::class,
     ];
 
     protected $belongsToMany = [
@@ -91,11 +91,11 @@ class CustomerPricingPolicyRevision extends \Crmplease\MaterialAdmin\Database\El
     ];
 
     protected $with = [
-		'revision',
-		'customerPricingPolicy',
-		'editor',
-		'productGroup',
-		'customer',
+        'revision',
+        'customerPricingPolicy',
+        'editor',
+        'productGroup',
+        'customer',
     ];
 
     protected $images = [
@@ -105,4 +105,41 @@ class CustomerPricingPolicyRevision extends \Crmplease\MaterialAdmin\Database\El
     protected $files = [
 
     ];
+
+    /**
+     * @return array
+     */
+    public function getChangedAttributes()
+    {
+        $current = $this->cleanAttributes($this->toArray());
+
+        if (!$this->revision) {
+            return $current;
+        }
+
+        $parent = $this->cleanAttributes($this->revision->toArray());
+
+        if ($parent === null) {
+            return $current;
+        }
+
+        return array_where($current, function ($value, $attr) use ($parent) {
+            return $parent[$attr] != $value;
+        });
+    }
+
+    /**
+     * @param array $attributes
+     * @return array
+     */
+    private function cleanAttributes(array $attributes)
+    {
+        $accepted = [
+            'products_range',
+            'price',
+            'deleted_at'
+        ];
+
+        return array_only($attributes, $accepted);
+    }
 }
