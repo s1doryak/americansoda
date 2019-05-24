@@ -32,7 +32,7 @@ docker-compose run artisan generate:resource ProductTag \
     --translate-field=icon:ru:"Значок" \
     --translate-field=color:ru:"Цвет" \
     \
-    --translate-has-many=Product:ru:"Товары":"Товаров" \
+    --translate-has-many=Product:ru:"Товары":"Товары" \
     \
     --force
 ```

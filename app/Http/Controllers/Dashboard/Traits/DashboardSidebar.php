@@ -26,6 +26,7 @@ trait DashboardSidebar
 			'resources' => [
 				'product',
 				'product_group',
+				'product_tag',
 				'brand',
 				'package_type',
 			],

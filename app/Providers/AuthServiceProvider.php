@@ -38,7 +38,8 @@ class AuthServiceProvider extends ServiceProvider
 		\App\StockProduct::class => \App\Policies\StockProductPolicy::class,
         \App\Job::class => \App\Policies\JobPolicy::class,
         \App\FailedJob::class => \App\Policies\FailedJobPolicy::class,
-        // ...$policies
+        \App\ProductTag::class => \App\Policies\ProductTagPolicy::class,
+		// ...$policies
     ];
 
     /**

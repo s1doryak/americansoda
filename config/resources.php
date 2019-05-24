@@ -24,5 +24,6 @@
 	'stock_product' => \App\StockProduct::class,
 	'job' => \App\Job::class,
 	'failed_job' => \App\FailedJob::class,
+	'product_tag' => \App\ProductTag::class,
 	// ...resources
 ];
