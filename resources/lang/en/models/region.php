@@ -52,6 +52,7 @@ return [
 
     ],
     'columns' => [
+        'id' => 'ID',
 		'name' => 'Name',
 
         'created_at' => 'Created',

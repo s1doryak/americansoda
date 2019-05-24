@@ -24,6 +24,19 @@ class RegionDataTable extends DataTable
 		];
 	}
 
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'created_at',
+            'updated_at',
+            'action'
+        ];
+    }
+
 	/**
 	 * @return array
 	 */

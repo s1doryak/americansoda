@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] Перенести стили
 - [x] Библиотека для трансляций
 - [ ] Счета
-- [ ] Цены
+- [ ] Цены+ЦеновойТипКлиента
 - [ ] Иконки
 - [ ] Вход по ссылке — https://tighten.co/blog/creating-a-password-less-medium-style-email-only-authentication-system-in-laravel
 - [ ] Онлайн и Предзаказы

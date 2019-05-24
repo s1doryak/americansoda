@@ -52,6 +52,7 @@ return [
 
     ],
     'columns' => [
+        'id' => '№',
 		'name' => 'Название',
 
         'created_at' => 'Создан',

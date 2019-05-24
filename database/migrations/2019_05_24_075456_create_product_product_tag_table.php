@@ -4,7 +4,7 @@ use Crmplease\MaterialAdmin\Database\Schema\Blueprint;
 use Crmplease\MaterialAdmin\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductTagProductTable extends Migration
+class CreateProductProductTagTable extends Migration
 {
 	/**
 	 * Run the migrations.
