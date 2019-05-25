@@ -67,18 +67,41 @@ return [
 		'back_order' => 'Отложенный заказ',
 		'cancelled' => 'Отмененный заказ',
 		'expected_date' => 'Будет поставлен',
-		'product' => [
-			'name' => 'Товар',
-		],
-		'customer' => [
-			'name' => 'Клиент',
-		],
-		'customerOrder' => [
-			'name' => 'Заказ',
-		],
-		'customerShipment' => [
-			'name' => 'Отгрузка',
-		],
+        'customer' => [
+            'name' => 'Клиент',
+            'payment_conditions' => 'Условия оплаты',
+            'user' => [
+                'name' => 'Ответственный',
+            ],
+        ],
+        'customerOrder' => [
+            'delivery_month' => 'Месяц доставки',
+            'delivery_date' => 'Дата доставки',
+            'delivery_type' => 'Тип доставки',
+            'number' => 'Номер заказа',
+            'invoice_number' => 'Номер счета',
+            'batch_number' => 'Номер в системе клиента',
+            'customer' => [
+                'name' => 'Клиент',
+                'payment_conditions' => 'Условия оплаты',
+                'user' => [
+                    'name' => 'Ответственный',
+                ],
+            ],
+        ],
+        'customerShipment' => [
+            'number' => 'Номер отгрузки',
+            'assembly_number' => 'Номер сборки',
+            'invoice_number' => 'Номер счета',
+            'delivery_month' => 'Месяц доставки',
+            'delivery_date' => 'Дата доставки',
+        ],
+        'product' => [
+            'name' => 'Товар',
+            'productGroup' => [
+                'name' => 'Категория товара',
+            ],
+        ],
 	],
     'placeholders' => [
 		'product' => 'Выберите Товар',
@@ -109,34 +132,70 @@ return [
 		'back_order' => 'Отложенный заказ',
 		'cancelled' => 'Отмененный заказ',
 		'expected_date' => 'Будет поставлен',
-		'product' => [
-			'name' => 'Товар',
-		],
-		'customer' => [
-			'name' => 'Клиент',
-		],
-		'customerOrder' => [
-			'name' => 'Заказ',
-		],
-		'customerShipment' => [
-			'name' => 'Отгрузка',
-		],
+        'customer' => [
+            'name' => 'Клиент',
+            'payment_conditions' => 'Условия оплаты',
+            'user' => [
+                'name' => 'Ответственный',
+            ],
+        ],
+        'customerOrder' => [
+            'delivery_month' => 'Месяц доставки',
+            'delivery_date' => 'Дата доставки',
+            'delivery_type' => 'Тип доставки',
+            'number' => 'Номер заказа',
+            'invoice_number' => 'Номер счета',
+            'batch_number' => 'Номер в системе клиента',
+            'customer' => [
+                'name' => 'Клиент',
+                'payment_conditions' => 'Условия оплаты',
+                'user' => [
+                    'name' => 'Ответственный',
+                ],
+            ],
+        ],
+        'customerShipment' => [
+            'number' => 'Номер отгрузки',
+            'assembly_number' => 'Номер сборки',
+            'invoice_number' => 'Номер счета',
+            'delivery_month' => 'Месяц доставки',
+            'delivery_date' => 'Дата доставки',
+        ],
+        'product' => [
+            'name' => 'Товар',
+            'productGroup' => [
+                'name' => 'Категория товара',
+            ],
+        ],
         'created_at' => 'Создана',
         'updated_at' => 'Изменена',
         'deleted_at' => 'Удалена',
     ],
     'filters' => [
-		'product' => [
-			'name' => 'Товар',
-		],
-		'customer' => [
-			'name' => 'Клиент',
-		],
-		'customerOrder' => [
-			'name' => 'Заказ',
-		],
-		'customerShipment' => [
-			'name' => 'Отгрузка',
-		],
+        'customer' => [
+            'name' => 'Клиент',
+            'user' => [
+                'name' => 'Ответственный',
+            ],
+        ],
+        'product' => [
+            'name' => 'Товар',
+            'productGroup' => [
+                'name' => 'Категория товара',
+            ],
+        ],
+        'customerOrder' => [
+            'number' => 'Дата заказа',
+        ],
+        'customerShipment' => [
+            'number' => 'Номер отгрузки',
+            'assembly_number' => 'Номер сборки',
+            'invoice_number' => 'Номер счета',
+        ],
+        'customerShipmentAdvanced' => 'Тип/Месяц',
+        'bypass' => 'Не списывать со склада',
+        'back_order' => 'Отложенный заказ',
+        'cancelled' => 'Отмененный заказ',
+        'status' => 'Статус',
     ],
 ];

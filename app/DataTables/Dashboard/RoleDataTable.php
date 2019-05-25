@@ -12,16 +12,29 @@ use App\Role;
  */
 class RoleDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-				'name',
-				'slug',
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name' => [
+                'searchable' => true
+            ],
+            'slug',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'action',
+        ];
+    }
 
     /**
      * @return array
@@ -43,14 +56,14 @@ class RoleDataTable extends DataTable
         ];
     }
 
-	/**
-	 * @param Role $role
-	 * @return array
-	 */
-	protected function getActions($role)
-	{
-		return parent::getActions($role);
-	}
+    /**
+     * @param Role $role
+     * @return array
+     */
+    protected function getActions($role)
+    {
+        return parent::getActions($role);
+    }
 
     /**
      * @return array

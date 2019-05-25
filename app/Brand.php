@@ -7,8 +7,8 @@ namespace App;
  *
  * @property string $name
  * @property string $logo
- *
- *
+ * @property \Illuminate\Support\Collection|Product[] $products
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany products()
  *
  *
  *

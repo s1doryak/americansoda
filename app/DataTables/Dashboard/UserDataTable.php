@@ -12,25 +12,48 @@ use App\User;
  */
 class UserDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-				'email',
-				'email',
-				'name',
-				'phone',
-				'avatar',
-				'role.name' => [
-					'data' => 'role.name'
-				],
-				'company.name' => [
-					'data' => 'company.name'
-				],
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name' => [
+                'searchable' => true
+            ],
+            'email' => [
+                'searchable' => true
+            ],
+            'phone' => [
+                'searchable' => true
+            ],
+            'role' => [
+                'data' => 'role.name',
+            ],
+            'company' => [
+                'data' => 'company.name',
+            ],
+            'created_at',
+            'updated_at',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'email',
+            'phone',
+            'role',
+            'company',
+            'created_at',
+            'updated_at',
+            'action'
+        ];
+    }
 
     /**
      * @return array
@@ -48,29 +71,29 @@ class UserDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-				'role.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'role.id',
-					'lists' => 'role.name',
-				],
-				'company.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'company.id',
-					'lists' => 'company.name',
-				],
+            'role.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'role.id',
+                'lists' => 'role.name',
+            ],
+            'company.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'company.id',
+                'lists' => 'company.name',
+            ],
         ];
     }
 
-	/**
-	 * @param User $user
-	 * @return array
-	 */
-	protected function getActions($user)
-	{
-		return parent::getActions($user);
-	}
+    /**
+     * @param User $user
+     * @return array
+     */
+    protected function getActions($user)
+    {
+        return parent::getActions($user);
+    }
 
     /**
      * @return array

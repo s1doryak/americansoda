@@ -1,1 +1,0 @@
-@extends('app::actions.show')

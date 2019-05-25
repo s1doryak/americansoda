@@ -18,10 +18,24 @@ class PackageTypeDataTable extends DataTable
 	protected function getColumns()
 	{
 		return [
-				'name',
-				'description',
+            'name' => [
+                'searchable' => true
+            ],
+            'created_at',
+            'updated_at',
 		];
 	}
+
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'action',
+        ];
+    }
 
     /**
      * @return array

@@ -12,17 +12,19 @@ use App\Region;
  */
 class RegionDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-			'name',
-			'created_at',
-			'updated_at'
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name' => [
+                'searchable' => true
+            ],
+            'created_at',
+            'updated_at',
+        ];
+    }
 
     /**
      * @return array
@@ -37,40 +39,40 @@ class RegionDataTable extends DataTable
         ];
     }
 
-	/**
-	 * @return array
-	 */
-	protected function getAggregateColumns()
-	{
-		return [
+    /**
+     * @return array
+     */
+    protected function getAggregateColumns()
+    {
+        return [
 
-		];
-	}
+        ];
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function getFilterableColumns()
-	{
-		return [
+    /**
+     * @return array
+     */
+    protected function getFilterableColumns()
+    {
+        return [
 
-		];
-	}
+        ];
+    }
 
-	/**
-	 * @param Region $region
-	 * @return array
-	 */
-	protected function getActions($region)
-	{
-		return parent::getActions($region);
-	}
+    /**
+     * @param Region $region
+     * @return array
+     */
+    protected function getActions($region)
+    {
+        return parent::getActions($region);
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function getButtons()
-	{
-		return parent::getButtons();
-	}
+    /**
+     * @return array
+     */
+    protected function getButtons()
+    {
+        return parent::getButtons();
+    }
 }

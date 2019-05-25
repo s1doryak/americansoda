@@ -63,30 +63,34 @@ return [
 		'customerOrderItem' => 'Select Customer Order Item',
     ],
     'columns' => [
-		'delivery_number' => 'Delivery Number',
-		'expiration_date' => 'Expiration Date',
-		'stock' => [
-			'name' => 'Stock',
-		],
-		'product' => [
-			'name' => 'Product',
-		],
-		'customerOrderItem' => [
-			'name' => 'Customer Order Item',
-		],
+        'stock' => [
+            'name' => 'Stock',
+        ],
+        'product' => [
+            'name' => 'Product',
+            'productGroup' => [
+                'name' => 'Group'
+            ]
+        ],
+        'delivery_number' => 'L-number',
+        'expiration_date' => 'BBD',
+        'total' => 'Total',
+        'reserved' => 'Reserved',
+        'available' => 'Available',
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',
     ],
     'filters' => [
-		'stock' => [
-			'name' => 'Stock',
-		],
-		'product' => [
-			'name' => 'Product',
-		],
-		'customerOrderItem' => [
-			'name' => 'Customer Order Item',
-		],
+        'stock' => [
+            'name' => 'Stock',
+        ],
+        'product' => [
+            'name' => 'Product',
+            'productGroup' => [
+                'name' => 'Group'
+            ]
+        ],
+        'delivery_number' => 'L-number',
     ],
 ];

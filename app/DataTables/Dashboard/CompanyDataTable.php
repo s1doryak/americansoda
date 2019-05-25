@@ -27,13 +27,6 @@ class CompanyDataTable extends DataTable
 				'email',
 				'phone',
 				'code',
-				'smtp_host',
-				'smtp_port',
-				'smtp_encryption',
-				'smtp_username',
-				'smtp_password',
-				'smtp_from',
-				'smtp_from_name',
 				'region.name' => [
 					'data' => 'region.name'
 				],

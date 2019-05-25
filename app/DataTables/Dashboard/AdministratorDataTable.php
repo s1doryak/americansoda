@@ -12,24 +12,39 @@ use App\Administrator;
  */
 class AdministratorDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-				'email',
-				'name',
-				'phone',
-				'avatar',
-				'role.name' => [
-					'data' => 'role.name'
-				],
-				'company.name' => [
-					'data' => 'company.name'
-				],
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name' => [
+                'searchable' => true
+            ],
+            'phone',
+            'role.name' => [
+                'data' => 'role.name'
+            ],
+            'company.name' => [
+                'data' => 'company.name'
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'email',
+            'phone',
+            'avatar',
+            'role.name',
+            'company.name',
+        ];
+    }
 
     /**
      * @return array
@@ -47,29 +62,29 @@ class AdministratorDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-				'role.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'role.id',
-					'lists' => 'role.name',
-				],
-				'company.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'company.id',
-					'lists' => 'company.name',
-				],
+            'role.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'role.id',
+                'lists' => 'role.name',
+            ],
+            'company.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'company.id',
+                'lists' => 'company.name',
+            ],
         ];
     }
 
-	/**
-	 * @param Administrator $administrator
-	 * @return array
-	 */
-	protected function getActions($administrator)
-	{
-		return parent::getActions($administrator);
-	}
+    /**
+     * @param Administrator $administrator
+     * @return array
+     */
+    protected function getActions($administrator)
+    {
+        return parent::getActions($administrator);
+    }
 
     /**
      * @return array
@@ -77,5 +92,28 @@ class AdministratorDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param Administrator $administrator
+     * @return string
+     */
+    protected function renderNameColumn($administrator)
+    {
+        if ($this->isDataTableRequest()) {
+
+            if (isset($administrator->avatar->avatar) && $administrator->avatar->avatar->url) {
+                $avatar = $administrator->avatar->avatar->url;
+            } else {
+                $avatar = sprintf(
+                    "/vendor/material-admin/img/demo/profile-pics/%d.jpg",
+                    ($administrator->getKey() % 9) + 1
+                );
+            }
+
+            return $this->renderMediaView($administrator->name, $administrator->email, $avatar);
+        }
+
+        return $administrator->name;
     }
 }

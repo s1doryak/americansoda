@@ -1,0 +1,1 @@
+<span class="status-{{ $model->status }}">{!! trans(sprintf('models/customer_order.statuses.%s', $model->status)) !!}</span>

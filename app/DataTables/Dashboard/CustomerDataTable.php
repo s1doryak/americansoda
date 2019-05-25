@@ -12,53 +12,78 @@ use App\Customer;
  */
 class CustomerDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-				'name',
-				'legal_name',
-				'billing_postcode',
-				'billing_address',
-				'shipping_postcode',
-				'shipping_address',
-				'bid',
-				'iban',
-				'swift',
-				'email',
-				'phone',
-				'order_interval',
-				'comment',
-				'calendar_comment',
-				'incomterms',
-				'terms_of_cooperation',
-				'terms_of_delivery',
-				'terms_of_equipment',
-				'delivery_payer',
-				'payment_conditions',
-				'pays_vat',
-				'stock.name' => [
-					'data' => 'stock.name'
-				],
-				'customerType.name' => [
-					'data' => 'customerType.name'
-				],
-				'paymentType.name' => [
-					'data' => 'paymentType.name'
-				],
-				'user.name' => [
-					'data' => 'user.name'
-				],
-				'billingRegion.name' => [
-					'data' => 'billingRegion.name'
-				],
-				'shippingRegion.name' => [
-					'data' => 'shippingRegion.name'
-				],
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name' => [
+                'searchable' => true
+            ],
+            'legal_name' => [
+                'searchable' => true
+            ],
+
+            'billingRegion.name' => [
+                'data' => 'billingRegion.name',
+            ],
+            'billing_postcode' => [
+                'searchable' => true
+            ],
+            'billing_address' => [
+                'searchable' => true
+            ],
+
+            'shippingRegion.name' => [
+                'data' => 'shippingRegion.name',
+            ],
+            'shipping_postcode' => [
+                'searchable' => true
+            ],
+            'shipping_address' => [
+                'searchable' => true
+            ],
+
+            'bid', // Business ID
+            'iban',
+            'swift',
+            'email' => [
+                'searchable' => true
+            ],
+            'phone' => [
+                'searchable' => true
+            ],
+            'order_interval',
+            'incomterms',
+            'delivery_payer',
+            'customerType.name' => [
+                'data' => 'customerType.name',
+            ],
+            'paymentType.name' => [
+                'data' => 'paymentType.name',
+            ],
+            'payment_conditions',
+            'stock.name' => [
+                'data' => 'stock.name',
+                'searchable' => true
+            ],
+            'created_at',
+            'updated_at',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getRawColumns()
+    {
+        return [
+            'name',
+            'comment',
+            'action'
+        ];
+    }
 
     /**
      * @return array
@@ -66,7 +91,10 @@ class CustomerDataTable extends DataTable
     protected function getAggregateColumns()
     {
         return [
-				'order_interval',
+            'order_interval' => [
+                'function' => 'avg',
+                'format' => '~%.02f',
+            ],
         ];
     }
 
@@ -76,53 +104,41 @@ class CustomerDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-				'stock.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'stock.id',
-					'lists' => 'stock.name',
-				],
-				'customerType.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'customerType.id',
-					'lists' => 'customerType.name',
-				],
-				'paymentType.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'paymentType.id',
-					'lists' => 'paymentType.name',
-				],
-				'user.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'user.id',
-					'lists' => 'user.name',
-				],
-				'billingRegion.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'billingRegion.id',
-					'lists' => 'billingRegion.name',
-				],
-				'shippingRegion.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'shippingRegion.id',
-					'lists' => 'shippingRegion.name',
-				],
+            'billingRegion.id' => [
+                'type' => 'select',
+                'multiple' => true,
+                'data' => 'billingRegion.id',
+                'lists' => 'billingRegion.name',
+            ],
+            'shippingRegion.id' => [
+                'type' => 'select',
+                'multiple' => true,
+                'data' => 'shippingRegion.id',
+                'lists' => 'shippingRegion.name',
+            ],
+            'stock.id' => [
+                'type' => 'select',
+                'multiple' => true,
+                'data' => 'stock.id',
+                'lists' => 'stock.name',
+            ],
+            'customerType.id' => [
+                'type' => 'select',
+                'multiple' => true,
+                'data' => 'customerType.id',
+                'lists' => 'customerType.name',
+            ],
         ];
     }
 
-	/**
-	 * @param Customer $customer
-	 * @return array
-	 */
-	protected function getActions($customer)
-	{
-		return parent::getActions($customer);
-	}
+    /**
+     * @param Customer $customer
+     * @return array
+     */
+    protected function getActions($customer)
+    {
+        return parent::getActions($customer);
+    }
 
     /**
      * @return array

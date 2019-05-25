@@ -67,16 +67,16 @@ return [
 		'payment_conditions' => 'Условия оплаты',
 		'pays_vat' => 'Плательщик НДС',
 		'stock' => [
-			'name' => 'Stock',
+			'name' => 'Склад',
 		],
 		'customerType' => [
-			'name' => 'Customer Type',
+			'name' => 'Тип клиента',
 		],
 		'paymentType' => [
-			'name' => 'Payment Type',
+			'name' => 'Тип оплаты',
 		],
 		'user' => [
-			'name' => 'User',
+			'name' => 'Ответственный',
 		],
 		'billingRegion' => [
 			'name' => 'Юр. регион',
@@ -86,10 +86,10 @@ return [
 		],
 	],
     'placeholders' => [
-		'stock' => 'Выберите Stock',
-		'customerType' => 'Выберите Customer Type',
-		'paymentType' => 'Выберите Payment Type',
-		'user' => 'Выберите User',
+		'stock' => 'Выберите Склад',
+		'customerType' => 'Выберите Тип клиента',
+		'paymentType' => 'Выберите Тип оплаты',
+		'user' => 'Выберите Ответственного',
 		'billingRegion' => 'Выберите Юр. регион',
 		'shippingRegion' => 'Выберите Факт. регион',
     ],

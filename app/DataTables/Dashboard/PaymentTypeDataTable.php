@@ -12,15 +12,30 @@ use App\PaymentType;
  */
 class PaymentTypeDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-				'name',
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name' => [
+                'searchable' => true
+            ],
+            'created_at',
+            'updated_at',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'action',
+        ];
+    }
 
     /**
      * @return array

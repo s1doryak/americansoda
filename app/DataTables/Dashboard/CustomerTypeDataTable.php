@@ -12,18 +12,32 @@ use App\CustomerType;
  */
 class CustomerTypeDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-				'name',
-				'customerType.name' => [
-					'data' => 'customerType.name'
-				],
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name',
+            'customerType.name' => [
+                'data' => 'customerType.name'
+            ],
+            'created_at',
+            'updated_at',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'customerType.name',
+            'action'
+        ];
+    }
 
     /**
      * @return array
@@ -41,23 +55,18 @@ class CustomerTypeDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-				'customerType.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'customerType.id',
-					'lists' => 'customerType.name',
-				],
+
         ];
     }
 
-	/**
-	 * @param CustomerType $customerType
-	 * @return array
-	 */
-	protected function getActions($customerType)
-	{
-		return parent::getActions($customerType);
-	}
+    /**
+     * @param CustomerType $customerType
+     * @return array
+     */
+    protected function getActions($customerType)
+    {
+        return parent::getActions($customerType);
+    }
 
     /**
      * @return array
@@ -66,4 +75,20 @@ class CustomerTypeDataTable extends DataTable
     {
         return parent::getButtons();
     }
+
+    /**
+     * @param CustomerType $customerType
+     * @return string
+     */
+    protected function renderCustomerType__NameColumn($customerType)
+    {
+        $customerTypeName = $customerType->customerType ? $customerType->customerType->name : null;
+
+        if ($customerTypeName) {
+            return $customerTypeName;
+        } else {
+            return $this->renderView('datatables::columns.default');
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-@extends('app::actions.index')
+@extends('dashboard::actions.index')
 
 @section('scripts')
     @parent

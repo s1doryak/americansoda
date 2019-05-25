@@ -12,20 +12,46 @@ use App\Stock;
  */
 class StockDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-				'name',
-				'postcode',
-				'address',
-				'region.name' => [
-					'data' => 'region.name'
-				],
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name' => [
+                'searchable' => true,
+            ],
+            'postcode' => [
+                'searchable' => true,
+            ],
+            'address' => [
+                'searchable' => true,
+            ],
+            'region.name' => [
+                'name' => 'region.name',
+                'data' => 'region.name',
+                'searchable' => true,
+            ],
+            'created_at',
+            'updated_at',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'postcode',
+            'address',
+            'region.name',
+            'created_at',
+            'updated_at',
+            'action',
+        ];
+    }
 
     /**
      * @return array
@@ -43,23 +69,23 @@ class StockDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-				'region.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'region.id',
-					'lists' => 'region.name',
-				],
+            'region.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'region.id',
+                'lists' => 'region.name',
+            ],
         ];
     }
 
-	/**
-	 * @param Stock $stock
-	 * @return array
-	 */
-	protected function getActions($stock)
-	{
-		return parent::getActions($stock);
-	}
+    /**
+     * @param Stock $stock
+     * @return array
+     */
+    protected function getActions($stock)
+    {
+        return parent::getActions($stock);
+    }
 
     /**
      * @return array

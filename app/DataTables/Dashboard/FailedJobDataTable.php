@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\App;
+namespace App\DataTables\Dashboard;
 
 use App\FailedJob;
 use Carbon\Carbon;
@@ -10,7 +10,7 @@ use Jenssegers\Date\Date;
 /**
  * FailedJob datatable.
  *
- * @package App\DataTables\App
+ * @package App\DataTables\Dashboard
  */
 class FailedJobDataTable extends DataTable
 {
@@ -191,7 +191,7 @@ class FailedJobDataTable extends DataTable
     protected function renderPayloadColumn($failedJob)
     {
         if ($this->isDataTableRequest()) {
-            return $this->renderView('app::resources.failed_job.columns.payload', ['failedJob' => $failedJob]);
+            return $this->renderView('dashboard::resources.failed_job.columns.payload', ['failedJob' => $failedJob]);
         }
 
         return $failedJob->payload;
@@ -204,7 +204,7 @@ class FailedJobDataTable extends DataTable
     protected function renderExceptionColumn($failedJob)
     {
         if ($this->isDataTableRequest()) {
-            return $this->renderView('app::resources.failed_job.columns.exception', ['failedJob' => $failedJob]);
+            return $this->renderView('dashboard::resources.failed_job.columns.exception', ['failedJob' => $failedJob]);
         }
 
         return $failedJob->exception;

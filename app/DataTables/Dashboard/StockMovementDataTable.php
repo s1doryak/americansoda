@@ -12,18 +12,27 @@ use App\StockMovement;
  */
 class StockMovementDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-				'movement_type',
-				'stock.name' => [
-					'data' => 'stock.name'
-				],
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'stock.name' => [
+                'name' => 'stock.name',
+                'data' => 'stock.name',
+                'searchable' => true
+            ],
+            'supplierOrder.name' => [
+                'name' => 'supplierOrder.name',
+                'data' => 'product.name',
+                'searchable' => true
+            ],
+            'movement_type',
+            'created_at',
+            'updated_at',
+        ];
+    }
 
     /**
      * @return array
@@ -41,23 +50,23 @@ class StockMovementDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-				'stock.name' => [
-					'type' => 'choice',
-					'multiple' => true,
-					'data' => 'stock.id',
-					'lists' => 'stock.name',
-				],
+            'stock.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'stock.id',
+                'lists' => 'stock.name',
+            ],
         ];
     }
 
-	/**
-	 * @param StockMovement $stockMovement
-	 * @return array
-	 */
-	protected function getActions($stockMovement)
-	{
-		return parent::getActions($stockMovement);
-	}
+    /**
+     * @param StockMovement $stockMovement
+     * @return array
+     */
+    protected function getActions($stockMovement)
+    {
+        return parent::getActions($stockMovement);
+    }
 
     /**
      * @return array

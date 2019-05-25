@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\App;
+namespace App\DataTables\Dashboard;
 
 use App\Job;
 use Carbon\Carbon;
@@ -10,7 +10,7 @@ use Jenssegers\Date\Date;
 /**
  * Job datatable.
  *
- * @package App\DataTables\App
+ * @package App\DataTables\Dashboard
  */
 class JobDataTable extends DataTable
 {

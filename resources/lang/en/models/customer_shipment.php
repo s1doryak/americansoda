@@ -84,6 +84,15 @@ return [
 		'user' => [
 			'name' => 'User',
 		],
+        'customerOrderItems' => [
+            'customerOrder' => [
+                'number' => 'Order Numbers',
+                'batch_number' => 'Batch Numbers',
+            ]
+        ],
+        'delivery_date' => 'Delivery Date',
+        'order_numbers' => 'Order Numbers',
+        'order_batch_numbers' => 'Batch Numbers',
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',

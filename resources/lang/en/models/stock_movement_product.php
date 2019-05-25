@@ -69,9 +69,12 @@ return [
 		'expiration_date' => 'Expiration Date',
 		'movement_type' => 'Movement Type',
 		'comment' => 'Comment',
-		'stockMovement' => [
-			'name' => 'Stock Movement',
-		],
+        'formatted_products_quantity' => 'Quantity',
+        'stockMovement' => [
+            'stock' => [
+                'name' => 'Stock',
+            ],
+        ],
 		'product' => [
 			'name' => 'Product',
 		],
@@ -80,11 +83,15 @@ return [
         'deleted_at' => 'Trashed',
     ],
     'filters' => [
-		'stockMovement' => [
-			'name' => 'Stock Movement',
-		],
-		'product' => [
-			'name' => 'Product',
-		],
+        'stockMovement' => [
+            'stock' => [
+                'name' => 'Stock',
+            ],
+        ],
+        'product' => [
+            'name' => 'Product',
+        ],
+        'created_at' => 'Registered',
+        'comment' => 'Comment (DD.MM.YYYY)'
     ],
 ];

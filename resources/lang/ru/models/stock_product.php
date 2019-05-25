@@ -63,30 +63,34 @@ return [
 		'customerOrderItem' => 'Выберите Позицию заказа',
     ],
     'columns' => [
-		'delivery_number' => 'L-номер',
-		'expiration_date' => 'Срок годности',
-		'stock' => [
-			'name' => 'Склад',
-		],
-		'product' => [
-			'name' => 'Товар',
-		],
-		'customerOrderItem' => [
-			'name' => 'Позиция заказа',
-		],
+        'stock' => [
+            'name' => 'Склад',
+        ],
+        'product' => [
+            'name' => 'Товар',
+            'productGroup' => [
+                'name' => 'Товарная категория'
+            ]
+        ],
+        'delivery_number' => 'L-номер',
+        'expiration_date' => 'Срок годности',
+        'total' => 'Всего',
+        'reserved' => 'Зарезервировано',
+        'available' => 'Доступно',
         'created_at' => 'Создано',
         'updated_at' => 'Изменено',
         'deleted_at' => 'Удалено',
     ],
     'filters' => [
-		'stock' => [
-			'name' => 'Склад',
-		],
-		'product' => [
-			'name' => 'Товар',
-		],
-		'customerOrderItem' => [
-			'name' => 'Позиция заказа',
-		],
+        'stock' => [
+            'name' => 'Склад',
+        ],
+        'product' => [
+            'name' => 'Товар',
+            'productGroup' => [
+                'name' => 'Товарная категория'
+            ]
+        ],
+        'delivery_number' => 'L-номер',
     ],
 ];

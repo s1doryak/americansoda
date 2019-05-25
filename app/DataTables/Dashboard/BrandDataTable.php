@@ -12,16 +12,32 @@ use App\Brand;
  */
 class BrandDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-				'name',
-				'logo',
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name' => [
+                'searchable' => true
+            ],
+            'created_at',
+            'updated_at',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'created_at',
+            'updated_at',
+            'action'
+        ];
+    }
 
     /**
      * @return array
@@ -43,14 +59,14 @@ class BrandDataTable extends DataTable
         ];
     }
 
-	/**
-	 * @param Brand $brand
-	 * @return array
-	 */
-	protected function getActions($brand)
-	{
-		return parent::getActions($brand);
-	}
+    /**
+     * @param Brand $brand
+     * @return array
+     */
+    protected function getActions($brand)
+    {
+        return parent::getActions($brand);
+    }
 
     /**
      * @return array
@@ -58,5 +74,19 @@ class BrandDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param Brand $brand
+     * @return string
+     */
+    protected function renderNameColumn($brand)
+    {
+        if ($this->isDataTableRequest()) {
+            $template = "%d products";
+            return $this->renderMediaView($brand->name, sprintf($template, $brand->products->count()), $brand->logo);
+        }
+
+        return $brand->name;
     }
 }

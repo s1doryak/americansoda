@@ -84,6 +84,15 @@ return [
 		'user' => [
 			'name' => 'Менеджер',
 		],
+        'customerOrderItems' => [
+            'customerOrder' => [
+                'number' => 'Номера заказов',
+                'batch_number' => 'Номера в систете клиентов',
+            ]
+        ],
+        'delivery_date' => 'Дата доставки',
+        'order_numbers' => 'Номера заказов',
+        'order_batch_numbers' => 'Номера в систете клиентов',
         'created_at' => 'Создана',
         'updated_at' => 'Изменена',
         'deleted_at' => 'Удалена',

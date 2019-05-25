@@ -12,17 +12,35 @@ use App\ProductGroup;
  */
 class ProductGroupDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-				'name',
-				'vat',
-				'sales_unit_volume',
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name' => [
+                'searchable' => true
+            ],
+            'vat',
+            'sales_unit_volume',
+            'created_at',
+            'updated_at',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'vat',
+            'sales_unit_volume',
+            'created_at',
+            'updated_at',
+        ];
+    }
 
     /**
      * @return array
@@ -30,8 +48,8 @@ class ProductGroupDataTable extends DataTable
     protected function getAggregateColumns()
     {
         return [
-				'vat',
-				'sales_unit_volume',
+            'vat',
+            'sales_unit_volume',
         ];
     }
 
@@ -45,14 +63,14 @@ class ProductGroupDataTable extends DataTable
         ];
     }
 
-	/**
-	 * @param ProductGroup $productGroup
-	 * @return array
-	 */
-	protected function getActions($productGroup)
-	{
-		return parent::getActions($productGroup);
-	}
+    /**
+     * @param ProductGroup $productGroup
+     * @return array
+     */
+    protected function getActions($productGroup)
+    {
+        return parent::getActions($productGroup);
+    }
 
     /**
      * @return array

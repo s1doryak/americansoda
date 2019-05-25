@@ -14,6 +14,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] Онлайн и Предзаказы
 - [ ] Смена магазинов
 
+-[x] Восстановление таблицы `migrations`:
+```sql
+insert into migrations values
+('2014_04_02_193005_create_translations_table', 1),
+('2016_03_16_000000_create_regions_table', 1),
+('2016_03_16_500000_create_companies_table', 1),
+('2016_03_17_000000_create_roles_table', 1),
+('2016_03_18_000000_create_users_table', 1),
+('2016_03_18_100000_create_users_password_resets_table', 1),
+('2016_03_18_200000_create_administrators_table', 1),
+('2016_03_18_300000_create_administrators_password_resets_table', 1),
+('2016_03_19_070808_create_brands_table', 1),
+('2016_03_19_070810_create_package_types_table', 1),
+('2016_03_19_070813_create_product_groups_table', 1),
+('2016_03_19_070820_create_products_table', 1),
+('2016_03_19_071456_create_stocks_table', 1),
+('2016_03_19_072031_create_payment_types_table', 1),
+('2016_03_19_072050_create_customer_types_table', 1),
+('2016_03_19_072100_create_customers_table', 1),
+('2016_03_19_072102_create_customer_revisions_table', 1),
+('2016_03_19_072104_create_customer_orders_table', 1),
+('2016_03_19_072105_create_customer_shipments_table', 1),
+('2016_03_19_072118_create_customer_order_items_table', 1),
+('2016_04_25_102600_create_customer_pricing_policies_table', 1),
+('2016_04_25_102700_create_customer_pricing_policy_revisions_table', 1),
+('2016_04_26_070809_create_assemblies_table', 1),
+('2016_06_03_102021_create_stock_movements_table', 1),
+('2016_06_03_102037_create_stock_movement_products_table', 1),
+('2016_08_02_094119_create_stock_products_table', 1);
+```
+
 -[ ] ProductTag
 ```bash
 docker-compose run artisan generate:resource ProductTag \
@@ -451,10 +482,10 @@ docker-compose run artisan generate:resource Customer \
     --translate-field=payment_conditions:ru:"Условия оплаты" \
     --translate-field=pays_vat:ru:"Плательщик НДС" \
     \
-    --translate-belongs-to=stock:"Склад":"Склад" \
-    --translate-belongs-to=customerType:"Тип клиента":"Тип клиента" \
-    --translate-belongs-to=paymentType:"Тип оплаты":"Тип оплаты" \
-    --translate-belongs-to=user:"Ответственный":"Ответственного" \
+    --translate-belongs-to=Stock:"Склад":"Склад" \
+    --translate-belongs-to=CustomerType:"Тип клиента":"Тип клиента" \
+    --translate-belongs-to=PaymentType:"Тип оплаты":"Тип оплаты" \
+    --translate-belongs-to=User:"Ответственный":"Ответственного" \
     --translate-belongs-to=billingRegion:ru:"Юр. регион":"Юр. регион" \
     --translate-belongs-to=shippingRegion:ru:"Факт. регион":"Факт. регион" \
     \
