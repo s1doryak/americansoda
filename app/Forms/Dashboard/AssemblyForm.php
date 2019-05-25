@@ -16,46 +16,46 @@ class AssemblyForm extends Form
     /**
      * @return array
      */
-	public static function getCreateFormFields()
-	{
+    public static function getCreateFormFields()
+    {
         return [
-				'number' => 'text',
-				'comment' => 'editor',
+            'number' => 'text',
+            'comment' => 'editor',
         ];
-	}
+    }
 
     /**
      * @param Assembly $assembly
      * @return array
      */
-	public static function getEditFormFields($assembly)
-	{
+    public static function getEditFormFields($assembly)
+    {
         return [
-				'number' => 'text',
-				'comment' => 'editor',
+            'number' => 'text',
+            'comment' => 'editor',
         ];
-	}
+    }
 
     /**
      * @return array
      */
-	public static function getStoreValidationRules()
-	{
+    public static function getStoreValidationRules()
+    {
         return [
-			'number' => 'sometimes',
-			'comment' => 'sometimes',
+            'number' => 'sometimes',
+            'comment' => 'sometimes',
         ];
-	}
+    }
 
     /**
      * @param Assembly $assembly
      * @return array
      */
-	public static function getUpdateValidationRules($assembly)
-	{
+    public static function getUpdateValidationRules($assembly)
+    {
         return [
-			'number' => 'sometimes',
-			'comment' => 'sometimes',
+            'number' => 'sometimes',
+            'comment' => 'sometimes',
         ];
-	}
+    }
 }

@@ -16,46 +16,46 @@ class BrandForm extends Form
     /**
      * @return array
      */
-	public static function getCreateFormFields()
-	{
+    public static function getCreateFormFields()
+    {
         return [
-				'name' => 'text',
-				'logo' => 'image',
+            'name' => 'text',
+            'logo' => 'image',
         ];
-	}
+    }
 
     /**
      * @param Brand $brand
      * @return array
      */
-	public static function getEditFormFields($brand)
-	{
+    public static function getEditFormFields($brand)
+    {
         return [
-				'name' => 'text',
-				'logo' => 'image',
+            'name' => 'text',
+            'logo' => 'image',
         ];
-	}
+    }
 
     /**
      * @return array
      */
-	public static function getStoreValidationRules()
-	{
+    public static function getStoreValidationRules()
+    {
         return [
-			'name' => 'sometimes',
-			'logo' => 'sometimes',
+            'name' => 'sometimes',
+            'logo' => 'sometimes',
         ];
-	}
+    }
 
     /**
      * @param Brand $brand
      * @return array
      */
-	public static function getUpdateValidationRules($brand)
-	{
+    public static function getUpdateValidationRules($brand)
+    {
         return [
-			'name' => 'sometimes',
-			'logo' => 'sometimes',
+            'name' => 'sometimes',
+            'logo' => 'sometimes',
         ];
-	}
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Forms\App;
+namespace App\Forms\Dashboard;
 
 use App\FailedJob;
 use Crmplease\MaterialAdmin\Forms\Form;
@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 /**
  * FailedJob form.
  *
- * @package App\Forms\App
+ * @package App\Forms\Dashboard
  */
 class FailedJobForm extends Form
 {

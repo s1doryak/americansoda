@@ -16,74 +16,66 @@ class AdministratorForm extends Form
     /**
      * @return array
      */
-	public static function getCreateFormFields()
-	{
+    public static function getCreateFormFields()
+    {
         return [
-				'email' => 'text',
-				'email_verified_at' => 'timepicker',
-				'password' => 'password',
-				'name' => 'text',
-				'phone' => 'text',
-				'avatar' => 'image',
-				'role' => 'choice',
-				'company' => 'choice',
+            'email' => 'text',
+            'name' => 'text',
+            'phone' => 'text',
+            'avatar' => 'image',
+            'role' => 'choice',
+            'company' => 'choice',
         ];
-	}
+    }
 
     /**
      * @param Administrator $administrator
      * @return array
      */
-	public static function getEditFormFields($administrator)
-	{
+    public static function getEditFormFields($administrator)
+    {
         return [
-				'email' => 'text',
-				'email_verified_at' => 'timepicker',
-				'password' => 'password',
-				'name' => 'text',
-				'phone' => 'text',
-				'avatar' => 'image',
-				'role' => 'choice',
-				'company' => 'choice',
+            'email' => 'text',
+            'name' => 'text',
+            'phone' => 'text',
+            'avatar' => 'image',
+            'role' => 'choice',
+            'company' => 'choice',
         ];
-	}
+    }
 
     /**
      * @return array
      */
-	public static function getStoreValidationRules()
-	{
+    public static function getStoreValidationRules()
+    {
         return [
-			'email' => 'sometimes|email|unique:administrators',
-			'email_verified_at' => 'sometimes',
-			'password' => 'sometimes|string|min:6',
-			'name' => 'sometimes',
-			'phone' => 'sometimes',
-			'avatar' => 'sometimes',
-			'role' => 'sometimes|exists:roles,id',
-			'company' => 'sometimes|exists:companies,id',
+            'email' => 'sometimes|email|unique:administrators',
+            'name' => 'sometimes',
+            'phone' => 'sometimes',
+            'avatar' => 'sometimes',
+            'role' => 'sometimes|exists:roles,id',
+            'company' => 'sometimes|exists:companies,id',
         ];
-	}
+    }
 
     /**
      * @param Administrator $administrator
      * @return array
      */
-	public static function getUpdateValidationRules($administrator)
-	{
+    public static function getUpdateValidationRules($administrator)
+    {
         return [
-			'email' => [
-				'required',
-				'email',
-				Rule::unique('administrators')->ignore($administrator->id),
-			],
-			'email_verified_at' => 'sometimes',
-			'password' => 'sometimes|string|min:6',
-			'name' => 'sometimes',
-			'phone' => 'sometimes',
-			'avatar' => 'sometimes',
-			'role' => 'sometimes|exists:roles,id',
-			'company' => 'sometimes|exists:companies,id',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('administrators')->ignore($administrator->getKey()),
+            ],
+            'name' => 'sometimes',
+            'phone' => 'sometimes',
+            'avatar' => 'sometimes',
+            'role' => 'sometimes|exists:roles,id',
+            'company' => 'sometimes|exists:companies,id',
         ];
-	}
+    }
 }
