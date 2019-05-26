@@ -39,7 +39,6 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\JobCreator::class,
 		\App\Console\Commands\FailedJobCreator::class,
         \App\Console\Commands\ProductTagCreator::class,
-		// ...$commands
 	];
 
 	/**

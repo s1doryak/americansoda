@@ -25,5 +25,4 @@
     App\Repositories\Contracts\JobRepository::class => App\Repositories\Eloquent\JobRepositoryEloquent::class,
     App\Repositories\Contracts\FailedJobRepository::class => App\Repositories\Eloquent\FailedJobRepositoryEloquent::class,
     App\Repositories\Contracts\ProductTagRepository::class => App\Repositories\Eloquent\ProductTagRepositoryEloquent::class,
-	// ...repositories
 ];
