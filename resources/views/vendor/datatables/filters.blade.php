@@ -1,6 +1,6 @@
 @if($filters->count())
     <form id="{{ $id }}" class="{{ $class }}" enctype="multipart/form-data" style="display: none;">
-        <div class="row">
+        <div class="row p-t-30">
             @foreach($filters as $idx => $filter)
                 @if(view()->exists($filter->template))
                     @include($filter->template, compact('filter'))
