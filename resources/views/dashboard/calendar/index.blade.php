@@ -4,7 +4,7 @@
     <meta name="calendar-update" content="{{ route('dashboard.calendar.update') }}">
     @stop
     @section('page-title')
-    {{ config('app.name') }} &ndash; Calendar
+    {{ config('app.name') }} &ndash; {{ trans('calendar.index.title') }}
 @stop
 @section('block-header-title')
     <h2>
@@ -16,14 +16,12 @@
         <li><a class="calendar-reload" href=""><i class="zmdi zmdi-refresh"></i></a></li>
         <li><a class="calendar-prev" href=""><i class="zmdi zmdi-chevron-left"></i></a></li>
         <li><a class="calendar-next" href=""><i class="zmdi zmdi-chevron-right"></i></a></li>
-
         <li class="dropdown">
             <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
             <ul class="dropdown-menu dm-icon pull-right">
-                <li><a href="" data-calendar-view="month"><i class="zmdi zmdi-view-comfy active"></i> Month View</a>
-                </li>
-                <li><a href="" data-calendar-view="basicWeek"><i class="zmdi zmdi-view-week"></i> Week View</a></li>
-                <li><a href="" data-calendar-view="basicDay"><i class="zmdi zmdi-view-day"></i> Day View</a></li>
+                <li><a href="" data-calendar-view="month"><i class="zmdi zmdi-view-comfy active"></i> {{ trans('calendar.view.month') }}</a></li>
+                <li><a href="" data-calendar-view="basicWeek"><i class="zmdi zmdi-view-week"></i> {{ trans('calendar.view.week') }}</a></li>
+                <li><a href="" data-calendar-view="basicDay"><i class="zmdi zmdi-view-day"></i> {{ trans('calendar.view.day') }}</a></li>
             </ul>
         </li>
     </ul>
@@ -50,7 +48,7 @@
                         <div class="form-group">
                             <div class="fg-line">
                                 <textarea class="form-control auto-size html-editor" name="event-comment"
-                                          placeholder="Event Comments" rows="6"></textarea>
+                                          placeholder="{{ trans('calendar.placeholder.comment') }}" rows="6"></textarea>
                             </div>
                         </div>
 
@@ -61,8 +59,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-link" data-calendar="update">Update</button>
-                    <button class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button class="btn btn-link" data-calendar="update">{{ trans('calendar.button.update') }}</button>
+                    <button class="btn btn-link" data-dismiss="modal">{{ trans('calendar.button.close') }}</button>
                 </div>
             </div>
         </div>
