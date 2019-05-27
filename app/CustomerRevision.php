@@ -52,6 +52,12 @@ namespace App;
  */
 class CustomerRevision extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
+	const REV_CREATED = 'created';
+	const REV_EDITED = 'edited';
+	const REV_COMMENTED = 'commented';
+	const REV_DESTROYED = 'destroyed';
+	const REV_TRASHED = 'trashed';
+
     protected $fillable = [
         'revision_type',
         'name',

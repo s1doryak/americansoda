@@ -18,10 +18,30 @@ class StockMovementForm extends Form
      */
 	public static function getCreateFormFields()
 	{
-        return [
-				'movement_type' => 'text',
-				'stock' => 'choice',
-        ];
+		$mt_prefix = 'models/stock_movement.movement_types';
+
+		return [
+			'movement_type' => [
+				'type' => 'select',
+				'expanded' => true,
+				'multiple' => false,
+				'choices' => [
+					'receipt' => trans(sprintf('%s.receipt', $mt_prefix)),
+					'cancellation' => trans(sprintf('%s.cancellation', $mt_prefix)),
+				],
+				'selected' => 'receipt',
+				'choice_options' => [
+					'inline' => true,
+				],
+			],
+			'stock' => 'select',
+			'stockMovementProducts[0]' => [
+				'type' => 'relation_form',
+				'fields' => StockMovementProductForm::getCreateFormFields(),
+				'form_title' => trans('models/stock_movement.product.labels.plural'),
+				'resource' => 'stock_movement.product',
+			],
+		];
 	}
 
     /**
@@ -30,10 +50,30 @@ class StockMovementForm extends Form
      */
 	public static function getEditFormFields($stockMovement)
 	{
-        return [
-				'movement_type' => 'text',
-				'stock' => 'choice',
-        ];
+		$mt_prefix = 'models/stock_movement.movement_types';
+
+		return [
+			'movement_type' => [
+				'type' => 'select',
+				'expanded' => true,
+				'multiple' => false,
+				'choices' => [
+					'receipt' => trans(sprintf('%s.receipt', $mt_prefix)),
+					'cancellation' => trans(sprintf('%s.cancellation', $mt_prefix)),
+				],
+				'selected' => 'receipt',
+				'choice_options' => [
+					'inline' => true,
+				],
+			],
+			'stock' => 'select',
+			'stockMovementProducts[0]' => [
+				'type' => 'relation_form',
+				'fields' => StockMovementProductForm::getCreateFormFields(),
+				'form_title' => trans('models/stock_movement.product.labels.plural'),
+				'resource' => 'stock_movement.product',
+			],
+		];
 	}
 
     /**
@@ -42,8 +82,12 @@ class StockMovementForm extends Form
 	public static function getStoreValidationRules()
 	{
         return [
-			'movement_type' => 'sometimes',
-			'stock' => 'sometimes|exists:stocks,id',
+			'movement_type' => 'required|in:receipt,cancellation',
+			'stock' => 'required|exists:stocks,id',
+			'stockMovementProducts.*.product' => 'required|exists:products,id',
+			'stockMovementProducts.*.products_quantity' => 'required|integer|min:1',
+			'stockMovementProducts.*.movement_type' => 'required',
+			'stockMovementProducts.*.expiration_date' => 'sometimes|required_if:movement_type,receipt',
         ];
 	}
 
@@ -54,8 +98,12 @@ class StockMovementForm extends Form
 	public static function getUpdateValidationRules($stockMovement)
 	{
         return [
-			'movement_type' => 'sometimes',
-			'stock' => 'sometimes|exists:stocks,id',
+			'movement_type' => 'required|in:receipt,cancellation',
+			'stock' => 'required|exists:stocks,id',
+			'stockMovementProducts.*.product' => 'required|exists:products,id',
+			'stockMovementProducts.*.products_quantity' => 'required|integer|min:1',
+			'stockMovementProducts.*.movement_type' => 'required',
+			'stockMovementProducts.*.expiration_date' => 'sometimes|required_if:movement_type,receipt',
         ];
 	}
 }

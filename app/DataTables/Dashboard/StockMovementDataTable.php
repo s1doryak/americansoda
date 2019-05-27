@@ -23,11 +23,6 @@ class StockMovementDataTable extends DataTable
                 'data' => 'stock.name',
                 'searchable' => true
             ],
-            'supplierOrder.name' => [
-                'name' => 'supplierOrder.name',
-                'data' => 'product.name',
-                'searchable' => true
-            ],
             'movement_type',
             'created_at',
             'updated_at',

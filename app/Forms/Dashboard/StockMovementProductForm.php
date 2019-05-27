@@ -19,14 +19,21 @@ class StockMovementProductForm extends Form
 	public static function getCreateFormFields()
 	{
         return [
-				'product_name' => 'text',
-				'products_quantity' => 'number',
-				'delivery_number' => 'text',
-				'expiration_date' => 'timepicker',
-				'movement_type' => 'text',
-				'comment' => 'textarea',
-				'stockMovement' => 'choice',
-				'product' => 'choice',
+			'product'           => [
+				'type'     => 'choice',
+				'multiple' => false,
+			],
+			'products_quantity' => 'text',
+			'delivery_number'   => 'text',
+			'expiration_date'   => 'datepicker',
+			'movement_type' => [
+				'type' => 'select',
+				'expanded' => true,
+				'multiple' => false,
+				'choices' => config('stock.movement')
+			],
+			'comment'           => 'text',
+			'submit'            => null,
         ];
 	}
 
@@ -37,14 +44,21 @@ class StockMovementProductForm extends Form
 	public static function getEditFormFields($stockMovementProduct)
 	{
         return [
-				'product_name' => 'text',
-				'products_quantity' => 'number',
-				'delivery_number' => 'text',
-				'expiration_date' => 'timepicker',
-				'movement_type' => 'text',
-				'comment' => 'textarea',
-				'stockMovement' => 'choice',
-				'product' => 'choice',
+			'product'           => [
+				'type'     => 'choice',
+				'multiple' => false,
+			],
+			'products_quantity' => 'text',
+			'delivery_number'   => 'text',
+			'expiration_date'   => 'datepicker',
+			'movement_type' => [
+				'type' => 'select',
+				'expanded' => true,
+				'multiple' => false,
+				'choices' => config('stock.movement')
+			],
+			'comment'           => 'text',
+			'submit'            => null,
         ];
 	}
 

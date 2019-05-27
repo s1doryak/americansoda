@@ -13,57 +13,91 @@ use Illuminate\Validation\Rule;
  */
 class CustomerPricingPolicyForm extends Form
 {
-    /**
-     * @return array
-     */
+	/**
+	 * @return array
+	 */
 	public static function getCreateFormFields()
 	{
-        return [
-				'products_range' => 'number',
-				'price' => 'text',
-				'productGroup' => 'choice',
-				'customer' => 'choice',
-        ];
+		return [
+			'products_range' => 'text',
+			'price' => 'text',
+			'id' => [
+				'type' => 'hidden',
+			],
+			'productGroup' => [
+				'type' => 'hidden',
+			],
+			'_remove' => [
+				'type' => 'hidden',
+				'value' => 0,
+				'attr' => [
+					'data-remove',
+				],
+			],
+			'_changed' => [
+				'type' => 'hidden',
+				'value' => 0,
+				'attr' => [
+					'data-changed',
+				],
+			],
+			'submit' => null,
+		];
 	}
 
-    /**
-     * @param CustomerPricingPolicy $customerPricingPolicy
-     * @return array
-     */
+	/**
+	 * @param CustomerPricingPolicy $customerPricingPolicy
+	 * @return array
+	 */
 	public static function getEditFormFields($customerPricingPolicy)
 	{
-        return [
-				'products_range' => 'number',
-				'price' => 'text',
-				'productGroup' => 'choice',
-				'customer' => 'choice',
-        ];
+		return [
+			'products_range' => 'text',
+			'price' => 'text',
+			'id' => [
+				'type' => 'hidden',
+			],
+			'productGroup' => [
+				'type' => 'hidden',
+			],
+			'_remove' => [
+				'type' => 'hidden',
+				'value' => 0,
+				'attr' => [
+					'data-remove',
+				],
+			],
+			'_changed' => [
+				'type' => 'hidden',
+				'value' => 0,
+				'attr' => [
+					'data-changed',
+				],
+			],
+			'submit' => null,
+		];
 	}
 
-    /**
-     * @return array
-     */
+	/**
+	 * @return array
+	 */
 	public static function getStoreValidationRules()
 	{
-        return [
-			'products_range' => 'sometimes',
-			'price' => 'sometimes',
-			'productGroup' => 'sometimes|exists:product_groups,id',
-			'customer' => 'sometimes|exists:customers,id',
-        ];
+		return [
+			'products_range' => 'required',
+			'price' => 'required',
+		];
 	}
 
-    /**
-     * @param CustomerPricingPolicy $customerPricingPolicy
-     * @return array
-     */
+	/**
+	 * @param CustomerPricingPolicy $customerPricingPolicy
+	 * @return array
+	 */
 	public static function getUpdateValidationRules($customerPricingPolicy)
 	{
-        return [
-			'products_range' => 'sometimes',
-			'price' => 'sometimes',
-			'productGroup' => 'sometimes|exists:product_groups,id',
-			'customer' => 'sometimes|exists:customers,id',
-        ];
+		return [
+			'products_range' => 'required',
+			'price' => 'required',
+		];
 	}
 }

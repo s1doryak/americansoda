@@ -3,6 +3,8 @@
 namespace App\Forms\Dashboard;
 
 use App\CustomerOrder;
+use App\Forms\Traits\UserFieldForm;
+use App\Repositories\Contracts\CustomerOrderRepository;
 use Crmplease\MaterialAdmin\Forms\Form;
 use Illuminate\Validation\Rule;
 
@@ -13,77 +15,149 @@ use Illuminate\Validation\Rule;
  */
 class CustomerOrderForm extends Form
 {
-    /**
-     * @return array
-     */
+	use UserFieldForm;
+
+	/**
+	 * @return array
+	 */
 	public static function getCreateFormFields()
 	{
-        return [
-				'number' => 'text',
-				'batch_number' => 'text',
-				'comment' => 'editor',
-				'fc_overdue' => 'number',
-				'fc_comment' => 'editor',
-				'fc_future_comment' => 'editor',
-				'sent_at' => 'timepicker',
-				'customer' => 'choice',
-				'user' => 'choice',
-        ];
+		$fields = [];
+
+		$fields['user'] = static::provideUserFormField();
+
+		if (resource_name() === 'customer.order') {
+			$fields['customer'] = [
+				'type' => 'hidden',
+				'value' => resource_id('customer'),
+			];
+		} else {
+			$fields['customer'] = [
+				'type' => 'choice',
+				'multiple' => false,
+			];
+		}
+
+		$fields['number'] = [
+			'type' => 'text',
+			'value' => app(CustomerOrderRepository::class)->getFirstAvailableNumber()
+		];
+		$fields['batch_number'] = 'text';
+		$fields['comment'] = 'editor';
+		$fields['calendar_comment'] = 'editor';
+
+		$item = [
+			'type' => 'relation_form',
+			'fields' => CustomerOrderItemForm::getCreateFormFields(),
+			'form_title' => trans('models/customer.order.item.labels.plural'),
+			'resource' => 'customer.order.item',
+			'items' => collect([]),
+			'can_add' => true,
+			'can_edit' => function ($item = null) {
+				return true;
+			},
+			'can_select' => function ($item = null) {
+				return true;
+			},
+		];
+
+		$fields['customerOrderItems[0]'] = $item;
+
+		return $fields;
 	}
 
-    /**
-     * @param CustomerOrder $customerOrder
-     * @return array
-     */
+	/**
+	 * @param CustomerOrder $customerOrder
+	 * @return array
+	 */
 	public static function getEditFormFields($customerOrder)
 	{
-        return [
-				'number' => 'text',
-				'batch_number' => 'text',
-				'comment' => 'editor',
-				'fc_overdue' => 'number',
-				'fc_comment' => 'editor',
-				'fc_future_comment' => 'editor',
-				'sent_at' => 'timepicker',
-				'customer' => 'choice',
-				'user' => 'choice',
-        ];
+		$fields = [];
+
+		$fields['user'] = static::provideUserFormField($customerOrder);
+
+		if (resource_name() === 'customer.order') {
+			$fields['customer'] = [
+				'type' => 'hidden',
+				'value' => resource_id('customer'),
+			];
+		} else {
+			$fields['customer_id'] = [
+				'type' => 'choice',
+				'multiple' => false,
+				'attr' => [
+					'disabled' => true,
+				],
+				'value' => $customerOrder->customer->id,
+			];
+
+			$fields['customer'] = [
+				'type' => 'hidden',
+				'value' => $customerOrder->customer->id,
+			];
+		}
+
+		$fields['number'] = 'text';
+		$fields['batch_number'] = 'text';
+		$fields['comment'] = 'editor';
+		$fields['calendar_comment'] = 'editor';
+
+		$item = [
+			'type' => 'relation_form',
+			'fields' => CustomerOrderItemForm::getCreateFormFields(),
+			'form_title' => trans('models/customer.order.item.labels.plural'),
+			'resource' => 'customer.order.item',
+			'items' => $customerOrder->customerOrderItems,
+			'can_add' => true,
+			'can_edit' => function ($item = null) {
+				if (is_object($item)) {
+					return in_array($item->status, ['open', 'assembly', 'shipment']);
+				}
+				return true;
+			},
+			'can_remove' => function ($item = null) {
+				if (is_object($item)) {
+					return in_array($item->status, ['open', 'assembly', 'shipment']);
+				}
+				return true;
+			},
+			'can_select' => function ($item = null) {
+				if (is_object($item)) {
+					return false;
+				}
+				return true;
+			},
+		];
+
+		$fields['customerOrderItems[0]'] = $item;
+
+		return $fields;
 	}
 
-    /**
-     * @return array
-     */
+	/**
+	 * @return array
+	 */
 	public static function getStoreValidationRules()
 	{
-        return [
-			'number' => 'sometimes',
-			'batch_number' => 'sometimes',
-			'comment' => 'sometimes',
-			'fc_overdue' => 'sometimes',
-			'fc_comment' => 'sometimes',
-			'fc_future_comment' => 'sometimes',
-			'sent_at' => 'sometimes',
-			'customer' => 'sometimes|exists:customers,id',
-			'user' => 'sometimes|exists:users,id',
-        ];
+		return [
+			'user' => 'required|exists:users,id',
+			'customer' => 'required|exists:customers,id',
+			'number' => 'required',
+			'customerOrderItems.*.product' => 'required|exists:products,id',
+		];
 	}
 
-    /**
-     * @param CustomerOrder $customerOrder
-     * @return array
-     */
+	/**
+	 * @param CustomerOrder $customerOrder
+	 * @return array
+	 */
 	public static function getUpdateValidationRules($customerOrder)
 	{
-        return [
-			'number' => 'sometimes',
-			'batch_number' => 'sometimes',
-			'comment' => 'sometimes',
-			'fc_overdue' => 'sometimes',
-			'fc_comment' => 'sometimes',
-			'fc_future_comment' => 'sometimes',
-			'sent_at' => 'sometimes',
-			'customer' => 'sometimes|exists:customers,id',
-			'user' => 'sometimes|exists:users,id',
-        ];
+		return [
+			'user' => 'required|exists:users,id',
+			'customer' => 'required|exists:customers,id',
+			'number' => 'required',
+			'customerOrderItems.*.product' => 'required|exists:products,id',
+		];
 	}
 }
