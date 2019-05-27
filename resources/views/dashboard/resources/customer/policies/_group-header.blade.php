@@ -10,9 +10,9 @@
 </tr>
 <tr>
     @foreach($fields as $field)
-        @set($type = $field->getType())
+        @php($type = $field->getType())
         @if ($type !== 'hidden' && !in_array($field->getRealName(), $exclude))
-            @set($th = 'th-' . $field->getRealName() . ' th-' . $type)
+            @php($th = 'th-' . $field->getRealName() . ' th-' . $type)
             <th class="{{ $th }}">{{ $field->getOption('label') }}</th>
         @endif
     @endforeach

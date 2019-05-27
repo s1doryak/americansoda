@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+
 /**
  * StockMovementProduct
  *
@@ -89,9 +91,8 @@ class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
     ];
 
     protected $with = [
-        'stockMovement',
-        'product',
-    ];
+
+	];
 
     protected $images = [
 

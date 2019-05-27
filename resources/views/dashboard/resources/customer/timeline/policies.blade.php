@@ -1,5 +1,5 @@
-@set($policies = collect($policies)->groupBy('productGroup.name'))
-@set($attributes = ['products_range', 'price'])
+@php($policies = collect($policies)->groupBy('productGroup.name'))
+@php($attributes = ['products_range', 'price'])
 <table class="revisions-table table">
     <tbody>
     @foreach($policies as $group => $grouped)

@@ -1,9 +1,9 @@
-@set($is_template = isset($is_template) && $is_template === true)
-@set($multiple_rows = isset($multiple_rows) && $multiple_rows === true)
+@php($is_template = isset($is_template) && $is_template === true)
+@php($multiple_rows = isset($multiple_rows) && $multiple_rows === true)
 <tr class="js-row">
     @foreach($fields as $field)
-        @set($type = $field->getType())
-        @set($name = $field->getRealName())
+        @php($type = $field->getType())
+        @php($name = $field->getRealName())
         @if ($type === 'hidden')
             @continue
         @endif
@@ -13,66 +13,66 @@
         @endif
 
         @if($multiple_rows && !$is_template)
-            @set($field->setName(preg_replace('/(\d+)/', "{$index}", $field->getName())))
+            @php($field->setName(preg_replace('/(\d+)/', "{$index}", $field->getName())))
         @endif
 
         <td class="td-{{ $name }} td-{{ $type }}">
-            @set($containerClass = 'form-group')
+            @php($containerClass = 'form-group')
             @if ($errors->has($field->getNameKey()))
-                @set($containerClass .= ' has-error')
+                @php($containerClass .= ' has-error')
             @endif
             <div class="{{ $containerClass }}">
-                @set($attrs = [])
+                @php($attrs = [])
                 @if ($type !== 'static')
-                    @set($attrs = ['attr' => ['class' => 'form-control fc-alt']])
+                    @php($attrs = ['attr' => ['class' => 'form-control fc-alt']])
                 @endif
 
                 @if(isset($item))
                     @if(is_object($item))
                         @if(is_object($item->{$name}))
-                            @set($value = $item->{$name}->getKey())
+                            @php($value = $item->{$name}->getKey())
                         @else
-                            @set($value = $item->{$name})
+                            @php($value = $item->{$name})
                         @endif
                     @else
-                        @set($value = array_get($item, $name))
+                        @php($value = array_get($item, $name))
                     @endif
                 @else
-                    @set($value = '')
+                    @php($value = '')
                 @endif
 
                 @if($can_edit)
                     @if(in_array($type, ['select', 'choice']))
                         @if ($can_select)
-                            @set($field->enable())
+                            @php($field->enable())
                         @else
-                            @set($field->disable())
-                            @set($field->setOption('attr.disabled', 'disabled'))
+                            @php($field->disable())
+                            @php($field->setOption('attr.disabled', 'disabled'))
                             {!! Form::hidden($field->getName(), $value) !!}
                         @endif
                     @else
-                        @set($field->enable())
+                        @php($field->enable())
                     @endif
                 @else
                     @if(in_array($type, ['select', 'choice']))
                         @if ($can_select)
-                            @set($field->enable())
+                            @php($field->enable())
                         @else
-                            @set($field->disable())
-                            @set($field->setOption('attr.disabled', 'disabled'))
+                            @php($field->disable())
+                            @php($field->setOption('attr.disabled', 'disabled'))
                             {!! Form::hidden($field->getName(), $value) !!}
                         @endif
                     @else
-                        @set($field->disable())
+                        @php($field->disable())
                         {!! Form::hidden($field->getName(), $value) !!}
                     @endif
                 @endif
 
                 @if (isset($item) && $is_template === false)
-                    @set($key = in_array($type, ['select', 'choice']) ? 'selected' : 'value')
-                    @set($attrs[$key] = $value)
+                    @php($key = in_array($type, ['select', 'choice']) ? 'selected' : 'value')
+                    @php($attrs[$key] = $value)
                 @else
-                    @set($attrs['value'] = '')
+                    @php($attrs['value'] = '')
                 @endif
 
                 {!! $field->render($attrs, false, true, false) !!}
@@ -81,27 +81,27 @@
     @endforeach
     @if(!isset($actions) || $actions)
         <td class="td-actions">
-            @include('dashboard::partials.forms.buttons.remove')
+            @include('dashboard::forms.buttons.remove')
 
             @foreach($fields as $field)
-                @set($name = $field->getRealName())
+                @php($name = $field->getRealName())
                 @if ($field->getOption('type') === 'hidden' && !in_array($name, $exclude))
                     @if(isset($multiple_rows) && $multiple_rows === true)
-                        @set($field->setName(preg_replace('/(\d+)/', "{$index}", $field->getName())))
+                        @php($field->setName(preg_replace('/(\d+)/', "{$index}", $field->getName())))
                     @endif
 
-                    @set($attrs = [])
+                    @php($attrs = [])
                     @if (isset($item))
                         @if(is_object($item))
                             @if(is_object($item->{$name}))
-                                @set($value = $item->{$name}->getKey())
+                                @php($value = $item->{$name}->getKey())
                             @else
-                                @set($value = $item->{$name})
+                                @php($value = $item->{$name})
                             @endif
                         @else
-                            @set($value = array_get($item, $name))
+                            @php($value = array_get($item, $name))
                         @endif
-                        @set($attrs['value'] = $value)
+                        @php($attrs['value'] = $value)
                     @endif
 
                     {!! $field->render($attrs) !!}

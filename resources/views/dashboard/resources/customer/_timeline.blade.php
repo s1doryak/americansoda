@@ -3,7 +3,7 @@
     <div class="timeline">
         @foreach ($revisions as $created_at => $items)
             @if (isset($items['policies']) && count($items['policies']))
-                @set($first = reset($items['policies']))
+                @php($first = reset($items['policies']))
                 @include('dashboard::resources.customers.timeline.view', [
                     'isPolicy' => true,
                     'policies' => $items['policies'],

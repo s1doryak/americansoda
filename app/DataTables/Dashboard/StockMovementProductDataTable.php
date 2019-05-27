@@ -53,6 +53,7 @@ class StockMovementProductDataTable extends DataTable
         return [
             'name',
             'number',
+			'comment',
             'formatted_products_quantity',
             'action'
         ];

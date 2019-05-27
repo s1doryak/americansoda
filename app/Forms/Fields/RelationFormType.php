@@ -2,7 +2,7 @@
 
 namespace App\Forms\Fields;
 
-use App\Forms\BaseForm;
+use Crmplease\MaterialAdmin\Forms\Form as BaseForm;
 use Kris\LaravelFormBuilder\Fields\ChildFormType;
 use Kris\LaravelFormBuilder\Form;
 

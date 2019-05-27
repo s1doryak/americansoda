@@ -1,8 +1,8 @@
-@set($old = old(camel_case(str_plural(str_replace('.', '_', $options['resource'])))))
-@set($items = ($old !== null ? $old : (isset($options['items']) ? $options['items'] : [])))
+@php($old = old(camel_case(str_plural(str_replace('.', '_', $options['resource'])))))
+@php($items = ($old !== null ? $old : (isset($options['items']) ? $options['items'] : [])))
 @if ($items)
     @foreach($items as $idx => $item)
-        @include('dashboard::vendor.laravel-form-builder.custom.forms._relation-form-row', [
+        @include('dashboard::forms._relation-form-row', [
             'is_template' => false,
             'multiple_rows' => true,
             'item' => $item,

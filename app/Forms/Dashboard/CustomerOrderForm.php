@@ -44,13 +44,12 @@ class CustomerOrderForm extends Form
 		];
 		$fields['batch_number'] = 'text';
 		$fields['comment'] = 'editor';
-		$fields['calendar_comment'] = 'editor';
 
 		$item = [
 			'type' => 'relation_form',
 			'fields' => CustomerOrderItemForm::getCreateFormFields(),
-			'form_title' => trans('models/customer.order.item.labels.plural'),
-			'resource' => 'customer.order.item',
+			'form_title' => trans('models/customer_order_item.labels.plural'),
+			'resource' => 'customer_order_item',
 			'items' => collect([]),
 			'can_add' => true,
 			'can_edit' => function ($item = null) {
@@ -82,7 +81,7 @@ class CustomerOrderForm extends Form
 				'value' => resource_id('customer'),
 			];
 		} else {
-			$fields['customer_id'] = [
+			$fields['customer'] = [
 				'type' => 'choice',
 				'multiple' => false,
 				'attr' => [
@@ -91,22 +90,21 @@ class CustomerOrderForm extends Form
 				'value' => $customerOrder->customer->id,
 			];
 
-			$fields['customer'] = [
+			/*$fields['customer'] = [
 				'type' => 'hidden',
 				'value' => $customerOrder->customer->id,
-			];
+			];*/
 		}
 
 		$fields['number'] = 'text';
 		$fields['batch_number'] = 'text';
 		$fields['comment'] = 'editor';
-		$fields['calendar_comment'] = 'editor';
 
 		$item = [
 			'type' => 'relation_form',
 			'fields' => CustomerOrderItemForm::getCreateFormFields(),
-			'form_title' => trans('models/customer.order.item.labels.plural'),
-			'resource' => 'customer.order.item',
+			'form_title' => trans('models/customer_order_item.labels.plural'),
+			'resource' => 'customer_order_item',
 			'items' => $customerOrder->customerOrderItems,
 			'can_add' => true,
 			'can_edit' => function ($item = null) {

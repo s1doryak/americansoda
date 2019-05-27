@@ -72,12 +72,12 @@ class CustomerOrderItemForm extends Form
 				'class' => \App\CustomerOrder::class,
 				'property' => 'number',
 				'property_key' => 'id',
-				'template' => 'dashboard::resources.customer_order_items.fields.customerOrder',
+				'template' => 'dashboard::resources.customer_order_item.fields.customerOrder',
 			];
 		}
 		$fields['status'] = [
 			'type' => 'static',
-			'template' => 'dashboard::resources.customer_order_items.fields.status',
+			'template' => 'dashboard::resources.customer_order_item.fields.status',
 		];
 		$fields['id'] = [
 			'type' => 'hidden',
@@ -150,12 +150,12 @@ class CustomerOrderItemForm extends Form
 				'class' => \App\CustomerOrder::class,
 				'property' => 'number',
 				'property_key' => 'id',
-				'template' => 'dashboard::resources.customer_order_items.fields.customerOrder',
+				'template' => 'dashboard::resources.customer_order_item.fields.customerOrder',
 			];
 		}
 		$fields['status'] = [
 			'type' => 'static',
-			'template' => 'dashboard::resources.customer_order_items.fields.status',
+			'template' => 'dashboard::resources.customer_order_item.fields.status',
 		];
 		$fields['cancelled'] = [
 			'type' => 'checkbox',

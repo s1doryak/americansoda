@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Transport Sheet</title>
     <style>
-        @set($font = 'idautomationshbc128m')
+        @php($font = 'idautomationshbc128m')
         @font-face {
             font-family: barcode;
             src: url('{{ env('APP_URL') }}/build/fonts/{{ $font }}/{{ $font }}.eot');

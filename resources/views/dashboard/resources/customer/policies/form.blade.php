@@ -1,6 +1,6 @@
-@set($exclude = (array)$options['exclude'])
-@set($fields = (array)$options['children'])
-@set($groups = (isset($options['groups']) ? $options['groups'] : collection()))
+@php($exclude = (array)$options['exclude'])
+@php($fields = (array)$options['children'])
+@php($groups = (isset($options['groups']) ? $options['groups'] : collection()))
 @if ($showLabel && $showField)
     @if ($options['wrapper'] !== false)
         <div {!! $options['wrapperAttrs'] !!}>

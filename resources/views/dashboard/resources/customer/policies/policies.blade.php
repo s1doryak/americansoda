@@ -1,8 +1,8 @@
-@set($is_template = isset($is_template) && $is_template === true)
+@php($is_template = isset($is_template) && $is_template === true)
 
-@set($old = old(camel_case(str_plural(str_replace('.', '_', $options['resource'])))))
-@set($items = ($old !== null ? collect($old) : (isset($options['items']) ? $options['items'] : collect([]))))
-@set($groupItems = $items->filter(function($item) use($group) {
+@php($old = old(camel_case(str_plural(str_replace('.', '_', $options['resource'])))))
+@php($items = ($old !== null ? collect($old) : (isset($options['items']) ? $options['items'] : collect([]))))
+@php($groupItems = $items->filter(function($item) use($group) {
 if(is_object($item)) {
 return ($item->productGroup->getKey() == $group->getKey()) && $item->deleted_at === null;
 } else {
@@ -15,7 +15,7 @@ return ($item['productGroup'] == $group->getKey());
 
     @forelse($groupItems as $idx => $policy)
 
-        @include('dashboard::vendor.laravel-form-builder.custom.forms._relation-form-row', [
+        @include('dashboard::forms._relation-form-row', [
             'item' => $policy,
             'index' => $idx,
             'multiple_rows' => true,
@@ -25,7 +25,7 @@ return ($item['productGroup'] == $group->getKey());
         ])
 
     @empty
-        @include('dashboard::vendor.laravel-form-builder.custom.forms._relation-form-row', [
+        @include('dashboard::forms._relation-form-row', [
             'item' => [
                 'productGroup' => $group->getKey(),
             ],
@@ -37,7 +37,7 @@ return ($item['productGroup'] == $group->getKey());
 
 @else
 
-    @include('dashboard::vendor.laravel-form-builder.custom.forms._relation-form-row', [
+    @include('dashboard::forms._relation-form-row', [
         'item' => [
             'productGroup' => $group->getKey(),
         ],

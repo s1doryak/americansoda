@@ -36,7 +36,7 @@ return [
     'button' => 'laravel-form-builder::button',
     'buttongroup' => 'laravel-form-builder::buttongroup',
     'radio' => 'laravel-form-builder::radio',
-    'checkbox' => 'laravel-form-builder::checkbox',
+    'checkbox' => 'dashboard::forms.checkbox',
     'select' => 'laravel-form-builder::select',
     'choice' => 'laravel-form-builder::choice',
     'repeated' => 'laravel-form-builder::repeated',
