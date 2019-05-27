@@ -2,7 +2,7 @@
 
 @section('head')
     @parent
-    <link rel="stylesheet" href="{{ asset('dashboard/css/dashboard.css') }}?ver={{ config('app.version') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/css/dashboard.css') }}?ver={{ config('app.version') }}">
 @stop
 
 @section('header-menu')
@@ -55,5 +55,5 @@
 
 @section('scripts')
     @parent
-    <script src="{{ asset('dashboard/js/dashboard.js') }}?ver={{ config('app.version') }}"></script>
+    <script src="{{ asset('assets/dashboard/js/dashboard.js') }}?ver={{ config('app.version') }}"></script>
 @stop

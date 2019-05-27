@@ -53,7 +53,7 @@ class ProductGroupsController extends ResourceController
 	    $this->gate = $gate;
 		$this->repository = $productGroupRepository;
 
-	    $this->middleware('dashboard');
+	    $this->middleware('auth:dashboard');
 	    $this->shareSidebar();
 	}
 }

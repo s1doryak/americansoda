@@ -81,7 +81,7 @@ class StockProductsController extends ResourceController
 		$this->products = $productRepository;
 		$this->customerOrderItems = $customerOrderItemRepository;
 
-		$this->middleware('dashboard');
+		$this->middleware('auth:dashboard');
 		$this->shareSidebar();
 	}
 }

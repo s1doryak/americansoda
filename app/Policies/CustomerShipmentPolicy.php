@@ -38,7 +38,6 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
 	 */
 	public function action(Authenticatable $authenticatable)
 	{
-
 		return true;
 	}
 
@@ -52,7 +51,6 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
 	 */
 	public function view(Authenticatable $authenticatable, CustomerShipment $customerShipment)
 	{
-
 		return true;
 	}
 
@@ -65,8 +63,7 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
 	 */
 	public function create(Authenticatable $authenticatable)
 	{
-
-		return true;
+		return false;
 	}
 
 	/**
@@ -79,8 +76,7 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
 	 */
 	public function update(Authenticatable $authenticatable, CustomerShipment $customerShipment)
 	{
-
-		return true;
+		return false;
 	}
 
 	/**
@@ -93,21 +89,40 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
 	 */
 	public function delete(Authenticatable $authenticatable, CustomerShipment $customerShipment)
 	{
+		return false;
+	}
 
+	/**
+	 * Determine whether the user can restore the entity.
+	 *
+	 * @param Authenticatable $authenticatable
+	 * @param CustomerShipment $customerShipment
+	 *
+	 * @return boolean
+	 */
+	public function restore(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+	{
+
+		return false;
+	}
+
+	/**
+	 * @param Authenticatable $authenticatable
+	 * @param CustomerShipment $customerShipment
+	 * @return boolean
+	 */
+	public function package_list(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+	{
 		return true;
 	}
 
-    /**
-     * Determine whether the user can restore the entity.
-     *
-     * @param Authenticatable $authenticatable
-     * @param CustomerShipment $customerShipment
-     *
-     * @return boolean
-     */
-    public function restore(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-    {
-
-        return true;
-    }
+	/**
+	 * @param Authenticatable $authenticatable
+	 * @param CustomerShipment $customerShipment
+	 * @return boolean
+	 */
+	public function waybill(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+	{
+		return true;
+	}
 }

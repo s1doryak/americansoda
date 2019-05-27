@@ -52,7 +52,7 @@ class RolesController extends ResourceController
 		$this->gate = $gate;
 		$this->repository = $roleRepository;
 
-		$this->middleware('dashboard');
+		$this->middleware('auth:dashboard');
 		$this->shareSidebar();
 	}
 }

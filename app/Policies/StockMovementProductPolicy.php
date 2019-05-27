@@ -39,7 +39,7 @@ class StockMovementProductPolicy implements DatatablePolicyContract
 	public function action(Authenticatable $authenticatable)
 	{
 
-		return true;
+		return false;
 	}
 
 	/**
@@ -53,7 +53,7 @@ class StockMovementProductPolicy implements DatatablePolicyContract
 	public function view(Authenticatable $authenticatable, StockMovementProduct $stockMovementProduct)
 	{
 
-		return true;
+		return false;
 	}
 
 	/**
@@ -66,7 +66,7 @@ class StockMovementProductPolicy implements DatatablePolicyContract
 	public function create(Authenticatable $authenticatable)
 	{
 
-		return true;
+		return false;
 	}
 
 	/**
@@ -80,7 +80,7 @@ class StockMovementProductPolicy implements DatatablePolicyContract
 	public function update(Authenticatable $authenticatable, StockMovementProduct $stockMovementProduct)
 	{
 
-		return true;
+		return false;
 	}
 
 	/**
@@ -94,7 +94,7 @@ class StockMovementProductPolicy implements DatatablePolicyContract
 	public function delete(Authenticatable $authenticatable, StockMovementProduct $stockMovementProduct)
 	{
 
-		return true;
+		return false;
 	}
 
     /**
@@ -108,6 +108,6 @@ class StockMovementProductPolicy implements DatatablePolicyContract
     public function restore(Authenticatable $authenticatable, StockMovementProduct $stockMovementProduct)
     {
 
-        return true;
+        return false;
     }
 }

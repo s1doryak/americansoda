@@ -52,7 +52,7 @@ class BrandsController extends ResourceController
 		$this->gate = $gate;
 		$this->repository = $brandRepository;
 
-		$this->middleware('dashboard');
+		$this->middleware('auth:dashboard');
 		$this->shareSidebar();
 	}
 }

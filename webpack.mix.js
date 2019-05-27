@@ -71,22 +71,22 @@ const path = {
  * Vendor fonts better organizing
  */
 // mix.copy('resources/assets/app/fonts', 'public/build/fonts');
-mix.copy('resources/assets/dashboard/fonts', 'public/dashboard/fonts');
+mix.copy('resources/assets/dashboard/fonts', 'public/assets/dashboard/fonts');
 
 /**
  * Images
  */
 // mix.copy('resources/assets/app/img', 'public/build/img/app');
-mix.copy('resources/assets/dashboard/img', 'public/dashboard/img');
+mix.copy('resources/assets/dashboard/img', 'public/assets/dashboard/img');
 
 /**
  * Styles
  */
 // mix.less(css.app);
-mix.less(css.dashboard, 'public/dashboard/css/dashboard.css');
+mix.less(css.dashboard, 'public/assets/dashboard/css/dashboard.css');
 
 /**
  * Scripts
  */
 // mix.scripts(js.app, 'public/js/dashboard/app.js');
-mix.scripts(js.dashboard, 'public/dashboard/js/dashboard.js');
+mix.scripts(js.dashboard, 'public/assets/dashboard/js/dashboard.js');

@@ -39,7 +39,7 @@ class HomeController extends Controller
 	{
 		$this->gate = $gate;
 
-		$this->middleware('dashboard');
+		$this->middleware('auth:dashboard');
 		$this->shareSidebar();
 	}
 

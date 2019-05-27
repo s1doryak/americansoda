@@ -110,4 +110,14 @@ class CustomerOrderPolicy implements DatatablePolicyContract
 
         return true;
     }
+
+	/**
+	 * @param Authenticatable $authenticatable
+	 * @param Customerorder $customerorder
+	 * @return boolean
+	 */
+	public function order_review(Authenticatable $authenticatable, Customerorder $customerorder)
+	{
+		return true;
+	}
 }

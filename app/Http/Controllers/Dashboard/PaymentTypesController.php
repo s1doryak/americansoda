@@ -53,7 +53,7 @@ class PaymentTypesController extends ResourceController
 	    $this->gate = $gate;
 		$this->repository = $paymentTypeRepository;
 
-	    $this->middleware('dashboard');
+	    $this->middleware('auth:dashboard');
 	    $this->shareSidebar();
 	}
 }

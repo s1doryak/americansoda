@@ -58,7 +58,7 @@ class CustomerTypesController extends ResourceController
 		$this->repository = $customerTypeRepository;
 		$this->customerTypes = $customerTypeRepository;
 
-	    $this->middleware('dashboard');
+	    $this->middleware('auth:dashboard');
 	    $this->shareSidebar();
 	}
 }

@@ -61,7 +61,7 @@ class StocksController extends ResourceController
 		$this->repository = $stockRepository;
 		$this->regions = $regionRepository;
 
-	    $this->middleware('dashboard');
+	    $this->middleware('auth:dashboard');
 	    $this->shareSidebar();
 	}
 }

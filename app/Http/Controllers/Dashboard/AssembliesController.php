@@ -126,7 +126,7 @@ class AssembliesController extends ResourceController
 		$this->companies          = $companyRepository;
 		$this->packageTypes       = $packageTypeRepository;
 
-	    $this->middleware('dashboard');
+	    $this->middleware('auth:dashboard');
 	    $this->shareSidebar();
 	}
 

@@ -61,7 +61,7 @@ class ProductTagsController extends ResourceController
 		$this->repository = $productTagRepository;
 		$this->products = $productRepository;
 
-		$this->middleware('dashboard');
+		$this->middleware('auth:dashboard');
 		$this->shareSidebar();
 	}
 }

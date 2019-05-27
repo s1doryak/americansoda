@@ -71,7 +71,7 @@ class StockMovementProductsController extends ResourceController
 		$this->stockMovements = $stockMovementRepository;
 		$this->products = $productRepository;
 
-	    $this->middleware('dashboard');
+	    $this->middleware('auth:dashboard');
 	    $this->shareSidebar();
 	}
 }

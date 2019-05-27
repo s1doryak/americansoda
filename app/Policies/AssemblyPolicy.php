@@ -18,10 +18,7 @@ class AssemblyPolicy implements DatatablePolicyContract
 	use HandlesAuthorization;
 
 	/**
-	 * Determine whether the user can list of entities.
-	 *
 	 * @param Authenticatable $authenticatable
-	 *
 	 * @return boolean
 	 */
 	public function index(Authenticatable $authenticatable)
@@ -30,24 +27,17 @@ class AssemblyPolicy implements DatatablePolicyContract
 	}
 
 	/**
-	 * Determine whether the user can view action column.
-	 *
 	 * @param Authenticatable $authenticatable
-	 *
 	 * @return boolean
 	 */
 	public function action(Authenticatable $authenticatable)
 	{
-
 		return true;
 	}
 
 	/**
-	 * Determine whether the user can view the entity.
-	 *
 	 * @param Authenticatable $authenticatable
 	 * @param Assembly $assembly
-	 *
 	 * @return boolean
 	 */
 	public function view(Authenticatable $authenticatable, Assembly $assembly)
@@ -57,57 +47,56 @@ class AssemblyPolicy implements DatatablePolicyContract
 	}
 
 	/**
-	 * Determine whether the user can create entity.
-	 *
 	 * @param Authenticatable $authenticatable
-	 *
+	 * @param Assembly $assembly
 	 * @return boolean
 	 */
 	public function create(Authenticatable $authenticatable)
 	{
 
-		return true;
+		return false;
 	}
 
 	/**
-	 * Determine whether the user can update the entity.
-	 *
 	 * @param Authenticatable $authenticatable
 	 * @param Assembly $assembly
-	 *
 	 * @return boolean
 	 */
 	public function update(Authenticatable $authenticatable, Assembly $assembly)
 	{
 
-		return true;
+		return false;
 	}
 
 	/**
-	 * Determine whether the user can delete the entity.
-	 *
 	 * @param Authenticatable $authenticatable
 	 * @param Assembly $assembly
-	 *
 	 * @return boolean
 	 */
 	public function delete(Authenticatable $authenticatable, Assembly $assembly)
 	{
 
-		return true;
+		return false;
 	}
 
-    /**
-     * Determine whether the user can restore the entity.
-     *
-     * @param Authenticatable $authenticatable
-     * @param Assembly $assembly
-     *
-     * @return boolean
-     */
+	/**
+	 * @param Authenticatable $authenticatable
+	 * @param Assembly $assembly
+	 * @return boolean
+	 */
     public function restore(Authenticatable $authenticatable, Assembly $assembly)
     {
 
-        return true;
+        return false;
     }
+
+	/**
+	 * @param Authenticatable $authenticatable
+	 * @param Assembly $assembly
+	 * @return boolean
+	 */
+	public function assembly_list(Authenticatable $authenticatable, Assembly $assembly)
+	{
+		return true;
+	}
 }

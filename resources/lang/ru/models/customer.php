@@ -116,16 +116,16 @@ return [
 		'payment_conditions' => 'Условия оплаты',
 		'pays_vat' => 'Плательщик НДС',
 		'stock' => [
-			'name' => 'Stock',
+			'name' => 'Склад',
 		],
 		'customerType' => [
-			'name' => 'Customer Type',
+			'name' => 'Тип клиента',
 		],
 		'paymentType' => [
-			'name' => 'Payment Type',
+			'name' => 'Тип оплаты',
 		],
 		'user' => [
-			'name' => 'User',
+			'name' => 'Ответственный',
 		],
 		'billingRegion' => [
 			'name' => 'Юр. регион',
@@ -139,16 +139,16 @@ return [
     ],
     'filters' => [
 		'stock' => [
-			'name' => 'Stock',
+			'name' => 'Склад',
 		],
 		'customerType' => [
-			'name' => 'Customer Type',
+			'name' => 'Тип клиента',
 		],
 		'paymentType' => [
-			'name' => 'Payment Type',
+			'name' => 'Тип оплаты',
 		],
 		'user' => [
-			'name' => 'User',
+			'name' => 'Ответственный',
 		],
 		'billingRegion' => [
 			'name' => 'Юр. регион',

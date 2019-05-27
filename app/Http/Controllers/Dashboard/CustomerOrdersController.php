@@ -133,7 +133,7 @@ class CustomerOrdersController extends ResourceController
 			]
 		];
 
-		$this->middleware('dashboard');
+		$this->middleware('auth:dashboard');
 		$this->shareSidebar();
 	}
 

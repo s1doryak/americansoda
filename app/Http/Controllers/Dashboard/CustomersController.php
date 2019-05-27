@@ -158,7 +158,7 @@ class CustomersController extends ResourceController
 			'stocks' => 'name'
 		];
 
-		$this->middleware('dashboard');
+		$this->middleware('auth:dashboard');
 		$this->shareSidebar();
 	}
 

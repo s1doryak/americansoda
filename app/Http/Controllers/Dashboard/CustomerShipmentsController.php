@@ -117,7 +117,7 @@ class CustomerShipmentsController extends ResourceController
 		$this->customerOrderItems = $customerOrderItemRepository;
 		$this->companies = $companyRepository;
 
-		$this->middleware('dashboard');
+		$this->middleware('auth:dashboard');
 		$this->shareSidebar();
 	}
 

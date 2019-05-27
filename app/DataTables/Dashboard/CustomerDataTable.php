@@ -104,25 +104,25 @@ class CustomerDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-            'billingRegion.id' => [
+            'billingRegion.name' => [
                 'type' => 'select',
                 'multiple' => true,
                 'data' => 'billingRegion.id',
                 'lists' => 'billingRegion.name',
             ],
-            'shippingRegion.id' => [
+            'shippingRegion.name' => [
                 'type' => 'select',
                 'multiple' => true,
                 'data' => 'shippingRegion.id',
                 'lists' => 'shippingRegion.name',
             ],
-            'stock.id' => [
+            'stock.name' => [
                 'type' => 'select',
                 'multiple' => true,
                 'data' => 'stock.id',
                 'lists' => 'stock.name',
             ],
-            'customerType.id' => [
+            'customerType.name' => [
                 'type' => 'select',
                 'multiple' => true,
                 'data' => 'customerType.id',

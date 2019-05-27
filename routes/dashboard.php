@@ -31,7 +31,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('email/resend', 'Auth\VerificationController@resend')->name('dashboard.verification.resend');
 
         Route::get('/', [
-            'as' => 'dashboard.home',
+            'as' => 'dashboard',
             'uses' => 'HomeController@home'
         ]);
 
@@ -141,8 +141,6 @@ Route::group(['middleware' => 'web'], function () {
             }
 
 		}
-
-		Route::view('/', 'dashboard::home')->name('dashboard');
 
 	});
 

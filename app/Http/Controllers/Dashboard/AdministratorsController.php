@@ -71,7 +71,7 @@ class AdministratorsController extends ResourceController
 		$this->roles = $roleRepository;
 		$this->companies = $companyRepository;
 
-		$this->middleware('dashboard');
+		$this->middleware('auth:dashboard');
 		$this->shareSidebar();
 	}
 }

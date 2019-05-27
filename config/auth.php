@@ -54,7 +54,7 @@ return [
 
 		'dashboard' => [
 			'driver' => 'session',
-			'provider' => 'administrator',
+			'provider' => 'administrators',
 		],
 
         // ...guards
@@ -107,13 +107,13 @@ return [
     */
 
     'passwords' => [
-		'users' => [
+		'app' => [
 			'provider' => 'users',
 			'table' => 'users_password_resets',
 			'expire' => 60,
 		],
-		'administrators' => [
-			'provider' => 'users',
+		'dashboard' => [
+			'provider' => 'administrators',
 			'table' => 'administrators_password_resets',
 			'expire' => 60,
 		],

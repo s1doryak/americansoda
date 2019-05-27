@@ -61,7 +61,7 @@ class CompaniesController extends ResourceController
 		$this->repository = $companyRepository;
 		$this->regions = $regionRepository;
 
-	    $this->middleware('dashboard');
+	    $this->middleware('auth:dashboard');
 	    $this->shareSidebar();
 	}
 }

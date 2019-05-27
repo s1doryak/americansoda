@@ -7,6 +7,10 @@ use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryElo
 
 class ProductGroupRepositoryEloquent extends BaseRepositoryEloquent implements ProductGroupRepository
 {
+	/**
+	 * @param $id
+	 * @return mixed
+	 */
 	public function getGroupsByCustomerId($id)
 	{
 		$criteria = function ($query) use ($id) {

@@ -115,8 +115,8 @@ function get_total_deposits($orderItems)
  */
 function get_delivery_numbers($orderItems = null)
 {
-	/** @var \App\Repositories\StockProductRepositoryEloquent $repository */
-	$repository = app(\App\Repositories\StockProductRepository::class);
+	/** @var \App\Repositories\Eloquent\StockProductRepositoryEloquent $repository */
+	$repository = app(\App\Repositories\Contracts\StockProductRepository::class);
 
 	if ($orderItems instanceof \Illuminate\Support\Collection) {
 		$ids = $orderItems->pluck('id')->toArray();

@@ -52,7 +52,7 @@ class PackageTypesController extends ResourceController
 		$this->gate = $gate;
 		$this->repository = $packageTypeRepository;
 
-		$this->middleware('dashboard');
+		$this->middleware('auth:dashboard');
 		$this->shareSidebar();
 	}
 }
