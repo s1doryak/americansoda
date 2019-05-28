@@ -48,10 +48,77 @@ docker-compose run artisan generate:resource CompanyBankAccount \
 docker-compose run artisan generate:resource CustomerInvoice \
     --namespace=Dashboard \
     \
+    --field=id_maventa \
+    \
+    --field=currency \
+    --field=data \
+    --field=date \
+    --field=date_due \
+    --field=delivery_date \
+    --field=delivery_type \
+    --field=error_message \
+    --field=invoice_delivery_address \
+    --field=invoice_nr \
+    --field=invoice_seller_information \
+    --field=lang \
+    --field=notes \
+    --field=order_nr \
+    --field=payment_terms \
+    --field=reference_nr \
+    --field=state:integer \
+    --field=status \
+    --field=sum \
+    --field=sum_tax \
+    --field=work_order_nr \
+    \
+    --field=company_interest \
+    --field=company_paper_fee \
+    --field=company_reminder \
+    --field=company_comment \
+    --field=company_reference \
+    \
+    --field=customer_email \
+    --field=customer_name \
+    --field=customer_country \
+    --field=customer_post_code \
+    --field=customer_post_office \
+    --field=customer_nr \
+    --field=customer_bid \
+    --field=customer_ovt \
+    --field=customer_comment \
+    --field=customer_address1 \
+    --field=customer_address2 \
+    --field=customer_reference \
+    --field=customer_state \
+    --field=customer_contact_p \
+    \
+    --belongs-to-many=accounts:ru:"Счет компании":"Счета компании" \
+    \
     --translate=ru:"Счет":"Счета":"Счет":"Счетов" \
     --translate-modifier=ru:male \
     \
     --translate-field=id_maventa:ru:"Номер Maventa" \
+    \
+    --translate-field=currency:ru:"Валюта" \
+    --translate-field=data:ru:"Данные" \
+    --translate-field=date:ru:"Дата создания" \
+    --translate-field=date_due:ru:"Дата оплаты" \
+    --translate-field=delivery_date:ru:"Дата доставки" \
+    --translate-field=delivery_type:ru:"Тип доставки" \
+    --translate-field=error_message:ru:"Текст ошибки" \
+    --translate-field=invoice_delivery_address:ru:"Адрес доставки счёта" \
+    --translate-field=invoice_nr:ru:"Номер счета" \
+    --translate-field=invoice_seller_information:ru:"Информация о продавце" \
+    --translate-field=lang:ru:"Язык" \
+    --translate-field=notes:ru:"Комментарии" \
+    --translate-field=order_nr:ru:"Номер заказа" \
+    --translate-field=payment_terms:ru:"Условия оплаты" \
+    --translate-field=reference_nr:ru:"Референс" \
+    --translate-field=state:ru:"Состояние" \
+    --translate-field=status:ru:"Статус" \
+    --translate-field=sum:ru:"Сумма" \
+    --translate-field=sum_tax:ru:"Сумма с НДС" \
+    --translate-field=work_order_nr:ru:"Номер заказа на работу" \
     \
     --translate-field=company_interest:ru:"Процентная ставка компании" \
     --translate-field=company_paper_fee:ru:"Плата за бумажный счет" \
@@ -74,6 +141,7 @@ docker-compose run artisan generate:resource CustomerInvoice \
     --translate-field=customer_state:ru:"Штат, округ, облась клиента" \
     --translate-field=customer_contact_p:ru:"Контактное лицо" \
     \
+    --translate-belongs-to-many=accounts:ru:"Счет компании":"Счета компании" \
     \
     --force
 ```
@@ -99,23 +167,83 @@ docker-compose run artisan generate:resource CustomerInvoiceAction \
     --force
 ```
 
+-[ ] CustomerInvoiceAttachment
+```bash
+docker-compose run artisan generate:resource CustomerInvoiceAttachment \
+    --namespace=Dashboard \
+    \
+    --field=attachment_type \
+    --field=filename \
+    --field=file \
+    \
+    --belongs-to=CustomerInvoice \
+    \
+    --translate=ru:"Вложенный файл":"Вложенные файлы":"Вложенный файл":"Вложенных файлов" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=attachment_type:ru:"Тип вложения" \
+    --translate-field=filename:ru:"Название файла" \
+    --translate-field=file:ru:"Содержимое" \
+    \
+    --translate-belongs-to=CustomerInvoice:ru:"Счёт":"Счёт" \
+    \
+    --force
+```
+
 -[ ] CustomerInvoiceItem
 ```bash
 docker-compose run artisan generate:resource CustomerInvoiceItem \
     --namespace=Dashboard \
     \
-    --field=action \
-    --field=timestamp:timestamp \
+    --field=position:integer \
+    --field=item_code \
+    --field=subject \
+    --field=definition \
+    --field=price \
+    --field=unit_type \
+    --field=amount:float \
+    --field=sum \
+    --field=tax:float \
+    --field=sum_tax \
+    --field=discount:float \
     \
     --belongs-to=CustomerInvoice \
     \
-    --translate=ru:"Действие с счётом":"Действия с счётом":"Действие с счётом":"Действий с счётом" \
-    --translate-modifier=ru:middle \
+    --translate=ru:"Позиция счета":"Позиции счета":"Позицию счета":"Позиций счета" \
+    --translate-modifier=ru:female \
     \
-    --translate-field=action:ru:"Действие" \
-    --translate-field=timestamp:ru:"Время" \
+    --translate-field=position:ru:"Позиция" \
+    --translate-field=item_code:ru:"Код товара" \
+    --translate-field=subject:ru:"Название товара" \
+    --translate-field=definition:ru:"Описание товара" \
+    --translate-field=price:ru:"Цена" \
+    --translate-field=unit_type:ru:"Ед. изм." \
+    --translate-field=amount:ru:"Количество" \
+    --translate-field=sum:ru:"Сумма" \
+    --translate-field=tax:ru:"НДС" \
+    --translate-field=sum_tax:ru:"Сумма с НДС" \
+    --translate-field=discount:ru:"Скидка" \
     \
     --translate-belongs-to=CustomerInvoice:ru:"Счёт":"Счёт" \
+    \
+    --force
+```
+
+-[ ] Обновить CustomerInvoice
+```bash
+docker-compose run artisan modify:resource CustomerInvoice \
+    --namespace=Dashboard \
+    \
+    --translate=ru \
+    --translate-modifier=ru:male \
+    \
+    --has-many:CustomerInvoiceItem:items \
+    --has-many:CustomerInvoiceAction:actions \
+    --has-many:CustomerInvoiceAttachment:attachments \
+    \
+    --translate-has-many=items:ru:"Позиция счета":"Позиции счета" \
+    --translate-has-many=actions:ru:"Действие с счётом":"Действия с счётом" \
+    --translate-has-many=attachments:ru:"Вложенный файл":"Вложенные файлы" \
     \
     --force
 ```
