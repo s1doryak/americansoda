@@ -48,7 +48,7 @@ docker-compose run artisan generate:resource CompanyBankAccount \
 docker-compose run artisan generate:resource CustomerInvoice \
     --namespace=Dashboard \
     \
-    --field=id_maventa \
+    --field=maventa_id \
     \
     --field=currency \
     --field=data \
@@ -92,12 +92,15 @@ docker-compose run artisan generate:resource CustomerInvoice \
     --field=customer_state \
     --field=customer_contact_p \
     \
-    --belongs-to-many=accounts:ru:"Счет компании":"Счета компании" \
+    --belongs-to=CustomerShipment:shipment \
+    --belongs-to-many=CompanyBankAccount:accounts \
+    \
+    --has-many=CustomerOrderItem:items \
     \
     --translate=ru:"Счет":"Счета":"Счет":"Счетов" \
     --translate-modifier=ru:male \
     \
-    --translate-field=id_maventa:ru:"Номер Maventa" \
+    --translate-field=maventa_id:ru:"Номер Maventa" \
     \
     --translate-field=currency:ru:"Валюта" \
     --translate-field=data:ru:"Данные" \
@@ -141,7 +144,10 @@ docker-compose run artisan generate:resource CustomerInvoice \
     --translate-field=customer_state:ru:"Штат, округ, облась клиента" \
     --translate-field=customer_contact_p:ru:"Контактное лицо" \
     \
-    --translate-belongs-to-many=accounts:ru:"Счет компании":"Счета компании" \
+    --translate-belongs-to=shipment:ru:"Отгрузка":"Отгрузку" \
+    --translate-belongs-to-many=accounts:ru:"Счет компании":"Счет компании" \
+    \
+    --translate-has-many=items:ru:"Позиция заказа":"Позицию заказа" \
     \
     --force
 ```
@@ -208,6 +214,7 @@ docker-compose run artisan generate:resource CustomerInvoiceItem \
     --field=discount:float \
     \
     --belongs-to=CustomerInvoice \
+    --belongs-to=CustomerOrderItem \
     \
     --translate=ru:"Позиция счета":"Позиции счета":"Позицию счета":"Позиций счета" \
     --translate-modifier=ru:female \
@@ -225,6 +232,7 @@ docker-compose run artisan generate:resource CustomerInvoiceItem \
     --translate-field=discount:ru:"Скидка" \
     \
     --translate-belongs-to=CustomerInvoice:ru:"Счёт":"Счёт" \
+    --translate-belongs-to=CustomerOrderItem:ru:"Позиция заказа":"Позицию заказа" \
     \
     --force
 ```
@@ -244,6 +252,21 @@ docker-compose run artisan modify:resource CustomerInvoice \
     --translate-has-many=items:ru:"Позиция счета":"Позиции счета" \
     --translate-has-many=actions:ru:"Действие с счётом":"Действия с счётом" \
     --translate-has-many=attachments:ru:"Вложенный файл":"Вложенные файлы" \
+    \
+    --force
+```
+
+-[ ] Обновить CustomerOrderItem
+```bash
+docker-compose run artisan modify:resource CustomerOrderItem \
+    --namespace=Dashboard \
+    \
+    --translate=ru \
+    --translate-modifier=ru:male \
+    \
+    --belongs-to:CustomerInvoice \
+    \
+    --translate-belongs-to=CustomerInvoice:ru:"Счёт":"Счёт" \
     \
     --force
 ```
