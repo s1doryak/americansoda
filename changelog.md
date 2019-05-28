@@ -14,6 +14,69 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] Онлайн и Предзаказы
 - [ ] Смена магазинов
 
+### Счета
+
+-[ ] CompanyBankAccount
+```bash
+docker-compose run artisan generate:resource CompanyBankAccount \
+    --namespace=Dashboard \
+    \
+    --field=bank \
+    --field=swift \
+    --field=account \
+    --field=iban \
+    --field=default \
+    \
+    --belongs-to=Company \
+    \
+    --translate=ru:"Счет компании":"Счета компании":"Счет компании":"Счетов компании" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=bank:ru:"Название банка" \
+    --translate-field=swift:ru:"SWIFT-код" \
+    --translate-field=account:ru:"Банковский номер счета" \
+    --translate-field=iban:ru:"Международный номер счета" \
+    --translate-field=default:ru:"Основной счет" \
+    \
+    --translate-belongs-to=Company:ru:"Компания":"Компанию" \
+    \
+    \
+    --force
+```
+
+-[ ] CustomerInvoice
+```bash
+docker-compose run artisan generate:resource CustomerInvoice \
+    --namespace=Dashboard \
+    \
+    --translate=ru:"Счет":"Счета":"Счет":"Счетов" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=company_interest:ru:"Процентная ставка компании" \
+    --translate-field=company_paper_fee:ru:"Плата за бумажный счет" \
+    --translate-field=company_reminder:ru:"Плата за напоминание" \
+    --translate-field=company_comment:ru:"Комментарий к электронной почте" \
+    --translate-field=company_reference:ru:"Номер в системе продавца" \
+    \
+    --translate-field=customer_email:ru:"Эл.почта клиента" \
+    --translate-field=customer_name:ru:"Название клиента" \
+    --translate-field=customer_country:ru:"Страна клиента" \
+    --translate-field=customer_post_code:ru:"Почтовый индекс клиента" \
+    --translate-field=customer_post_office:ru:"Почтовый адрес клиента" \
+    --translate-field=customer_nr:ru:"Номер клиента" \
+    --translate-field=customer_bid:ru:"BID" \
+    --translate-field=customer_ovt:ru:"OVT" \
+    --translate-field=customer_comment:ru:"Комментарий клиента (от отклоненного счета)" \
+    --translate-field=customer_address1:ru:"Адрес клиента" \
+    --translate-field=customer_address2:ru:"Адрес клиента (доп.)" \
+    --translate-field=customer_reference:ru:"Номер в системе клиента" \
+    --translate-field=customer_state:ru:"Штат, округ, облась клиента" \
+    --translate-field=customer_contact_p:ru:"Контактное лицо" \
+    \
+    \
+    --force
+```
+
 -[x] Восстановление таблицы `migrations`:
 ```sql
 insert into migrations values
@@ -45,7 +108,7 @@ insert into migrations values
 ('2016_08_02_094119_create_stock_products_table', 1);
 ```
 
--[ ] ProductTag
+-[x] ProductTag
 ```bash
 docker-compose run artisan generate:resource ProductTag \
     --namespace=Dashboard \
