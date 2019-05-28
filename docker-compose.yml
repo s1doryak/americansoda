@@ -1,6 +1,6 @@
-version: '2' 
-services: 
-  storage:  
+version: '2'
+services:
+  storage:
     image: crmplease/laravel-storage
     volumes:
       - ./:/data
@@ -21,7 +21,7 @@ services:
     privileged: true
 
   phpfpm:
-    image: crmplease/laravel-phpfpm
+    build: docker/phpfpm
     volumes_from:
       - storage
     links:
@@ -44,7 +44,7 @@ services:
     privileged: true
 
   artisan:
-    image: crmplease/laravel-artisan
+    build: docker/artisan
     volumes_from:
       - storage
     depends_on:
@@ -56,7 +56,7 @@ services:
     privileged: true
 
   composer:
-    image: crmplease/laravel-composer
+    build: docker/composer
     volumes_from:
       - storage
     depends_on:
@@ -66,7 +66,7 @@ services:
     privileged: true
 
   queue:
-    image: crmplease/laravel-queue
+    build: docker/queue
     command: php artisan queue:listen --queue=default --tries=5
     volumes_from:
       - storage
@@ -79,7 +79,7 @@ services:
     privileged: true
 
   cron:
-    image: crmplease/laravel-cron
+    build: docker/cron
     volumes_from:
       - storage
     depends_on:

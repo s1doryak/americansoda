@@ -2,3 +2,7 @@
 	path = packages/crmplease/material-admin
 	url = git@gitlab.crmplease.me:crmplease/material-admin.git
 
+[submodule "packages/crmplease/maventa"]
+	path = packages/crmplease/maventa
+	url = git@gitlab.crmplease.me:crmplease/maventa.git
+

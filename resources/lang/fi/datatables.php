@@ -9,7 +9,7 @@ return [
 			'print' => 'Print',
 			'reload' => '<i class="zmdi zmdi-refresh-alt zmdi-hc-fw"></i><span class="hidden-xs">Reload</span>',
 			'colvis' => '<i class="zmdi zmdi-more-vert zmdi-hc-fw"></i><span class="hidden-xs">Columns</span>',
-			'filter' => '<i class="zmdi zmdi-filter-list zmdi-hc-fw"></i><span class="hidden-xs">Filters</span><span class="count"></span>',
+			'filter' => '<i class="zmdi zmdi-filter-list zmdi-hc-fw"></i><span class="hidden-xs">Filters</span>',
 		],
 	'columns' =>
 		[

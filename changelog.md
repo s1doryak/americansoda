@@ -25,7 +25,7 @@ docker-compose run artisan generate:resource CompanyBankAccount \
     --field=swift \
     --field=account \
     --field=iban \
-    --field=default \
+    --field=default:boolean \
     \
     --belongs-to=Company \
     \
@@ -40,7 +40,6 @@ docker-compose run artisan generate:resource CompanyBankAccount \
     \
     --translate-belongs-to=Company:ru:"Компания":"Компанию" \
     \
-    \
     --force
 ```
 
@@ -51,6 +50,8 @@ docker-compose run artisan generate:resource CustomerInvoice \
     \
     --translate=ru:"Счет":"Счета":"Счет":"Счетов" \
     --translate-modifier=ru:male \
+    \
+    --translate-field=id_maventa:ru:"Номер Maventa" \
     \
     --translate-field=company_interest:ru:"Процентная ставка компании" \
     --translate-field=company_paper_fee:ru:"Плата за бумажный счет" \
@@ -73,6 +74,48 @@ docker-compose run artisan generate:resource CustomerInvoice \
     --translate-field=customer_state:ru:"Штат, округ, облась клиента" \
     --translate-field=customer_contact_p:ru:"Контактное лицо" \
     \
+    \
+    --force
+```
+
+-[ ] CustomerInvoiceAction
+```bash
+docker-compose run artisan generate:resource CustomerInvoiceAction \
+    --namespace=Dashboard \
+    \
+    --field=action \
+    --field=timestamp:timestamp \
+    \
+    --belongs-to=CustomerInvoice \
+    \
+    --translate=ru:"Действие с счётом":"Действия с счётом":"Действие с счётом":"Действий с счётом" \
+    --translate-modifier=ru:middle \
+    \
+    --translate-field=action:ru:"Действие" \
+    --translate-field=timestamp:ru:"Время" \
+    \
+    --translate-belongs-to=CustomerInvoice:ru:"Счёт":"Счёт" \
+    \
+    --force
+```
+
+-[ ] CustomerInvoiceItem
+```bash
+docker-compose run artisan generate:resource CustomerInvoiceItem \
+    --namespace=Dashboard \
+    \
+    --field=action \
+    --field=timestamp:timestamp \
+    \
+    --belongs-to=CustomerInvoice \
+    \
+    --translate=ru:"Действие с счётом":"Действия с счётом":"Действие с счётом":"Действий с счётом" \
+    --translate-modifier=ru:middle \
+    \
+    --translate-field=action:ru:"Действие" \
+    --translate-field=timestamp:ru:"Время" \
+    \
+    --translate-belongs-to=CustomerInvoice:ru:"Счёт":"Счёт" \
     \
     --force
 ```

@@ -213,8 +213,9 @@ return [
 		/*
 		 * Package Service Providers...
 		 */
+		\Crmplease\MaterialAdmin\Providers\DataTablesServiceProvider::class,
 		\Crmplease\MaterialAdmin\Providers\MaterialAdminServiceProvider::class,
-		\Crmplease\MaterialAdmin\Providers\CustomDataTablesServiceProvider::class,
+		\Crmplease\Maventa\Providers\MaventaServiceProvider::class,
 
 		/*
 		 * Application Service Providers...

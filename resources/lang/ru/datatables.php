@@ -9,7 +9,7 @@ return [
 			'print' => 'Печать',
 			'reload' => '<i class="zmdi zmdi-refresh-alt zmdi-hc-fw"></i><span class="hidden-xs">Обновить</span>',
 			'colvis' => '<i class="zmdi zmdi-more-vert zmdi-hc-fw"></i><span class="hidden-xs">Столбцы</span>',
-			'filter' => '<i class="zmdi zmdi-filter-list zmdi-hc-fw"></i><span class="hidden-xs">Фильтры</span><span class="count"></span>',
+			'filter' => '<i class="zmdi zmdi-filter-list zmdi-hc-fw"></i><span class="hidden-xs">Фильтры</span>',
 		],
 	'columns' =>
 		[
