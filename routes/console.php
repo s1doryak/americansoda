@@ -26,13 +26,13 @@ Artisan::command('maventa', function () {
 		$maventa->invoice_list_between_dates(now()->startOfYear()->format('YmdHis'), now()->format('YmdHis'), 2)
 	);
 
+	dd($invoiceList->pluck('lang')->unique());
+
 	dd($maventa->token_login("COMPANY_SETTINGS"));
 
 	dd($maventa->invoice_show(
 		$invoiceList->pluck('id')->random()
 	));
-
-	dd($invoiceList->pluck('id'));
 
 	dd($maventa->invoice_list_between_dates(now()->startOfYear()->format('YmdHis'), now()->format('YmdHis'), 2));
 

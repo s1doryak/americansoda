@@ -127,7 +127,7 @@ docker-compose run artisan generate:resource CustomerInvoice \
     --translate-field=company_paper_fee:ru:"Плата за бумажный счет" \
     --translate-field=company_reminder:ru:"Плата за напоминание" \
     --translate-field=company_comment:ru:"Комментарий к электронной почте" \
-    --translate-field=company_reference:ru:"Номер в системе продавца" \
+    --translate-field=company_reference:ru:"Номер в системе продавца (TRS)" \
     \
     --translate-field=customer_email:ru:"Эл.почта клиента" \
     --translate-field=customer_name:ru:"Название клиента" \
