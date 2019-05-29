@@ -88,14 +88,4 @@ class Job extends \Illuminate\Database\Eloquent\Model
     protected $files = [
 
     ];
-
-    public function getBelongsToRelations()
-    {
-        return [];
-    }
-
-    public function getBelongsToManyRelations()
-    {
-        return [];
-    }
 }
