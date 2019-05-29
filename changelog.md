@@ -15,6 +15,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] Смена магазинов
 
 ### Счета
+-[ ] Обновить Customer
+```bash
+docker-compose run artisan modify:resource Customer \
+    --namespace=Dashboard \
+    \
+    --field=nr \
+    --field=email \ #
+    --field=name \ #
+    --field=country \
+    --field=state \
+    --field=post_code \
+    --field=post_office \
+    --field=address1 \
+    --field=address2 \
+    --field=contact_p \
+    --field=bid \ #
+    --field=ovt \
+    \
+    --has-many=CustomerInvoice \
+    \
+    --translate=ru \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=nr:ru:"Номер клиента" \
+    --translate-field=email:ru:"Эл.почта клиента" \
+    --translate-field=name:ru:"Название клиента" \
+    --translate-field=country:ru:"Страна клиента" \
+    --translate-field=state:ru:"Штат, округ, облась клиента" \
+    --translate-field=post_code:ru:"Почтовый индекс клиента" \
+    --translate-field=post_office:ru:"Почтовый адрес клиента" \
+    --translate-field=address1:ru:"Адрес клиента" \
+    --translate-field=address2:ru:"Адрес клиента (доп.)" \
+    --translate-field=contact_p:ru:"Контактное лицо" \
+    --translate-field=bid:ru:"BID" \
+    --translate-field=ovt:ru:"OVT" \
+    \
+    --translate-has-many=CustomerInvoice:ru:"Счёт":"Счёт" \
+    \
+    --force
+```
+
 
 -[ ] CompanyBankAccount
 ```bash
@@ -79,21 +120,20 @@ docker-compose run artisan generate:resource CustomerInvoice \
     --field=company_comment \
     --field=company_reference \
     \
-    --field=customer_email \
-    --field=customer_name \
-    --field=customer_country \
-    --field=customer_post_code \
-    --field=customer_post_office \
-    --field=customer_nr \
-    --field=customer_bid \
-    --field=customer_ovt \
-    --field=customer_comment \
-    --field=customer_address1 \
-    --field=customer_address2 \
-    --field=customer_reference \
-    --field=customer_state \
-    --field=customer_contact_p \
+    --field=customer_nr:ru:"Номер клиента" \
+    --field=customer_email:ru:"Эл.почта клиента" \
+    --field=customer_name:ru:"Название клиента" \
+    --field=customer_country:ru:"Страна клиента" \
+    --field=customer_state:ru:"Штат, округ, облась клиента" \
+    --field=customer_post_code:ru:"Почтовый индекс клиента" \
+    --field=customer_post_office:ru:"Почтовый адрес клиента" \
+    --field=customer_address1:ru:"Адрес клиента" \
+    --field=customer_address2:ru:"Адрес клиента (доп.)" \
+    --field=customer_contact_p:ru:"Контактное лицо" \
+    --field=customer_bid:ru:"BID" \
+    --field=customer_ovt:ru:"OVT" \
     \
+    --belongs-to=Customer:customer \
     --belongs-to=CustomerShipment:shipment \
     --belongs-to-many=CompanyBankAccount:accounts \
     \
@@ -136,21 +176,23 @@ docker-compose run artisan generate:resource CustomerInvoice \
     --translate-field=company_comment:ru:"Комментарий к электронной почте" \
     --translate-field=company_reference:ru:"Номер в системе продавца (TRS)" \
     \
+    --translate-field=customer_nr:ru:"Номер клиента" \
     --translate-field=customer_email:ru:"Эл.почта клиента" \
     --translate-field=customer_name:ru:"Название клиента" \
     --translate-field=customer_country:ru:"Страна клиента" \
+    --translate-field=customer_state:ru:"Штат, округ, облась клиента" \
     --translate-field=customer_post_code:ru:"Почтовый индекс клиента" \
     --translate-field=customer_post_office:ru:"Почтовый адрес клиента" \
-    --translate-field=customer_nr:ru:"Номер клиента" \
-    --translate-field=customer_bid:ru:"BID" \
-    --translate-field=customer_ovt:ru:"OVT" \
-    --translate-field=customer_comment:ru:"Комментарий клиента (от отклоненного счета)" \
     --translate-field=customer_address1:ru:"Адрес клиента" \
     --translate-field=customer_address2:ru:"Адрес клиента (доп.)" \
-    --translate-field=customer_reference:ru:"Номер в системе клиента" \
-    --translate-field=customer_state:ru:"Штат, округ, облась клиента" \
     --translate-field=customer_contact_p:ru:"Контактное лицо" \
+    --translate-field=customer_bid:ru:"BID" \
+    --translate-field=customer_ovt:ru:"OVT" \
     \
+    --translate-field=customer_comment:ru:"Комментарий клиента (от отклоненного счета)" \
+    --translate-field=customer_reference:ru:"Номер в системе клиента" \   
+    \
+    --translate-belongs-to=customer:ru:"Клиент":"Клиента" \
     --translate-belongs-to=shipment:ru:"Отгрузка":"Отгрузку" \
     --translate-belongs-to-many=accounts:ru:"Счет компании":"Счет компании" \
     \
