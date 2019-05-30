@@ -51,7 +51,7 @@ return [
 		'billing_address' => 'Юр. адрес',
 		'shipping_postcode' => 'Факт. индекс',
 		'shipping_address' => 'Факт. адрес',
-		'bid' => 'ИНН',
+		'bid' => 'BID',
 		'iban' => 'IBAN',
 		'swift' => 'SWIFT',
 		'email' => 'Эл. почта',

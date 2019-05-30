@@ -112,6 +112,9 @@ return [
 		'productGroup' => [
 			'name' => 'Товарная категория',
 		],
+		'productTags' => [
+			'name' => 'Теги',
+		],
         'created_at' => 'Создан',
         'updated_at' => 'Изменён',
         'deleted_at' => 'Удалён',

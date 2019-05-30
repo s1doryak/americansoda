@@ -112,7 +112,7 @@ return [
 		'productGroup' => [
 			'name' => 'Product Group',
 		],
-		'productGroups' => [
+		'productTags' => [
 			'name' => 'Product Tags',
 		],
         'created_at' => 'Created',
