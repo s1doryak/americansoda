@@ -45,6 +45,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "Crmplease\\Generators\\": "packages/crmplease/generators/src/",
             "Crmplease\\MaterialAdmin\\": "packages/crmplease/material-admin/src/",
             "Crmplease\\Maventa\\": "packages/crmplease/maventa/src/"
         },
@@ -53,6 +54,7 @@
             "database/factories"
         ],
         "files": [
+            "packages/crmplease/generators/src/helpers.php",
             "packages/crmplease/material-admin/src/helpers.php",
             "packages/crmplease/maventa/src/helpers.php",
             "bootstrap/helpers.php"
