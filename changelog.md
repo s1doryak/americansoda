@@ -56,6 +56,23 @@ docker-compose run artisan modify:resource Customer \
     --force
 ```
 
+-[ ] CustomerPerson
+```bash
+docker-compose run artisan generate:resource CustomerPerson \
+    --namespace=Dashboard \
+    \
+    --auth \
+    \
+    --belongs-to-many=Customer:customer_customer_person \
+    \
+    --translate=ru:"Сотрудник клиента":"Сотрудники клиента":"Сотрудника клиента":"Сотрудников клиента" \
+    --translate-modifier=ru:male \
+    \
+    --translate-belongs-to-many=Customer:ru:"Клиент":"Клиент" \
+    \
+    --force
+```
+
 
 -[ ] CompanyBankAccount
 ```bash
