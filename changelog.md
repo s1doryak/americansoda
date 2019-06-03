@@ -24,6 +24,7 @@ docker-compose run artisan modify:resource CustomerPreOrder \
     \
     --belongs-to=CustomerPerson \
     --belongs-to=CustomerOrder \
+    --belongs-to=Customer \
     \
     --has-many=CustomerPreOrderItem:items \
     \
@@ -44,6 +45,23 @@ docker-compose run artisan modify:resource CustomerPreOrder \
 ```bash
 docker-compose run artisan modify:resource CustomerPreOrderItem \
     --namespace=Dashboard \
+    \
+    --filed=quantity \
+    --filed=products_quantity \
+    \
+    --field=price \
+    --field=vat_price \
+    --field=total_price \
+    --field=total_vat_price \
+    --field=deposit_price \
+    --field=deposit_vat_price \
+    --field=total_deposit_price \
+    --field=total_deposit_vat_price \
+    \
+    --belongs-to=CustomerPreOrder \
+    --belongs-to=CustomerPerson \
+    --belongs-to=Customer \
+    --belongs-to=Product \
     \
     --translate=ru:"Позиция предзаказа":"Позиции предзаказов":"Позицию предзаказа":"Позиций предзаказов" \
     --translate-modifier=ru:female \
