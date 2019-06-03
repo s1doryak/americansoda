@@ -141,7 +141,6 @@ docker-compose run artisan generate:resource CustomerPersonToken \
     \
     --field=token \
     --field=user_agent \
-    --field=screen_resolution \
     \
     --belongs-to-many=Customer \
     \
@@ -150,7 +149,6 @@ docker-compose run artisan generate:resource CustomerPersonToken \
     \
     --translate-field=token:ru:"Токен" \
     --translate-field=user_agent:ru:"Браузер" \
-    --translate-field=screen_resolution:ru:"Разрешение экрана" \
     \
     --translate-belongs=Customer:ru:"Клиент":"Клиента" \
     \
@@ -208,21 +206,7 @@ docker-compose run artisan generate:resource CustomerPriceGroupBreakpoint \
 -[x] CustomerInvoiceAction
 -[x] CustomerInvoiceAttachment
 -[x] CustomerInvoiceItem
-
--[ ] Обновить CustomerOrderItem
-```bash
-docker-compose run artisan modify:resource CustomerOrderItem \
-    --namespace=Dashboard \
-    \
-    --translate=ru \
-    --translate-modifier=ru:male \
-    \
-    --belongs-to=CustomerInvoice \
-    \
-    --translate-belongs-to=CustomerInvoice:ru:"Счёт":"Счёт" \
-    \
-    --force
-```
+-[x] Обновить CustomerOrderItem
 
 ## [1.1.1] - 2019-06-03
 - Восстановление таблицы `migrations`:
