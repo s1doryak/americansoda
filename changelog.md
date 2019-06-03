@@ -24,11 +24,37 @@ docker-compose run artisan generate:resource CustomerPriceGroup \
     --field=manual:boolean \
     \
     --has-many=Customer \
+    --has-many=CustomerPriceGroupBreakpoint \
     \
     --translate=ru:"Ценовая категория клиента":"Ценовые категории клиента":"Ценовую категорию клиента":"Ценовых категорий клиента" \
     --translate-modifier=ru:male \
     \
+    --translate-field=name:ru:"Название" \
+    --translate-field=manual:ru:"Ручной ввод цен" \
+    \
     --translate-has-many=Customer:ru:"Клиенты":"Клиента" \
+    --translate-has-many=CustomerPriceGroupBreakpoint:ru:"Градации цен":"Градацию цен" \
+    \
+    --force
+```
+
+-[ ] CustomerPriceGroupBreakpoint
+```bash
+docker-compose run artisan generate:resource CustomerPriceGroupBreakpoint \
+    --namespace=Dashboard \
+    \
+    --field=breakpoint:float \
+    --field=price:float \
+    \
+    --belongs-to=CustomerPriceGroup \
+    \
+    --translate=ru:"Градация цен":"Градации цен":"Градацию цен":"Градаций цен" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=breakpoint:ru:"Лоты" \
+    --translate-field=price:ru:"Цена" \
+    \
+    --belongs-to=CustomerPriceGroup:ru:"Ценовая категория клиента":"Ценовую категорию клиента" \
     \
     --force
 ```
