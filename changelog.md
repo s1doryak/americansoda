@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] Цены+ЦеновойТипКлиента
 - [x] Иконки
 - [x] Вход по ссылке — https://tighten.co/blog/creating-a-password-less-medium-style-email-only-authentication-system-in-laravel
-- [ ] Онлайн и Предзаказы
+- [x] Онлайн и Предзаказы
 - [ ] Календарь
 
 ### Онлайн и Предзаказы
