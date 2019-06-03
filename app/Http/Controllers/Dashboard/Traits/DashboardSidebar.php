@@ -13,6 +13,7 @@ trait DashboardSidebar
 			'resources' => [
 				'assembly',
 				'customer',
+				'customer_invoice',
 				'customer_order',
 				'customer_order_item',
 				'customer_shipment',

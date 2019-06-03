@@ -1,5 +1,4 @@
-<?php return [
-	App\Repositories\Contracts\RegionRepository::class => App\Repositories\Eloquent\RegionRepositoryEloquent::class,
+<?php return [App\Repositories\Contracts\RegionRepository::class => App\Repositories\Eloquent\RegionRepositoryEloquent::class,
 	App\Repositories\Contracts\CompanyRepository::class => App\Repositories\Eloquent\CompanyRepositoryEloquent::class,
 	App\Repositories\Contracts\RoleRepository::class => App\Repositories\Eloquent\RoleRepositoryEloquent::class,
 	App\Repositories\Contracts\UserRepository::class => App\Repositories\Eloquent\UserRepositoryEloquent::class,
@@ -26,4 +25,8 @@
 	App\Repositories\Contracts\FailedJobRepository::class => App\Repositories\Eloquent\FailedJobRepositoryEloquent::class,
 	App\Repositories\Contracts\ProductTagRepository::class => App\Repositories\Eloquent\ProductTagRepositoryEloquent::class,
 	App\Repositories\Contracts\CompanyBankAccountRepository::class => App\Repositories\Eloquent\CompanyBankAccountRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerInvoiceRepository::class => App\Repositories\Eloquent\CustomerInvoiceRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerInvoiceActionRepository::class => App\Repositories\Eloquent\CustomerInvoiceActionRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerInvoiceAttachmentRepository::class => App\Repositories\Eloquent\CustomerInvoiceAttachmentRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerInvoiceItemRepository::class => App\Repositories\Eloquent\CustomerInvoiceItemRepositoryEloquent::class,
 ];

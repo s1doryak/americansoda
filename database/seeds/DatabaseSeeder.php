@@ -41,6 +41,10 @@ class DatabaseSeeder extends Seeder
             ]);
             $this->call(ProductTagsTableSeeder::class);
 			$this->call(CompanyBankAccountsTableSeeder::class);
+			$this->call(CustomerInvoicesTableSeeder::class);
+			$this->call(CustomerInvoiceActionsTableSeeder::class);
+			$this->call(CustomerInvoiceAttachmentsTableSeeder::class);
+			$this->call(CustomerInvoiceItemsTableSeeder::class);
 			// ...seeder
         }
     }

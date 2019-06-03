@@ -23,4 +23,8 @@
 	'failed_job' => \App\FailedJob::class,
 	'product_tag' => \App\ProductTag::class,
 	'company_bank_account' => \App\CompanyBankAccount::class,
+	'customer_invoice' => \App\CustomerInvoice::class,
+	'customer_invoice_action' => \App\CustomerInvoiceAction::class,
+	'customer_invoice_attachment' => \App\CustomerInvoiceAttachment::class,
+	'customer_invoice_item' => \App\CustomerInvoiceItem::class,
 ];

@@ -38,6 +38,10 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\StockProductCreator::class,
 		\App\Console\Commands\ProductTagCreator::class,
 		\App\Console\Commands\CompanyBankAccountCreator::class,
+		\App\Console\Commands\CustomerInvoiceCreator::class,
+		\App\Console\Commands\CustomerInvoiceActionCreator::class,
+		\App\Console\Commands\CustomerInvoiceAttachmentCreator::class,
+		\App\Console\Commands\CustomerInvoiceItemCreator::class,
 	];
 
 	/**

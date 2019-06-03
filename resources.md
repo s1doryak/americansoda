@@ -41,6 +41,211 @@ insert into migrations values
 ('2016_08_02_094119_create_stock_products_table', 1);
 ```
 
+### CustomerInvoice
+```bash
+docker-compose run artisan generate:resource CustomerInvoice \
+    --namespace=Dashboard \
+    \
+    --field=maventa_id \
+    --field=maventa_tiff:file \
+    --field=maventa_initiated:boolean \
+    \
+    --field=currency \
+    --field=data \
+    --field=date \
+    --field=date_due \
+    --field=delivery_date \
+    --field=delivery_type \
+    --field=error_message \
+    --field=invoice_delivery_address \
+    --field=invoice_nr \
+    --field=invoice_seller_information \
+    --field=lang \
+    --field=notes \
+    --field=order_nr \
+    --field=payment_terms \
+    --field=reference_nr \
+    --field=state:integer \
+    --field=status \
+    --field=sum \
+    --field=sum_tax \
+    --field=work_order_nr \
+    \
+    --field=company_interest \
+    --field=company_paper_fee \
+    --field=company_reminder \
+    --field=company_comment \
+    --field=company_reference \
+    \
+    --field=customer_nr:ru:"Номер клиента" \
+    --field=customer_email:ru:"Эл.почта клиента" \
+    --field=customer_name:ru:"Название клиента" \
+    --field=customer_country:ru:"Страна клиента" \
+    --field=customer_state:ru:"Штат, округ, облась клиента" \
+    --field=customer_post_code:ru:"Почтовый индекс клиента" \
+    --field=customer_post_office:ru:"Почтовый адрес клиента" \
+    --field=customer_address1:ru:"Адрес клиента" \
+    --field=customer_address2:ru:"Адрес клиента (доп.)" \
+    --field=customer_contact_p:ru:"Контактное лицо" \
+    --field=customer_bid:ru:"BID" \
+    --field=customer_ovt:ru:"OVT" \
+    \
+    --belongs-to=Customer:customer \
+    --belongs-to=CustomerShipment:shipment \
+    --belongs-to-many=CompanyBankAccount:accounts \
+    \
+    --has-many=CustomerInvoiceItem:items \
+    --has-many=CustomerInvoiceAction:actions \
+    --has-many=CustomerInvoiceAttachment:attachments \
+    --has-many=CustomerOrderItem:orderItems \
+    \
+    --translate=ru:"Счет":"Счета":"Счет":"Счетов" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=maventa_id:ru:"Номер Maventa" \
+    --translate-field=maventa_tiff:ru:"TIFF файл" \
+    --translate-field=maventa_initiated:ru:"Был создан в Mavento" \
+    \
+    --translate-field=currency:ru:"Валюта" \
+    --translate-field=data:ru:"Данные" \
+    --translate-field=date:ru:"Дата создания" \
+    --translate-field=date_due:ru:"Дата оплаты" \
+    --translate-field=delivery_date:ru:"Дата доставки" \
+    --translate-field=delivery_type:ru:"Тип доставки" \
+    --translate-field=error_message:ru:"Текст ошибки" \
+    --translate-field=invoice_delivery_address:ru:"Адрес доставки счёта" \
+    --translate-field=invoice_nr:ru:"Номер счета" \
+    --translate-field=invoice_seller_information:ru:"Информация о продавце" \
+    --translate-field=lang:ru:"Язык" \
+    --translate-field=notes:ru:"Комментарии" \
+    --translate-field=order_nr:ru:"Номер заказа" \
+    --translate-field=payment_terms:ru:"Условия оплаты" \
+    --translate-field=reference_nr:ru:"Референс" \
+    --translate-field=state:ru:"Состояние" \
+    --translate-field=status:ru:"Статус" \
+    --translate-field=sum:ru:"Сумма" \
+    --translate-field=sum_tax:ru:"Сумма с НДС" \
+    --translate-field=work_order_nr:ru:"Номер заказа на работу" \
+    \
+    --translate-field=company_interest:ru:"Процентная ставка компании" \
+    --translate-field=company_paper_fee:ru:"Плата за бумажный счет" \
+    --translate-field=company_reminder:ru:"Плата за напоминание" \
+    --translate-field=company_comment:ru:"Комментарий к электронной почте" \
+    --translate-field=company_reference:ru:"Номер в системе продавца (TRS)" \
+    \
+    --translate-field=customer_nr:ru:"Номер клиента" \
+    --translate-field=customer_email:ru:"Эл.почта клиента" \
+    --translate-field=customer_name:ru:"Название клиента" \
+    --translate-field=customer_country:ru:"Страна клиента" \
+    --translate-field=customer_state:ru:"Штат, округ, облась клиента" \
+    --translate-field=customer_post_code:ru:"Почтовый индекс клиента" \
+    --translate-field=customer_post_office:ru:"Почтовый адрес клиента" \
+    --translate-field=customer_address1:ru:"Адрес клиента" \
+    --translate-field=customer_address2:ru:"Адрес клиента (доп.)" \
+    --translate-field=customer_contact_p:ru:"Контактное лицо" \
+    --translate-field=customer_bid:ru:"BID" \
+    --translate-field=customer_ovt:ru:"OVT" \
+    \
+    --translate-field=customer_comment:ru:"Комментарий клиента (от отклоненного счета)" \
+    --translate-field=customer_reference:ru:"Номер в системе клиента" \
+    \
+    --translate-belongs-to=customer:ru:"Клиент":"Клиента" \
+    --translate-belongs-to=shipment:ru:"Отгрузка":"Отгрузку" \
+    --translate-belongs-to-many=accounts:ru:"Счет компании":"Счет компании" \
+    \
+    --translate-has-many=items:ru:"Позиции счета":"Позицию счета" \
+    --translate-has-many=actions:ru:"Действия со счётом":"Действие с счётом" \
+    --translate-has-many=attachments:ru:"Вложенные файлы":"Вложенный файл" \
+    --translate-has-many=orderItems:ru:"Позиции заказа":"Позицию заказа" \
+    \
+    --force
+```
+
+### CustomerInvoiceAction
+```bash
+docker-compose run artisan generate:resource CustomerInvoiceAction \
+    --namespace=Dashboard \
+    \
+    --field=action \
+    --field=timestamp:timestamp \
+    \
+    --belongs-to=CustomerInvoice \
+    \
+    --translate=ru:"Действие с счётом":"Действия с счётом":"Действие с счётом":"Действий с счётом" \
+    --translate-modifier=ru:middle \
+    \
+    --translate-field=action:ru:"Действие" \
+    --translate-field=timestamp:ru:"Время" \
+    \
+    --translate-belongs-to=CustomerInvoice:ru:"Счёт":"Счёт" \
+    \
+    --force
+```
+
+### CustomerInvoiceAttachment
+```bash
+docker-compose run artisan generate:resource CustomerInvoiceAttachment \
+    --namespace=Dashboard \
+    \
+    --field=attachment_type \
+    --field=filename \
+    --field=file \
+    \
+    --belongs-to=CustomerInvoice \
+    \
+    --translate=ru:"Вложенный файл":"Вложенные файлы":"Вложенный файл":"Вложенных файлов" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=attachment_type:ru:"Тип вложения" \
+    --translate-field=filename:ru:"Название файла" \
+    --translate-field=file:ru:"Содержимое" \
+    \
+    --translate-belongs-to=CustomerInvoice:ru:"Счёт":"Счёт" \
+    \
+    --force
+```
+
+### CustomerInvoiceItem
+```bash
+docker-compose run artisan generate:resource CustomerInvoiceItem \
+    --namespace=Dashboard \
+    \
+    --field=position:integer \
+    --field=item_code \
+    --field=subject \
+    --field=definition \
+    --field=price \
+    --field=unit_type \
+    --field=amount:float \
+    --field=sum \
+    --field=tax:float \
+    --field=sum_tax \
+    --field=discount:float \
+    \
+    --belongs-to=CustomerInvoice:invoice \
+    --belongs-to=CustomerOrderItem:orderItem \
+    \
+    --translate=ru:"Позиция счета":"Позиции счета":"Позицию счета":"Позиций счета" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=position:ru:"Позиция" \
+    --translate-field=item_code:ru:"Код товара" \
+    --translate-field=subject:ru:"Название товара" \
+    --translate-field=definition:ru:"Описание товара" \
+    --translate-field=price:ru:"Цена" \
+    --translate-field=unit_type:ru:"Ед. изм." \
+    --translate-field=amount:ru:"Количество" \
+    --translate-field=sum:ru:"Сумма" \
+    --translate-field=tax:ru:"НДС" \
+    --translate-field=sum_tax:ru:"Сумма с НДС" \
+    --translate-field=discount:ru:"Скидка" \
+    \
+    --translate-belongs-to=invoice:ru:"Счёт":"Счёт" \
+    --translate-belongs-to=orderItem:ru:"Позиция заказа":"Позицию заказа" \
+    \
+    --force
+```
+
 ### CompanyBankAccount
 ```bash
 docker-compose run artisan generate:resource CompanyBankAccount \

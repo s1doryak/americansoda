@@ -40,6 +40,10 @@ class AuthServiceProvider extends ServiceProvider
 		\App\FailedJob::class => \App\Policies\FailedJobPolicy::class,
 		\App\ProductTag::class => \App\Policies\ProductTagPolicy::class,
 		\App\CompanyBankAccount::class => \App\Policies\CompanyBankAccountPolicy::class,
+		\App\CustomerInvoice::class => \App\Policies\CustomerInvoicePolicy::class,
+		\App\CustomerInvoiceAction::class => \App\Policies\CustomerInvoiceActionPolicy::class,
+		\App\CustomerInvoiceAttachment::class => \App\Policies\CustomerInvoiceAttachmentPolicy::class,
+		\App\CustomerInvoiceItem::class => \App\Policies\CustomerInvoiceItemPolicy::class,
 	];
 
 	/**
