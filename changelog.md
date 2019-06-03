@@ -203,41 +203,7 @@ docker-compose run artisan generate:resource CustomerPriceGroupBreakpoint \
 ```
 
 ### Счета
-
--[ ] CompanyBankAccount
-```bash
-docker-compose run artisan generate:resource CompanyBankAccount \
-    --namespace=Dashboard \
-    \
-    --field=bank \
-    --field=swift \
-    --field=account \
-    --field=iban \
-    --field=default:boolean \
-    \
-    --belongs-to=Company \
-    \
-    --translate=ru:"Счет компании":"Счета компании":"Счет компании":"Счетов компании" \
-    --translate-modifier=ru:male \
-    \
-    --translate-field=bank:ru:"Название банка" \
-    --translate-field=swift:ru:"SWIFT-код" \
-    --translate-field=account:ru:"Банковский номер счета" \
-    --translate-field=iban:ru:"Международный номер счета" \
-    --translate-field=default:ru:"Основной счет" \
-    \
-    --translate-belongs-to=Company:ru:"Компания":"Компанию" \
-    \
-    --force
-    
-docker-compose run artisan resource:create:company_bank_account \
-    --bank="Nordea" \
-    --swift="NDEAFIHH" \
-    --account="106430-240775" \
-    --iban="FI72 1064 3000 240775" \
-    --default="true" \
-    --company="American Soda"
-```
+-[x] CompanyBankAccount
 
 -[ ] CustomerInvoice
 ```bash

@@ -36,7 +36,8 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\StockMovementCreator::class,
 		\App\Console\Commands\StockMovementProductCreator::class,
 		\App\Console\Commands\StockProductCreator::class,
-        \App\Console\Commands\ProductTagCreator::class,
+		\App\Console\Commands\ProductTagCreator::class,
+		\App\Console\Commands\CompanyBankAccountCreator::class,
 	];
 
 	/**

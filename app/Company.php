@@ -60,67 +60,68 @@ class Company extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
 	];
 
-    protected $hidden = [
-
-    ];
-
-    protected $belongsTo = [
-		'region' => \App\Region::class,
-    ];
-
-    protected $belongsToMany = [
-
-    ];
-
-    protected $belongsToManyPivot = [
-
-    ];
-
-    protected $belongsToManyPivotTimestamps = [
-
-    ];
-
-    protected $hasOne = [
+	protected $hidden = [
 
 	];
 
-    protected $hasMany = [
+	protected $belongsTo = [
+		'region' => \App\Region::class,
+	];
 
-    ];
+	protected $belongsToMany = [
 
-    protected $hasManyThrough = [
+	];
 
-    ];
+	protected $belongsToManyPivot = [
 
-    protected $morphTo = [
+	];
 
-    ];
+	protected $belongsToManyPivotTimestamps = [
 
-    protected $morphMany = [
+	];
 
-    ];
+	protected $hasOne = [
 
-    protected $with = [
+	];
+
+	protected $hasMany = [
+		'companyBankAccounts' => CompanyBankAccount::class
+	];
+
+	protected $hasManyThrough = [
+
+	];
+
+	protected $morphTo = [
+
+	];
+
+	protected $morphMany = [
+
+	];
+
+	protected $with = [
 		'region',
-    ];
+	];
 
-    protected $images = [
+	protected $images = [
 
-    ];
+	];
 
-    protected $files = [
+	protected $files = [
 
-    ];
+	];
 
-    /**
-     * @return array
-     */
-    public function getWith()
-    {
-        $condition = is_resource_page(['company']) || is_datatable(['company']);
+	/**
+	 * @return array
+	 */
+	public function getWith()
+	{
+		$condition = is_resource_page(['company']) || is_datatable(['company']);
 
-        return [
-            $condition ? 'region' : null,
-        ];
-    }
+		return [
+			$condition ? 'region' : null,
+			$condition ? 'companyBankAccounts' : null,
+		];
+	}
 }

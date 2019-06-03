@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
                 FailedJobsTableSeeder::class
             ]);
             $this->call(ProductTagsTableSeeder::class);
+			$this->call(CompanyBankAccountsTableSeeder::class);
 			// ...seeder
         }
     }

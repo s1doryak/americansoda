@@ -22,4 +22,5 @@
 	'job' => \App\Job::class,
 	'failed_job' => \App\FailedJob::class,
 	'product_tag' => \App\ProductTag::class,
+	'company_bank_account' => \App\CompanyBankAccount::class,
 ];

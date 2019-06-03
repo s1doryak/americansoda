@@ -22,7 +22,8 @@
 	App\Repositories\Contracts\StockMovementRepository::class => App\Repositories\Eloquent\StockMovementRepositoryEloquent::class,
 	App\Repositories\Contracts\StockMovementProductRepository::class => App\Repositories\Eloquent\StockMovementProductRepositoryEloquent::class,
 	App\Repositories\Contracts\StockProductRepository::class => App\Repositories\Eloquent\StockProductRepositoryEloquent::class,
-    App\Repositories\Contracts\JobRepository::class => App\Repositories\Eloquent\JobRepositoryEloquent::class,
-    App\Repositories\Contracts\FailedJobRepository::class => App\Repositories\Eloquent\FailedJobRepositoryEloquent::class,
-    App\Repositories\Contracts\ProductTagRepository::class => App\Repositories\Eloquent\ProductTagRepositoryEloquent::class,
+	App\Repositories\Contracts\JobRepository::class => App\Repositories\Eloquent\JobRepositoryEloquent::class,
+	App\Repositories\Contracts\FailedJobRepository::class => App\Repositories\Eloquent\FailedJobRepositoryEloquent::class,
+	App\Repositories\Contracts\ProductTagRepository::class => App\Repositories\Eloquent\ProductTagRepositoryEloquent::class,
+	App\Repositories\Contracts\CompanyBankAccountRepository::class => App\Repositories\Eloquent\CompanyBankAccountRepositoryEloquent::class,
 ];

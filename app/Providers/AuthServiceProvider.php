@@ -7,12 +7,12 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
+	/**
+	 * The policy mappings for the application.
+	 *
+	 * @var array
+	 */
+	protected $policies = [
 		\App\Region::class => \App\Policies\RegionPolicy::class,
 		\App\Company::class => \App\Policies\CompanyPolicy::class,
 		\App\Role::class => \App\Policies\RolePolicy::class,
@@ -36,20 +36,21 @@ class AuthServiceProvider extends ServiceProvider
 		\App\StockMovement::class => \App\Policies\StockMovementPolicy::class,
 		\App\StockMovementProduct::class => \App\Policies\StockMovementProductPolicy::class,
 		\App\StockProduct::class => \App\Policies\StockProductPolicy::class,
-        \App\Job::class => \App\Policies\JobPolicy::class,
-        \App\FailedJob::class => \App\Policies\FailedJobPolicy::class,
-        \App\ProductTag::class => \App\Policies\ProductTagPolicy::class,
-    ];
+		\App\Job::class => \App\Policies\JobPolicy::class,
+		\App\FailedJob::class => \App\Policies\FailedJobPolicy::class,
+		\App\ProductTag::class => \App\Policies\ProductTagPolicy::class,
+		\App\CompanyBankAccount::class => \App\Policies\CompanyBankAccountPolicy::class,
+	];
 
-    /**
-     * Register any authentication / authorization services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->registerPolicies();
+	/**
+	 * Register any authentication / authorization services.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		$this->registerPolicies();
 
-        //
-    }
+		//
+	}
 }

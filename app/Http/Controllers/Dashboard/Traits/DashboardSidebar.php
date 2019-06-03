@@ -46,6 +46,7 @@ trait DashboardSidebar
 				'user',
 				'role',
 				'company',
+				'company_bank_account',
 				'job',
 				'failed_job',
 			],
