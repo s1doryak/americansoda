@@ -7,14 +7,14 @@ namespace App;
  *
  * @property integer $products_range
  * @property float $price
- *
  * @property \App\ProductGroup $productGroup
  * @property \App\Customer $customer
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo productGroup()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
- *
  *
  * @package App
  */

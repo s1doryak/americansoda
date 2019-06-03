@@ -8,9 +8,11 @@ namespace App;
  * @property string $name
  * @property string $logo
  * @property \Illuminate\Support\Collection|Product[] $products
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
  * @method \Illuminate\Database\Eloquent\Relations\HasMany products()
- *
- *
  *
  * @package App
  */

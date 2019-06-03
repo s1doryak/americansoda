@@ -8,19 +8,19 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
  * User
  *
  * @property string $email
- * @property \Carbon\Carbon $email_verified_at
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string $name
  * @property string $phone
  * @property string $avatar
- *
  * @property \App\Role $role
  * @property \App\Company $company
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo role()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo company()
- *
  *
  * @package App
  */

@@ -26,14 +26,15 @@ namespace App;
  * @property string $delivery_payer
  * @property string $payment_conditions
  * @property boolean $pays_vat
- *
  * @property \App\Stock $stock
  * @property \App\CustomerType $customerType
  * @property \App\PaymentType $paymentType
  * @property \App\User $user
  * @property \App\Region $billingRegion
  * @property \App\Region $shippingRegion
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo stock()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerType()
@@ -41,7 +42,6 @@ namespace App;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo user()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo billingRegion()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo shippingRegion()
- *
  *
  * @package App
  */

@@ -7,14 +7,14 @@ namespace App;
  *
  * @property integer $id
  * @property string $action
- * @property \Carbon\Carbon $timestamp
+ * @property \Illuminate\Support\Carbon|null $timestamp
  * @property \App\CustomerInvoice $customerInvoice
-
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerInvoice()
-
+ *
  * @package App
  */
 class CustomerInvoiceAction extends \Crmplease\MaterialAdmin\Database\Eloquent\Model

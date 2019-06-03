@@ -8,10 +8,9 @@ namespace App;
  * @property string $name
  * @property integer $vat
  * @property integer $sales_unit_volume
- *
- *
- *
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @package App
  */

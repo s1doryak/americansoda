@@ -6,12 +6,12 @@ namespace App;
  * CustomerType
  *
  * @property string $name
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \App\CustomerType $customerType
  *
- *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerType()
- *
  *
  * @package App
  */

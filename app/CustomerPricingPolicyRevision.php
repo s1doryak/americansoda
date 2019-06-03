@@ -9,20 +9,20 @@ namespace App;
  * @property integer $revision_number
  * @property integer $products_range
  * @property float $price
- *
  * @property \App\CustomerPricingPolicyRevision $revision
  * @property \App\CustomerPricingPolicy $customerPricingPolicy
  * @property \App\User $editor
  * @property \App\ProductGroup $productGroup
  * @property \App\Customer $customer
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo revision()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerPricingPolicy()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo editor()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo productGroup()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
- *
  *
  * @package App
  */

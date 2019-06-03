@@ -24,12 +24,13 @@ namespace App;
  * @property integer $deposit_vat
  * @property float $deposit_vat_price
  * @property string $comment
- *
  * @property \App\Brand $brand
  * @property \App\PackageType $packageType
  * @property \App\ProductGroup $productGroup
  * @property \Illuminate\Support\Collection|\App\ProductTag[] $productTags
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo brand()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo packageType()

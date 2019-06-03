@@ -10,17 +10,17 @@ use Carbon\Carbon;
  * @property string $product_name
  * @property integer $products_quantity
  * @property string $delivery_number
- * @property \Carbon\Carbon $expiration_date
+ * @property \Illuminate\Support\Carbon|null $expiration_date
  * @property string $movement_type
  * @property string $comment
- *
  * @property \App\StockMovement $stockMovement
  * @property \App\Product $product
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo stockMovement()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo product()
- *
  *
  * @package App
  */

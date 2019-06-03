@@ -102,12 +102,16 @@ return [
                 'name' => 'Product Group',
             ],
         ],
+		'customerInvoice' => [
+			'name' => 'Customer Invoice',
+		],
     ],
     'placeholders' => [
         'product' => 'Select Product',
         'customer' => 'Select Customer',
         'customerOrder' => 'Select Customer Order',
         'customerShipment' => 'Select Customer Shipment',
+		'customerInvoice' => 'Select Customer Invoice',
     ],
     'columns' => [
         'status' => 'Status',
@@ -167,6 +171,9 @@ return [
                 'name' => 'Product Group',
             ],
         ],
+		'customerInvoice' => [
+			'name' => 'Customer Invoice',
+		],
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',
@@ -192,6 +199,9 @@ return [
             'invoice_number' => 'Invoice',
             'assembly_number' => 'Assembly Number',
         ],
+		'customerInvoice' => [
+			'name' => 'Customer Invoice',
+		],
         'customerShipmentAdvanced' => 'Type/Month',
         'bypass' => 'Bypass',
         'back_order' => 'Backorder',

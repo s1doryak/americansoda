@@ -8,12 +8,12 @@ namespace App;
  * @property string $name
  * @property string $postcode
  * @property string $address
- *
  * @property \App\Region $region
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo region()
- *
  *
  * @package App
  */

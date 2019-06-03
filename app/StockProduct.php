@@ -6,17 +6,17 @@ namespace App;
  * StockProduct
  *
  * @property string $delivery_number
- * @property \Carbon\Carbon $expiration_date
- *
+ * @property \Illuminate\Support\Carbon|null $expiration_date
  * @property \App\Stock $stock
  * @property \App\Product $product
  * @property \App\CustomerOrderItem $customerOrderItem
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo stock()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo product()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerOrderItem()
- *
  *
  * @package App
  */

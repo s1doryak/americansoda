@@ -21,12 +21,12 @@ namespace App;
  * @property string $smtp_password
  * @property string $smtp_from
  * @property string $smtp_from_name
- *
  * @property \App\Region $region
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo region()
- *
  *
  * @package App
  */

@@ -8,9 +8,9 @@ namespace App;
  * @property string $queue
  * @property object $payload
  * @property integer $attempts
- * @property \Carbon\Carbon|null $reserved_at
- * @property \Carbon\Carbon $available_at
- * @property \Carbon\Carbon $created_at
+ * @property \Illuminate\Support\Carbon|null|null $reserved_at
+ * @property \Illuminate\Support\Carbon|null $available_at
+ * @property \Illuminate\Support\Carbon|null $created_at
  *
  * @package App
  */

@@ -14,16 +14,16 @@ use Carbon\Carbon;
  * @property string $delivery_type
  * @property integer $packages_quantity
  * @property string $comment
- *
  * @property \App\PackageType $packageType
  * @property \App\Customer $customer
  * @property \App\User $user
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo packageType()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo user()
- *
  *
  * @package App
  */

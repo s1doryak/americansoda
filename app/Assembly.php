@@ -9,10 +9,9 @@ use Carbon\Carbon;
  *
  * @property string $number
  * @property string $comment
- *
- *
- *
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @package App
  */

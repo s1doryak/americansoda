@@ -102,12 +102,16 @@ return [
                 'name' => 'Категория товара',
             ],
         ],
+		'customerInvoice' => [
+			'name' => 'Счёт',
+		],
 	],
     'placeholders' => [
 		'product' => 'Выберите Товар',
 		'customer' => 'Выберите Клиента',
 		'customerOrder' => 'Выберите Заказ',
 		'customerShipment' => 'Выберите Отгрузку',
+		'customerInvoice' => 'Выберите Счёт',
     ],
     'columns' => [
 		'status' => 'Статус',
@@ -167,6 +171,9 @@ return [
                 'name' => 'Категория товара',
             ],
         ],
+		'customerInvoice' => [
+			'name' => 'Счёт',
+		],
         'created_at' => 'Создана',
         'updated_at' => 'Изменена',
         'deleted_at' => 'Удалена',
@@ -192,6 +199,9 @@ return [
             'assembly_number' => 'Номер сборки',
             'invoice_number' => 'Номер счета',
         ],
+		'customerInvoice' => [
+			'name' => 'Счёт',
+		],
         'customerShipmentAdvanced' => 'Тип/Месяц',
         'bypass' => 'Не списывать со склада',
         'back_order' => 'Отложенный заказ',

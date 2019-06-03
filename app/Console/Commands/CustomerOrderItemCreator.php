@@ -8,6 +8,7 @@ use App\Repositories\Contracts\ProductRepository;
 use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Contracts\CustomerOrderRepository;
 use App\Repositories\Contracts\CustomerShipmentRepository;
+use App\Repositories\Contracts\CustomerInvoiceRepository;
 use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
 
 /**
@@ -17,28 +18,32 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerOrderItemCreator extends ResourceCreator
 {
-    protected $name = 'resource:create:customer_order_item';
+	protected $name = 'resource:create:customer_order_item';
 
 	/**
 	 * @var ProductRepository
 	 */
 	protected $products;
-	
+
 	/**
 	 * @var CustomerRepository
 	 */
 	protected $customers;
-	
+
 	/**
 	 * @var CustomerOrderRepository
 	 */
 	protected $customerOrders;
-	
+
 	/**
 	 * @var CustomerShipmentRepository
 	 */
 	protected $customerShipments;
-	
+
+	/**
+	 * @var CustomerInvoiceRepository
+	 */
+	protected $customerInvoices;
 
 	/**
 	 * @var array
@@ -48,25 +53,28 @@ class CustomerOrderItemCreator extends ResourceCreator
 		'customers' => 'name',
 		'customerOrders' => 'name',
 		'customerShipments' => 'name',
+		'customerInvoices' => 'name',
 	];
 
 	public function __construct(
-	    CustomerOrderItem $customerOrderItem,
+		CustomerOrderItem $customerOrderItem,
 		CustomerOrderItemRepository $customerOrderItemRepository,
 		ProductRepository $productRepository,
 		CustomerRepository $customerRepository,
 		CustomerOrderRepository $customerOrderRepository,
-		CustomerShipmentRepository $customerShipmentRepository
+		CustomerShipmentRepository $customerShipmentRepository,
+		CustomerInvoiceRepository $customerInvoiceRepository
 	)
 	{
-	    $this->resource = $customerOrderItem;
+		$this->resource = $customerOrderItem;
 		$this->repository = $customerOrderItemRepository;
 		$this->products = $productRepository;
 		$this->customers = $customerRepository;
 		$this->customerOrders = $customerOrderRepository;
 		$this->customerShipments = $customerShipmentRepository;
+		$this->customerInvoices = $customerInvoiceRepository;
 
-        parent::__construct();
+		parent::__construct();
 	}
 
 	/**

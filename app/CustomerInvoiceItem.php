@@ -19,13 +19,13 @@ namespace App;
  * @property string $discount
  * @property \App\CustomerInvoice $invoice
  * @property \App\CustomerOrderItem $orderItem
-
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo invoice()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo orderItem()
-
+ *
  * @package App
  */
 class CustomerInvoiceItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model

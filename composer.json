@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.1.3",
         "ext-soap": "*",
+        "ext-json": "*",
         "barryvdh/laravel-snappy": "^0.4.4",
         "barryvdh/laravel-translation-manager": "^0.5.3",
         "doctrine/dbal": "^2.9",

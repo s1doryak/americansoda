@@ -12,12 +12,12 @@ namespace App;
  * @property string $iban
  * @property boolean $default
  * @property \App\Company $company
-
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo company()
-
+ *
  * @package App
  */
 class CompanyBankAccount extends \Crmplease\MaterialAdmin\Database\Eloquent\Model

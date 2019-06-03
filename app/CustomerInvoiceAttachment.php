@@ -10,12 +10,12 @@ namespace App;
  * @property string $filename
  * @property string $file
  * @property \App\CustomerInvoice $customerInvoice
-
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerInvoice()
-
+ *
  * @package App
  */
 class CustomerInvoiceAttachment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model

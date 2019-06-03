@@ -6,14 +6,15 @@ use App\CustomerOrder;
 use App\CustomerOrderItem;
 use App\CustomerShipment;
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
-use Crmplease\MaterialAdmin\Events\ResourceUpdated;
-use Crmplease\MaterialAdmin\Http\Requests\Request;
-use Crmplease\MaterialAdmin\Routing\ResourceController;
 use App\Repositories\Contracts\CustomerOrderItemRepository;
 use App\Repositories\Contracts\ProductRepository;
 use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Contracts\CustomerOrderRepository;
 use App\Repositories\Contracts\CustomerShipmentRepository;
+use App\Repositories\Contracts\CustomerInvoiceRepository;
+use Crmplease\MaterialAdmin\Events\ResourceUpdated;
+use Crmplease\MaterialAdmin\Http\Requests\Request;
+use Crmplease\MaterialAdmin\Routing\ResourceController;
 use Illuminate\Contracts\Auth\Access\Gate;
 
 /**
@@ -60,6 +61,10 @@ class CustomerOrderItemsController extends ResourceController
 	 */
 	protected $customerShipments;
 
+	/**
+	 * @var CustomerInvoiceRepository
+	 */
+	protected $customerInvoices;
 
 	/**
 	 * @var array
@@ -69,6 +74,7 @@ class CustomerOrderItemsController extends ResourceController
 		'customers' => 'name',
 		'customerOrders' => 'name',
 		'customerShipments' => 'name',
+		'customerInvoices' => 'name',
 	];
 
 	/**
@@ -79,6 +85,7 @@ class CustomerOrderItemsController extends ResourceController
 	 * @param CustomerRepository $customerRepository
 	 * @param CustomerOrderRepository $customerOrderRepository
 	 * @param CustomerShipmentRepository $customerShipmentRepository
+	 * @param CustomerInvoiceRepository $customerInvoiceRepository
 	 */
 	public function __construct(
 		Gate $gate,
@@ -86,7 +93,8 @@ class CustomerOrderItemsController extends ResourceController
 		ProductRepository $productRepository,
 		CustomerRepository $customerRepository,
 		CustomerOrderRepository $customerOrderRepository,
-		CustomerShipmentRepository $customerShipmentRepository
+		CustomerShipmentRepository $customerShipmentRepository,
+		CustomerInvoiceRepository $customerInvoiceRepository
 	)
 	{
 		$this->gate = $gate;
@@ -95,6 +103,7 @@ class CustomerOrderItemsController extends ResourceController
 		$this->customers = $customerRepository;
 		$this->customerOrders = $customerOrderRepository;
 		$this->customerShipments = $customerShipmentRepository;
+		$this->customerInvoices = $customerInvoiceRepository;
 
 		$this->middleware('auth:dashboard');
 		$this->shareSidebar();

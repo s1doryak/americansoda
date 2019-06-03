@@ -52,9 +52,11 @@ namespace App;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo shipment()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany accounts()
+ *
  * @package App
  */
 class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model

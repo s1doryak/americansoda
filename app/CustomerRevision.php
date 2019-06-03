@@ -36,7 +36,9 @@ namespace App;
  * @property \App\User $user
  * @property \App\Region $billingRegion
  * @property \App\Region $shippingRegion
- *
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo revision()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo editor()
@@ -46,7 +48,6 @@ namespace App;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo user()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo billingRegion()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo shippingRegion()
- *
  *
  * @package App
  */

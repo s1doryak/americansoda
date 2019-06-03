@@ -9,7 +9,7 @@ namespace App;
  * @property string $queue
  * @property object $payload
  * @property string $exception
- * @property \Carbon\Carbon $failed_at
+ * @property \Illuminate\Support\Carbon|null $failed_at
  *
  * @package App
  */

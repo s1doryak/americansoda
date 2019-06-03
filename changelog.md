@@ -217,7 +217,7 @@ docker-compose run artisan modify:resource CustomerOrderItem \
     --translate=ru \
     --translate-modifier=ru:male \
     \
-    --belongs-to:CustomerInvoice \
+    --belongs-to=CustomerInvoice \
     \
     --translate-belongs-to=CustomerInvoice:ru:"Счёт":"Счёт" \
     \
