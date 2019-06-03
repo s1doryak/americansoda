@@ -258,9 +258,9 @@ docker-compose run artisan generate:resource CustomerInvoice \
     --belongs-to=CustomerShipment:shipment \
     --belongs-to-many=CompanyBankAccount:accounts \
     \
-    --has-many:CustomerInvoiceItem:items \
-    --has-many:CustomerInvoiceAction:actions \
-    --has-many:CustomerInvoiceAttachment:attachments \
+    --has-many=CustomerInvoiceItem:items \
+    --has-many=CustomerInvoiceAction:actions \
+    --has-many=CustomerInvoiceAttachment:attachments \
     --has-many=CustomerOrderItem:orderItems \
     \
     --translate=ru:"Счет":"Счета":"Счет":"Счетов" \
@@ -311,7 +311,7 @@ docker-compose run artisan generate:resource CustomerInvoice \
     --translate-field=customer_ovt:ru:"OVT" \
     \
     --translate-field=customer_comment:ru:"Комментарий клиента (от отклоненного счета)" \
-    --translate-field=customer_reference:ru:"Номер в системе клиента" \   
+    --translate-field=customer_reference:ru:"Номер в системе клиента" \
     \
     --translate-belongs-to=customer:ru:"Клиент":"Клиента" \
     --translate-belongs-to=shipment:ru:"Отгрузка":"Отгрузку" \
