@@ -189,6 +189,9 @@ docker-compose run artisan generate:resource PriceGroupBreakpoint \
     \
     --belongs-to=PriceGroup \
     \
+    --belongs-to-many=ProductGroup \
+    --belongs-to-many-pivot=ProductGroup:price:float \
+    \
     --translate=ru:"Градация цен":"Градации цен":"Градацию цен":"Градаций цен" \
     --translate-modifier=ru:male \
     \

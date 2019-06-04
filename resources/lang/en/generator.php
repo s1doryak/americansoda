@@ -5,7 +5,7 @@ return [
 		[
 			'placeholders' =>
 				[
-					'select' => 'Select',
+					'select' => 'Select %s',
 				],
 		],
 ];
