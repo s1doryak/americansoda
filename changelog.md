@@ -165,7 +165,7 @@ docker-compose run artisan generate:resource PriceGroup \
     --field=manual:boolean \
     \
     --has-many=Customer \
-    --has-many=PriceGroupBreakpoint \
+    --has-many=PriceGroupBreakpoint:priceGroupBreakpoints:breakpoint \
     \
     --translate=ru:"Ценовая категория":"Ценовые категории":"Ценовую категорию":"Ценовых категорий" \
     --translate-modifier=ru:male \
