@@ -185,7 +185,6 @@ docker-compose run artisan generate:resource PriceGroupBreakpoint \
     --namespace=Dashboard \
     \
     --field=breakpoint:float \
-    --field=price:float \
     \
     --belongs-to=PriceGroup \
     \
