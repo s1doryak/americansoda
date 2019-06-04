@@ -79,12 +79,12 @@ class CustomerInvoicesController extends ResourceController
      */
 	protected $editActionFormData = [
 		'customers' => 'name',
-		'shipments' => 'name',
-		'accounts' => 'name',
-		'items' => 'name',
-		'actions' => 'name',
-		'attachments' => 'name',
-		'orderItems' => 'name',
+		'shipments' => 'number',
+		'accounts' => 'iban',
+		'items' => 'item_code',
+		'actions' => 'action',
+		'attachments' => 'filename',
+		'orderItems' => 'product_name',
 	];
 
     /**
