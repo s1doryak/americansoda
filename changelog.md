@@ -168,7 +168,7 @@ docker-compose run artisan generate:resource PriceGroup \
     --has-many=PriceGroupBreakpoint:priceGroupBreakpoints:breakpoint \
     \
     --translate=ru:"Ценовая категория":"Ценовые категории":"Ценовую категорию":"Ценовых категорий" \
-    --translate-modifier=ru:male \
+    --translate-modifier=ru:female \
     \
     --translate-field=name:ru:"Название" \
     --translate-field=manual:ru:"Ручной ввод цен" \
@@ -192,7 +192,7 @@ docker-compose run artisan generate:resource PriceGroupBreakpoint \
     --belongs-to-many-pivot=ProductGroup:price:float \
     \
     --translate=ru:"Градация цен":"Градации цен":"Градацию цен":"Градаций цен" \
-    --translate-modifier=ru:male \
+    --translate-modifier=ru:female \
     \
     --translate-field=breakpoint:ru:"Лоты" \
     \
