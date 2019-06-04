@@ -4,7 +4,7 @@
         @foreach ($revisions as $created_at => $items)
             @if (isset($items['policies']) && count($items['policies']))
                 @php($first = reset($items['policies']))
-                @include('dashboard::resources.customers.timeline.view', [
+                @include('dashboard::resources.customer.timeline.view', [
                     'isPolicy' => true,
                     'policies' => $items['policies'],
                     'revisionType' => $first->revision_type,
@@ -16,7 +16,7 @@
             @if (isset($items['customers']))
                 @foreach ($items['customers'] as $customer)
                     @if(count($customer->getChangedAttributes()))
-                        @include('dashboard::resources.customers.timeline.view', [
+                        @include('dashboard::resources.customer.timeline.view', [
                             'isPolicy' => false,
                             'revisionType' => $customer->revision_type,
                             'customer' => $customer,

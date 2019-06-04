@@ -8,7 +8,7 @@
         @include('material-admin::master.sections.form')
 
         @if (!is_create_page())
-            @include('dashboard::resources.customers._timeline')
+            @include('dashboard::resources.customer._timeline')
         @endif
     @endif
 

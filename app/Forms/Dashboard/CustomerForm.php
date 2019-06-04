@@ -23,6 +23,10 @@ class CustomerForm extends Form
 		$delivery_payer = config('customer.delivery_payer');
 
 		$fields = [
+			'archived' => [
+				'type' => 'checkbox',
+				'ts-color' => 'red',
+			],
 			'name' => 'text',
 			'legal_name' => 'text',
 
@@ -43,8 +47,16 @@ class CustomerForm extends Form
 			],
 			'shipping_postcode' => 'text',
 			'shipping_address' => 'text',
-
-			'bid' => 'text', // Business ID
+			'nr' => 'text',
+			'country' => 'text',
+			'state' => 'text',
+			'post_code' => 'text',
+			'post_office' => 'text',
+			'address1' => 'text',
+			'address2' => 'text',
+			'contact_p' => 'text',
+			'bid' => 'text',
+			'ovt' => 'text',
 			'iban' => 'text',
 			'swift' => 'text',
 			'email' => 'text',
@@ -62,6 +74,10 @@ class CustomerForm extends Form
 				'multiple' => false,
 			],
 			'paymentType' => [
+				'type' => 'choice',
+				'multiple' => false,
+			],
+			'priceGroup' => [
 				'type' => 'choice',
 				'multiple' => false,
 			],
@@ -91,9 +107,9 @@ class CustomerForm extends Form
 			'type' => 'relation_form',
 			'resource' => 'customer_pricing_policy',
 			'form_title' => trans('models/customer_pricing_policy.labels.plural'),
-			'template' => 'dashboard::resources.customers.policies.form',
+			'template' => 'dashboard::resources.customer.policies.form',
 			'groups' => app(ProductGroupRepository::class)->all(),
-			'fields' => CustomerPricingPolicyForm::getFormFields(),
+			'fields' => CustomerPricingPolicyForm::getCreateFormFields(),
 			'items' => collect([]),
 		];
 
@@ -112,6 +128,10 @@ class CustomerForm extends Form
 		$delivery_payer = config('customer.delivery_payer');
 
 		$fields = [
+			'archived' => [
+				'type' => 'checkbox',
+				'ts-color' => 'red',
+			],
 			'name' => 'text',
 			'legal_name' => 'text',
 
@@ -132,8 +152,16 @@ class CustomerForm extends Form
 			],
 			'shipping_postcode' => 'text',
 			'shipping_address' => 'text',
-
-			'bid' => 'text', // Business ID
+			'nr' => 'text',
+			'country' => 'text',
+			'state' => 'text',
+			'post_code' => 'text',
+			'post_office' => 'text',
+			'address1' => 'text',
+			'address2' => 'text',
+			'contact_p' => 'text',
+			'bid' => 'text',
+			'ovt' => 'text',
 			'iban' => 'text',
 			'swift' => 'text',
 			'email' => 'text',
@@ -151,6 +179,10 @@ class CustomerForm extends Form
 				'multiple' => false,
 			],
 			'paymentType' => [
+				'type' => 'choice',
+				'multiple' => false,
+			],
+			'priceGroup' => [
 				'type' => 'choice',
 				'multiple' => false,
 			],
@@ -180,9 +212,9 @@ class CustomerForm extends Form
 			'type' => 'relation_form',
 			'resource' => 'customer_pricing_policy',
 			'form_title' => trans('models/customer_pricing_policy.labels.plural'),
-			'template' => 'dashboard::resources.customers.policies.form',
+			'template' => 'dashboard::resources.customer.policies.form',
 			'groups' => app(ProductGroupRepository::class)->all(),
-			'fields' => CustomerPricingPolicyForm::getFormFields(),
+			'fields' => CustomerPricingPolicyForm::getCreateFormFields(),
 			'items' => $customer->customerPricingPolicies,
 		];
 
@@ -197,23 +229,34 @@ class CustomerForm extends Form
 	public static function getStoreValidationRules()
 	{
 		return [
-			'name' => 'required',
-			'legal_name' => 'required',
+			'name' => 'sometimes',
+			'legal_name' => 'sometimes',
 
-			'billingRegion' => 'required|exists:regions,id',
-			'billing_postcode' => 'required',
-			'billing_address' => 'required',
+			'billingRegion' => 'sometimes|exists:regions,id',
+			'billing_postcode' => 'sometimes',
+			'billing_address' => 'sometimes',
 
-			'shippingRegion' => 'required|exists:regions,id',
-			'shipping_postcode' => 'required',
-			'shipping_address' => 'required',
+			'shippingRegion' => 'sometimes|exists:regions,id',
+			'shipping_postcode' => 'sometimes',
+			'shipping_address' => 'sometimes',
 
-			'bid' => 'required', // Business ID
+			'bid' => 'sometimes', // Business ID
 			'email' => 'sometimes|email',
-			'stock' => 'required|exists:stocks,id',
-			'customerType' => 'required|exists:customer_types,id',
-			'paymentType' => 'required|exists:payment_types,id',
-			'user' => 'required|exists:users,id',
+			'stock' => 'sometimes|exists:stocks,id',
+			'customerType' => 'sometimes|exists:customer_types,id',
+			'paymentType' => 'sometimes|exists:payment_types,id',
+			'user' => 'sometimes|exists:users,id',
+			'archived' => 'sometimes',
+			'nr' => 'sometimes',
+			'country' => 'sometimes',
+			'state' => 'sometimes',
+			'post_code' => 'sometimes',
+			'post_office' => 'sometimes',
+			'address1' => 'sometimes',
+			'address2' => 'sometimes',
+			'contact_p' => 'sometimes',
+			'ovt' => 'sometimes',
+			'priceGroup' => 'sometimes|exists:price_groups,id',
 		];
 	}
 
@@ -224,23 +267,34 @@ class CustomerForm extends Form
 	public static function getUpdateValidationRules($customer)
 	{
 		return [
-			'name' => 'required',
-			'legal_name' => 'required',
+			'name' => 'sometimes',
+			'legal_name' => 'sometimes',
 
-			'billingRegion' => 'required|exists:regions,id',
-			'billing_postcode' => 'required',
-			'billing_address' => 'required',
+			'billingRegion' => 'sometimes|exists:regions,id',
+			'billing_postcode' => 'sometimes',
+			'billing_address' => 'sometimes',
 
-			'shippingRegion' => 'required|exists:regions,id',
-			'shipping_postcode' => 'required',
-			'shipping_address' => 'required',
+			'shippingRegion' => 'sometimes|exists:regions,id',
+			'shipping_postcode' => 'sometimes',
+			'shipping_address' => 'sometimes',
 
-			'bid' => 'required', // Business ID
+			'bid' => 'sometimes', // Business ID
 			'email' => 'sometimes|email',
-			'stock' => 'required|exists:stocks,id',
-			'customerType' => 'required|exists:customer_types,id',
-			'paymentType' => 'required|exists:payment_types,id',
-			'user' => 'required|exists:users,id',
+			'stock' => 'sometimes|exists:stocks,id',
+			'customerType' => 'sometimes|exists:customer_types,id',
+			'paymentType' => 'sometimes|exists:payment_types,id',
+			'user' => 'sometimes|exists:users,id',
+			'archived' => 'sometimes',
+			'nr' => 'sometimes',
+			'country' => 'sometimes',
+			'state' => 'sometimes',
+			'post_code' => 'sometimes',
+			'post_office' => 'sometimes',
+			'address1' => 'sometimes',
+			'address2' => 'sometimes',
+			'contact_p' => 'sometimes',
+			'ovt' => 'sometimes',
+			'priceGroup' => 'sometimes|exists:price_groups,id',
 		];
 	}
 }

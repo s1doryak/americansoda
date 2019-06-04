@@ -15,6 +15,7 @@ use App\Repositories\Contracts\PaymentTypeRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\RegionRepository;
 use Illuminate\Contracts\Auth\Access\Gate;
+use App\Repositories\Contracts\PriceGroupRepository;
 
 /**
  * Customer controller.
@@ -24,6 +25,11 @@ use Illuminate\Contracts\Auth\Access\Gate;
 class CustomersController extends ResourceController
 {
 	use DashboardSidebar;
+
+	/**
+	 * @var PriceGroupRepository
+	 */
+	protected $priceGroups;
 
 	/**
 	 * @var Gate
@@ -63,12 +69,7 @@ class CustomersController extends ResourceController
 	/**
 	 * @var RegionRepository
 	 */
-	protected $billingRegions;
-
-	/**
-	 * @var RegionRepository
-	 */
-	protected $shippingRegions;
+	protected $regions;
 
 	/**
 	 * @var CustomerRevisionRepository
@@ -98,7 +99,8 @@ class CustomersController extends ResourceController
 		'paymentTypes' => 'name',
 		'users' => 'name',
 		'productGroups' => 'name',
-		'stocks' => 'name'
+		'stocks' => 'name',
+		'priceGroups' => 'name',
 	];
 
 	/**
@@ -113,6 +115,7 @@ class CustomersController extends ResourceController
 	 * @param RegionRepository $regionRepository
 	 * @param CustomerRevisionRepository $customerRevisionRepository
 	 * @param ProductGroupRepository $productGroupRepository
+	 * @param PriceGroupRepository $priceGroupRepository
 	 */
 	public function __construct(
 		Gate $gate,
@@ -123,7 +126,8 @@ class CustomersController extends ResourceController
 		UserRepository $userRepository,
 		RegionRepository $regionRepository,
 		CustomerRevisionRepository $customerRevisionRepository,
-		ProductGroupRepository $productGroupRepository
+		ProductGroupRepository $productGroupRepository,
+		PriceGroupRepository $priceGroupRepository
 	)
 	{
 		$this->gate = $gate;
@@ -132,10 +136,10 @@ class CustomersController extends ResourceController
 		$this->customerTypes = $customerTypeRepository;
 		$this->paymentTypes = $paymentTypeRepository;
 		$this->users = $userRepository;
-		$this->billingRegions = $regionRepository;
-		$this->shippingRegions = $regionRepository;
+		$this->regions = $regionRepository;
 		$this->customerRevisionRepository = $customerRevisionRepository;
 		$this->productGroups = $productGroupRepository;
+		$this->priceGroups = $priceGroupRepository;
 
 		$this->createActionFormData = [
 			'billingRegions' => [
@@ -155,7 +159,8 @@ class CustomersController extends ResourceController
 				'selected' => Auth::user()
 			],
 			'productGroups' => 'name',
-			'stocks' => 'name'
+			'stocks' => 'name',
+			'priceGroups' => 'name',
 		];
 
 		$this->middleware('auth:dashboard');

@@ -59,13 +59,30 @@ return [
 		'order_interval' => 'Order Interval',
 		'comment' => 'Comment',
 		'calendar_comment' => 'Calendar Comment',
-		'incomterms' => 'Incomterms',
+		'incomterms' => [
+			'name' => 'Incomterms',
+		],
 		'terms_of_cooperation' => 'Terms Of Cooperation',
 		'terms_of_delivery' => 'Terms Of Delivery',
 		'terms_of_equipment' => 'Terms Of Equipment',
-		'delivery_payer' => 'Delivery Payer',
+		'delivery_payer' => [
+			'name' => 'Delivery Payer',
+		],
 		'payment_conditions' => 'Payment Conditions',
 		'pays_vat' => 'Pays Vat',
+		'archived' => 'Archived',
+		'nr' => 'Nr',
+		'country' => 'Country',
+		'state' => 'State',
+		'post_code' => 'Post Code',
+		'post_office' => 'Post Office',
+		'address1' => 'Address1',
+		'address2' => 'Address2',
+		'contact_p' => 'Contact P',
+		'ovt' => 'Ovt',
+		'priceGroup' => [
+			'name' => 'Price Group',
+		],
 		'stock' => [
 			'name' => 'Stock',
 		],
@@ -92,6 +109,8 @@ return [
 		'user' => 'Select User',
 		'billingRegion' => 'Select Billing Region',
 		'shippingRegion' => 'Select Shipping Region',
+		'priceGroup' => 'Select Price Group',
+		'customerInvoices' => 'Select Customer Invoices',
     ],
     'columns' => [
 		'name' => 'Name',
@@ -115,6 +134,19 @@ return [
 		'delivery_payer' => 'Delivery Payer',
 		'payment_conditions' => 'Payment Conditions',
 		'pays_vat' => 'Pays Vat',
+		'archived' => 'Archived',
+		'nr' => 'Nr',
+		'country' => 'Country',
+		'state' => 'State',
+		'post_code' => 'Post Code',
+		'post_office' => 'Post Office',
+		'address1' => 'Address1',
+		'address2' => 'Address2',
+		'contact_p' => 'Contact P',
+		'ovt' => 'Ovt',
+		'priceGroup' => [
+			'name' => 'Price Group',
+		],
 		'stock' => [
 			'name' => 'Stock',
 		],
@@ -138,6 +170,9 @@ return [
         'deleted_at' => 'Trashed',
     ],
     'filters' => [
+		'priceGroup' => [
+			'name' => 'Price Group',
+		],
 		'stock' => [
 			'name' => 'Stock',
 		],

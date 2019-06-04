@@ -60,11 +60,15 @@ return [
 		'order_interval' => 'Интервал заказов',
 		'comment' => 'Комментарий',
 		'calendar_comment' => 'Комментарий в календаре',
-		'incomterms' => 'Инкомтермс',
+		'incomterms' => [
+			'name' => 'Инкомтермс'
+		],
 		'terms_of_cooperation' => 'Условия сотрудничества',
 		'terms_of_delivery' => 'Условия доставки',
 		'terms_of_equipment' => 'Условия поставки оборудования',
-		'delivery_payer' => 'Доставку оплачивает',
+		'delivery_payer' => [
+			'name' => 'Доставку оплачивает'
+		],
 		'payment_conditions' => 'Условия оплаты',
 		'pays_vat' => 'Плательщик НДС',
 		'revision' => [
@@ -118,11 +122,15 @@ return [
 		'order_interval' => 'Интервал заказов',
 		'comment' => 'Комментарий',
 		'calendar_comment' => 'Комментарий в календаре',
-		'incomterms' => 'Инкомтермс',
+		'incomterms' => [
+			'name' => 'Инкомтермс'
+		],
 		'terms_of_cooperation' => 'Условия сотрудничества',
 		'terms_of_delivery' => 'Условия доставки',
 		'terms_of_equipment' => 'Условия поставки оборудования',
-		'delivery_payer' => 'Доставку оплачивает',
+		'delivery_payer' => [
+			'name' => 'Доставку оплачивает'
+		],
 		'payment_conditions' => 'Условия оплаты',
 		'pays_vat' => 'Плательщик НДС',
 		'revision' => [

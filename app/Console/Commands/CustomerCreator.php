@@ -10,6 +10,7 @@ use App\Repositories\Contracts\PaymentTypeRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\RegionRepository;
 use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
+use App\Repositories\Contracts\PriceGroupRepository;
 
 /**
  * Customer resource creator.
@@ -18,6 +19,11 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerCreator extends ResourceCreator
 {
+	
+	/**
+	 * @var PriceGroupRepository
+	 */
+	protected $priceGroups;
     protected $name = 'resource:create:customer';
 
 	/**
@@ -61,6 +67,8 @@ class CustomerCreator extends ResourceCreator
 		'users' => 'name',
 		'billingRegions' => 'name',
 		'shippingRegions' => 'name',
+				'priceGroups' => 'name',
+
 	];
 
 	public function __construct(
@@ -70,10 +78,12 @@ class CustomerCreator extends ResourceCreator
 		CustomerTypeRepository $customerTypeRepository,
 		PaymentTypeRepository $paymentTypeRepository,
 		UserRepository $userRepository,
-		RegionRepository $regionRepository
+		RegionRepository $regionRepository,
+		PriceGroupRepository $priceGroupRepository
 	)
 	{
-	    $this->resource = $customer;
+	    $this->priceGroups = $priceGroupRepository;
+		$this->resource = $customer;
 		$this->repository = $customerRepository;
 		$this->stocks = $stockRepository;
 		$this->customerTypes = $customerTypeRepository;

@@ -340,7 +340,7 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 			$order = $this;
 
 			Mail::send(
-				'dashboard::resources.customers.mail.order_review',
+				'dashboard::resources.customer.mail.order_review',
 				['order' => $order],
 
 				function (Message $message) use ($order, $attachment) {

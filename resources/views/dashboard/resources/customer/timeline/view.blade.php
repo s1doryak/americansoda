@@ -9,9 +9,9 @@
     </div>
     <div class="tv-body">
         @if ($isPolicy)
-            @include('dashboard::resources.customers.timeline.policies', compact('revisions'))
+            @include('dashboard::resources.customer.timeline.policies', compact('revisions'))
         @else
-            @include('dashboard::resources.customers.timeline.customer', compact('revision'))
+            @include('dashboard::resources.customer.timeline.customer', compact('revisions'))
         @endif
     </div>
 </div>

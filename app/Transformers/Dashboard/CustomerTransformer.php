@@ -22,8 +22,7 @@ class CustomerTransformer implements TransformerContract
 	 */
 	public static function transformStoreRequest(Request $request)
 	{
-		return [
-			'name' => $request->get('name'),
+		return ['name' => $request->get('name'),
 			'legal_name' => $request->get('legal_name'),
 			'billing_postcode' => $request->get('billing_postcode'),
 			'billing_address' => $request->get('billing_address'),
@@ -50,8 +49,18 @@ class CustomerTransformer implements TransformerContract
 			'user' => (integer)$request->get('user'),
 			'billingRegion' => (integer)$request->get('billingRegion'),
 			'shippingRegion' => (integer)$request->get('shippingRegion'),
-
-		];
+					'archived' => (boolean)$request->get('archived'),
+			'nr' => $request->get('nr'),
+			'country' => $request->get('country'),
+			'state' => $request->get('state'),
+			'post_code' => $request->get('post_code'),
+			'post_office' => $request->get('post_office'),
+			'address1' => $request->get('address1'),
+			'address2' => $request->get('address2'),
+			'contact_p' => $request->get('contact_p'),
+			'ovt' => $request->get('ovt'),
+					'priceGroup' => (integer)$request->get('priceGroup'),
+];
 	}
 
 	/**
@@ -60,8 +69,7 @@ class CustomerTransformer implements TransformerContract
 	 */
 	public static function transformUpdateRequest(Request $request)
 	{
-		return [
-			'name' => $request->get('name'),
+		return ['name' => $request->get('name'),
 			'legal_name' => $request->get('legal_name'),
 			'billing_postcode' => $request->get('billing_postcode'),
 			'billing_address' => $request->get('billing_address'),
@@ -88,8 +96,18 @@ class CustomerTransformer implements TransformerContract
 			'user' => (integer)$request->get('user'),
 			'billingRegion' => (integer)$request->get('billingRegion'),
 			'shippingRegion' => (integer)$request->get('shippingRegion'),
-
-		];
+					'archived' => (boolean)$request->get('archived'),
+			'nr' => $request->get('nr'),
+			'country' => $request->get('country'),
+			'state' => $request->get('state'),
+			'post_code' => $request->get('post_code'),
+			'post_office' => $request->get('post_office'),
+			'address1' => $request->get('address1'),
+			'address2' => $request->get('address2'),
+			'contact_p' => $request->get('contact_p'),
+			'ovt' => $request->get('ovt'),
+					'priceGroup' => (integer)$request->get('priceGroup'),
+];
 	}
 
 	/**
@@ -98,8 +116,7 @@ class CustomerTransformer implements TransformerContract
 	 */
 	public static function toArray($customer)
 	{
-		return [
-			'id' => (int)$customer->getKey(),
+		return ['id' => (int)$customer->getKey(),
 			'name' => $customer->name,
 			'legal_name' => $customer->legal_name,
 			'billing_postcode' => $customer->billing_postcode,
@@ -131,6 +148,17 @@ class CustomerTransformer implements TransformerContract
 			'created_at' => (string)$customer->created_at,
 			'updated_at' => (string)$customer->updated_at,
 			'deleted_at' => (string)$customer->deleted_at,
-		];
+					'archived' => (boolean)$customer->archived,
+			'nr' => $customer->nr,
+			'country' => $customer->country,
+			'state' => $customer->state,
+			'post_code' => $customer->post_code,
+			'post_office' => $customer->post_office,
+			'address1' => $customer->address1,
+			'address2' => $customer->address2,
+			'contact_p' => $customer->contact_p,
+			'ovt' => $customer->ovt,
+					'priceGroup' => $customer->priceGroup ? PriceGroupTransformer::toArray($customer->priceGroup) : null,
+];
 	}
 }

@@ -70,48 +70,7 @@ docker-compose run artisan modify:resource CustomerPreOrderItem \
 ```
 
 ### Вход по ссылке
--[ ] Обновить Customer
-```bash
-docker-compose run artisan modify:resource Customer \
-    --namespace=Dashboard \
-    \
-    --field=archived:boolean \
-    \
-    --field=nr \
-    --field=country \
-    --field=state \
-    --field=post_code \
-    --field=post_office \
-    --field=address1 \
-    --field=address2 \
-    --field=contact_p \
-    --field=ovt \
-    \
-    --belongs-to=PriceGroup \
-    \
-    --has-many=CustomerInvoice \
-    \
-    --translate=ru \
-    --translate-modifier=ru:male \
-    \
-    --translate-field=archived:ru:"Неактивный" \
-    \
-    --translate-field=nr:ru:"Номер клиента" \
-    --translate-field=country:ru:"Страна клиента" \
-    --translate-field=state:ru:"Штат, округ, облась клиента" \
-    --translate-field=post_code:ru:"Почтовый индекс клиента" \
-    --translate-field=post_office:ru:"Почтовый адрес клиента" \
-    --translate-field=address1:ru:"Адрес клиента" \
-    --translate-field=address2:ru:"Адрес клиента (доп.)" \
-    --translate-field=contact_p:ru:"Контактное лицо" \
-    --translate-field=ovt:ru:"OVT" \
-    \
-    --translate-belongs-to=PriceGroup:ru:"Ценовая категория клиента":"Ценовую категорию клиента" \
-    \
-    --translate-has-many=CustomerInvoice:ru:"Счёта":"Счёт" \
-    \
-    --force
-```
+-[x] Обновить Customer
 
 -[ ] CustomerPerson
 ```bash

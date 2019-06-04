@@ -3,7 +3,7 @@
         <h4>
             {{ ucfirst($group->name) }}
             @if($can_add)
-                @include('dashboard::partials.forms.buttons.add')
+                @include('dashboard::forms.buttons.add')
             @endif
         </h4>
     </td>

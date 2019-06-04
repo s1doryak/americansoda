@@ -12,11 +12,11 @@
                 <table class="{{ str_plural(str_replace('.', '-', $options['resource'])) }}-table relation-form-table table js-relation-form"
                        data-resource="{{ $options['resource'] }}[{{ $group->id }}]">
                     <tbody>
-                    @include('dashboard::resources.customers.policies._group-header', [
+                    @include('dashboard::resources.customer.policies._group-header', [
                         'group' => $group,
                         'can_add' => true
                     ])
-                    @include('dashboard::resources.customers.policies.policies', compact('fields', 'group'))
+                    @include('dashboard::resources.customer.policies.policies', compact('fields', 'group'))
                     </tbody>
                 </table>
             @endforeach
@@ -30,7 +30,7 @@
 @section('scripts')
     @foreach($groups as $group)
         <script class="js-relation-form-row" data-resource="{{ $options['resource'] }}[{{ $group->id }}]" type="text/x-handlebars-template">
-        @include('dashboard::resources.customers.policies.policies', [
+        @include('dashboard::resources.customer.policies.policies', [
             'group' => $group,
             'is_template' => true,
             'exclude' => ['id'],

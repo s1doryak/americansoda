@@ -35,22 +35,22 @@ class PriceGroupDataTable extends DataTable
 		];
 	}
 
-    /**
-     * @return array
-     */
-    protected function getAggregateColumns()
-    {
-        return [
+	/**
+	 * @return array
+	 */
+	protected function getAggregateColumns()
+	{
+		return [
 
-        ];
-    }
+		];
+	}
 
-    /**
-     * @return array
-     */
-    protected function getFilterableColumns()
-    {
-        return [
+	/**
+	 * @return array
+	 */
+	protected function getFilterableColumns()
+	{
+		return [
 			'customers.name' => [
 				'type' => 'choice',
 				'multiple' => true,
@@ -63,8 +63,8 @@ class PriceGroupDataTable extends DataTable
 				'data' => 'priceGroupBreakpoints.id',
 				'lists' => 'priceGroupBreakpoints.breakpoint',
 			],
-        ];
-    }
+		];
+	}
 
 	/**
 	 * @param PriceGroup $priceGroup
@@ -75,11 +75,24 @@ class PriceGroupDataTable extends DataTable
 		return parent::getActions($priceGroup);
 	}
 
-    /**
-     * @return array
-     */
-    protected function getButtons()
-    {
-        return parent::getButtons();
-    }
+	/**
+	 * @return array
+	 */
+	protected function getButtons()
+	{
+		return parent::getButtons();
+	}
+
+	/**
+	 * @param PriceGroup $priceGroup
+	 * @return string
+	 */
+	protected function renderManualColumn($priceGroup)
+	{
+		if ($this->isDataTableRequest()) {
+			return $this->renderView('dashboard::resources.price_group.columns.manual', compact('priceGroup'));
+		}
+
+		return $priceGroup->manual;
+	}
 }

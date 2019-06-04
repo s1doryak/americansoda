@@ -2,8 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Customer::class, function (Faker\Generator $faker) {
-    return [
-		'name' => $faker->unique()->name,
+    return ['name' => $faker->unique()->name,
 		'legal_name' => null,
 		'billing_postcode' => null,
 		'billing_address' => null,
@@ -24,5 +23,15 @@ $factory->define(App\Customer::class, function (Faker\Generator $faker) {
 		'delivery_payer' => null,
 		'payment_conditions' => null,
 		'pays_vat' => $faker->boolean,
-    ];
+				'archived' => $faker->boolean,
+		'nr' => null,
+		'country' => null,
+		'state' => null,
+		'post_code' => null,
+		'post_office' => null,
+		'address1' => null,
+		'address2' => null,
+		'contact_p' => null,
+		'ovt' => null,
+];
 });
