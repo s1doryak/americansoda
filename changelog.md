@@ -87,7 +87,7 @@ docker-compose run artisan modify:resource Customer \
     --field=contact_p \
     --field=ovt \
     \
-    --belongs-to=CustomerPriceGroup \
+    --belongs-to=PriceGroup \
     \
     --has-many=CustomerInvoice \
     \
@@ -106,7 +106,7 @@ docker-compose run artisan modify:resource Customer \
     --translate-field=contact_p:ru:"Контактное лицо" \
     --translate-field=ovt:ru:"OVT" \
     \
-    --translate-belongs-to=CustomerPriceGroup:ru:"Ценовая категория клиента":"Ценовую категорию клиента" \
+    --translate-belongs-to=PriceGroup:ru:"Ценовая категория клиента":"Ценовую категорию клиента" \
     \
     --translate-has-many=CustomerInvoice:ru:"Счёта":"Счёт" \
     \
@@ -156,38 +156,38 @@ docker-compose run artisan generate:resource CustomerPersonToken \
 ```
 
 ### Цены
--[ ] CustomerPriceGroup
+-[ ] PriceGroup
 ```bash
-docker-compose run artisan generate:resource CustomerPriceGroup \
+docker-compose run artisan generate:resource PriceGroup \
     --namespace=Dashboard \
     \
     --field=name \
     --field=manual:boolean \
     \
     --has-many=Customer \
-    --has-many=CustomerPriceGroupBreakpoint \
+    --has-many=PriceGroupBreakpoint \
     \
-    --translate=ru:"Ценовая категория клиента":"Ценовые категории клиента":"Ценовую категорию клиента":"Ценовых категорий клиента" \
+    --translate=ru:"Ценовая категория":"Ценовые категории":"Ценовую категорию":"Ценовых категорий" \
     --translate-modifier=ru:male \
     \
     --translate-field=name:ru:"Название" \
     --translate-field=manual:ru:"Ручной ввод цен" \
     \
     --translate-has-many=Customer:ru:"Клиенты":"Клиента" \
-    --translate-has-many=CustomerPriceGroupBreakpoint:ru:"Градации цен":"Градацию цен" \
+    --translate-has-many=PriceGroupBreakpoint:ru:"Градации цен":"Градацию цен" \
     \
     --force
 ```
 
--[ ] CustomerPriceGroupBreakpoint
+-[ ] PriceGroupBreakpoint
 ```bash
-docker-compose run artisan generate:resource CustomerPriceGroupBreakpoint \
+docker-compose run artisan generate:resource PriceGroupBreakpoint \
     --namespace=Dashboard \
     \
     --field=breakpoint:float \
     --field=price:float \
     \
-    --belongs-to=CustomerPriceGroup \
+    --belongs-to=PriceGroup \
     \
     --translate=ru:"Градация цен":"Градации цен":"Градацию цен":"Градаций цен" \
     --translate-modifier=ru:male \
@@ -195,7 +195,7 @@ docker-compose run artisan generate:resource CustomerPriceGroupBreakpoint \
     --translate-field=breakpoint:ru:"Лоты" \
     --translate-field=price:ru:"Цена" \
     \
-    --belongs-to=CustomerPriceGroup:ru:"Ценовая категория клиента":"Ценовую категорию клиента" \
+    --belongs-to=PriceGroup:ru:"Ценовая категория":"Ценовую категорию" \
     \
     --force
 ```
