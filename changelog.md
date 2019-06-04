@@ -196,9 +196,11 @@ docker-compose run artisan generate:resource PriceGroupBreakpoint \
     --translate-modifier=ru:male \
     \
     --translate-field=breakpoint:ru:"Лоты" \
-    --translate-field=price:ru:"Цена" \
     \
-    --belongs-to=PriceGroup:ru:"Ценовая категория":"Ценовую категорию" \
+    --translate-belongs-to=PriceGroup:ru:"Ценовая категория":"Ценовую категорию" \
+    \
+    --translate-belongs-to-many=ProductGroup:ru:"Товарная категория":"Товарную категорию" \
+    --translate-belongs-to-many-pivot=ProductGroup:ru:price:"Цена" \
     \
     --force
 ```
