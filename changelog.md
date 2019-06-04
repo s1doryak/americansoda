@@ -142,7 +142,7 @@ docker-compose run artisan generate:resource CustomerPersonToken \
     --field=token \
     --field=user_agent \
     \
-    --belongs-to-many=Customer \
+    --belongs-to=CustomerPerson \
     \
     --translate=ru:"Токен сотрудника":"Токены сотрудников":"Токен сотрудника":"Токенов сотрудников" \
     --translate-modifier=ru:male \
@@ -150,7 +150,7 @@ docker-compose run artisan generate:resource CustomerPersonToken \
     --translate-field=token:ru:"Токен" \
     --translate-field=user_agent:ru:"Браузер" \
     \
-    --translate-belongs=Customer:ru:"Клиент":"Клиента" \
+    --translate-belongs-to=CustomerPerson:ru:"Сотрудник клиента":"Сотрудника клиента" \
     \
     --force
 ```
