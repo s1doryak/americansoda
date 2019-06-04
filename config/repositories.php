@@ -29,4 +29,6 @@
 	App\Repositories\Contracts\CustomerInvoiceActionRepository::class => App\Repositories\Eloquent\CustomerInvoiceActionRepositoryEloquent::class,
 	App\Repositories\Contracts\CustomerInvoiceAttachmentRepository::class => App\Repositories\Eloquent\CustomerInvoiceAttachmentRepositoryEloquent::class,
 	App\Repositories\Contracts\CustomerInvoiceItemRepository::class => App\Repositories\Eloquent\CustomerInvoiceItemRepositoryEloquent::class,
+	App\Repositories\Contracts\PriceGroupRepository::class => App\Repositories\Eloquent\PriceGroupRepositoryEloquent::class,
+	App\Repositories\Contracts\PriceGroupBreakpointRepository::class => App\Repositories\Eloquent\PriceGroupBreakpointRepositoryEloquent::class,
 ];

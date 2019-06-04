@@ -1,5 +1,4 @@
-<?php return [
-	'region' => \App\Region::class,
+<?php return ['region' => \App\Region::class,
 	'company' => \App\Company::class,
 	'role' => \App\Role::class,
 	'user' => \App\User::class,
@@ -27,4 +26,6 @@
 	'customer_invoice_action' => \App\CustomerInvoiceAction::class,
 	'customer_invoice_attachment' => \App\CustomerInvoiceAttachment::class,
 	'customer_invoice_item' => \App\CustomerInvoiceItem::class,
+	'price_group' => \App\PriceGroup::class,
+	'price_group_breakpoint' => \App\PriceGroupBreakpoint::class,
 ];

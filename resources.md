@@ -41,6 +41,54 @@ insert into migrations values
 ('2016_08_02_094119_create_stock_products_table', 1);
 ```
 
+### PriceGroup
+```bash
+docker-compose run artisan generate:resource PriceGroup \
+    --namespace=Dashboard \
+    \
+    --field=name \
+    --field=manual:boolean \
+    \
+    --has-many=Customer \
+    --has-many=PriceGroupBreakpoint:priceGroupBreakpoints:breakpoint \
+    \
+    --translate=ru:"Ценовая категория":"Ценовые категории":"Ценовую категорию":"Ценовых категорий" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=name:ru:"Название" \
+    --translate-field=manual:ru:"Ручной ввод цен" \
+    \
+    --translate-has-many=Customer:ru:"Клиенты":"Клиента" \
+    --translate-has-many=PriceGroupBreakpoint:ru:"Градации цен":"Градацию цен" \
+    \
+    --force
+```
+
+### PriceGroupBreakpoint
+```bash
+docker-compose run artisan generate:resource PriceGroupBreakpoint \
+    --namespace=Dashboard \
+    \
+    --field=breakpoint:float \
+    \
+    --belongs-to=PriceGroup \
+    \
+    --belongs-to-many=ProductGroup \
+    --belongs-to-many-pivot=ProductGroup:price:float \
+    \
+    --translate=ru:"Градация цен":"Градации цен":"Градацию цен":"Градаций цен" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=breakpoint:ru:"Лоты" \
+    \
+    --translate-belongs-to=PriceGroup:ru:"Ценовая категория":"Ценовую категорию" \
+    \
+    --translate-belongs-to-many=ProductGroup:ru:"Товарная категория":"Товарную категорию" \
+    --translate-belongs-to-many-pivot=ProductGroup:ru:price:"Цена" \
+    \
+    --force
+```
+
 ### Обновить CustomerOrderItem
 ```bash
 docker-compose run artisan modify:resource CustomerOrderItem \

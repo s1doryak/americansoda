@@ -19,6 +19,7 @@ trait DashboardSidebar
 				'customer_shipment',
 				'customer_type',
 				'payment_type',
+				'price_group',
 				'region',
 			],
 		],
