@@ -50,8 +50,8 @@ docker-compose run artisan generate:resource CustomerPreOrder \
 docker-compose run artisan generate:resource CustomerPreOrderItem \
     --namespace=Dashboard \
     \
-    --filed=quantity \
-    --filed=products_quantity \
+    --field=quantity \
+    --field=products_quantity \
     \
     --field=price \
     --field=vat_price \
@@ -69,6 +69,23 @@ docker-compose run artisan generate:resource CustomerPreOrderItem \
     \
     --translate=ru:"Позиция предзаказа":"Позиции предзаказов":"Позицию предзаказа":"Позиций предзаказов" \
     --translate-modifier=ru:female \
+    \
+    --translate-field=quantity:ru:"Кол-во лот" \
+    --translate-field=products_quantity:ru:"Кол-во товаров" \
+    \
+    --translate-field=price:ru:"Цена" \
+    --translate-field=vat_price:ru:"Цена с НДС" \
+    --translate-field=total_price:ru:"Итого" \
+    --translate-field=total_vat_price:ru:"Итого с НДС" \
+    --translate-field=deposit_price:ru:"Депозит" \
+    --translate-field=deposit_vat_price:ru:"Депозит с НДС" \
+    --translate-field=total_deposit_price:ru:"Итого депозит" \
+    --translate-field=total_deposit_vat_price:ru:"Итого депозит с НДС" \
+    \
+    --translate-belongs-to=CustomerPreOrder:ru:"Предзаказ клиента":"Предзаказ клиента" \
+    --translate-belongs-to=CustomerPerson:ru:"Сотрудник клиента":"Сотрудника клиента" \
+    --translate-belongs-to=Customer:ru:"Клиент":"Клиента" \
+    --translate-belongs-to=Product:ru:"Товар":"Товар" \
     \
     --force
 ```
