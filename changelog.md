@@ -71,48 +71,8 @@ docker-compose run artisan modify:resource CustomerPreOrderItem \
 
 ### Вход по ссылке
 -[x] Обновить Customer
-
--[ ] CustomerPerson
-```bash
-docker-compose run artisan generate:resource CustomerPerson \
-    --namespace=Dashboard \
-    \
-    --auth \
-    \
-    --belongs-to-many=Customer \
-    \
-    --has-many=CustomerPersonToken \
-    \
-    --translate=ru:"Сотрудник клиента":"Сотрудники клиента":"Сотрудника клиента":"Сотрудников клиента" \
-    --translate-modifier=ru:male \
-    \
-    --translate-belongs-to-many=Customer:ru:"Клиенты":"Клиента" \
-    \
-    --translate-has-many=CustomerPersonToken:ru:"Токены сотрудников":"Токен сотрудника" \
-    \
-    --force
-```
-
--[ ] CustomerPersonToken
-```bash
-docker-compose run artisan generate:resource CustomerPersonToken \
-    --namespace=Dashboard \
-    \
-    --field=token \
-    --field=user_agent \
-    \
-    --belongs-to=CustomerPerson \
-    \
-    --translate=ru:"Токен сотрудника":"Токены сотрудников":"Токен сотрудника":"Токенов сотрудников" \
-    --translate-modifier=ru:male \
-    \
-    --translate-field=token:ru:"Токен" \
-    --translate-field=user_agent:ru:"Браузер" \
-    \
-    --translate-belongs-to=CustomerPerson:ru:"Сотрудник клиента":"Сотрудника клиента" \
-    \
-    --force
-```
+-[x] CustomerPerson
+-[x] CustomerPersonToken
 
 ### Цены
 -[x] PriceGroup

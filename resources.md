@@ -41,6 +41,58 @@ insert into migrations values
 ('2016_08_02_094119_create_stock_products_table', 1);
 ```
 
+### CustomerPerson
+```bash
+docker-compose run artisan generate:resource CustomerPerson \
+    --namespace=Dashboard \
+    \
+    --auth \
+    \
+    --name \
+    --phone \
+    --comment:editor \
+    \
+    --belongs-to-many=Customer \
+    \
+    --has-many=CustomerPersonToken \
+    \
+    --translate=ru:"Сотрудник клиента":"Сотрудники клиента":"Сотрудника клиента":"Сотрудников клиента" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=name:ru:"Имя" \
+    --translate-field=phone:ru:"Телефон" \
+    --translate-field=comment:ru:"Комментарий" \
+    \
+    --translate-belongs-to-many=Customer:ru:"Клиенты":"Клиента" \
+    \
+    --translate-has-many=CustomerPersonToken:ru:"Токены сотрудников":"Токен сотрудника" \
+    \
+    --force
+```
+
+### CustomerPersonToken
+```bash
+docker-compose run artisan generate:resource CustomerPersonToken \
+    --namespace=Dashboard \
+    \
+    --field=token \
+    --field=ip_address \
+    --field=user_agent \
+    \
+    --belongs-to=CustomerPerson \
+    \
+    --translate=ru:"Токен сотрудника":"Токены сотрудников":"Токен сотрудника":"Токенов сотрудников" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=token:ru:"Токен" \
+    --translate-field=token:ru:"IP адрес" \
+    --translate-field=user_agent:ru:"Браузер" \
+    \
+    --translate-belongs-to=CustomerPerson:ru:"Сотрудник клиента":"Сотрудника клиента" \
+    \
+    --force
+```
+
 ### Обновить Customer
 ```bash
 docker-compose run artisan modify:resource Customer \
