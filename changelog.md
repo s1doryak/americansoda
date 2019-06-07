@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 docker-compose run artisan modify:resource CustomerPreOrder \
     --namespace=Dashboard \
     \
+    --field=number \
+    --field=reference_number \
     --field=comment:textarea \
     \
     --belongs-to=CustomerPerson \
@@ -31,6 +33,8 @@ docker-compose run artisan modify:resource CustomerPreOrder \
     --translate=ru:"Предзаказ клиента":"Предзаказы клиента":"Предзаказ клиента":"Предзаказов клиента" \
     --translate-modifier=ru:male \
     \
+    --translate-field=number:ru:"Номер" \
+    --translate-field=reference_number:ru:"Номер в системе клиента" \
     --translate-field=comment:ru:"Комментарий" \
     \
     --translate-belongs-to=CustomerPerson:ru:"Сотрудник клиента":"Сотрудника клиента" \
