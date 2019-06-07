@@ -5,90 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- [x] Перенести стили
-- [x] Библиотека для трансляций
-- [x] Счета
-- [x] Цены+ЦеновойТипКлиента
-- [x] Иконки
-- [x] Вход по ссылке — https://tighten.co/blog/creating-a-password-less-medium-style-email-only-authentication-system-in-laravel
-- [x] Онлайн и Предзаказы
-- [ ] Календарь
+-[x] Перенести стили
+-[x] Библиотека для трансляций
+-[x] Счета
+-[x] Цены+ЦеновойТипКлиента
+-[x] Иконки
+-[x] Вход по ссылке — https://tighten.co/blog/creating-a-password-less-medium-style-email-only-authentication-system-in-laravel
+-[x] Онлайн и Предзаказы
+-[ ] Календарь
 
 ### Онлайн и Предзаказы
--[ ] CustomerPreOrder
-```bash
-docker-compose run artisan generate:resource CustomerPreOrder \
-    --namespace=Dashboard \
-    \
-    --field=number \
-    --field=reference_number \
-    --field=comment:textarea \
-    \
-    --belongs-to=CustomerPerson \
-    --belongs-to=CustomerOrder \
-    --belongs-to=Customer \
-    \
-    --has-many=CustomerPreOrderItem:items \
-    \
-    --translate=ru:"Предзаказ клиента":"Предзаказы клиента":"Предзаказ клиента":"Предзаказов клиента" \
-    --translate-modifier=ru:male \
-    \
-    --translate-field=number:ru:"Номер" \
-    --translate-field=reference_number:ru:"Номер в системе клиента" \
-    --translate-field=comment:ru:"Комментарий" \
-    \
-    --translate-belongs-to=CustomerPerson:ru:"Сотрудник клиента":"Сотрудника клиента" \
-    --translate-belongs-to=CustomerOrder:ru:"Заказ":"Заказ" \
-    \
-    --translate-has-many=items:ru:"Позиции предзаказа":"Позицию предзаказа" \
-    \
-    --force
-```
-
--[ ] CustomerPreOrderItem
-```bash
-docker-compose run artisan generate:resource CustomerPreOrderItem \
-    --namespace=Dashboard \
-    \
-    --field=quantity \
-    --field=products_quantity \
-    \
-    --field=price \
-    --field=vat_price \
-    --field=total_price \
-    --field=total_vat_price \
-    --field=deposit_price \
-    --field=deposit_vat_price \
-    --field=total_deposit_price \
-    --field=total_deposit_vat_price \
-    \
-    --belongs-to=CustomerPreOrder \
-    --belongs-to=CustomerPerson \
-    --belongs-to=Customer \
-    --belongs-to=Product \
-    \
-    --translate=ru:"Позиция предзаказа":"Позиции предзаказов":"Позицию предзаказа":"Позиций предзаказов" \
-    --translate-modifier=ru:female \
-    \
-    --translate-field=quantity:ru:"Кол-во лот" \
-    --translate-field=products_quantity:ru:"Кол-во товаров" \
-    \
-    --translate-field=price:ru:"Цена" \
-    --translate-field=vat_price:ru:"Цена с НДС" \
-    --translate-field=total_price:ru:"Итого" \
-    --translate-field=total_vat_price:ru:"Итого с НДС" \
-    --translate-field=deposit_price:ru:"Депозит" \
-    --translate-field=deposit_vat_price:ru:"Депозит с НДС" \
-    --translate-field=total_deposit_price:ru:"Итого депозит" \
-    --translate-field=total_deposit_vat_price:ru:"Итого депозит с НДС" \
-    \
-    --translate-belongs-to=CustomerPreOrder:ru:"Предзаказ клиента":"Предзаказ клиента" \
-    --translate-belongs-to=CustomerPerson:ru:"Сотрудник клиента":"Сотрудника клиента" \
-    --translate-belongs-to=Customer:ru:"Клиент":"Клиента" \
-    --translate-belongs-to=Product:ru:"Товар":"Товар" \
-    \
-    --force
-```
+-[x] CustomerPreOrder
+-[x] CustomerPreOrderItem
 
 ### Вход по ссылке
 -[x] Обновить Customer

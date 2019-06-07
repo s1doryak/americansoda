@@ -40,10 +40,84 @@ insert into migrations values
 ('2016_06_03_102037_create_stock_movement_products_table', 1),
 ('2016_08_02_094119_create_stock_products_table', 1);
 ```
-
-### CustomerPerson
+### CustomerPreOrder
 ```bash
-docker-compose run artisan generate:resource CustomerPerson \
+docker-compose run artisan generate:resource CustomerPreOrder \
+    --namespace=Dashboard \
+    \
+    --field=number \
+    --field=reference_number \
+    --field=comment:textarea \
+    \
+    --belongs-to=CustomerUser \
+    --belongs-to=CustomerOrder:customerOrder:number \
+    --belongs-to=Customer \
+    \
+    --has-many=CustomerPreOrderItem:items \
+    \
+    --translate=ru:"Предзаказ клиента":"Предзаказы клиента":"Предзаказ клиента":"Предзаказов клиента" \
+    --translate-modifier=ru:male \
+    \
+    --translate-field=number:ru:"Номер" \
+    --translate-field=reference_number:ru:"Номер в системе клиента" \
+    --translate-field=comment:ru:"Комментарий" \
+    \
+    --translate-belongs-to=CustomerUser:ru:"Сотрудник клиента":"Сотрудника клиента" \
+    --translate-belongs-to=CustomerOrder:ru:"Заказ":"Заказ" \
+    \
+    --translate-has-many=items:ru:"Позиции предзаказа":"Позицию предзаказа" \
+    \
+    --force
+```
+
+### CustomerPreOrderItem
+```bash
+docker-compose run artisan generate:resource CustomerPreOrderItem \
+    --namespace=Dashboard \
+    \
+    --field=quantity \
+    --field=products_quantity \
+    \
+    --field=price \
+    --field=vat_price \
+    --field=total_price \
+    --field=total_vat_price \
+    --field=deposit_price \
+    --field=deposit_vat_price \
+    --field=total_deposit_price \
+    --field=total_deposit_vat_price \
+    \
+    --belongs-to=CustomerPreOrder:customerPreOrder:number \
+    --belongs-to=CustomerUser \
+    --belongs-to=Customer \
+    --belongs-to=Product \
+    \
+    --translate=ru:"Позиция предзаказа":"Позиции предзаказов":"Позицию предзаказа":"Позиций предзаказов" \
+    --translate-modifier=ru:female \
+    \
+    --translate-field=quantity:ru:"Кол-во лот" \
+    --translate-field=products_quantity:ru:"Кол-во товаров" \
+    \
+    --translate-field=price:ru:"Цена" \
+    --translate-field=vat_price:ru:"Цена с НДС" \
+    --translate-field=total_price:ru:"Итого" \
+    --translate-field=total_vat_price:ru:"Итого с НДС" \
+    --translate-field=deposit_price:ru:"Депозит" \
+    --translate-field=deposit_vat_price:ru:"Депозит с НДС" \
+    --translate-field=total_deposit_price:ru:"Итого депозит" \
+    --translate-field=total_deposit_vat_price:ru:"Итого депозит с НДС" \
+    \
+    --translate-belongs-to=CustomerPreOrder:ru:"Предзаказ клиента":"Предзаказ клиента" \
+    --translate-belongs-to=CustomerUser:ru:"Сотрудник клиента":"Сотрудника клиента" \
+    --translate-belongs-to=Customer:ru:"Клиент":"Клиента" \
+    --translate-belongs-to=Product:ru:"Товар":"Товар" \
+    \
+    --force
+```
+
+### CustomerUser
+```bash
+docker-compose run artisan generate:resource CustomerUser \
     --namespace=Dashboard \
     \
     --auth \
@@ -54,7 +128,7 @@ docker-compose run artisan generate:resource CustomerPerson \
     \
     --belongs-to-many=Customer \
     \
-    --has-many=CustomerPersonToken \
+    --has-many=CustomerUserToken \
     \
     --translate=ru:"Сотрудник клиента":"Сотрудники клиента":"Сотрудника клиента":"Сотрудников клиента" \
     --translate-modifier=ru:male \
@@ -65,21 +139,21 @@ docker-compose run artisan generate:resource CustomerPerson \
     \
     --translate-belongs-to-many=Customer:ru:"Клиенты":"Клиента" \
     \
-    --translate-has-many=CustomerPersonToken:ru:"Токены сотрудников":"Токен сотрудника" \
+    --translate-has-many=CustomerUserToken:ru:"Токены сотрудников":"Токен сотрудника" \
     \
     --force
 ```
 
-### CustomerPersonToken
+### CustomerUserToken
 ```bash
-docker-compose run artisan generate:resource CustomerPersonToken \
+docker-compose run artisan generate:resource CustomerUserToken \
     --namespace=Dashboard \
     \
     --field=token \
     --field=ip_address \
     --field=user_agent \
     \
-    --belongs-to=CustomerPerson \
+    --belongs-to=CustomerUser \
     \
     --translate=ru:"Токен сотрудника":"Токены сотрудников":"Токен сотрудника":"Токенов сотрудников" \
     --translate-modifier=ru:male \
@@ -88,7 +162,7 @@ docker-compose run artisan generate:resource CustomerPersonToken \
     --translate-field=ip_address:ru:"IP адрес" \
     --translate-field=user_agent:ru:"Браузер" \
     \
-    --translate-belongs-to=CustomerPerson:ru:"Сотрудник клиента":"Сотрудника клиента" \
+    --translate-belongs-to=CustomerUser:ru:"Сотрудник клиента":"Сотрудника клиента" \
     \
     --force
 ```
