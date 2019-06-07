@@ -48,9 +48,9 @@ docker-compose run artisan generate:resource CustomerPerson \
     \
     --auth \
     \
-    --name \
-    --phone \
-    --comment:editor \
+    --field=name \
+    --field=phone \
+    --field=comment:editor \
     \
     --belongs-to-many=Customer \
     \
