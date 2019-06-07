@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Онлайн и Предзаказы
 -[ ] CustomerPreOrder
 ```bash
-docker-compose run artisan modify:resource CustomerPreOrder \
+docker-compose run artisan generate:resource CustomerPreOrder \
     --namespace=Dashboard \
     \
     --field=number \
@@ -47,7 +47,7 @@ docker-compose run artisan modify:resource CustomerPreOrder \
 
 -[ ] CustomerPreOrderItem
 ```bash
-docker-compose run artisan modify:resource CustomerPreOrderItem \
+docker-compose run artisan generate:resource CustomerPreOrderItem \
     --namespace=Dashboard \
     \
     --filed=quantity \
