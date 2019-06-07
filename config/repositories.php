@@ -31,4 +31,8 @@
 	App\Repositories\Contracts\CustomerInvoiceItemRepository::class => App\Repositories\Eloquent\CustomerInvoiceItemRepositoryEloquent::class,
 	App\Repositories\Contracts\PriceGroupRepository::class => App\Repositories\Eloquent\PriceGroupRepositoryEloquent::class,
 	App\Repositories\Contracts\PriceGroupBreakpointRepository::class => App\Repositories\Eloquent\PriceGroupBreakpointRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerUserRepository::class => App\Repositories\Eloquent\CustomerUserRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerUserTokenRepository::class => App\Repositories\Eloquent\CustomerUserTokenRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerPreOrderRepository::class => App\Repositories\Eloquent\CustomerPreOrderRepositoryEloquent::class,
+	App\Repositories\Contracts\CustomerPreOrderItemRepository::class => App\Repositories\Eloquent\CustomerPreOrderItemRepositoryEloquent::class,
 ];

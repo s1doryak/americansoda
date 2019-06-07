@@ -44,6 +44,14 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\CustomerInvoiceItemCreator::class,
 		\App\Console\Commands\PriceGroupCreator::class,
 		\App\Console\Commands\PriceGroupBreakpointCreator::class,
+		\App\Console\Commands\CustomerUserCreator::class,
+		\App\Console\Commands\CustomerUserTokenCreator::class,
+		\App\Console\Commands\CustomerPreOrderCreator::class,
+		\App\Console\Commands\CustomerPreOrderItemCreator::class,
+
+
+
+
 
 
 	];

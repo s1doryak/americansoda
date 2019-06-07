@@ -28,4 +28,8 @@
 	'customer_invoice_item' => \App\CustomerInvoiceItem::class,
 	'price_group' => \App\PriceGroup::class,
 	'price_group_breakpoint' => \App\PriceGroupBreakpoint::class,
+	'customer_user' => \App\CustomerUser::class,
+	'customer_user_token' => \App\CustomerUserToken::class,
+	'customer_pre_order' => \App\CustomerPreOrder::class,
+	'customer_pre_order_item' => \App\CustomerPreOrderItem::class,
 ];

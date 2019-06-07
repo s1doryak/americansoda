@@ -46,6 +46,14 @@ class AuthServiceProvider extends ServiceProvider
 		\App\CustomerInvoiceItem::class => \App\Policies\CustomerInvoiceItemPolicy::class,
 		\App\PriceGroup::class => \App\Policies\PriceGroupPolicy::class,
 		\App\PriceGroupBreakpoint::class => \App\Policies\PriceGroupBreakpointPolicy::class,
+		\App\CustomerUser::class => \App\Policies\CustomerUserPolicy::class,
+		\App\CustomerUserToken::class => \App\Policies\CustomerUserTokenPolicy::class,
+		\App\CustomerPreOrder::class => \App\Policies\CustomerPreOrderPolicy::class,
+		\App\CustomerPreOrderItem::class => \App\Policies\CustomerPreOrderItemPolicy::class,
+
+
+
+
 
 
 	];

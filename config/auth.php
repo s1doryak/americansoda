@@ -49,15 +49,14 @@ return [
 
 		'app' => [
 			'driver' => 'session',
-			'provider' => 'users',
+			'provider' => 'customer_users',
 		],
 
 		'dashboard' => [
 			'driver' => 'session',
 			'provider' => 'administrators',
 		],
-
-        // ...guards
+		// ...guards
     ],
 
     /*
@@ -88,7 +87,11 @@ return [
 			'model' => \App\Administrator::class,
 		],
 
-        // ...providers
+        'customer_users' => [
+			'driver' => 'eloquent',
+			'model' => \App\CustomerUser::class,
+		],
+		// ...providers
     ],
 
     /*
@@ -108,8 +111,8 @@ return [
 
     'passwords' => [
 		'app' => [
-			'provider' => 'users',
-			'table' => 'users_password_resets',
+			'provider' => 'customer_users',
+			'table' => 'customer_users_password_resets',
 			'expire' => 60,
 		],
 		'dashboard' => [
@@ -117,7 +120,7 @@ return [
 			'table' => 'administrators_password_resets',
 			'expire' => 60,
 		],
-        // ...passwords
+		// ...passwords
     ],
 
 ];

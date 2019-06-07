@@ -20,8 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Вход по ссылке
 -[x] Обновить Customer
--[x] CustomerPerson
--[x] CustomerPersonToken
+-[x] CustomerUser
+-[x] CustomerUserToken
 
 ### Цены
 -[x] PriceGroup
