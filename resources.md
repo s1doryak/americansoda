@@ -85,7 +85,7 @@ docker-compose run artisan generate:resource CustomerPersonToken \
     --translate-modifier=ru:male \
     \
     --translate-field=token:ru:"Токен" \
-    --translate-field=token:ru:"IP адрес" \
+    --translate-field=ip_address:ru:"IP адрес" \
     --translate-field=user_agent:ru:"Браузер" \
     \
     --translate-belongs-to=CustomerPerson:ru:"Сотрудник клиента":"Сотрудника клиента" \
