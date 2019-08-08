@@ -5,16 +5,14 @@ namespace App\Repositories\Eloquent;
 use DB;
 use App\Repositories\Contracts\CustomerShipmentRepository;
 use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
-use Illuminate\Database\Eloquent\Builder;
 
 class CustomerShipmentRepositoryEloquent extends BaseRepositoryEloquent implements CustomerShipmentRepository
 {
-	/**
-	 * @param Builder $builder
-	 *
-	 * @return Builder
-	 */
-	public function getDatatablesQuery(Builder $query = null)
+    /**
+     * @param \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|null $query
+     * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder
+     */
+    public function getDatatablesQuery($query = null)
 	{
 		/** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
 		$query = parent::getDatatablesQuery($query);

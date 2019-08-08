@@ -89,3 +89,22 @@ services:
     links:
       - database:database
     privileged: true
+
+#  websocket:
+#    build: docker/websocket
+#    volumes_from:
+#      - storage
+#    links:
+#      - redis:redis
+#    depends_on:
+#      - redis
+#    ports:
+#      - 6001:6001
+#    privileged: true
+#
+#  redis:
+#    image: redis
+#    command: redis-server --requirepass forge
+#    ports:
+#      - 6379:6379
+#    privileged: true
