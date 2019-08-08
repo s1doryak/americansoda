@@ -18,7 +18,8 @@ var dotenv = require('dotenv'),
     app,
     server,
     options,
-    io;
+    io,
+    redis;
 
 dotenv.config();
 
@@ -45,10 +46,10 @@ io = new SocketIO(server, options);
 
 if (io) {
     io.on('connection', function (socket) {
-        socket.emit('message', 'client connection ' + socket.id);
+        socket.emit('message', 'connection ' + socket.id);
     });
 
-    var redis = new Redis({
+    redis = new Redis({
         port: process.env.REDIS_PORT,
         host: process.env.REDIS_HOST,
         password: process.env.REDIS_PASSWORD,
