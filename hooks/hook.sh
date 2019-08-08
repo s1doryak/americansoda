@@ -23,9 +23,9 @@ backend() {
 
 frontend() {
 
-    npm install
+    # npm install
 
-    npm run production
+    # npm run production
 
 }
 
