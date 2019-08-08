@@ -6,9 +6,13 @@ namespace App;
  * CustomerInvoice
  *
  * @property integer $id
+ * @property integer $customer_id
+ * @property integer $shipment_id
+ *
  * @property string $maventa_id
  * @property \Crmplease\MaterialAdmin\Database\Eloquent\Traits\File\FileField $maventa_tiff
  * @property boolean $maventa_initiated
+ *
  * @property string $currency
  * @property string $data
  * @property string $date
@@ -62,9 +66,13 @@ namespace App;
 class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
 	protected $fillable = [
+        'customer_id',
+        'shipment_id',
+
 		'maventa_id',
 		'maventa_tiff',
 		'maventa_initiated',
+
 		'currency',
 		'data',
 		'date',
@@ -102,8 +110,6 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'customer_contact_p',
 		'customer_bid',
 		'customer_ovt',
-		'customer_id',
-		'shipment_id',
 	];
 
 	protected $appends = [

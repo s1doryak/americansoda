@@ -14,27 +14,20 @@ use Illuminate\Foundation\Inspiring;
 */
 
 Artisan::command('inspire', function () {
-	$this->comment(Inspiring::quote());
+    $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
 Artisan::command('maventa', function () {
-	/** @var \Crmplease\Maventa\Maventa $maventa */
-	$maventa = app(\Crmplease\Maventa\Maventa::class);
+    /** @var \Crmplease\Maventa\Maventa $maventa */
+    $maventa = app(\Crmplease\Maventa\Maventa::class);
 
-	/** @var \Illuminate\Support\Collection $invoiceList */
-	$invoiceList = collect(
-		$maventa->invoice_list_between_dates(now()->startOfYear()->format('YmdHis'), now()->format('YmdHis'), 2)
-	);
+    /** @var \Illuminate\Support\Collection $invoiceList */
+    $invoiceList = collect(
+        $maventa->invoice_list_between_dates(now()->startOfYear()->format('YmdHis'), now()->format('YmdHis'), 2)
+    );
 
-	dd($invoiceList->pluck('lang')->unique());
+    \App\Jobs\MaventaImportInvoice::dispatchNow($invoice);
+    \App\Jobs\MaventaImportInvoiceImage::dispatchNow($invoice);
 
-	dd($maventa->token_login("COMPANY_SETTINGS"));
-
-	dd($maventa->invoice_show(
-		$invoiceList->pluck('id')->random()
-	));
-
-	dd($maventa->invoice_list_between_dates(now()->startOfYear()->format('YmdHis'), now()->format('YmdHis'), 2));
-
-	dd($maventa->invoice_show('3b7e7c52-7838-4964-a452-87be36dfa181'));
+    return;
 });

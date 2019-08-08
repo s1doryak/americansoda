@@ -4,7 +4,7 @@ use Crmplease\MaterialAdmin\Database\Schema\Blueprint;
 use Crmplease\MaterialAdmin\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomerInvoiceaccountTable extends Migration
+class CreateCustomerInvoiceAccountTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class CreateCustomerInvoiceaccountTable extends Migration
         Schema::create('customer_invoice_account', function (Blueprint $table) {
             $table->fks([
                 'customer_invoice_id',
-                'account_id'
+                'company_bank_account_id'
             ], 'cascade', true);
 
 

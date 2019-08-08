@@ -6,6 +6,8 @@ namespace App;
  * CustomerInvoiceItem
  *
  * @property integer $id
+ * @property integer $customer_invoice_id
+ * @property integer $customer_order_item_id
  * @property integer $position
  * @property string $item_code
  * @property string $subject
@@ -17,14 +19,14 @@ namespace App;
  * @property string $tax
  * @property string $sum_tax
  * @property string $discount
- * @property \App\CustomerInvoice $invoice
- * @property \App\CustomerOrderItem $orderItem
+ * @property \App\CustomerInvoice|null $customerInvoice
+ * @property \App\CustomerOrderItem|null $customerOrderItem
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  *
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo invoice()
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo orderItem()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerInvoice()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerOrderItem()
  *
  * @package App
  */
@@ -42,8 +44,8 @@ class CustomerInvoiceItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Mod
 		'tax',
 		'sum_tax',
 		'discount',
-		'invoice_id',
-		'order_item_id',
+		'customer_invoice_id',
+		'customer_order_item_id',
 	];
 
 	protected $appends = [
@@ -66,8 +68,8 @@ class CustomerInvoiceItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Mod
     ];
 
     protected $belongsTo = [
-		'invoice' => \App\CustomerInvoice::class,
-		'orderItem' => \App\CustomerOrderItem::class,
+		'customerInvoice' => \App\CustomerInvoice::class,
+		'customerOrderItem' => \App\CustomerOrderItem::class,
     ];
 
     protected $belongsToMany = [
@@ -103,8 +105,8 @@ class CustomerInvoiceItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Mod
     ];
 
     protected $with = [
-		'invoice',
-		'orderItem',
+		'customerInvoice',
+		'customerOrderItem',
     ];
 
     protected $images = [

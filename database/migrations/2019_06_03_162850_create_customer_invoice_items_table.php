@@ -16,11 +16,11 @@ class CreateCustomerInvoiceItemsTable extends Migration
         Schema::create('customer_invoice_items', function (Blueprint $table) {
             $table->bigIncrements('id');
 			$table->fk([
-				'column' => 'invoice_id',
+				'column' => 'customer_invoice_id',
 				'table' => 'customer_invoices',
 			], 'cascade', true);
 			$table->fk([
-				'column' => 'order_item_id',
+				'column' => 'customer_order_item_id',
 				'table' => 'customer_order_items',
 			], 'cascade', true);
 			$table->integer('position')->nullable();
