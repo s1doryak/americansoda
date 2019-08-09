@@ -16,18 +16,18 @@ class MaventaImportInvoiceImage implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var object
+     * @var string
      */
-    public $invoice;
+    public $id;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($invoice)
+    public function __construct($id)
     {
-        $this->invoice = $invoice;
+        $this->id = $id;
     }
 
     /**
@@ -43,25 +43,25 @@ class MaventaImportInvoiceImage implements ShouldQueue
         CustomerInvoiceRepository $customerInvoiceRepository
     )
     {
-        /** @var CustomerInvoice|null $invoice */
-        $invoice = $customerInvoiceRepository->firstWhere(['maventa_id' => $this->invoice->id]);
+        /** @var CustomerInvoice|null $customerInvoice */
+        $customerInvoice = $customerInvoiceRepository->firstWhere(['maventa_id' => $this->id]);
 
-        if ($invoice) {
-            $files = $maventa->get_invoice_image_as_format($this->invoice->id, 'TIFF');
+        if ($customerInvoice) {
+            $files = $maventa->get_invoice_image_as_format($this->id, 'TIFF');
 
             foreach ($files as $file) {
                 $path = sprintf('%s/%s', sys_get_temp_dir(), $file->filename);
 
                 file_put_contents($path, base64_decode($file->file));
 
-                $invoice->update([
+                $customerInvoice->update([
                     'maventa_tiff' => $path
                 ]);
 
                 unlink($path);
             }
 
-            return $invoice->maventa_tiff;
+            return $customerInvoice->maventa_tiff;
         }
 
         return;

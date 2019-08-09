@@ -17,7 +17,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-Artisan::command('maventa', function () {
+Artisan::command('maventa:import', function () {
     /** @var \Crmplease\Maventa\Maventa $maventa */
     $maventa = app(\Crmplease\Maventa\Maventa::class);
 
@@ -26,8 +26,9 @@ Artisan::command('maventa', function () {
         $maventa->invoice_list_between_dates(now()->startOfYear()->format('YmdHis'), now()->format('YmdHis'), 2)
     );
 
-    \App\Jobs\MaventaImportInvoice::dispatchNow($invoice);
-    \App\Jobs\MaventaImportInvoiceImage::dispatchNow($invoice);
+    foreach ($invoiceList as $invoice) {
+        \App\Jobs\MaventaImportInvoice::dispatch($invoice->id, true);
+    }
 
     return;
 });

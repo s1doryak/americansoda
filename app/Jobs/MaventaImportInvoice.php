@@ -15,6 +15,8 @@ use App\Repositories\Contracts\CustomerInvoiceAttachmentRepository;
 use App\Repositories\Contracts\CustomerInvoiceItemRepository;
 use App\Repositories\Contracts\CustomerInvoiceRepository;
 use Carbon\Carbon;
+use Crmplease\Maventa\Exceptions\Exception;
+use Crmplease\Maventa\Maventa;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -26,98 +28,114 @@ class MaventaImportInvoice implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var object
+     * @var string
      */
-    public $invoice;
+    public $id;
+
+    /**
+     * @var boolean
+     */
+    public $tiff;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($invoice)
+    public function __construct($id, $tiff)
     {
-        $this->invoice = $invoice;
+        $this->id = $id;
+        $this->tiff = $tiff;
     }
 
     /**
      * Execute the job.
      *
-     * @param CustomerInvoiceRepository $invoiceRepository
-     * @param CustomerInvoiceActionRepository $invoiceActionRepository
-     * @param CustomerInvoiceAttachmentRepository $invoiceAttachmentRepository
-     * @param CustomerInvoiceItemRepository $invoiceItemRepository
-     * @param CompanyBankAccountRepository $companyAccountRepository
+     * @param Maventa $maventa
+     * @param CustomerInvoiceRepository $customerInvoiceRepository
+     * @param CustomerInvoiceActionRepository $customerInvoiceActionRepository
+     * @param CustomerInvoiceAttachmentRepository $customerInvoiceAttachmentRepository
+     * @param CustomerInvoiceItemRepository $customerInvoiceItemRepository
+     * @param CompanyBankAccountRepository $companyBankAccountRepository
      * @param CompanyRepository $companyRepository
      *
      * @return void|CustomerInvoice
+     * @throws Exception
      */
     public function handle(
-        CustomerInvoiceRepository $invoiceRepository,
-        CustomerInvoiceActionRepository $invoiceActionRepository,
-        CustomerInvoiceAttachmentRepository $invoiceAttachmentRepository,
-        CustomerInvoiceItemRepository $invoiceItemRepository,
-        CompanyBankAccountRepository $companyAccountRepository,
+        Maventa $maventa,
+        CustomerInvoiceRepository $customerInvoiceRepository,
+        CustomerInvoiceActionRepository $customerInvoiceActionRepository,
+        CustomerInvoiceAttachmentRepository $customerInvoiceAttachmentRepository,
+        CustomerInvoiceItemRepository $customerInvoiceItemRepository,
+        CompanyBankAccountRepository $companyBankAccountRepository,
         CompanyRepository $companyRepository
     )
     {
+        /** @var object $invoice */
+        $invoice = $maventa->invoice_show($this->id);
+
+        if ($invoice->status !== 'OK') {
+            throw new Exception($invoice->status);
+        }
+
         /** @var Company $company */
-        $company = $companyRepository->first();
+        $company = $companyRepository->find(1);
 
-        /** @var CustomerInvoice $invoice */
-        $invoice = $invoiceRepository->firstOrCreate([
-            'maventa_id' => $this->invoice->id
+        /** @var CustomerInvoice $customerInvoice */
+        $customerInvoice = $customerInvoiceRepository->firstOrCreate([
+            'maventa_id' => $invoice->id
         ]);
 
-        $invoice->update([
-            'currency' => $this->invoice->currency,
-            'data' => $this->invoice->data,
-            'date' => $this->invoice->date,
-            'date_due' => $this->invoice->date_due,
-            'delivery_date' => $this->invoice->delivery_date,
-            'delivery_type' => $this->invoice->delivery_type,
-            'error_message' => $this->invoice->error_message,
-            'invoice_delivery_address' => $this->invoice->invoice_delivery_address,
-            'invoice_nr' => $this->invoice->invoice_nr,
-            'invoice_seller_information' => $this->invoice->invoice_seller_information,
-            'lang' => $this->invoice->lang,
-            'notes' => $this->invoice->notes,
-            'order_nr' => $this->invoice->order_nr,
-            'payment_terms' => $this->invoice->payment_terms,
-            'reference_nr' => $this->invoice->reference_nr,
-            'state' => $this->invoice->state,
-            'status' => $this->invoice->status,
-            'sum' => $this->invoice->sum,
-            'sum_tax' => $this->invoice->sum_tax,
-            'work_order_nr' => $this->invoice->work_order_nr,
-            'company_interest' => $this->invoice->company_interest,
-            'company_paper_fee' => $this->invoice->company_paper_fee,
-            'company_reminder' => $this->invoice->company_reminder,
-            'company_comment' => $this->invoice->company_comment,
-            'company_reference' => $this->invoice->company_reference,
-            'customer_nr' => $this->invoice->customer_nr,
-            'customer_email' => $this->invoice->customer_email,
-            'customer_name' => $this->invoice->customer_name,
-            'customer_country' => $this->invoice->customer_country,
-            'customer_state' => $this->invoice->customer_state,
-            'customer_post_code' => $this->invoice->customer_post_code,
-            'customer_post_office' => $this->invoice->customer_post_office,
-            'customer_address1' => $this->invoice->customer_address1,
-            'customer_address2' => $this->invoice->customer_address2,
-            'customer_contact_p' => $this->invoice->customer_contact_p,
-            'customer_bid' => $this->invoice->customer_bid,
-            'customer_ovt' => $this->invoice->customer_ovt,
+        $customerInvoice->update([
+            'currency' => $invoice->currency,
+            'data' => $invoice->data,
+            'date' => $invoice->date,
+            'date_due' => $invoice->date_due,
+            'delivery_date' => $invoice->delivery_date,
+            'delivery_type' => $invoice->delivery_type,
+            'error_message' => $invoice->error_message,
+            'invoice_delivery_address' => $invoice->invoice_delivery_address,
+            'invoice_nr' => $invoice->invoice_nr,
+            'invoice_seller_information' => $invoice->invoice_seller_information,
+            'lang' => $invoice->lang,
+            'notes' => $invoice->notes,
+            'order_nr' => $invoice->order_nr,
+            'payment_terms' => $invoice->payment_terms,
+            'reference_nr' => $invoice->reference_nr,
+            'state' => $invoice->state,
+            'status' => $invoice->status,
+            'sum' => $invoice->sum,
+            'sum_tax' => $invoice->sum_tax,
+            'work_order_nr' => $invoice->work_order_nr,
+            'company_interest' => $invoice->company_interest,
+            'company_paper_fee' => $invoice->company_paper_fee,
+            'company_reminder' => $invoice->company_reminder,
+            'company_comment' => $invoice->company_comment,
+            'company_reference' => $invoice->company_reference,
+            'customer_nr' => $invoice->customer_nr,
+            'customer_email' => $invoice->customer_email,
+            'customer_name' => $invoice->customer_name,
+            'customer_country' => $invoice->customer_country,
+            'customer_state' => $invoice->customer_state,
+            'customer_post_code' => $invoice->customer_post_code,
+            'customer_post_office' => $invoice->customer_post_office,
+            'customer_address1' => $invoice->customer_address1,
+            'customer_address2' => $invoice->customer_address2,
+            'customer_contact_p' => $invoice->customer_contact_p,
+            'customer_bid' => $invoice->customer_bid,
+            'customer_ovt' => $invoice->customer_ovt,
         ]);
 
-        foreach ((array)$this->invoice->items as $item) {
+        foreach ((array)$invoice->items as $item) {
 
-            /** @var CustomerInvoiceItem $invoiceItem */
-            $invoiceItem = $invoiceItemRepository->firstOrCreate([
+            /** @var CustomerInvoiceItem $customerInvoiceItem */
+            $customerInvoiceItem = $customerInvoiceItemRepository->firstOrCreate([
                 'position' => $item->position,
-                'customer_invoice_id' => $invoice->getKey(),
+                'customer_invoice_id' => $customerInvoice->getKey(),
             ]);
 
-            $invoiceItem->update([
+            $customerInvoiceItem->update([
                 'position' => $item->position,
                 'item_code' => $item->item_code,
                 'subject' => $item->subject,
@@ -136,61 +154,70 @@ class MaventaImportInvoice implements ShouldQueue
         }
 
         if (isset($item)) {
-            $invoiceItemRepository->destroyWhere([
+            $customerInvoiceItemRepository->destroyWhere([
                 ['position', '>', $item->position],
-                ['customer_invoice_id', '=', $invoice->getKey()],
+                ['customer_invoice_id', '=', $customerInvoice->getKey()],
             ]);
         }
 
-        foreach ((array)$this->invoice->accounts as $account) {
+        foreach ((array)$invoice->accounts as $account) {
 
-            $companyAccounts = collect();
+            $companyBankAccounts = collect();
 
-            /** @var CompanyBankAccount $companyAccount */
-            $companyAccount = $companyAccountRepository->firstOrCreate([
+            /** @var CompanyBankAccount $companyBankAccount */
+            $companyBankAccount = $companyBankAccountRepository->firstOrCreate([
                 'bank' => $account->bank,
                 'swift' => $account->swift,
                 'account' => $account->account,
                 'iban' => $account->iban,
             ]);
 
-            if ($companyAccount->wasRecentlyCreated) {
-                $companyAccount->company()->associate($company);
-                $companyAccount->save();
+            if ($companyBankAccount->wasRecentlyCreated) {
+                if ($company->companyBankAccounts->count() === 0) {
+                    $companyBankAccount->update([
+                        'default' => true
+                    ]);
+                }
+                $companyBankAccount->company()->associate($company);
+                $companyBankAccount->save();
             }
 
-            $companyAccounts->push($companyAccount);
+            $companyBankAccounts->push($companyBankAccount);
         }
 
-        // $invoice->accounts()->sync($companyAccounts);
+        // $customerInvoice->accounts()->sync($companyBankAccounts);
 
-        foreach ((array)$this->invoice->actions as $action) {
-            /** @var CustomerInvoiceAction $invoiceAction */
-            $invoiceAction = $invoiceActionRepository->firstOrCreate([
+        foreach ((array)$invoice->actions as $action) {
+            /** @var CustomerInvoiceAction $customerInvoiceAction */
+            $customerInvoiceAction = $customerInvoiceActionRepository->firstOrCreate([
                 'action' => $action->action,
                 'timestamp' => Carbon::parse($action->timestamp),
-                'customer_invoice_id' => $invoice->getKey(),
+                'customer_invoice_id' => $customerInvoice->getKey(),
             ]);
         }
 
-        foreach ((array)$this->invoice->attachments as $attachment) {
-            /** @var CustomerInvoiceAttachment $invoiceAttachment */
-            $invoiceAttachment = $invoiceAttachmentRepository->firstOrCreate([
+        foreach ((array)$invoice->attachments as $attachment) {
+            /** @var CustomerInvoiceAttachment $customerInvoiceAttachment */
+            $customerInvoiceAttachment = $customerInvoiceAttachmentRepository->firstOrCreate([
                 'attachment_type' => $attachment->attachment_type,
                 'filename' => $attachment->filename,
-                'customer_invoice_id' => $invoice->getKey(),
+                'customer_invoice_id' => $customerInvoice->getKey(),
             ]);
 
-            $invoiceAttachment->update([
+            $customerInvoiceAttachment->update([
                 'file' => $attachment->file
             ]);
         }
 
-        $invoice->update([
+        $customerInvoice->update([
             'maventa_initiated' => true
         ]);
 
-        $invoice->load([
+        if($this->tiff) {
+            \App\Jobs\MaventaImportInvoiceImage::dispatch($this->id);
+        }
+
+        $customerInvoice->load([
             'items',
             'actions',
             'accounts',
@@ -199,6 +226,6 @@ class MaventaImportInvoice implements ShouldQueue
             'shipment',
         ]);
 
-        return $invoice;
+        return $customerInvoice;
     }
 }

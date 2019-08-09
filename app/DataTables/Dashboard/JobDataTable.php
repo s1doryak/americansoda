@@ -168,7 +168,7 @@ class JobDataTable extends DataTable
     protected function renderPayloadColumn($job)
     {
         if ($this->isDataTableRequest()) {
-            return $this->renderView('app::resources.job.columns.payload', ['job' => $job]);
+            return $this->renderView('dashboard::resources.job.columns.payload', ['job' => $job]);
         }
 
         return $job->payload;

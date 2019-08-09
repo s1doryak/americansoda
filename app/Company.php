@@ -22,11 +22,13 @@ namespace App;
  * @property string $smtp_from
  * @property string $smtp_from_name
  * @property \App\Region $region
+ * @property \Illuminate\Support\Collection|\App\CompanyBankAccount[] $companyBankAccounts
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo region()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany companyBankAccounts()
  *
  * @package App
  */

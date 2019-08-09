@@ -49,11 +49,8 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\CustomerPreOrderCreator::class,
 		\App\Console\Commands\CustomerPreOrderItemCreator::class,
 
-
-
-
-
-
+        \App\Console\Commands\Maventa\MaventaImportInvoice::class,
+        \App\Console\Commands\Maventa\MaventaImportInvoices::class,
 	];
 
 	/**

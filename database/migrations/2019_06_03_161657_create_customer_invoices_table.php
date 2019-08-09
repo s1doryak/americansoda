@@ -37,7 +37,7 @@ class CreateCustomerInvoicesTable extends Migration
 			$table->string('invoice_nr')->nullable();
 			$table->string('invoice_seller_information')->nullable();
 			$table->string('lang')->nullable();
-			$table->string('notes')->nullable();
+			$table->text('notes')->nullable();
 			$table->string('order_nr')->nullable();
 			$table->string('payment_terms')->nullable();
 			$table->string('reference_nr')->nullable();
@@ -49,7 +49,7 @@ class CreateCustomerInvoicesTable extends Migration
 			$table->string('company_interest')->nullable();
 			$table->string('company_paper_fee')->nullable();
 			$table->string('company_reminder')->nullable();
-			$table->string('company_comment')->nullable();
+			$table->text('company_comment')->nullable();
 			$table->string('company_reference')->nullable();
 			$table->string('customer_nr')->nullable();
 			$table->string('customer_email')->nullable();
