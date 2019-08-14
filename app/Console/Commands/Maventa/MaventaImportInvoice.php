@@ -7,6 +7,10 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
+/**
+ * Class MaventaImportInvoice
+ * @package App\Console\Commands\Maventa
+ */
 class MaventaImportInvoice extends Command
 {
     /**

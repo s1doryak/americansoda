@@ -5,4 +5,13 @@ namespace App\Repositories\Eloquent;
 use App\Repositories\Contracts\AdministratorRepository;
 use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class AdministratorRepositoryEloquent extends BaseRepositoryEloquent implements AdministratorRepository {}
+class AdministratorRepositoryEloquent extends BaseRepositoryEloquent implements AdministratorRepository
+{
+    /**
+     * @return mixed
+     */
+    public function notifiable()
+    {
+        return $this->findWhere(['allow_notifications' => true]);
+    }
+}

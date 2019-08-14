@@ -103,7 +103,7 @@ class FailedJobDataTable extends DataTable
      * @param integer $timestamp
      * @return string
      */
-    protected function renderTimestamp($timestamp = null)
+    public function renderTimestamp($timestamp = null)
     {
         if ($timestamp) {
             $carbon = Carbon::createFromTimestamp($timestamp);
@@ -136,7 +136,7 @@ class FailedJobDataTable extends DataTable
      * @param FailedJob $failedJob
      * @return string
      */
-    protected function renderConnectionColumn($failedJob)
+    public function renderConnectionColumn($failedJob)
     {
         if ($this->isDataTableRequest()) {
             switch ($failedJob->connection) {
@@ -165,7 +165,7 @@ class FailedJobDataTable extends DataTable
      * @param FailedJob $failedJob
      * @return string
      */
-    protected function renderQueueColumn($failedJob)
+    public function renderQueueColumn($failedJob)
     {
         if ($this->isDataTableRequest()) {
             switch ($failedJob->queue) {
@@ -188,7 +188,7 @@ class FailedJobDataTable extends DataTable
      * @param FailedJob $failedJob
      * @return string
      */
-    protected function renderPayloadColumn($failedJob)
+    public function renderPayloadColumn($failedJob)
     {
         if ($this->isDataTableRequest()) {
             return $this->renderView('dashboard::resources.failed_job.columns.payload', ['failedJob' => $failedJob]);
@@ -201,7 +201,7 @@ class FailedJobDataTable extends DataTable
      * @param FailedJob $failedJob
      * @return string
      */
-    protected function renderExceptionColumn($failedJob)
+    public function renderExceptionColumn($failedJob)
     {
         if ($this->isDataTableRequest()) {
             return $this->renderView('dashboard::resources.failed_job.columns.exception', ['failedJob' => $failedJob]);
@@ -214,7 +214,7 @@ class FailedJobDataTable extends DataTable
      * @param FailedJob $failedJob
      * @return string
      */
-    protected function renderFailedAtColumn($failedJob)
+    public function renderFailedAtColumn($failedJob)
     {
         if ($this->isDataTableRequest()) {
             return $this->renderTimestamp($failedJob->failed_at->getTimestamp());

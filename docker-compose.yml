@@ -67,7 +67,7 @@ services:
 
   queue:
     image: crmplease/laravel-queue
-    command: php artisan queue:listen --queue=default --tries=5
+    command: php artisan queue:listen --queue=default --tries=3
     volumes_from:
       - storage
     depends_on:

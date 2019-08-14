@@ -109,7 +109,7 @@ class JobDataTable extends DataTable
      * @param integer $timestamp
      * @return string
      */
-    protected function renderTimestamp($timestamp = null)
+    public function renderTimestamp($timestamp = null)
     {
         if ($timestamp) {
             $carbon = Carbon::createFromTimestamp($timestamp);
@@ -142,7 +142,7 @@ class JobDataTable extends DataTable
      * @param Job $job
      * @return string
      */
-    protected function renderQueueColumn($job)
+    public function renderQueueColumn($job)
     {
         if ($this->isDataTableRequest()) {
             switch ($job->queue) {
@@ -165,7 +165,7 @@ class JobDataTable extends DataTable
      * @param Job $job
      * @return string
      */
-    protected function renderPayloadColumn($job)
+    public function renderPayloadColumn($job)
     {
         if ($this->isDataTableRequest()) {
             return $this->renderView('dashboard::resources.job.columns.payload', ['job' => $job]);
@@ -178,16 +178,16 @@ class JobDataTable extends DataTable
      * @param Job $job
      * @return string
      */
-    protected function renderAttemptsColumn($job)
+    public function renderAttemptsColumn($job)
     {
         $attempts = (integer)$job->attempts;
 
         if ($this->isDataTableRequest()) {
-            if ($attempts <= 2) {
+            if ($attempts <= 1) {
                 return $this->renderBadgeView((string)$attempts, 'bgm-green');
             }
 
-            if ($attempts <= 4) {
+            if ($attempts <= 2) {
                 return $this->renderBadgeView((string)$attempts, 'bgm-orange');
             }
 
@@ -201,7 +201,7 @@ class JobDataTable extends DataTable
      * @param Job $job
      * @return string
      */
-    protected function renderReservedAtColumn($job)
+    public function renderReservedAtColumn($job)
     {
         if ($this->isDataTableRequest()) {
             return $this->renderTimestamp($job->reserved_at);
@@ -214,7 +214,7 @@ class JobDataTable extends DataTable
      * @param Job $job
      * @return string
      */
-    protected function renderAvailableAtColumn($job)
+    public function renderAvailableAtColumn($job)
     {
         if ($this->isDataTableRequest()) {
             return $this->renderTimestamp($job->available_at);
@@ -227,7 +227,7 @@ class JobDataTable extends DataTable
      * @param Job $job
      * @return string
      */
-    protected function renderCreatedAtColumn($job)
+    public function renderCreatedAtColumn($job)
     {
         if ($this->isDataTableRequest()) {
             return $this->renderTimestamp($job->created_at);
