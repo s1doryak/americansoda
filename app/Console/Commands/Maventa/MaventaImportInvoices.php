@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Maventa;
 
+use Crmplease\Maventa\Exceptions\Exception;
 use Crmplease\Maventa\Maventa;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -48,25 +49,45 @@ class MaventaImportInvoices extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws Exception
      */
     public function handle()
     {
-        $method = 'dispatch';
-
-        if ($this->option('force')) {
-            $method = 'dispatchNow';
-        }
+        $force = $this->option('force');
+        $tiff = $this->option('tiff');
 
         /** @var \Illuminate\Support\Collection $invoices */
         $invoices = collect(
             $this->maventa->invoice_list_between_dates($this->argument('start'), $this->argument('end'), 2)
         );
 
-        foreach ($invoices as $invoice) {
-            call_user_func_array([\App\Jobs\MaventaImportInvoice::class, $method], [$invoice->id, $this->option('tiff')]);
-        }
+        if ($force) {
 
-        $this->info(sprintf('%d invoices scheduled to import.', $invoices->count()));
+            foreach ($invoices as $invoice) {
+
+                if ($invoice->status !== 'OK') {
+                    throw new Exception($invoice->status);
+                }
+
+                \App\Jobs\MaventaImportInvoice::dispatchNow($invoice->id, $tiff);
+            }
+
+            $this->info(sprintf('%d invoices imported.', $invoices->count()));
+
+        } else {
+
+            foreach ($invoices as $invoice) {
+
+                if ($invoice->status !== 'OK') {
+                    throw new Exception($invoice->status);
+                }
+
+                \App\Jobs\MaventaImportInvoice::dispatch($invoice->id, $tiff);
+            }
+
+            $this->info(sprintf('%d invoices scheduled to import.', $invoices->count()));
+
+        }
 
         return true;
     }
@@ -79,9 +100,9 @@ class MaventaImportInvoices extends Command
     protected function getArguments()
     {
         return [
-            ['start', InputArgument::OPTIONAL, 'Start time for search, format YYYYMMDDHHMMSS.', now()->startOfYear()->format('YmdHis')],
+            ['start', InputArgument::OPTIONAL, 'Start time for search, format YYYYMMDDHHMMSS.', now()->startOfDay()->format('YmdHis')],
 
-            ['end', InputArgument::OPTIONAL, 'End time for search, format YYYYMMDDHHMMSS.', now()->format('YmdHis')]
+            ['end', InputArgument::OPTIONAL, 'End time for search, format YYYYMMDDHHMMSS.', now()->endOfDay()->format('YmdHis')]
         ];
     }
 

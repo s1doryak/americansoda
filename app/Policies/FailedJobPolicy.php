@@ -30,6 +30,18 @@ class FailedJobPolicy implements DatatablePolicyContract
     }
 
     /**
+     * Determine whether the user can list of trashed entities.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function trashed(Authenticatable $authenticatable)
+    {
+        return false;
+    }
+
+    /**
      * Determine whether the user can view action column.
      *
      * @param Authenticatable $authenticatable

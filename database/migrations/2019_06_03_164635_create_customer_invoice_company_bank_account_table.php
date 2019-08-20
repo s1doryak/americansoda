@@ -4,7 +4,7 @@ use Crmplease\MaterialAdmin\Database\Schema\Blueprint;
 use Crmplease\MaterialAdmin\Support\Facades\Schema;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomerInvoiceAccountTable extends Migration
+class CreateCustomerInvoiceCompanyBankAccountTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCustomerInvoiceAccountTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_invoice_account', function (Blueprint $table) {
+        Schema::create('customer_invoice_company_bank_account', function (Blueprint $table) {
             $table->fks([
                 'customer_invoice_id',
                 'company_bank_account_id'

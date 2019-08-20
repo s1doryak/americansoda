@@ -45,38 +45,6 @@
 
         <div class="{{ isset($container_classes) && $container_classes ? $container_classes : 'container' }}">
 
-            <div class="{{ isset($block_header_classes) && $block_header_classes ? $block_header_classes : 'block-header' }}">
-                @hasSection('block-header-title')
-                    @yield('block-header-title')
-                @else
-                    @if (is_resource_page() && is_index_page())
-                        <h2>
-                            <a href="{{ resource_index_url() }}">
-                                @yield('title')
-                            </a>
-                            <a class="trash-link m-l-10" href="{{ resource_trashed_url() }}">
-                                <i class="zmdi zmdi-delete js-action-icon"></i>
-                            </a>
-                        </h2>
-                    @else
-                        <h2>
-                            @yield('title')
-                            @hasSection('subtitle')
-                                <small>@yield('subtitle')</small>
-                            @endif
-                        </h2>
-                    @endif
-                @endif
-
-                @hasSection('buttons')
-                    @yield('buttons')
-                @endif
-
-                @hasSection('actions')
-                    @yield('actions')
-                @endif
-            </div>
-
             @hasSection('before-card')
                 @yield('before-card')
             @endif

@@ -20,7 +20,7 @@ class CreateCustomerInvoicesTable extends Migration
 				'table' => 'customers',
 			], 'cascade', true);
 			$table->fk([
-				'column' => 'shipment_id',
+				'column' => 'customer_shipment_id',
 				'table' => 'customer_shipments',
 			], 'cascade', true);
 			$table->string('maventa_id')->nullable();

@@ -2,10 +2,6 @@
 
 @section('title', $title)
 
-@section('buttons')
-    @include('material-admin::master.sections.buttons')
-@stop
-
 @section('modal-buttons')
     @include('material-admin::master.sections.modal-buttons')
 @stop

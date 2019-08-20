@@ -4,16 +4,19 @@ namespace App\Jobs;
 
 use App\Company;
 use App\CompanyBankAccount;
+use App\Customer;
 use App\CustomerInvoice;
 use App\CustomerInvoiceAction;
 use App\CustomerInvoiceAttachment;
 use App\CustomerInvoiceItem;
+use App\CustomerOrder;
 use App\Repositories\Contracts\CompanyBankAccountRepository;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\CustomerInvoiceActionRepository;
 use App\Repositories\Contracts\CustomerInvoiceAttachmentRepository;
 use App\Repositories\Contracts\CustomerInvoiceItemRepository;
 use App\Repositories\Contracts\CustomerInvoiceRepository;
+use App\Repositories\Contracts\CustomerOrderRepository;
 use Carbon\Carbon;
 use Crmplease\Maventa\Exceptions\Exception;
 use Crmplease\Maventa\Maventa;
@@ -22,6 +25,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Str;
 
 class MaventaImportInvoice implements ShouldQueue
 {
@@ -56,6 +60,7 @@ class MaventaImportInvoice implements ShouldQueue
      * @param CustomerInvoiceActionRepository $customerInvoiceActionRepository
      * @param CustomerInvoiceAttachmentRepository $customerInvoiceAttachmentRepository
      * @param CustomerInvoiceItemRepository $customerInvoiceItemRepository
+     * @param CustomerOrderRepository $customerOrderRepository
      * @param CompanyBankAccountRepository $companyBankAccountRepository
      * @param CompanyRepository $companyRepository
      *
@@ -68,6 +73,7 @@ class MaventaImportInvoice implements ShouldQueue
         CustomerInvoiceActionRepository $customerInvoiceActionRepository,
         CustomerInvoiceAttachmentRepository $customerInvoiceAttachmentRepository,
         CustomerInvoiceItemRepository $customerInvoiceItemRepository,
+        CustomerOrderRepository $customerOrderRepository,
         CompanyBankAccountRepository $companyBankAccountRepository,
         CompanyRepository $companyRepository
     )
@@ -76,7 +82,7 @@ class MaventaImportInvoice implements ShouldQueue
         $invoice = $maventa->invoice_show($this->id);
 
         if ($invoice->status !== 'OK') {
-            throw new Exception($invoice->status);
+            throw new Exception(sprintf("%s (ID: %s)", $invoice->status, $this->id));
         }
 
         /** @var Company $company */
@@ -125,95 +131,158 @@ class MaventaImportInvoice implements ShouldQueue
             'customer_contact_p' => $invoice->customer_contact_p,
             'customer_bid' => $invoice->customer_bid,
             'customer_ovt' => $invoice->customer_ovt,
-        ]);
 
-        foreach ((array)$invoice->items as $item) {
-
-            /** @var CustomerInvoiceItem $customerInvoiceItem */
-            $customerInvoiceItem = $customerInvoiceItemRepository->firstOrCreate([
-                'position' => $item->position,
-                'customer_invoice_id' => $customerInvoice->getKey(),
-            ]);
-
-            $customerInvoiceItem->update([
-                'position' => $item->position,
-                'item_code' => $item->item_code,
-                'subject' => $item->subject,
-                'definition' => $item->definition,
-                'price' => $item->price,
-                'unit_type' => $item->unit_type,
-                'amount' => $item->amount,
-                'sum' => $item->sum,
-                'tax' => $item->tax,
-                'sum_tax' => $item->sum_tax,
-                'discount' => $item->discount,
-
-                //'customer_invoice_id' => $item->customer_invoice_id,
-                //'customer_order_item_id' => $item->customer_order_item_id,
-            ]);
-        }
-
-        if (isset($item)) {
-            $customerInvoiceItemRepository->destroyWhere([
-                ['position', '>', $item->position],
-                ['customer_invoice_id', '=', $customerInvoice->getKey()],
-            ]);
-        }
-
-        foreach ((array)$invoice->accounts as $account) {
-
-            $companyBankAccounts = collect();
-
-            /** @var CompanyBankAccount $companyBankAccount */
-            $companyBankAccount = $companyBankAccountRepository->firstOrCreate([
-                'bank' => $account->bank,
-                'swift' => $account->swift,
-                'account' => $account->account,
-                'iban' => $account->iban,
-            ]);
-
-            if ($companyBankAccount->wasRecentlyCreated) {
-                if ($company->companyBankAccounts->count() === 0) {
-                    $companyBankAccount->update([
-                        'default' => true
-                    ]);
-                }
-                $companyBankAccount->company()->associate($company);
-                $companyBankAccount->save();
-            }
-
-            $companyBankAccounts->push($companyBankAccount);
-        }
-
-        // $customerInvoice->accounts()->sync($companyBankAccounts);
-
-        foreach ((array)$invoice->actions as $action) {
-            /** @var CustomerInvoiceAction $customerInvoiceAction */
-            $customerInvoiceAction = $customerInvoiceActionRepository->firstOrCreate([
-                'action' => $action->action,
-                'timestamp' => Carbon::parse($action->timestamp),
-                'customer_invoice_id' => $customerInvoice->getKey(),
-            ]);
-        }
-
-        foreach ((array)$invoice->attachments as $attachment) {
-            /** @var CustomerInvoiceAttachment $customerInvoiceAttachment */
-            $customerInvoiceAttachment = $customerInvoiceAttachmentRepository->firstOrCreate([
-                'attachment_type' => $attachment->attachment_type,
-                'filename' => $attachment->filename,
-                'customer_invoice_id' => $customerInvoice->getKey(),
-            ]);
-
-            $customerInvoiceAttachment->update([
-                'file' => $attachment->file
-            ]);
-        }
-
-        $customerInvoice->update([
             'maventa_initiated' => true
         ]);
 
-        if($this->tiff) {
+        /**
+         * Присвоение клиента по номеру заказа.
+         */
+        if (Str::startsWith($invoice->order_nr, 'SODA-')) {
+
+            /** @var CustomerOrder|null $customerOrder */
+            $customerOrder = $customerOrderRepository->with('customer')->firstWhere([
+                'number' => $invoice->order_nr
+            ]);
+
+            if ($customerOrder) {
+
+                /** @var Customer|null $customer */
+                $customer = $customerOrder->customer;
+
+                if ($customer) {
+
+                    $customer->update([
+                        'nr' => $invoice->customer_nr,
+                        'email' => $invoice->customer_email,
+                        'name' => $invoice->customer_name,
+                        'country' => $invoice->customer_country,
+                        'state' => $invoice->customer_state,
+                        'post_code' => $invoice->customer_post_code,
+                        'post_office' => $invoice->customer_post_office,
+                        'address1' => $invoice->customer_address1,
+                        'address2' => $invoice->customer_address2,
+                        'contact_p' => $invoice->customer_contact_p,
+                        'bid' => $invoice->customer_bid,
+                        'ovt' => $invoice->customer_ovt,
+                    ]);
+
+                    $customerInvoice->customer()->associate($customer);
+                }
+            }
+        }
+
+        /**
+         * Импорт строк заказа.
+         */
+        if (isset($invoice->items)) {
+
+            foreach ((array)$invoice->items as $item) {
+
+                /** @var CustomerInvoiceItem $customerInvoiceItem */
+                $customerInvoiceItem = $customerInvoiceItemRepository->firstOrCreate([
+                    'position' => $item->position,
+                    'customer_invoice_id' => $customerInvoice->getKey(),
+                ]);
+
+                $customerInvoiceItem->update([
+                    'position' => $item->position,
+                    'item_code' => $item->item_code,
+                    'subject' => $item->subject,
+                    'definition' => $item->definition,
+                    'price' => $item->price,
+                    'unit_type' => $item->unit_type,
+                    'amount' => $item->amount,
+                    'sum' => $item->sum,
+                    'tax' => $item->tax,
+                    'sum_tax' => $item->sum_tax,
+                    'discount' => $item->discount,
+                ]);
+            }
+
+            /**
+             *  Удалить позиции, которых нет в счете.
+             */
+            if (isset($item)) {
+                $customerInvoiceItemRepository->destroyWhere([
+                    ['position', '>', $item->position],
+                    ['customer_invoice_id', '=', $customerInvoice->getKey()],
+                ]);
+            }
+        }
+
+        /**
+         * Импорт банковских счетов компании
+         */
+        if (isset($invoice->actions)) {
+
+            foreach ((array)$invoice->accounts as $account) {
+
+                $companyBankAccounts = collect();
+
+                /** @var CompanyBankAccount $companyBankAccount */
+                $companyBankAccount = $companyBankAccountRepository->firstOrCreate([
+                    'bank' => $account->bank,
+                    'swift' => $account->swift,
+                    'account' => $account->account,
+                    'iban' => $account->iban,
+                ]);
+
+                if ($companyBankAccount->wasRecentlyCreated) {
+                    if ($company->companyBankAccounts->count() === 0) {
+                        $companyBankAccount->update([
+                            'default' => true
+                        ]);
+                    }
+                    $companyBankAccount->company()->associate($company);
+                    $companyBankAccount->save();
+                }
+
+                $companyBankAccounts->push($companyBankAccount);
+            }
+
+            $customerInvoice->accounts()->sync($companyBankAccounts->pluck('id'));
+
+        }
+
+        /**
+         * Импорт действий со счетами.
+         */
+        if (isset($invoice->actions)) {
+
+            foreach ((array)$invoice->actions as $action) {
+                /** @var CustomerInvoiceAction $customerInvoiceAction */
+                $customerInvoiceAction = $customerInvoiceActionRepository->firstOrCreate([
+                    'action' => $action->action,
+                    'timestamp' => Carbon::parse($action->timestamp),
+                    'customer_invoice_id' => $customerInvoice->getKey(),
+                ]);
+            }
+        }
+
+        /**
+         * Импорт вложений
+         */
+        if (isset($invoice->attachments)) {
+
+            foreach ((array)$invoice->attachments as $attachment) {
+                /** @var CustomerInvoiceAttachment $customerInvoiceAttachment */
+                $customerInvoiceAttachment = $customerInvoiceAttachmentRepository->firstOrCreate([
+                    'attachment_type' => $attachment->attachment_type,
+                    'filename' => $attachment->filename,
+                    'customer_invoice_id' => $customerInvoice->getKey(),
+                ]);
+
+                $customerInvoiceAttachment->update([
+                    'file' => $attachment->file
+                ]);
+            }
+        }
+
+        /**
+         * Импорт изображения счета.
+         */
+        if ($this->tiff) {
             \App\Jobs\MaventaImportInvoiceImage::dispatch($this->id);
         }
 

@@ -7,7 +7,7 @@ namespace App;
  *
  * @property integer $id
  * @property integer $customer_id
- * @property integer $shipment_id
+ * @property integer $customer_shipment_id
  *
  * @property string $maventa_id
  * @property \Crmplease\MaterialAdmin\Database\Eloquent\Traits\File\FileField $maventa_tiff
@@ -51,91 +51,91 @@ namespace App;
  * @property string $customer_bid
  * @property string $customer_ovt
  * @property \App\Customer $customer
- * @property \App\CustomerShipment $shipment
- * @property \Illuminate\Support\Collection|\App\CompanyBankAccount[] $accounts
+ * @property \App\CustomerShipment $customerShipment
+ * @property \Illuminate\Support\Collection|\App\CompanyBankAccount[] $companyBankAccounts
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo shipment()
- * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany accounts()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerShipment()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany companyBankAccounts()
  *
  * @package App
  */
 class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
+    protected $fillable = [
         'customer_id',
-        'shipment_id',
+        'customer_shipment_id',
 
-		'maventa_id',
-		'maventa_tiff',
-		'maventa_initiated',
+        'maventa_id',
+        'maventa_tiff',
+        'maventa_initiated',
 
-		'currency',
-		'data',
-		'date',
-		'date_due',
-		'delivery_date',
-		'delivery_type',
-		'error_message',
-		'invoice_delivery_address',
-		'invoice_nr',
-		'invoice_seller_information',
-		'lang',
-		'notes',
-		'order_nr',
-		'payment_terms',
-		'reference_nr',
-		'state',
-		'status',
-		'sum',
-		'sum_tax',
-		'work_order_nr',
-		'company_interest',
-		'company_paper_fee',
-		'company_reminder',
-		'company_comment',
-		'company_reference',
-		'customer_nr',
-		'customer_email',
-		'customer_name',
-		'customer_country',
-		'customer_state',
-		'customer_post_code',
-		'customer_post_office',
-		'customer_address1',
-		'customer_address2',
-		'customer_contact_p',
-		'customer_bid',
-		'customer_ovt',
-	];
+        'currency',
+        'data',
+        'date',
+        'date_due',
+        'delivery_date',
+        'delivery_type',
+        'error_message',
+        'invoice_delivery_address',
+        'invoice_nr',
+        'invoice_seller_information',
+        'lang',
+        'notes',
+        'order_nr',
+        'payment_terms',
+        'reference_nr',
+        'state',
+        'status',
+        'sum',
+        'sum_tax',
+        'work_order_nr',
+        'company_interest',
+        'company_paper_fee',
+        'company_reminder',
+        'company_comment',
+        'company_reference',
+        'customer_nr',
+        'customer_email',
+        'customer_name',
+        'customer_country',
+        'customer_state',
+        'customer_post_code',
+        'customer_post_office',
+        'customer_address1',
+        'customer_address2',
+        'customer_contact_p',
+        'customer_bid',
+        'customer_ovt',
+    ];
 
-	protected $appends = [
+    protected $appends = [
 
-	];
+    ];
 
-	protected $casts = [
-		'maventa_initiated' => 'boolean',
-		'state' => 'integer',
-	];
+    protected $casts = [
+        'maventa_initiated' => 'boolean',
+        'state' => 'integer',
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'customer' => \App\Customer::class,
-		'shipment' => \App\CustomerShipment::class,
+        'customer' => \App\Customer::class,
+        'customerShipment' => \App\CustomerShipment::class,
     ];
 
     protected $belongsToMany = [
-		'accounts' => [\App\CompanyBankAccount::class, 'customer_invoice_account'],
+        'companyBankAccounts' => [\App\CompanyBankAccount::class, 'customer_invoice_company_bank_account'],
     ];
 
     protected $belongsToManyPivot = [
@@ -151,10 +151,10 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $hasMany = [
-		'items' => \App\CustomerInvoiceItem::class,
-		'actions' => \App\CustomerInvoiceAction::class,
-		'attachments' => \App\CustomerInvoiceAttachment::class,
-		'orderItems' => \App\CustomerOrderItem::class,
+        'customerInvoiceItems' => \App\CustomerInvoiceItem::class,
+        'customerInvoiceActions' => \App\CustomerInvoiceAction::class,
+        'customerInvoiceAttachments' => \App\CustomerInvoiceAttachment::class,
+        'customerOrderItems' => \App\CustomerOrderItem::class,
     ];
 
     protected $hasManyThrough = [
@@ -170,9 +170,9 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-		'customer',
-		'shipment',
-		'accounts',
+        'customer',
+        'customerShipment',
+        'companyBankAccounts',
     ];
 
     protected $images = [
@@ -180,6 +180,17 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $files = [
-		'maventa_tiff',
+        'maventa_tiff',
     ];
+
+    public function getWith()
+    {
+        $condition = is_resource_page(['customer_invoice']) || is_datatable(['customer_invoice']);
+
+        return [
+            $condition ? 'customer' : null,
+            $condition ? 'customerShipment' : null,
+            $condition ? 'companyBankAccounts' : null,
+        ];
+    }
 }

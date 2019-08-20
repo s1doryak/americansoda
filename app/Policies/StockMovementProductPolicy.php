@@ -29,6 +29,18 @@ class StockMovementProductPolicy implements DatatablePolicyContract
 		return true;
 	}
 
+    /**
+     * Determine whether the user can list of trashed entities.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function trashed(Authenticatable $authenticatable)
+    {
+        return true;
+    }
+
 	/**
 	 * Determine whether the user can view action column.
 	 *

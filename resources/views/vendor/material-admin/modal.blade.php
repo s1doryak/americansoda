@@ -1,12 +1,10 @@
 <div class="modal-header">
     <button class="close" data-dismiss="modal"><i class="zmdi zmdi-close zmdi-hc-lg"></i></button>
-    <h4 class="modal-title">
-        @hasSection('block-header-title')
-            @yield('block-header-title')
-        @else
+    @hasSection('title')
+        <h4 class="modal-title">
             @yield('title')
-        @endif
-    </h4>
+        </h4>
+    @endif
 </div>
 
 <div class="modal-body">

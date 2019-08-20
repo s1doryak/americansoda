@@ -61,8 +61,8 @@ class CustomerInvoiceDataTable extends DataTable
             'customer.name' => [
                 'data' => 'customer.name'
             ],
-            'shipment.name' => [
-                'data' => 'shipment.name'
+            'customerShipment.name' => [
+                'data' => 'customerShipment.name'
             ],
         ];
     }
@@ -114,7 +114,7 @@ class CustomerInvoiceDataTable extends DataTable
             'customer_bid',
             'customer_ovt',
             'customer.name',
-            'shipment.name',
+            'customerShipment.name',
             'action',
         ];
     }
@@ -141,11 +141,11 @@ class CustomerInvoiceDataTable extends DataTable
                 'data' => 'customer.id',
                 'lists' => 'customer.name',
             ],
-            'shipment.name' => [
+            'customerShipment.name' => [
                 'type' => 'choice',
                 'multiple' => true,
-                'data' => 'shipment.id',
-                'lists' => 'shipment.name',
+                'data' => 'customerShipment.id',
+                'lists' => 'customerShipment.name',
             ],
             'items.name' => [
                 'type' => 'choice',
@@ -237,16 +237,16 @@ class CustomerInvoiceDataTable extends DataTable
      * @param CustomerInvoice $customerInvoice
      * @return string
      */
-    protected function renderShipment__NameColumn($customerInvoice)
+    protected function renderCustomerShipment__NameColumn($customerInvoice)
     {
         if ($this->isDataTableRequest()) {
-            if ($customerInvoice->shipment) {
-                return $customerInvoice->shipment->number;
+            if ($customerInvoice->customerShipment) {
+                return $customerInvoice->customerShipment->number;
             }
 
             return $this->renderView('datatables::columns.default');
         }
 
-        return $customerInvoice->shipment ? $customerInvoice->shipment->number : '';
+        return $customerInvoice->customerShipment ? $customerInvoice->customerShipment->number : '';
     }
 }

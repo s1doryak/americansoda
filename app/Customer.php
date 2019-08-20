@@ -98,7 +98,6 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'contact_p',
 		'ovt',
 		'price_group_id',
-
 	];
 
 	protected $casts = [
