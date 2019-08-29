@@ -160,6 +160,7 @@ class MaventaImportInvoice implements ShouldQueue
                         'email' => $customer->email ?: $invoice->customer_email,
                         'name' => $customer->name ?: $invoice->customer_contact_p,
                         'legal_name' => $customer->legal_name ?: $invoice->customer_name,
+                        'y_tunnus' => $customer->y_tunnus ?: $customer->bid,
                         'country' => $customer->country ?: $invoice->customer_country,
                         'state' => $customer->state ?: $invoice->customer_state,
                         'post_code' => $customer->post_code ?: $invoice->customer_post_code,
@@ -167,7 +168,6 @@ class MaventaImportInvoice implements ShouldQueue
                         'address1' => $customer->address1 ?: $invoice->customer_address1,
                         'address2' => $customer->address2 ?: $invoice->customer_address2,
                         'contact_p' => $customer->contact_p ?: $invoice->customer_contact_p,
-                        'y_tunnus' => $customer->y_tunnus ?: $customer->bid,
                         'bid' => $customer->bid ?: $invoice->customer_bid,
                         'ovt' => $customer->ovt ?: $invoice->customer_ovt,
                     ]);
