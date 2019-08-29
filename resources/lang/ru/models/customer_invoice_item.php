@@ -62,10 +62,14 @@ return [
 		'orderItem' => [
 			'name' => 'Позиция заказа',
 		],
+        'product' => [
+            'name' => 'Товар',
+        ],
 	],
     'placeholders' => [
-		'invoice' => 'Выберите Счёт',
-		'orderItem' => 'Выберите Позицию заказа',
+		'invoice' => 'Выберите счёт',
+		'orderItem' => 'Выберите позицию заказа',
+        'product' => 'Выберите товар'
     ],
     'columns' => [
 		'position' => 'Позиция',
@@ -85,6 +89,9 @@ return [
 		'orderItem' => [
 			'name' => 'Позиция заказа',
 		],
+        'product' => [
+            'name' => 'Товар',
+        ],
         'created_at' => 'Создана',
         'updated_at' => 'Изменена',
         'deleted_at' => 'Удалена',
@@ -96,5 +103,8 @@ return [
 		'orderItem' => [
 			'name' => 'Позиция заказа',
 		],
+        'product' => [
+            'name' => 'Товар',
+        ],
     ],
 ];

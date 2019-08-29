@@ -10,7 +10,9 @@ use App\CustomerInvoiceAction;
 use App\CustomerInvoiceAttachment;
 use App\CustomerInvoiceItem;
 use App\CustomerOrder;
+use App\CustomerOrderItem;
 use App\CustomerShipment;
+use App\Product;
 use App\Repositories\Contracts\CompanyBankAccountRepository;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\CustomerInvoiceActionRepository;
@@ -214,6 +216,26 @@ class MaventaImportInvoice implements ShouldQueue
                     'sum_tax' => $item->sum_tax,
                     'discount' => $item->discount,
                 ]);
+
+                if (isset($customerOrder)) {
+                    /** @var CustomerOrderItem|null $customerOrderItem */
+                    $customerOrderItem = $customerOrder->customerOrderItems->first(function (CustomerOrderItem $customerOrderItem) use ($item) {
+                        return $customerOrderItem->product->name === $item->subject;
+                    });
+
+                    if ($customerOrderItem) {
+                        $customerInvoiceItem->customerOrderItem()->associate($customerOrderItem);
+
+                        /** @var Product|null $product */
+                        $product = $customerOrderItem->product;
+
+                        if ($product) {
+                            $customerInvoiceItem->product()->associate($product);
+                        }
+                    }
+
+                    $customerInvoiceItem->save();
+                }
             }
 
             /**

@@ -34,6 +34,7 @@ use Carbon\Carbon;
  * @property \App\CustomerOrder $customerOrder
  * @property \App\CustomerShipment $customerShipment
  * @property \App\CustomerInvoice $customerInvoice
+ * @property \Illuminate\Support\Collection|\App\StockProduct[] $stockProducts
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -43,6 +44,7 @@ use Carbon\Carbon;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerOrder()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerShipment()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerInvoice()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany stockProducts()
  *
  * @package App
  */
@@ -76,7 +78,6 @@ class CustomerOrderItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'customer_order_id',
 		'customer_shipment_id',
 		'customer_invoice_id',
-
 	];
 
 	protected $casts = [

@@ -16,12 +16,14 @@ use Carbon\Carbon;
  * @property \Illuminate\Support\Carbon|null $sent_at
  * @property \App\Customer $customer
  * @property \App\User $user
+ * @property \Illuminate\Support\Collection|\App\CustomerOrderItem[] $customerOrderItems
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo user()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerOrderItems()
  *
  * @package App
  */

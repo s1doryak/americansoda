@@ -21,55 +21,59 @@ namespace App;
  * @property string $discount
  * @property \App\CustomerInvoice|null $customerInvoice
  * @property \App\CustomerOrderItem|null $customerOrderItem
+ * @property \App\Product|null $product
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerInvoice()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerOrderItem()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo product()
  *
  * @package App
  */
 class CustomerInvoiceItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'position',
-		'item_code',
-		'subject',
-		'definition',
-		'price',
-		'unit_type',
-		'amount',
-		'sum',
-		'tax',
-		'sum_tax',
-		'discount',
-		'customer_invoice_id',
-		'customer_order_item_id',
-	];
+    protected $fillable = [
+        'position',
+        'item_code',
+        'subject',
+        'definition',
+        'price',
+        'unit_type',
+        'amount',
+        'sum',
+        'tax',
+        'sum_tax',
+        'discount',
+        'customer_invoice_id',
+        'customer_order_item_id',
+        'product_id',
+    ];
 
-	protected $appends = [
+    protected $appends = [
 
-	];
+    ];
 
-	protected $casts = [
-		'position' => 'integer',
-		'amount' => 'float',
-		'tax' => 'float',
-		'discount' => 'float',
-	];
+    protected $casts = [
+        'position' => 'integer',
+        'amount' => 'float',
+        'tax' => 'float',
+        'discount' => 'float',
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'customerInvoice' => \App\CustomerInvoice::class,
-		'customerOrderItem' => \App\CustomerOrderItem::class,
+        'customerInvoice' => \App\CustomerInvoice::class,
+        'customerOrderItem' => \App\CustomerOrderItem::class,
+        'product' => \App\Product::class,
     ];
 
     protected $belongsToMany = [
@@ -105,8 +109,9 @@ class CustomerInvoiceItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Mod
     ];
 
     protected $with = [
-		'customerInvoice',
-		'customerOrderItem',
+        'customerInvoice',
+        'customerOrderItem',
+        'product',
     ];
 
     protected $images = [

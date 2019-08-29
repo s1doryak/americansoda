@@ -40,6 +40,20 @@ insert into migrations values
 ('2016_06_03_102037_create_stock_movement_products_table', 1),
 ('2016_08_02_094119_create_stock_products_table', 1);
 ```
+### Обновить CustomerInvoiceItem
+```bash
+docker-compose run artisan modify:resource CustomerInvoiceItem \
+    --namespace=Dashboard \
+    \
+    --belongs-to=Product \
+    \
+    --translate=ru \
+    \
+    --translate-belongs-to=Product:ru:"Товар":"Товар" \
+    \
+    --force
+```
+
 ### Обновить Customer
 ```bash
 docker-compose run artisan modify:resource Customer \

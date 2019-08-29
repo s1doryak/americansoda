@@ -3,10 +3,10 @@
 @if ($items)
     @foreach($items as $idx => $item)
         @include('dashboard::forms._relation-form-row', [
+            'idx' => $idx,
+            'item' => $item,
             'is_template' => false,
             'multiple_rows' => true,
-            'item' => $item,
-            'index' => $idx,
             'can_add' => (isset($options['can_add']) ? $options['can_add'] : true),
             'can_select' => (isset($options['can_select']) ? $options['can_select']($item) : true),
             'can_edit' => (isset($options['can_edit']) ? $options['can_edit']($item) : true),

@@ -12,54 +12,57 @@ use App\CustomerInvoiceItem;
  */
 class CustomerInvoiceItemDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-			'position',
-			'item_code',
-			'subject',
-			'definition',
-			'price',
-			'unit_type',
-			'amount',
-			'sum',
-			'tax',
-			'sum_tax',
-			'discount',
-			'invoice.name' => [
-				'data' => 'invoice.name'
-			],
-			'orderItem.name' => [
-				'data' => 'orderItem.name'
-			],
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'position',
+            'item_code',
+            'subject',
+            'definition',
+            'price',
+            'unit_type',
+            'amount',
+            'sum',
+            'tax',
+            'sum_tax',
+            'discount',
+            'invoice.name' => [
+                'data' => 'invoice.name'
+            ],
+            'orderItem.name' => [
+                'data' => 'orderItem.name'
+            ],
+            'product.name' => [
+                'data' => 'product.name'
+            ],
+        ];
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function getRawColumns()
-	{
-		return [
-			'position',
-			'item_code',
-			'subject',
-			'definition',
-			'price',
-			'unit_type',
-			'amount',
-			'sum',
-			'tax',
-			'sum_tax',
-			'discount',
-			'invoice.name',
-			'orderItem.name',
-			'action',
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'position',
+            'item_code',
+            'subject',
+            'definition',
+            'price',
+            'unit_type',
+            'amount',
+            'sum',
+            'tax',
+            'sum_tax',
+            'discount',
+            'invoice.name',
+            'orderItem.name',
+            'action',
+        ];
+    }
 
     /**
      * @return array
@@ -67,10 +70,10 @@ class CustomerInvoiceItemDataTable extends DataTable
     protected function getAggregateColumns()
     {
         return [
-			'position',
-			'amount',
-			'tax',
-			'discount',
+            'position',
+            'amount',
+            'tax',
+            'discount',
         ];
     }
 
@@ -80,29 +83,36 @@ class CustomerInvoiceItemDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-			'invoice.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'invoice.id',
-				'lists' => 'invoice.name',
-			],
-			'orderItem.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'orderItem.id',
-				'lists' => 'orderItem.name',
-			],
+            'invoice.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'invoice.id',
+                'lists' => 'invoice.name',
+            ],
+            'orderItem.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'orderItem.id',
+                'lists' => 'orderItem.name',
+            ],
+            'product.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'operator' => 'in',
+                'data' => 'product.id',
+                'lists' => 'product.name',
+            ],
         ];
     }
 
-	/**
-	 * @param CustomerInvoiceItem $customerInvoiceItem
-	 * @return array
-	 */
-	protected function getActions($customerInvoiceItem)
-	{
-		return parent::getActions($customerInvoiceItem);
-	}
+    /**
+     * @param CustomerInvoiceItem $customerInvoiceItem
+     * @return array
+     */
+    protected function getActions($customerInvoiceItem)
+    {
+        return parent::getActions($customerInvoiceItem);
+    }
 
     /**
      * @return array

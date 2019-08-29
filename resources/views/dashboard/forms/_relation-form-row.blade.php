@@ -13,7 +13,7 @@
         @endif
 
         @if($multiple_rows && !$is_template)
-            @php($field->setName(preg_replace('/(\d+)/', "{$index}", $field->getName())))
+            @php($field->setName(preg_replace('/(\d+)/', "{$idx}", $field->getName())))
         @endif
 
         <td class="td-{{ $name }} td-{{ $type }}">
@@ -87,7 +87,7 @@
                 @php($name = $field->getRealName())
                 @if ($field->getOption('type') === 'hidden' && !in_array($name, $exclude))
                     @if(isset($multiple_rows) && $multiple_rows === true)
-                        @php($field->setName(preg_replace('/(\d+)/', "{$index}", $field->getName())))
+                        @php($field->setName(preg_replace('/(\d+)/', "{$idx}", $field->getName())))
                     @endif
 
                     @php($attrs = [])

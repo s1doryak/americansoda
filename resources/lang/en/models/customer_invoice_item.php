@@ -56,16 +56,20 @@ return [
 		'tax' => 'Tax',
 		'sum_tax' => 'Sum Tax',
 		'discount' => 'Discount',
-		'invoice' => [
+		'customerInvoice' => [
 			'name' => 'Invoice',
 		],
-		'orderItem' => [
+		'customerOrderItem' => [
 			'name' => 'Order Item',
 		],
-	],
+        'product' => [
+            'name' => 'Product',
+        ],
+    ],
     'placeholders' => [
-		'invoice' => 'Select Invoice',
-		'orderItem' => 'Select Order Item',
+		'customerInvoice' => 'Select Invoice',
+		'customerOrderItem' => 'Select Order Item',
+        'product' => 'Select Product',
     ],
     'columns' => [
 		'position' => 'Position',
@@ -79,22 +83,28 @@ return [
 		'tax' => 'Tax',
 		'sum_tax' => 'Sum Tax',
 		'discount' => 'Discount',
-		'invoice' => [
+		'customerInvoice' => [
 			'name' => 'Invoice',
 		],
-		'orderItem' => [
+		'customerOrderItem' => [
 			'name' => 'Order Item',
 		],
+        'product' => [
+            'name' => 'Product',
+        ],
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',
     ],
     'filters' => [
-		'invoice' => [
+		'customerInvoice' => [
 			'name' => 'Invoice',
 		],
-		'orderItem' => [
+		'customerOrderItem' => [
 			'name' => 'Order Item',
 		],
+        'product' => [
+            'name' => 'Product',
+        ],
     ],
 ];
