@@ -44,8 +44,7 @@ class CustomerDataTable extends DataTable
 			'shipping_address' => [
 				'searchable' => true
 			],
-
-			'bid', // Business ID
+            'y_tunnus',
 			'iban',
 			'swift',
 			'email' => [
@@ -79,6 +78,7 @@ class CustomerDataTable extends DataTable
 			'address1',
 			'address2',
 			'contact_p',
+            'bid',
 			'ovt',
 			'priceGroup.name' => [
 				'data' => 'priceGroup.name'

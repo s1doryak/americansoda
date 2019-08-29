@@ -60,8 +60,8 @@ class CustomerInvoiceForm extends Form
 			'customer_bid' => 'text',
 			'customer_ovt' => 'text',
 			'customer' => 'choice',
-			'shipment' => 'choice',
-			'accounts' => 'choice',
+			'customerShipment' => 'choice',
+			'companyBankAccounts' => 'choice',
         ];
 	}
 
@@ -113,8 +113,11 @@ class CustomerInvoiceForm extends Form
 			'customer_bid' => 'text',
 			'customer_ovt' => 'text',
 			'customer' => 'choice',
-			'shipment' => 'choice',
-			'accounts' => 'choice',
+			'customerShipment' => [
+			    'type' => 'choice',
+                'lists' => 'number'
+            ],
+			'companyBankAccounts' => 'choice',
         ];
 	}
 
@@ -165,8 +168,8 @@ class CustomerInvoiceForm extends Form
 			'customer_bid' => 'sometimes',
 			'customer_ovt' => 'sometimes',
 			'customer' => 'sometimes|exists:customers,id',
-			'shipment' => 'sometimes|exists:customer_shipments,id',
-			'accounts' => 'sometimes|exists:company_bank_accounts,id',
+			'customerShipment' => 'sometimes|exists:customer_shipments,id',
+			'companyBankAccounts' => 'sometimes|exists:company_bank_accounts,id',
         ];
 	}
 
@@ -218,8 +221,8 @@ class CustomerInvoiceForm extends Form
 			'customer_bid' => 'sometimes',
 			'customer_ovt' => 'sometimes',
 			'customer' => 'sometimes|exists:customers,id',
-			'shipment' => 'sometimes|exists:customer_shipments,id',
-			'accounts' => 'sometimes|exists:company_bank_accounts,id',
+			'customerShipment' => 'sometimes|exists:customer_shipments,id',
+			'companyBankAccounts' => 'sometimes|exists:company_bank_accounts,id',
         ];
 	}
 }

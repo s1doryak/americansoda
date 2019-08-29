@@ -32,6 +32,10 @@ namespace App;
  * @property \App\User $user
  * @property \App\Region $billingRegion
  * @property \App\Region $shippingRegion
+ * @property \Illuminate\Support\Collection|CustomerOrder[] $customerOrders
+ * @property \Illuminate\Support\Collection|CustomerShipment[] $customerShipments
+ * @property \Illuminate\Support\Collection|CustomerPricingPolicy[] $customerPricingPolicies
+ * @property \Illuminate\Support\Collection|CustomerInvoice[] $customerInvoices
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -42,6 +46,10 @@ namespace App;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo user()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo billingRegion()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo shippingRegion()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerOrders()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerShipments()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerPricingPolicies()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerInvoices()
  *
  * @property boolean $archived
  * @property string $nr
@@ -55,144 +63,147 @@ namespace App;
  * @property string $ovt
  * @property \App\PriceGroup $priceGroup
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo priceGroup()
+ * @property string $y_tunnus
  * @package App
  */
 class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'name',
-		'legal_name',
-		'billing_postcode',
-		'billing_address',
-		'shipping_postcode',
-		'shipping_address',
-		'bid',
-		'iban',
-		'swift',
-		'email',
-		'phone',
-		'order_interval',
-		'comment',
-		'calendar_comment',
-		'incomterms',
-		'terms_of_cooperation',
-		'terms_of_delivery',
-		'terms_of_equipment',
-		'delivery_payer',
-		'payment_conditions',
-		'pays_vat',
-		'stock_id',
-		'customer_type_id',
-		'payment_type_id',
-		'user_id',
-		'billing_region_id',
-		'shipping_region_id',
-		'archived',
-		'nr',
-		'country',
-		'state',
-		'post_code',
-		'post_office',
-		'address1',
-		'address2',
-		'contact_p',
-		'ovt',
-		'price_group_id',
-	];
+    protected $fillable = [
+        'name',
+        'legal_name',
+        'billing_postcode',
+        'billing_address',
+        'shipping_postcode',
+        'shipping_address',
+        'y_tunnus',
+        'iban',
+        'swift',
+        'email',
+        'phone',
+        'order_interval',
+        'comment',
+        'calendar_comment',
+        'incomterms',
+        'terms_of_cooperation',
+        'terms_of_delivery',
+        'terms_of_equipment',
+        'delivery_payer',
+        'payment_conditions',
+        'pays_vat',
+        'stock_id',
+        'customer_type_id',
+        'payment_type_id',
+        'user_id',
+        'billing_region_id',
+        'shipping_region_id',
+        'archived',
+        'nr',
+        'country',
+        'state',
+        'post_code',
+        'post_office',
+        'address1',
+        'address2',
+        'contact_p',
+        'bid',
+        'ovt',
+        'price_group_id',
+    ];
 
-	protected $casts = [
-		'order_interval' => 'integer',
-		'pays_vat' => 'boolean',
-		'archived' => 'boolean',
+    protected $casts = [
+        'order_interval' => 'integer',
+        'pays_vat' => 'boolean',
+        'archived' => 'boolean',
 
-	];
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
-	protected $hidden = [
+    protected $hidden = [
 
-	];
+    ];
 
-	protected $belongsTo = [
-		'stock' => \App\Stock::class,
-		'customerType' => \App\CustomerType::class,
-		'paymentType' => \App\PaymentType::class,
-		'user' => \App\User::class,
-		'billingRegion' => \App\Region::class,
-		'shippingRegion' => \App\Region::class,
-		'priceGroup' => \App\PriceGroup::class,
-	];
+    protected $belongsTo = [
+        'stock' => \App\Stock::class,
+        'customerType' => \App\CustomerType::class,
+        'paymentType' => \App\PaymentType::class,
+        'user' => \App\User::class,
+        'billingRegion' => \App\Region::class,
+        'shippingRegion' => \App\Region::class,
+        'priceGroup' => \App\PriceGroup::class,
+    ];
 
-	protected $belongsToMany = [
+    protected $belongsToMany = [
 
-	];
+    ];
 
-	protected $belongsToManyPivot = [
+    protected $belongsToManyPivot = [
 
-	];
+    ];
 
-	protected $belongsToManyPivotTimestamps = [
+    protected $belongsToManyPivotTimestamps = [
 
-	];
+    ];
 
-	protected $hasOne = [
+    protected $hasOne = [
 
-	];
+    ];
 
-	protected $hasMany = [
-		'customerOrders' => CustomerOrder::class,
-		'customerPricingPolicies' => CustomerPricingPolicy::class,
-		'customerInvoices' => \App\CustomerInvoice::class,
+    protected $hasMany = [
+        'customerOrders' => \App\CustomerOrder::class,
+        'customerShipments' => \App\CustomerShipment::class,
+        'customerPricingPolicies' => \App\CustomerPricingPolicy::class,
+        'customerInvoices' => \App\CustomerInvoice::class,
 
-	];
+    ];
 
-	protected $hasManyThrough = [
+    protected $hasManyThrough = [
 
-	];
+    ];
 
-	protected $morphTo = [
+    protected $morphTo = [
 
-	];
+    ];
 
-	protected $morphMany = [
+    protected $morphMany = [
 
-	];
+    ];
 
-	protected $with = [
-		'stock',
-		'customerType',
-		'paymentType',
-		'user',
-		'billingRegion',
-		'shippingRegion',
-		'priceGroup',
-	];
+    protected $with = [
+        'stock',
+        'customerType',
+        'paymentType',
+        'user',
+        'billingRegion',
+        'shippingRegion',
+        'priceGroup',
+    ];
 
-	protected $images = [
+    protected $images = [
 
-	];
+    ];
 
-	protected $files = [
+    protected $files = [
 
-	];
+    ];
 
-	/**
-	 * @return array
-	 */
-	public function getWith()
-	{
-		$condition = is_resource_page(['customer']) || is_datatable(['customer']);
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['customer']) || is_datatable(['customer']);
 
-		return [
-			$condition ? 'billingRegion' : null,
-			$condition ? 'shippingRegion' : null,
-			$condition ? 'customerType' : null,
-			$condition ? 'paymentType' : null,
-			$condition ? 'priceGroup' : null,
-			$condition ? 'user' : null,
-			$condition ? 'stock' : null,
-		];
-	}
+        return [
+            $condition ? 'billingRegion' : null,
+            $condition ? 'shippingRegion' : null,
+            $condition ? 'customerType' : null,
+            $condition ? 'paymentType' : null,
+            $condition ? 'priceGroup' : null,
+            $condition ? 'user' : null,
+            $condition ? 'stock' : null,
+        ];
+    }
 }

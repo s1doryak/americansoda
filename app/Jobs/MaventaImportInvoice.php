@@ -10,6 +10,7 @@ use App\CustomerInvoiceAction;
 use App\CustomerInvoiceAttachment;
 use App\CustomerInvoiceItem;
 use App\CustomerOrder;
+use App\CustomerShipment;
 use App\Repositories\Contracts\CompanyBankAccountRepository;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\CustomerInvoiceActionRepository;
@@ -138,11 +139,13 @@ class MaventaImportInvoice implements ShouldQueue
         /**
          * Присвоение клиента по номеру заказа.
          */
-        if (Str::startsWith($invoice->order_nr, 'SODA-')) {
+        if (Str::contains($invoice->order_nr, 'SODA-')) {
+
+            $invoice_nr = collect(preg_split('/[^A-Z0-9\-]/', $invoice->order_nr, PREG_SPLIT_NO_EMPTY))->first();
 
             /** @var CustomerOrder|null $customerOrder */
-            $customerOrder = $customerOrderRepository->with('customer')->firstWhere([
-                'number' => $invoice->order_nr
+            $customerOrder = $customerOrderRepository->with(['customer', 'customer.customerShipments'])->firstWhere([
+                'number' => $invoice_nr
             ]);
 
             if ($customerOrder) {
@@ -153,21 +156,34 @@ class MaventaImportInvoice implements ShouldQueue
                 if ($customer) {
 
                     $customer->update([
-                        'nr' => $invoice->customer_nr,
-                        'email' => $invoice->customer_email,
-                        'name' => $invoice->customer_name,
-                        'country' => $invoice->customer_country,
-                        'state' => $invoice->customer_state,
-                        'post_code' => $invoice->customer_post_code,
-                        'post_office' => $invoice->customer_post_office,
-                        'address1' => $invoice->customer_address1,
-                        'address2' => $invoice->customer_address2,
-                        'contact_p' => $invoice->customer_contact_p,
-                        'bid' => $invoice->customer_bid,
-                        'ovt' => $invoice->customer_ovt,
+                        'nr' => $customer->nr ?: $invoice->customer_nr,
+                        'email' => $customer->email ?: $invoice->customer_email,
+                        'name' => $customer->name ?: $invoice->customer_contact_p,
+                        'legal_name' => $customer->legal_name ?: $invoice->customer_name,
+                        'country' => $customer->country ?: $invoice->customer_country,
+                        'state' => $customer->state ?: $invoice->customer_state,
+                        'post_code' => $customer->post_code ?: $invoice->customer_post_code,
+                        'post_office' => $customer->post_office ?: $invoice->customer_post_office,
+                        'address1' => $customer->address1 ?: $invoice->customer_address1,
+                        'address2' => $customer->address2 ?: $invoice->customer_address2,
+                        'contact_p' => $customer->contact_p ?: $invoice->customer_contact_p,
+                        'y_tunnus' => $customer->y_tunnus ?: $customer->bid,
+                        'bid' => $customer->bid ?: $invoice->customer_bid,
+                        'ovt' => $customer->ovt ?: $invoice->customer_ovt,
                     ]);
 
                     $customerInvoice->customer()->associate($customer);
+                    $customerInvoice->save();
+
+                    /** @var CustomerShipment|null $customerShipment */
+                    $customerShipment = $customer->customerShipments->first(function (CustomerShipment $customerShipment) use ($invoice) {
+                        return $customerShipment->number === $invoice->company_reference;
+                    });
+
+                    if ($customerShipment) {
+                        $customerInvoice->customerShipment()->associate($customerShipment);
+                        $customerInvoice->save();
+                    }
                 }
             }
         }
@@ -241,7 +257,7 @@ class MaventaImportInvoice implements ShouldQueue
                 $companyBankAccounts->push($companyBankAccount);
             }
 
-            $customerInvoice->accounts()->sync($companyBankAccounts->pluck('id'));
+            $customerInvoice->companyBankAccounts()->sync($companyBankAccounts->pluck('id'));
 
         }
 
@@ -287,12 +303,12 @@ class MaventaImportInvoice implements ShouldQueue
         }
 
         $customerInvoice->load([
-            'items',
-            'actions',
-            'accounts',
-            'attachments',
+            'companyBankAccounts',
             'customer',
-            'shipment',
+            'customerShipment',
+            'customerInvoiceItems',
+            'customerInvoiceActions',
+            'customerInvoiceAttachments',
         ]);
 
         return $customerInvoice;

@@ -38,53 +38,52 @@ class CustomerInvoicesController extends ResourceController
      */
     protected $resource = 'customer_invoice';
 
-	
 	/**
 	 * @var CustomerRepository
 	 */
 	protected $customers;
-	
+
 	/**
 	 * @var CustomerShipmentRepository
 	 */
-	protected $shipments;
-	
+	protected $customerShipments;
+
 	/**
 	 * @var CompanyBankAccountRepository
 	 */
-	protected $accounts;
-	
+	protected $companyBankAccounts;
+
 	/**
 	 * @var CustomerInvoiceItemRepository
 	 */
-	protected $items;
-	
+	protected $customerInvoiceItems;
+
 	/**
 	 * @var CustomerInvoiceActionRepository
 	 */
-	protected $actions;
-	
+	protected $customerInvoiceActions;
+
 	/**
 	 * @var CustomerInvoiceAttachmentRepository
 	 */
-	protected $attachments;
-	
+	protected $customerInvoiceAttachments;
+
 	/**
 	 * @var CustomerOrderItemRepository
 	 */
-	protected $orderItems;
+	protected $customerOrderItems;
 
     /**
      * @var array
      */
 	protected $editActionFormData = [
+        'companyBankAccounts' => 'iban',
 		'customers' => 'name',
-		'shipments' => 'number',
-		'accounts' => 'iban',
-		'items' => 'item_code',
-		'actions' => 'action',
-		'attachments' => 'filename',
-		'orderItems' => 'product_name',
+		'customerShipments' => 'number',
+		'customerInvoiceItems' => 'item_code',
+		'customerInvoiceActions' => 'action',
+		'customerInvoiceAttachments' => 'filename',
+		'customerOrderItems' => 'product_name',
 	];
 
     /**
@@ -114,12 +113,12 @@ class CustomerInvoicesController extends ResourceController
 	    $this->gate = $gate;
 		$this->repository = $customerInvoiceRepository;
 		$this->customers = $customerRepository;
-		$this->shipments = $customerShipmentRepository;
-		$this->accounts = $companyBankAccountRepository;
-		$this->items = $customerInvoiceItemRepository;
-		$this->actions = $customerInvoiceActionRepository;
-		$this->attachments = $customerInvoiceAttachmentRepository;
-		$this->orderItems = $customerOrderItemRepository;
+		$this->customerShipments = $customerShipmentRepository;
+		$this->companyBankAccounts = $companyBankAccountRepository;
+		$this->customerInvoiceItems = $customerInvoiceItemRepository;
+		$this->customerInvoiceActions = $customerInvoiceActionRepository;
+		$this->customerInvoiceAttachments = $customerInvoiceAttachmentRepository;
+		$this->customerOrderItems = $customerOrderItemRepository;
 
 	    $this->middleware('auth:dashboard');
 	    $this->shareSidebar();

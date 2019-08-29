@@ -51,7 +51,6 @@ return [
 		'billing_address' => 'Юр. адрес',
 		'shipping_postcode' => 'Факт. индекс',
 		'shipping_address' => 'Факт. адрес',
-		'bid' => 'BID',
 		'iban' => 'IBAN',
 		'swift' => 'SWIFT',
 		'email' => 'Эл. почта',
@@ -79,6 +78,8 @@ return [
 		'address1' => 'Адрес клиента',
 		'address2' => 'Адрес клиента (доп.)',
 		'contact_p' => 'Контактное лицо',
+        'y_tunnus' => 'Y-Tunnus',
+        'bid' => 'BID',
 		'ovt' => 'OVT',
 		'priceGroup' => [
 			'name' => 'Ценовая категория клиента',
@@ -119,7 +120,6 @@ return [
 		'billing_address' => 'Юр. адрес',
 		'shipping_postcode' => 'Факт. индекс',
 		'shipping_address' => 'Факт. адрес',
-		'bid' => 'ИНН',
 		'iban' => 'IBAN',
 		'swift' => 'SWIFT',
 		'email' => 'Эл. почта',
@@ -143,6 +143,8 @@ return [
 		'address1' => 'Адрес клиента',
 		'address2' => 'Адрес клиента (доп.)',
 		'contact_p' => 'Контактное лицо',
+        'y_tunnus' => 'Y-Tunnus',
+        'bid' => 'BID',
 		'ovt' => 'OVT',
 		'priceGroup' => [
 			'name' => 'Ценовая категория клиента',

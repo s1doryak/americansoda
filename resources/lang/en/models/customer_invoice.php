@@ -88,33 +88,33 @@ return [
 		'customer' => [
 			'name' => 'Customer',
 		],
-		'shipment' => [
-			'name' => 'Shipment',
+		'customerShipment' => [
+			'number' => 'Shipment',
 		],
-		'accounts' => [
+		'companyBankAccounts' => [
 			'name' => 'Accounts',
 		],
-		'items' => [
+		'customerInvoiceItems' => [
 			'name' => 'Items',
 		],
-		'actions' => [
+		'customerInvoiceActions' => [
 			'name' => 'Actions',
 		],
-		'attachments' => [
+		'customerInvoiceAttachments' => [
 			'name' => 'Attachments',
 		],
-		'orderItems' => [
+		'customerOrderItems' => [
 			'name' => 'Order Items',
 		],
 	],
     'placeholders' => [
 		'customer' => 'Select Customer',
-		'shipment' => 'Select Shipment',
-		'accounts' => 'Select Accounts',
-		'items' => 'Select Items',
-		'actions' => 'Select Actions',
-		'attachments' => 'Select Attachments',
-		'orderItems' => 'Select Order Items',
+		'customerShipment' => 'Select Shipment',
+		'companyBankAccounts' => 'Select Accounts',
+		'customerInvoiceItems' => 'Select Items',
+		'customerInvoiceActions' => 'Select Actions',
+		'customerInvoiceAttachments' => 'Select Attachments',
+		'customerOrderItems' => 'Select Order Items',
     ],
     'columns' => [
 		'maventa_id' => 'Maventa',
@@ -160,22 +160,22 @@ return [
 		'customer' => [
 			'name' => 'Customer',
 		],
-		'shipment' => [
-			'name' => 'Shipment',
+		'customerShipment' => [
+			'number' => 'Shipment',
 		],
-		'accounts' => [
+		'companyBankAccounts' => [
 			'name' => 'Accounts',
 		],
-		'items' => [
+		'customerInvoiceItems' => [
 			'name' => 'Items',
 		],
-		'actions' => [
+		'customerInvoiceActions' => [
 			'name' => 'Actions',
 		],
-		'attachments' => [
+		'customerInvoiceAttachments' => [
 			'name' => 'Attachments',
 		],
-		'orderItems' => [
+		'customerOrderItems' => [
 			'name' => 'Order Items',
 		],
         'created_at' => 'Created',
@@ -186,22 +186,22 @@ return [
 		'customer' => [
 			'name' => 'Customer',
 		],
-		'shipment' => [
-			'name' => 'Shipment',
+		'customerShipment' => [
+			'number' => 'Shipment',
 		],
-		'accounts' => [
+		'companyBankAccounts' => [
 			'name' => 'Accounts',
 		],
-		'items' => [
+		'customerInvoiceItems' => [
 			'name' => 'Items',
 		],
-		'actions' => [
+		'customerInvoiceActions' => [
 			'name' => 'Actions',
 		],
-		'attachments' => [
+		'customerInvoiceAttachments' => [
 			'name' => 'Attachments',
 		],
-		'orderItems' => [
+		'customerOrderItems' => [
 			'name' => 'Order Items',
 		],
     ],

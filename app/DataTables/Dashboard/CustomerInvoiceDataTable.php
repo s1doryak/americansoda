@@ -18,51 +18,51 @@ class CustomerInvoiceDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'maventa_id',
-            'maventa_tiff',
-            'maventa_initiated',
-            'currency',
-            'data',
-            'date',
-            'date_due',
-            'delivery_date',
-            'delivery_type',
-            'error_message',
-            'invoice_delivery_address',
+            //'maventa_id',
+            //'maventa_tiff',
+            //'maventa_initiated',
+            //'currency',
+            //'data',
+            //'date',
+            //'date_due',
+            //'delivery_date',
+            //'delivery_type',
+            //'error_message',
+            //'invoice_delivery_address',
             'invoice_nr',
-            'invoice_seller_information',
-            'lang',
-            'notes',
+            //'invoice_seller_information',
+            //'lang',
+            //'notes',
             'order_nr',
-            'payment_terms',
+            //'payment_terms',
             'reference_nr',
-            'state',
-            'status',
+            //'state',
+            //'status',
             'sum',
             'sum_tax',
-            'work_order_nr',
-            'company_interest',
-            'company_paper_fee',
-            'company_reminder',
-            'company_comment',
+            //'work_order_nr',
+            //'company_interest',
+            //'company_paper_fee',
+            //'company_reminder',
+            //'company_comment',
             'company_reference',
             'customer_nr',
-            'customer_email',
-            'customer_name',
-            'customer_country',
-            'customer_state',
-            'customer_post_code',
-            'customer_post_office',
-            'customer_address1',
-            'customer_address2',
-            'customer_contact_p',
+            //'customer_email',
+            //'customer_name',
+            //'customer_country',
+            //'customer_state',
+            //'customer_post_code',
+            //'customer_post_office',
+            //'customer_address1',
+            //'customer_address2',
+            //'customer_contact_p',
             'customer_bid',
             'customer_ovt',
             'customer.name' => [
                 'data' => 'customer.name'
             ],
-            'customerShipment.name' => [
-                'data' => 'customerShipment.name'
+            'customerShipment.number' => [
+                'data' => 'customerShipment.number'
             ],
         ];
     }
@@ -114,7 +114,7 @@ class CustomerInvoiceDataTable extends DataTable
             'customer_bid',
             'customer_ovt',
             'customer.name',
-            'customerShipment.name',
+            'customerShipment.number',
             'action',
         ];
     }
@@ -141,36 +141,36 @@ class CustomerInvoiceDataTable extends DataTable
                 'data' => 'customer.id',
                 'lists' => 'customer.name',
             ],
-            'customerShipment.name' => [
+            /*'customerShipment.name' => [
                 'type' => 'choice',
                 'multiple' => true,
                 'data' => 'customerShipment.id',
                 'lists' => 'customerShipment.name',
-            ],
-            'items.name' => [
+            ],*/
+            /*'customerInvoiceItems.name' => [
                 'type' => 'choice',
                 'multiple' => true,
-                'data' => 'items.id',
-                'lists' => 'items.name',
-            ],
-            'actions.name' => [
+                'data' => 'customerInvoiceItems.id',
+                'lists' => 'customerInvoiceItems.name',
+            ],*/
+            /*'customerInvoiceActions.name' => [
                 'type' => 'choice',
                 'multiple' => true,
-                'data' => 'actions.id',
-                'lists' => 'actions.name',
-            ],
-            'attachments.name' => [
+                'data' => 'customerInvoiceActions.id',
+                'lists' => 'customerInvoiceActions.name',
+            ],*/
+            /*'customerInvoiceAttachments.name' => [
                 'type' => 'choice',
                 'multiple' => true,
-                'data' => 'attachments.id',
-                'lists' => 'attachments.name',
-            ],
-            'orderItems.name' => [
+                'data' => 'customerInvoiceAttachments.id',
+                'lists' => 'customerInvoiceAttachments.name',
+            ],*/
+            /*'customerOrderItems.name' => [
                 'type' => 'choice',
                 'multiple' => true,
-                'data' => 'orderItems.id',
-                'lists' => 'orderItems.name',
-            ],
+                'data' => 'customerOrderItems.id',
+                'lists' => 'customerOrderItems.name',
+            ],*/
         ];
     }
 
@@ -180,6 +180,18 @@ class CustomerInvoiceDataTable extends DataTable
      */
     protected function getActions($customerInvoice)
     {
+        if ((string)$customerInvoice->maventa_tiff) {
+            return array_merge([
+                'tiff' => [
+                    '_blank' => true,
+                    'url' => asset($customerInvoice->maventa_tiff),
+                    'icon' => 'file-text',
+                    'color' => 'primary',
+                    'title' => trans(sprintf('models/%s.columns.maventa_tiff', $this->resource)),
+                ]
+            ], parent::getActions($customerInvoice));
+        }
+
         return parent::getActions($customerInvoice);
     }
 
@@ -189,31 +201,6 @@ class CustomerInvoiceDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
-    }
-
-    /**
-     * @param CustomerInvoice $customerInvoice
-     * @return string
-     */
-    protected function renderMaventaTiffColumn($customerInvoice)
-    {
-        if ($this->isDataTableRequest()) {
-            if ((string)$customerInvoice->maventa_tiff) {
-                return $this->renderActionView([
-                    'tiff' => [
-                        '_blank' => true,
-                        'url' => asset($customerInvoice->maventa_tiff),
-                        'icon' => 'file-text',
-                        'color' => 'primary',
-                        'title' => trans(sprintf('models/%s.columns.tiff', $this->resource)),
-                    ],
-                ]);
-            }
-
-            return $this->renderView('datatables::columns.default');
-        }
-
-        return $customerInvoice->maventa_tiff ? (string)$customerInvoice->maventa_tiff : '';
     }
 
     /**
@@ -237,7 +224,7 @@ class CustomerInvoiceDataTable extends DataTable
      * @param CustomerInvoice $customerInvoice
      * @return string
      */
-    protected function renderCustomerShipment__NameColumn($customerInvoice)
+    protected function renderCustomerShipment__NumberColumn($customerInvoice)
     {
         if ($this->isDataTableRequest()) {
             if ($customerInvoice->customerShipment) {

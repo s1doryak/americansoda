@@ -55,6 +55,7 @@ class CustomerForm extends Form
 			'address1' => 'text',
 			'address2' => 'text',
 			'contact_p' => 'text',
+            'y_tunnus' => 'text',
 			'bid' => 'text',
 			'ovt' => 'text',
 			'iban' => 'text',
@@ -160,6 +161,7 @@ class CustomerForm extends Form
 			'address1' => 'text',
 			'address2' => 'text',
 			'contact_p' => 'text',
+            'y_tunnus' => 'text',
 			'bid' => 'text',
 			'ovt' => 'text',
 			'iban' => 'text',
@@ -228,8 +230,7 @@ class CustomerForm extends Form
 	 */
 	public static function getStoreValidationRules()
 	{
-		return [
-			'name' => 'sometimes',
+		return ['name' => 'sometimes',
 			'legal_name' => 'sometimes',
 
 			'billingRegion' => 'sometimes|exists:regions,id',
@@ -257,7 +258,8 @@ class CustomerForm extends Form
 			'contact_p' => 'sometimes',
 			'ovt' => 'sometimes',
 			'priceGroup' => 'sometimes|exists:price_groups,id',
-		];
+					'y_tunnus' => 'sometimes',
+];
 	}
 
 	/**
@@ -266,8 +268,7 @@ class CustomerForm extends Form
 	 */
 	public static function getUpdateValidationRules($customer)
 	{
-		return [
-			'name' => 'sometimes',
+		return ['name' => 'sometimes',
 			'legal_name' => 'sometimes',
 
 			'billingRegion' => 'sometimes|exists:regions,id',
@@ -295,6 +296,7 @@ class CustomerForm extends Form
 			'contact_p' => 'sometimes',
 			'ovt' => 'sometimes',
 			'priceGroup' => 'sometimes|exists:price_groups,id',
-		];
+					'y_tunnus' => 'sometimes',
+];
 	}
 }

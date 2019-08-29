@@ -53,6 +53,11 @@ namespace App;
  * @property \App\Customer $customer
  * @property \App\CustomerShipment $customerShipment
  * @property \Illuminate\Support\Collection|\App\CompanyBankAccount[] $companyBankAccounts
+ * @property \Illuminate\Support\Collection|\App\CustomerInvoiceItem[] $customerInvoiceItems
+ * @property \Illuminate\Support\Collection|\App\CustomerInvoiceAction[] $customerInvoiceActions
+ * @property \Illuminate\Support\Collection|\App\CustomerInvoiceAttachment[] $customerInvoiceAttachments
+ * @property \Illuminate\Support\Collection|\App\CustomerOrderItem[] $customerOrderItems
+ *
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -60,6 +65,10 @@ namespace App;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerShipment()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany companyBankAccounts()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerInvoiceItems()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerInvoiceActions()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerInvoiceAttachments()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerOrderItems()
  *
  * @package App
  */

@@ -15,16 +15,16 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class CustomerInvoicePolicy implements DatatablePolicyContract
 {
-	use HandlesAuthorization;
+    use HandlesAuthorization;
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @return boolean
-	 */
-	public function index(Authenticatable $authenticatable)
-	{
-		return true;
-	}
+    /**
+     * @param Authenticatable $authenticatable
+     * @return boolean
+     */
+    public function index(Authenticatable $authenticatable)
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can list of trashed entities.
@@ -38,58 +38,69 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
         return true;
     }
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @return boolean
-	 */
-	public function action(Authenticatable $authenticatable)
-	{
+    /**
+     * @param Authenticatable $authenticatable
+     * @return boolean
+     */
+    public function action(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerInvoice $customerInvoice
-	 * @return boolean
-	 */
-	public function view(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
-	{
+    /**
+     * @param Authenticatable $authenticatable
+     * @param CustomerInvoice $customerInvoice
+     * @return boolean
+     */
+    public function tiff(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @return boolean
-	 */
-	public function create(Authenticatable $authenticatable)
-	{
+    /**
+     * @param Authenticatable $authenticatable
+     * @param CustomerInvoice $customerInvoice
+     * @return boolean
+     */
+    public function view(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerInvoice $customerInvoice
-	 * @return boolean
-	 */
-	public function update(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
-	{
+    /**
+     * @param Authenticatable $authenticatable
+     * @return boolean
+     */
+    public function create(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerInvoice $customerInvoice
-	 * @return boolean
-	 */
-	public function delete(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
-	{
+    /**
+     * @param Authenticatable $authenticatable
+     * @param CustomerInvoice $customerInvoice
+     * @return boolean
+     */
+    public function update(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
+    {
 
-		return true;
-	}
+        return $customerInvoice->maventa_initiated === false;
+    }
+
+    /**
+     * @param Authenticatable $authenticatable
+     * @param CustomerInvoice $customerInvoice
+     * @return boolean
+     */
+    public function delete(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
+    {
+
+        return $customerInvoice->maventa_initiated === false;
+    }
 
     /**
      * @param Authenticatable $authenticatable

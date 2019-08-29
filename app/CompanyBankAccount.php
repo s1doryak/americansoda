@@ -94,4 +94,16 @@ class CompanyBankAccount extends \Crmplease\MaterialAdmin\Database\Eloquent\Mode
     protected $files = [
 
     ];
+
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['company_bank_account']) || is_datatable(['company_bank_account']);
+
+        return [
+            $condition ? 'company' : null,
+        ];
+    }
 }

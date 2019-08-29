@@ -22,110 +22,109 @@ class CustomerInvoiceCreator extends ResourceCreator
 {
     protected $name = 'resource:create:customer_invoice';
 
+    /**
+     * @var CustomerRepository
+     */
+    protected $customers;
 
-	/**
-	 * @var CustomerRepository
-	 */
-	protected $customers;
+    /**
+     * @var CustomerShipmentRepository
+     */
+    protected $customerShipments;
 
-	/**
-	 * @var CustomerShipmentRepository
-	 */
-	protected $shipments;
+    /**
+     * @var CompanyBankAccountRepository
+     */
+    protected $companyBankAccounts;
 
-	/**
-	 * @var CompanyBankAccountRepository
-	 */
-	protected $accounts;
+    /**
+     * @var CustomerInvoiceItemRepository
+     */
+    protected $customerInvoiceItems;
 
-	/**
-	 * @var CustomerInvoiceItemRepository
-	 */
-	protected $items;
+    /**
+     * @var CustomerInvoiceActionRepository
+     */
+    protected $customerInvoiceActions;
 
-	/**
-	 * @var CustomerInvoiceActionRepository
-	 */
-	protected $actions;
+    /**
+     * @var CustomerInvoiceAttachmentRepository
+     */
+    protected $customerInvoiceAttachments;
 
-	/**
-	 * @var CustomerInvoiceAttachmentRepository
-	 */
-	protected $attachments;
+    /**
+     * @var CustomerOrderItemRepository
+     */
+    protected $customerOrderItems;
 
-	/**
-	 * @var CustomerOrderItemRepository
-	 */
-	protected $orderItems;
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'companyBankAccounts' => 'iban',
+        'customers' => 'name',
+        'customerShipments' => 'number',
+        'customerInvoiceItems' => 'item_code',
+        'customerInvoiceActions' => 'action',
+        'customerInvoiceAttachments' => 'filename',
+        'customerOrderItems' => 'product_name',
+    ];
 
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'customers' => 'name',
-		'shipments' => 'name',
-		'accounts' => 'name',
-		'items' => 'name',
-		'actions' => 'name',
-		'attachments' => 'name',
-		'orderItems' => 'name',
-	];
-
-	public function __construct(
-	    CustomerInvoice $customerInvoice,
-		CustomerInvoiceRepository $customerInvoiceRepository,
-		CustomerRepository $customerRepository,
-		CustomerShipmentRepository $customerShipmentRepository,
-		CompanyBankAccountRepository $companyBankAccountRepository,
-		CustomerInvoiceItemRepository $customerInvoiceItemRepository,
-		CustomerInvoiceActionRepository $customerInvoiceActionRepository,
-		CustomerInvoiceAttachmentRepository $customerInvoiceAttachmentRepository,
-		CustomerOrderItemRepository $customerOrderItemRepository
-	)
-	{
-	    $this->resource = $customerInvoice;
-		$this->repository = $customerInvoiceRepository;
-		$this->customers = $customerRepository;
-		$this->shipments = $customerShipmentRepository;
-		$this->accounts = $companyBankAccountRepository;
-		$this->items = $customerInvoiceItemRepository;
-		$this->actions = $customerInvoiceActionRepository;
-		$this->attachments = $customerInvoiceAttachmentRepository;
-		$this->orderItems = $customerOrderItemRepository;
+    public function __construct(
+        CustomerInvoice $customerInvoice,
+        CustomerInvoiceRepository $customerInvoiceRepository,
+        CustomerRepository $customerRepository,
+        CustomerShipmentRepository $customerShipmentRepository,
+        CompanyBankAccountRepository $companyBankAccountRepository,
+        CustomerInvoiceItemRepository $customerInvoiceItemRepository,
+        CustomerInvoiceActionRepository $customerInvoiceActionRepository,
+        CustomerInvoiceAttachmentRepository $customerInvoiceAttachmentRepository,
+        CustomerOrderItemRepository $customerOrderItemRepository
+    )
+    {
+        $this->resource = $customerInvoice;
+        $this->repository = $customerInvoiceRepository;
+        $this->customers = $customerRepository;
+        $this->customerShipments = $customerShipmentRepository;
+        $this->companyBankAccounts = $companyBankAccountRepository;
+        $this->customerInvoiceItems = $customerInvoiceItemRepository;
+        $this->customerInvoiceActions = $customerInvoiceActionRepository;
+        $this->customerInvoiceAttachments = $customerInvoiceAttachmentRepository;
+        $this->customerOrderItems = $customerOrderItemRepository;
 
         parent::__construct();
-	}
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
+    /**
+     * @return string
+     */
+    public function getEventNamespace()
+    {
+        return 'cli';
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'customer_invoice';
-	}
+    /**
+     * @return string
+     */
+    public function getEventResource()
+    {
+        return 'customer_invoice';
+    }
 
-	/**
-	 * @param CustomerInvoice $customer_invoice
-	 * @return array
-	 */
-	public function getEventAttributes($customer_invoice)
-	{
-		return $customer_invoice->getAttributes();
-	}
+    /**
+     * @param CustomerInvoice $customerInvoice
+     * @return array
+     */
+    public function getEventAttributes($customerInvoice)
+    {
+        return $customerInvoice->getAttributes();
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

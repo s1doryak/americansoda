@@ -72,7 +72,7 @@ return [
 		'company_paper_fee' => 'Плата за бумажный счет',
 		'company_reminder' => 'Плата за напоминание',
 		'company_comment' => 'Комментарий к электронной почте',
-		'company_reference' => 'Номер в системе продавца (TRS)',
+		'company_reference' => 'Номер в системе продавца',
 		'customer_nr' => 'Номер клиента',
 		'customer_email' => 'Эл.почта клиента',
 		'customer_name' => 'Название клиента',
@@ -88,33 +88,33 @@ return [
 		'customer' => [
 			'name' => 'Клиент',
 		],
-		'shipment' => [
-			'name' => 'Отгрузка',
+		'customerShipment' => [
+			'number' => 'Отгрузка',
 		],
-		'accounts' => [
+		'companyBankAccounts' => [
 			'name' => 'Счет компании',
 		],
-		'items' => [
+		'customerInvoiceItems' => [
 			'name' => 'Позиции счета',
 		],
-		'actions' => [
+		'customerInvoiceActions' => [
 			'name' => 'Действия со счётом',
 		],
-		'attachments' => [
+		'customerInvoiceAttachments' => [
 			'name' => 'Вложенные файлы',
 		],
-		'orderItems' => [
+		'customerOrderItems' => [
 			'name' => 'Позиции заказа',
 		],
 	],
     'placeholders' => [
 		'customer' => 'Выберите Клиента',
-		'shipment' => 'Выберите Отгрузку',
-		'accounts' => 'Выберите Счет компании',
-		'items' => 'Выберите Позицию счета',
-		'actions' => 'Выберите Действие с счётом',
-		'attachments' => 'Выберите Вложенный файл',
-		'orderItems' => 'Выберите Позицию заказа',
+		'customerShipment' => 'Выберите Отгрузку',
+		'companyBankAccounts' => 'Выберите Счет компании',
+		'customerInvoiceItems' => 'Выберите Позицию счета',
+		'customerInvoiceActions' => 'Выберите Действие с счётом',
+		'customerInvoiceAttachments' => 'Выберите Вложенный файл',
+		'customerOrderItems' => 'Выберите Позицию заказа',
     ],
     'columns' => [
 		'maventa_id' => 'Номер Maventa',
@@ -144,7 +144,7 @@ return [
 		'company_paper_fee' => 'Плата за бумажный счет',
 		'company_reminder' => 'Плата за напоминание',
 		'company_comment' => 'Комментарий к электронной почте',
-		'company_reference' => 'Номер в системе продавца (TRS)',
+		'company_reference' => 'Номер в системе продавца',
 		'customer_nr' => 'Номер клиента',
 		'customer_email' => 'Эл.почта клиента',
 		'customer_name' => 'Название клиента',
@@ -160,22 +160,22 @@ return [
 		'customer' => [
 			'name' => 'Клиент',
 		],
-		'shipment' => [
-			'name' => 'Отгрузка',
+		'customerShipment' => [
+			'number' => 'Отгрузка',
 		],
-		'accounts' => [
+		'companyBankAccounts' => [
 			'name' => 'Счет компании',
 		],
-		'items' => [
+		'customerInvoiceItems' => [
 			'name' => 'Позиции счета',
 		],
-		'actions' => [
+		'customerInvoiceActions' => [
 			'name' => 'Действия со счётом',
 		],
-		'attachments' => [
+		'customerInvoiceAttachments' => [
 			'name' => 'Вложенные файлы',
 		],
-		'orderItems' => [
+		'customerOrderItems' => [
 			'name' => 'Позиции заказа',
 		],
         'created_at' => 'Создан',
@@ -186,22 +186,22 @@ return [
 		'customer' => [
 			'name' => 'Клиент',
 		],
-		'shipment' => [
-			'name' => 'Отгрузка',
+		'customerShipment' => [
+			'number' => 'Отгрузка',
 		],
-		'accounts' => [
+		'companyBankAccounts' => [
 			'name' => 'Счет компании',
 		],
-		'items' => [
+		'customerInvoiceItems' => [
 			'name' => 'Позиции счета',
 		],
-		'actions' => [
+		'customerInvoiceActions' => [
 			'name' => 'Действия со счётом',
 		],
-		'attachments' => [
+		'customerInvoiceAttachments' => [
 			'name' => 'Вложенные файлы',
 		],
-		'orderItems' => [
+		'customerOrderItems' => [
 			'name' => 'Позиции заказа',
 		],
     ],
