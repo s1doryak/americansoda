@@ -206,4 +206,15 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
             $condition ? 'stock' : null,
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function getContentAttribute()
+    {
+        return $this->renderMediaView(
+            $this->name,
+            sprintf("%s / BID %s / OVT %s", $this->legal_name, $this->bid ?? '—', $this->ovt ?? '—')
+        );
+    }
 }

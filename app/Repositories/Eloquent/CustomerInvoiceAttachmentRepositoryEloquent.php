@@ -3,6 +3,4 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\CustomerInvoiceAttachmentRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
-
-class CustomerInvoiceAttachmentRepositoryEloquent extends BaseRepositoryEloquent implements CustomerInvoiceAttachmentRepository {}
+class CustomerInvoiceAttachmentRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerInvoiceAttachmentRepository {}

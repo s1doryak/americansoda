@@ -3,9 +3,8 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\AdministratorRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class AdministratorRepositoryEloquent extends BaseRepositoryEloquent implements AdministratorRepository
+class AdministratorRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements AdministratorRepository
 {
     /**
      * @return mixed

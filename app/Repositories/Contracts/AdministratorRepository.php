@@ -2,9 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
-use Crmplease\MaterialAdmin\Repositories\RepositoryInterface as BaseRepository;
-
-interface AdministratorRepository extends BaseRepository
+interface AdministratorRepository extends \Crmplease\MaterialAdmin\Repositories\RepositoryInterface
 {
     /**
      * @return mixed

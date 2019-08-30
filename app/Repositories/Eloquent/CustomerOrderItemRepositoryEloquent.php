@@ -3,9 +3,8 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\CustomerOrderItemRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class CustomerOrderItemRepositoryEloquent extends BaseRepositoryEloquent implements CustomerOrderItemRepository
+class CustomerOrderItemRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerOrderItemRepository
 {
 	/**
 	 * Find all order items (including trashed) by order id.

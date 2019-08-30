@@ -3,9 +3,8 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\StockProductRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class StockProductRepositoryEloquent extends BaseRepositoryEloquent implements StockProductRepository
+class StockProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements StockProductRepository
 {
 	/**
 	 * @param $stockId

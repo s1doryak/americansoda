@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Repositories\Contracts;
-
-use Crmplease\MaterialAdmin\Repositories\RepositoryInterface as BaseRepository;
 use Illuminate\Support\Collection;
 
-interface CustomerRevisionRepository extends BaseRepository
+interface CustomerRevisionRepository extends \Crmplease\MaterialAdmin\Repositories\RepositoryInterface
 {
 	/**
 	 * Retrieve latest customer revisions.

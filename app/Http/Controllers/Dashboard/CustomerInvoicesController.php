@@ -89,9 +89,18 @@ class CustomerInvoicesController extends ResourceController
      * @var array
      */
     protected $editActionFormData = [
-        'companyBankAccounts' => 'iban',
-        'customers' => 'name',
-        'customerShipments' => 'number',
+        'companyBankAccounts' => [
+            'lists' => 'account',
+            'extra' => 'content'
+        ],
+        'customers' => [
+            'lists' => 'name',
+            'extra' => 'content'
+        ],
+        'customerShipments' => [
+            'lists' => 'number',
+            'extra' => 'content'
+        ],
         'customerInvoiceItems' => 'item_code',
         'customerInvoiceActions' => 'action',
         'customerInvoiceAttachments' => 'filename',

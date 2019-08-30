@@ -2,6 +2,4 @@
 
 namespace App\Repositories\Contracts;
 
-use Crmplease\MaterialAdmin\Repositories\RepositoryInterface as BaseRepository;
-
-interface CustomerInvoiceItemRepository extends BaseRepository {}
+interface CustomerInvoiceItemRepository extends \Crmplease\MaterialAdmin\Repositories\RepositoryInterface {}

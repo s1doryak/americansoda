@@ -39,32 +39,6 @@ const path = {
              */
             path.dashboard + '/js/dashboard.js',
         ],
-    },
-    i18n = {
-        ru: [
-            path.bower + '/moment/locale/ru.js',
-            path.bower + '/fullcalendar/dist/locale/ru.js',
-            path.bower + '/summernote/dist/lang/summernote-ru-RU.js',
-            path.bower + '/bootstrap-select/dist/js/i18n/defaults-ru_RU.js',
-            path.bower + '/ajax-bootstrap-select/dist/js/locale/ajax-bootstrap-select.ru-RU.js'
-        ],
-        en: [
-            path.bower + '/bootstrap-select/dist/js/i18n/defaults-en_US.js',
-            path.bower + '/ajax-bootstrap-select/dist/js/locale/ajax-bootstrap-select.en-US.js'
-        ],
-        fi: [
-            path.bower + '/moment/locale/fi.js',
-            path.bower + '/fullcalendar/dist/locale/fi.js',
-            path.bower + '/summernote/dist/lang/summernote-fi-FI.js',
-            path.bower + '/bootstrap-select/dist/js/i18n/defaults-fi_FI.js',
-            path.bower + '/ajax-bootstrap-select/dist/js/locale/ajax-bootstrap-select.en-US.js'
-        ],
-        et: [
-            path.bower + '/moment/locale/et.js',
-            path.bower + '/bootstrap-select/dist/js/i18n/defaults-et_EE.js',
-            path.bower + '/ajax-bootstrap-select/dist/js/locale/ajax-bootstrap-select.en-US.js'
-        ]
-
     };
 
 /**

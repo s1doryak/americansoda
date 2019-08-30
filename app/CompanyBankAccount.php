@@ -22,33 +22,33 @@ namespace App;
  */
 class CompanyBankAccount extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'bank',
-		'swift',
-		'account',
-		'iban',
-		'default',
-		'company_id',
-	];
+    protected $fillable = [
+        'bank',
+        'swift',
+        'account',
+        'iban',
+        'default',
+        'company_id',
+    ];
 
-	protected $appends = [
+    protected $appends = [
 
-	];
+    ];
 
-	protected $casts = [
-		'default' => 'boolean',
-	];
+    protected $casts = [
+        'default' => 'boolean',
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'company' => \App\Company::class,
+        'company' => \App\Company::class,
     ];
 
     protected $belongsToMany = [
@@ -84,7 +84,7 @@ class CompanyBankAccount extends \Crmplease\MaterialAdmin\Database\Eloquent\Mode
     ];
 
     protected $with = [
-		'company',
+        'company',
     ];
 
     protected $images = [
@@ -105,5 +105,16 @@ class CompanyBankAccount extends \Crmplease\MaterialAdmin\Database\Eloquent\Mode
         return [
             $condition ? 'company' : null,
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentAttribute()
+    {
+        return $this->renderMediaView(
+            $this->account,
+            sprintf("%s / %s / %s", optional($this->company)->name ?? '—', $this->bank, $this->iban)
+        );
     }
 }

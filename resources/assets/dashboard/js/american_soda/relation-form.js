@@ -69,7 +69,11 @@ jQuery(function ($) {
 
         resource = $table.data('resource');
         $lastRow = $table.find('.js-row').last();
-        $row = $(templates[resource]().replace(/%%idx%%/, $lastRow.index() + 1));
+        $idx = $lastRow.index() + 1;
+        $row = $(
+            templates[resource]()
+                .replace(/\[(%%idx%%|idx|\d*)]/gm, '[' + $idx + ']')
+        );
 
         $row.addClass('new');
 

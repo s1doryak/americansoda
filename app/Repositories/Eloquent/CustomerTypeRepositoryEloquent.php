@@ -3,6 +3,5 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\CustomerTypeRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class CustomerTypeRepositoryEloquent extends BaseRepositoryEloquent implements CustomerTypeRepository {}
+class CustomerTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerTypeRepository {}

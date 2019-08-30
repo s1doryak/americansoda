@@ -3,9 +3,8 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\ProductGroupRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class ProductGroupRepositoryEloquent extends BaseRepositoryEloquent implements ProductGroupRepository
+class ProductGroupRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductGroupRepository
 {
 	/**
 	 * @param $id

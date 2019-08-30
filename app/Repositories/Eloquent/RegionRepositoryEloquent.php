@@ -3,6 +3,5 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\RegionRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class RegionRepositoryEloquent extends BaseRepositoryEloquent implements RegionRepository {}
+class RegionRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements RegionRepository {}

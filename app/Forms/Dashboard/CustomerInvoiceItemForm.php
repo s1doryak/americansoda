@@ -19,23 +19,39 @@ class CustomerInvoiceItemForm extends Form
     public static function getCreateFormFields()
     {
         return [
-            'position' => 'number',
-            'item_code' => 'text',
+            //'position' => 'number',
+            //'item_code' => 'text',
             'subject' => 'text',
             'definition' => 'text',
             'price' => 'text',
             'unit_type' => 'text',
-            'amount' => 'text',
-            'sum' => 'text',
-            'tax' => 'text',
-            'sum_tax' => 'text',
-            'discount' => 'text',
+            'amount' => [
+                'type' => 'text',
+                'value' => 1
+            ],
+            'sum' => [
+                'type' => 'text',
+                'attr' => [
+                    'disabled' => true,
+                ]
+            ],
+            'tax' => [
+                'type' => 'text',
+                'value' => 24
+            ],
+            'sum_tax' => [
+                'type' => 'text',
+                'attr' => [
+                    'disabled' => true,
+                ]
+            ],
+            //'discount' => 'text',
             //'customerInvoice' => 'choice',
             //'customerOrderItem' => 'choice',
-            'product' => [
+            /*'product' => [
                 'type' => 'choice',
                 'multiple' => false,
-            ],
+            ],*/
         ];
     }
 

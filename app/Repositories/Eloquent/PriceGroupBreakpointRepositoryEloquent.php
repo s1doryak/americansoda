@@ -3,6 +3,5 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\PriceGroupBreakpointRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class PriceGroupBreakpointRepositoryEloquent extends BaseRepositoryEloquent implements PriceGroupBreakpointRepository {}
+class PriceGroupBreakpointRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements PriceGroupBreakpointRepository {}

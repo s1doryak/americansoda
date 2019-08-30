@@ -3,9 +3,8 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\CustomerPricingPolicyRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class CustomerPricingPolicyRepositoryEloquent extends BaseRepositoryEloquent implements CustomerPricingPolicyRepository
+class CustomerPricingPolicyRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerPricingPolicyRepository
 {
 	/**
 	 * @param $customerId

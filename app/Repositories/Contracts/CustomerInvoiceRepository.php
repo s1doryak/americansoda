@@ -2,6 +2,10 @@
 
 namespace App\Repositories\Contracts;
 
-use Crmplease\MaterialAdmin\Repositories\RepositoryInterface as BaseRepository;
-
-interface CustomerInvoiceRepository extends BaseRepository {}
+interface CustomerInvoiceRepository extends \Crmplease\MaterialAdmin\Repositories\RepositoryInterface
+{
+    /**
+     * @return integer
+     */
+    public function getFirstAvailableNumber();
+}

@@ -4,9 +4,8 @@ namespace App\Repositories\Eloquent;
 
 use DB;
 use App\Repositories\Contracts\CustomerOrderRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class CustomerOrderRepositoryEloquent extends BaseRepositoryEloquent implements CustomerOrderRepository
+class CustomerOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerOrderRepository
 {
 	/**
 	 * @param null $date

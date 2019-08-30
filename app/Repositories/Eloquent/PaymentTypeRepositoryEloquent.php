@@ -3,6 +3,5 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\PaymentTypeRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class PaymentTypeRepositoryEloquent extends BaseRepositoryEloquent implements PaymentTypeRepository {}
+class PaymentTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements PaymentTypeRepository {}

@@ -156,6 +156,17 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     /**
      * @return string
      */
+    public function getContentAttribute()
+    {
+        return $this->renderMediaView(
+            $this->number,
+            sprintf("%s / %s", optional($this->customer)->name ?? '—', $this->assembly_number)
+        );
+    }
+
+    /**
+     * @return string
+     */
     public function getOrderNumbersAttribute()
     {
         return $this->customerOrderItems->filter(

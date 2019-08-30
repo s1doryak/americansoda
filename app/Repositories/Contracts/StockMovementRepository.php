@@ -2,6 +2,4 @@
 
 namespace App\Repositories\Contracts;
 
-use Crmplease\MaterialAdmin\Repositories\RepositoryInterface as BaseRepository;
-
-interface StockMovementRepository extends BaseRepository {}
+interface StockMovementRepository extends \Crmplease\MaterialAdmin\Repositories\RepositoryInterface {}

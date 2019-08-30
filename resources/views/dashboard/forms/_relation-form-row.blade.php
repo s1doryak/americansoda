@@ -12,8 +12,12 @@
             @continue
         @endif
 
-        @if($multiple_rows && !$is_template)
-            @php($field->setName(preg_replace('/(\d+)/', "{$idx}", $field->getName())))
+        @if($multiple_rows && $is_template === false)
+            @if(preg_match('/\[(%%idx%%|idx|\d*)]/', $field->getName()))
+                @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d*)]/', "[{$idx}]", $field->getName())))
+            @else
+                @php($field->setName(sprintf("%s[%d]", $field->getName(), $idx)))
+            @endif
         @endif
 
         <td class="td-{{ $name }} td-{{ $type }}">
@@ -50,8 +54,6 @@
                             @php($field->setOption('attr.disabled', 'disabled'))
                             {!! Form::hidden($field->getName(), $value) !!}
                         @endif
-                    @else
-                        @php($field->enable())
                     @endif
                 @else
                     @if(in_array($type, ['select', 'choice']))
@@ -71,8 +73,6 @@
                 @if (isset($item) && $is_template === false)
                     @php($key = in_array($type, ['select', 'choice']) ? 'selected' : 'value')
                     @php($attrs[$key] = $value)
-                @else
-                    @php($attrs['value'] = '')
                 @endif
 
                 {!! $field->render($attrs, false, true, false) !!}

@@ -5,9 +5,8 @@ namespace App\Repositories\Eloquent;
 use App\CustomerPricingPolicyRevision;
 use App\Repositories\Contracts\CustomerPricingPolicyRevisionRepository;
 use Carbon\Carbon;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 
-class CustomerPricingPolicyRevisionRepositoryEloquent extends BaseRepositoryEloquent implements CustomerPricingPolicyRevisionRepository
+class CustomerPricingPolicyRevisionRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerPricingPolicyRevisionRepository
 {
 	/**
 	 * @param $customerId

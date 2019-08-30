@@ -5,10 +5,9 @@ namespace App\Repositories\Eloquent;
 use Auth;
 use App\Repositories\Contracts\CustomerPricingPolicyRevisionRepository;
 use App\Repositories\Contracts\CustomerRevisionRepository;
-use Crmplease\MaterialAdmin\Repositories\RepositoryEloquent as BaseRepositoryEloquent;
 use Illuminate\Support\Collection;
 
-class CustomerRevisionRepositoryEloquent extends BaseRepositoryEloquent implements CustomerRevisionRepository {
+class CustomerRevisionRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerRevisionRepository {
 	/**
 	 * Retrieve latest customer revisions.
 	 *
