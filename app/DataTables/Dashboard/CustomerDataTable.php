@@ -172,7 +172,7 @@ class CustomerDataTable extends DataTable
 	 * @param Customer $customer
 	 * @return string
 	 */
-	protected function renderPriceGroup__NameColumn($customer)
+    public function renderPriceGroup__NameColumn($customer)
 	{
 		$priceGroup = $customer->priceGroup;
 

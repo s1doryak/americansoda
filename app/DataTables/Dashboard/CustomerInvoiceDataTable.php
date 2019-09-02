@@ -207,7 +207,7 @@ class CustomerInvoiceDataTable extends DataTable
      * @param CustomerInvoice $customerInvoice
      * @return string
      */
-    protected function renderCustomer__NameColumn($customerInvoice)
+    public function renderCustomer__NameColumn($customerInvoice)
     {
         if ($this->isDataTableRequest()) {
             if ($customerInvoice->customer) {
@@ -224,7 +224,7 @@ class CustomerInvoiceDataTable extends DataTable
      * @param CustomerInvoice $customerInvoice
      * @return string
      */
-    protected function renderCustomerShipment__NumberColumn($customerInvoice)
+    public function renderCustomerShipment__NumberColumn($customerInvoice)
     {
         if ($this->isDataTableRequest()) {
             if ($customerInvoice->customerShipment) {

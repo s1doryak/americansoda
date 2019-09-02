@@ -98,7 +98,7 @@ class AdministratorDataTable extends DataTable
      * @param Administrator $administrator
      * @return string
      */
-    protected function renderNameColumn($administrator)
+    public function renderNameColumn($administrator)
     {
         if ($this->isDataTableRequest()) {
 

@@ -123,7 +123,7 @@ class ProductDataTable extends DataTable
 	 * @param Product $product
 	 * @return string
 	 */
-	protected function renderNameColumn($product)
+	public function renderNameColumn($product)
 	{
 		if ($this->isDataTableRequest()) {
 			$brand = $product->brand ? $product->brand->name : $this->renderView('datatables::columns.default');
@@ -138,7 +138,7 @@ class ProductDataTable extends DataTable
 	 * @param Product $product
 	 * @return string
 	 */
-	protected function renderProductTags__NameColumn($product)
+	public function renderProductTags__NameColumn($product)
 	{
 		$fallback = $product->productTags->map(function (ProductTag $productTag) {
 			return sprintf("%s", $productTag->name);

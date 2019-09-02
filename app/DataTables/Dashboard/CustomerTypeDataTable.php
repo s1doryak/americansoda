@@ -80,7 +80,7 @@ class CustomerTypeDataTable extends DataTable
      * @param CustomerType $customerType
      * @return string
      */
-    protected function renderCustomerType__NameColumn($customerType)
+    public function renderCustomerType__NameColumn($customerType)
     {
         $customerTypeName = $customerType->customerType ? $customerType->customerType->name : null;
 

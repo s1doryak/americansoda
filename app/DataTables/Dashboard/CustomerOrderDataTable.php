@@ -140,7 +140,7 @@ class CustomerOrderDataTable extends DataTable
 	 * @return string
 	 * @throws \Throwable
 	 */
-	protected function renderSentAtColumn($customerOrder)
+	public function renderSentAtColumn($customerOrder)
 	{
 		$actions = [
 			'send_email' => [
@@ -162,7 +162,7 @@ class CustomerOrderDataTable extends DataTable
 	 * @param CustomerOrder $customerOrder
 	 * @return string
 	 */
-	protected function renderCustomer__OrderIntervalColumn($customerOrder)
+	public function renderCustomer__OrderIntervalColumn($customerOrder)
 	{
 		$customer = $customerOrder->customer;
 
@@ -177,7 +177,7 @@ class CustomerOrderDataTable extends DataTable
 	 * @param CustomerOrder $customerOrder
 	 * @return string
 	 */
-	protected function renderCustomer__NameColumn($customerOrder)
+	public function renderCustomer__NameColumn($customerOrder)
 	{
 		$customer = $customerOrder->customer;
 

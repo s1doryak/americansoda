@@ -80,7 +80,7 @@ class BrandDataTable extends DataTable
      * @param Brand $brand
      * @return string
      */
-    protected function renderNameColumn($brand)
+    public function renderNameColumn($brand)
     {
         if ($this->isDataTableRequest()) {
             $template = "%d products";

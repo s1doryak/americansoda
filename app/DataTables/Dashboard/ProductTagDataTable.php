@@ -74,7 +74,7 @@ class ProductTagDataTable extends DataTable
 	 * @param ProductTag $productTag
 	 * @return string
 	 */
-	protected function renderNameColumn($productTag)
+    public function renderNameColumn($productTag)
 	{
 		if ($this->isDataTableRequest()) {
 			return $this->renderIconView($productTag->name, $productTag->icon, $productTag->color);

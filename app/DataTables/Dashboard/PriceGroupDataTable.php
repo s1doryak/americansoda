@@ -87,7 +87,7 @@ class PriceGroupDataTable extends DataTable
 	 * @param PriceGroup $priceGroup
 	 * @return string
 	 */
-	protected function renderManualColumn($priceGroup)
+    public function renderManualColumn($priceGroup)
 	{
 		if ($this->isDataTableRequest()) {
 			return $this->renderView('dashboard::resources.price_group.columns.manual', compact('priceGroup'));

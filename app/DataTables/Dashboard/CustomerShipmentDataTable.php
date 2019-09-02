@@ -170,7 +170,7 @@ class CustomerShipmentDataTable extends DataTable
      * @param CustomerShipment $customerShipment
      * @return string
      */
-    protected function renderCustomerOrderItems__customerOrder__numberColumn($customerShipment)
+    public function renderCustomerOrderItems__customerOrder__numberColumn($customerShipment)
     {
         return $customerShipment->order_numbers;
     }
@@ -179,7 +179,7 @@ class CustomerShipmentDataTable extends DataTable
      * @param CustomerShipment $customerShipment
      * @return string
      */
-    protected function renderCustomerOrderItems__customerOrder__batchNumberColumn($customerShipment)
+    public function renderCustomerOrderItems__customerOrder__batchNumberColumn($customerShipment)
     {
         return $customerShipment->order_batch_numbers;
     }
