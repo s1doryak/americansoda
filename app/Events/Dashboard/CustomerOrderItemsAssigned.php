@@ -4,7 +4,7 @@ namespace App\Events\Dashboard;
 
 use App\CustomerOrder;
 use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class CustomerOrderItemsAssigned implements ResourceEventInterface
 {
@@ -30,10 +30,10 @@ class CustomerOrderItemsAssigned implements ResourceEventInterface
 
     public function __construct(CustomerOrder $customerOrder, Collection $customerOrderItems, array $attributes, array $params)
     {
-        $this->customerOrder      = $customerOrder;
+        $this->customerOrder = $customerOrder;
         $this->customerOrderItems = $customerOrderItems;
-        $this->attributes         = $attributes;
-        $this->params             = $params;
+        $this->attributes = $attributes;
+        $this->params = $params;
     }
 
     public function getCustomerOrder()

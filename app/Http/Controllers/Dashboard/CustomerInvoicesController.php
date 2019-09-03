@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\CustomerInvoice;
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Repositories\Contracts\CustomerInvoiceRepository;
 use App\Repositories\Contracts\CustomerRepository;
@@ -149,7 +150,74 @@ class CustomerInvoicesController extends ResourceController
         $this->customerOrders = $customerOrderRepository;
         $this->products = $productRepository;
 
+        $this->createActionFormData = [
+            'companyBankAccounts' => [
+                'lists' => 'account',
+                'extra' => 'content'
+            ],
+            'customers' => [
+                'lists' => 'name',
+                'extra' => 'content'
+            ],
+            //'customerInvoiceItems' => 'item_code',
+            //'customerInvoiceActions' => 'action',
+            //'customerInvoiceAttachments' => 'filename',
+            //'customerOrders' => 'number',
+            //'customerOrderItems' => 'product_name',
+            'products' => 'name',
+        ];
+
+        $this->editActionFormData = [
+            'companyBankAccounts' => [
+                'lists' => 'account',
+                'extra' => 'content'
+            ],
+            'customers' => [
+                'lists' => 'name',
+                'extra' => 'content',
+                'query' => function (CustomerInvoice $customerInvoice) {
+                    return function ($query) use ($customerInvoice) {
+                        /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                        return $query->where('id', '=', $customerInvoice->customer_id);
+                    };
+                }
+            ],
+            'customerShipments' => [
+                'lists' => 'number',
+                'extra' => 'content',
+                'query' => function (CustomerInvoice $customerInvoice) {
+                    return function ($query) use ($customerInvoice) {
+                        /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                        return $query->where('id', '=', $customerInvoice->customer_shipment_id);
+                    };
+                }
+            ],
+            //'customerInvoiceItems' => 'item_code',
+            //'customerInvoiceActions' => 'action',
+            //'customerInvoiceAttachments' => 'filename',
+            //'customerOrders' => 'number',
+            //'customerOrderItems' => 'product_name',
+            'products' => 'name',
+        ];
+
         $this->middleware('auth:dashboard');
         $this->shareSidebar();
     }
+
+    /**
+     * Build redirect URL to point user after successful store.
+     *
+     * @param $action
+     * @param CustomerInvoice|null $customerInvoice
+     * @return string
+     */
+    protected function getRedirectUrl($action, $customerInvoice = null)
+    {
+        if ($customerInvoice && $customerInvoice->getKey()) {
+            return route(sprintf('%s.%s.edit', $this->getPrefix(), $this->getResource()), $customerInvoice->getKey());
+        }
+
+        return route(sprintf('%s.%s.index', $this->getPrefix(), $this->getResource()));
+    }
+
 }

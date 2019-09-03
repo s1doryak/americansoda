@@ -302,11 +302,21 @@ class ManageShipmentsAndAssemblies
 	/**
 	 * @return array
 	 */
-	protected function getParentResourceNames()
+	protected function getValidResources()
 	{
 		return [
 			'customer.shipment',
 			'customer_shipment',
 		];
 	}
+
+    /**
+     * @return array
+     */
+    protected function getValidNamespaces()
+    {
+        return [
+            'dashboard',
+        ];
+    }
 }

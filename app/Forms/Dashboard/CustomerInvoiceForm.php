@@ -30,10 +30,14 @@ class CustomerInvoiceForm extends Form
                 'type' => 'text',
                 'value' => app(CustomerInvoiceRepository::class)->getFirstAvailableNumber()
             ],
-            'customer' => 'choice',
-            'customerShipment' => [
-                'type' => 'choice',
-                'lists' => 'number',
+            'customer' => [
+                'type' => 'choice'
+            ],
+            'order_nr' => [
+                'type' => 'text',
+            ],
+            'company_reference' => [
+                'type' => 'text',
             ],
             'customerInvoiceItems[idx]' => [
                 'type' => 'relation_form',
@@ -63,13 +67,39 @@ class CustomerInvoiceForm extends Form
     public static function getEditFormFields($customerInvoice)
     {
         return [
-            'companyBankAccounts' => 'choice',
-            'date' => 'datepicker',
-            'invoice_nr' => 'text',
-            'customer' => 'choice',
-            'customerShipment' => [
+            'companyBankAccounts' => [
+                'type' => 'choice',
+            ],
+            'customer' => [
+                'type' => 'choice'
+            ],
+            'customerShipment' => $customerInvoice->customerShipment ? [
                 'type' => 'choice',
                 'lists' => 'number',
+            ] : null,
+            'date' => [
+                'type' => 'datepicker'
+            ],
+            'invoice_nr' => [
+                'type' => 'text'
+            ],
+            'reference_nr' => [
+                'type' => 'text',
+                'attr' => [
+                    'disabled' => true
+                ]
+            ],
+            'sum' => [
+                'type' => 'text',
+                'attr' => [
+                    'disabled' => true
+                ]
+            ],
+            'sum_tax' => [
+                'type' => 'text',
+                'attr' => [
+                    'disabled' => true
+                ]
             ],
             'customerInvoiceItems[idx]' => [
                 'type' => 'relation_form',

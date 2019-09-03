@@ -138,6 +138,11 @@ Route::group(['middleware' => 'web'], function () {
                     'uses' => "{$controller}@waybill"
                 ]);
 
+                Route::get("customer_shipment/{customer_shipment}/invoice", [
+                    'as' => sprintf("%s.{$resource}.invoice", 'dashboard'),
+                    'uses' => "{$controller}@invoice"
+                ]);
+
             }
 
 		}

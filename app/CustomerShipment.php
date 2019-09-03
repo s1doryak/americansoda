@@ -14,9 +14,13 @@ use Carbon\Carbon;
  * @property string $delivery_type
  * @property integer $packages_quantity
  * @property string $comment
+ * @property string $order_numbers
+ * @property string $batch_order_numbers
  * @property \App\PackageType $packageType
  * @property \App\Customer $customer
  * @property \App\User $user
+ * @property \App\CustomerInvoice $customerInvoice
+ * @property \Illuminate\Support\Collection|\App\CustomerOrderItem[] $customerOrderItems
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -24,40 +28,42 @@ use Carbon\Carbon;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo packageType()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo user()
+ * @method \Illuminate\Database\Eloquent\Relations\HasOne customerInvoice()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerOrderItems()
  *
  * @package App
  */
 class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'number',
-		'assembly_number',
-		'invoice_number',
-		'status',
-		'delivery_type',
-		'packages_quantity',
-		'comment',
-		'package_type_id',
-		'customer_id',
-		'user_id',
-	];
+    protected $fillable = [
+        'number',
+        'assembly_number',
+        'invoice_number',
+        'status',
+        'delivery_type',
+        'packages_quantity',
+        'comment',
+        'package_type_id',
+        'customer_id',
+        'user_id',
+    ];
 
-	protected $casts = [
-		'packages_quantity' => 'integer',
-	];
+    protected $casts = [
+        'packages_quantity' => 'integer',
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'packageType' => \App\PackageType::class,
-		'customer' => \App\Customer::class,
-		'user' => \App\User::class,
+        'packageType' => \App\PackageType::class,
+        'customer' => \App\Customer::class,
+        'user' => \App\User::class,
     ];
 
     protected $belongsToMany = [
@@ -72,12 +78,12 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
-	protected $hasOne = [
+    protected $hasOne = [
+        'customerInvoice' => \App\CustomerInvoice::class,
+    ];
 
-	];
-
-	protected $hasMany = [
-        'customerOrderItems' => CustomerOrderItem::class,
+    protected $hasMany = [
+        'customerOrderItems' => \App\CustomerOrderItem::class,
     ];
 
     protected $hasManyThrough = [
@@ -93,9 +99,9 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-		'packageType',
-		'customer',
-		'user',
+        'packageType',
+        'customer',
+        'user',
     ];
 
     protected $images = [
@@ -114,6 +120,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
             $condition ? 'customer' : null,
             $condition ? 'user' : null,
             $condition ? 'packageType' : null,
+            $condition ? 'customerInvoice' : null,
             $condition ? 'customerOrderItems' : null,
             $condition ? 'customerOrderItems.customerOrder' : null,
             $condition ? 'customerOrderItems.product' : null,

@@ -40,6 +40,11 @@ export EXTRA="--skip-event"
 sh ./database/cli/seed.sh
 ```
 
+### Счета
+```bash
+${ARTISAN:-php artisan} maventa:import:invoices 20190401000000 --tiff --force
+```
+
 ## Фронтенд
    
 ### Зависимости

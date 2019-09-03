@@ -61,11 +61,21 @@ class FixCustomerOrderNumber
 	/**
 	 * @return array
 	 */
-	protected function getParentResourceNames()
+	protected function getValidResources()
 	{
 		return [
 			'customer.order',
 			'customer_order',
 		];
 	}
+
+    /**
+     * @return array
+     */
+    protected function getValidNamespaces()
+    {
+        return [
+            'dashboard',
+        ];
+    }
 }

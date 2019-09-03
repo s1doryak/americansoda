@@ -11,6 +11,9 @@
         <a href="{{ route('dashboard.calendar') }}"><span class="him-label"><i class="zmdi zmdi-calendar zmdi-hc-lg m-r-5"></i> {{ trans('calendar.index.title') }}</span></a>
     </li>
     <li class="hidden-xs">
+        <a href="{{ route('dashboard.customer_invoice.index') }}"><span class="him-label"><i class="zmdi zmdi-file-text zmdi-hc-lg m-r-5"></i> {{ trans('models/customer_invoice.labels.plural') }}</span></a>
+    </li>
+    <li class="hidden-xs">
         <a href="{{ route('dashboard.customer.index') }}"><span class="him-label"><i class="zmdi zmdi-accounts-add zmdi-hc-lg m-r-5"></i> {{ trans('models/customer.labels.plural') }}</span></a>
     </li>
     <li class="hidden-xs">

@@ -24,7 +24,6 @@ class CustomerDataTable extends DataTable
 			'legal_name' => [
 				'searchable' => true
 			],
-
 			'billingRegion.name' => [
 				'data' => 'billingRegion.name',
 			],
@@ -44,9 +43,10 @@ class CustomerDataTable extends DataTable
 			'shipping_address' => [
 				'searchable' => true
 			],
+            'nr',
             'y_tunnus',
-			'iban',
-			'swift',
+			//'iban',
+			//'swift',
 			'email' => [
 				'searchable' => true
 			],
@@ -55,7 +55,7 @@ class CustomerDataTable extends DataTable
 			],
 			'order_interval',
 			'incomterms',
-			'delivery_payer',
+			//'delivery_payer',
 			'customerType.name' => [
 				'data' => 'customerType.name',
 			],
@@ -70,7 +70,6 @@ class CustomerDataTable extends DataTable
 			'created_at',
 			'updated_at',
 			'archived',
-			'nr',
 			'country',
 			'state',
 			'post_code',

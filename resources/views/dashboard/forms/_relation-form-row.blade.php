@@ -87,7 +87,7 @@
                 @php($name = $field->getRealName())
                 @if ($field->getOption('type') === 'hidden' && !in_array($name, $exclude))
                     @if(isset($multiple_rows) && $multiple_rows === true)
-                        @php($field->setName(preg_replace('/(\d+)/', "{$idx}", $field->getName())))
+                        @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d*)]/', "[{$idx}]", $field->getName())))
                     @endif
 
                     @php($attrs = [])

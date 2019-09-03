@@ -202,4 +202,18 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
             $condition ? 'companyBankAccounts' : null,
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function generateReferenceNumber()
+    {
+        $number = $this->order_nr;
+
+        if ($this->customer) {
+            $number = sprintf("%s %s", $this->customer->nr, $this->invoice_nr);
+        }
+
+        return sprintf("%s%s", $number, viitenumero_check_digit($number));
+    }
 }

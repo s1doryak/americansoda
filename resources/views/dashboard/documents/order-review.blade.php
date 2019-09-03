@@ -119,7 +119,9 @@
             <td><small>Yhteensä<br>(Veroton)</small></td>
             <td><small>Yhteensä<br>(Verollinen)</small></td>
         </tr>
-        <tr><td colspan="11"></td></tr>
+        <tr>
+            <td colspan="11"></td>
+        </tr>
         @foreach($orderItems as $item)
             <tr class="{{ $item->expected_week || $item->back_order || $item->cancelled ? 'muted' : '' }}">
                 <td>
@@ -135,7 +137,9 @@
                         @endif
                     @endif
                 </td>
-                <td class="text-center"><b>{{ $item->packages_quantity }}</b><br>{{ $item->product->packageType->name }}</td>
+                <td class="text-center">
+                    <b>{{ $item->packages_quantity }}</b><br>{{ $item->product->packageType->name }}
+                </td>
                 <td colspan="2"><b>{{ $item->product_name }}</b></td>
                 <td><b>{{ $item->products_quantity }}</b></td>
                 <td>{{ auto_number_format($item->product->brutto_weight * $item->packages_quantity, 2, ',', '&nbsp;') }}</td>
@@ -146,7 +150,9 @@
                 <td class="price">{{ auto_number_format($item->total_vat_price, 2, ',', '&nbsp;') }}</td>
             </tr>
         @endforeach
-        <tr><td colspan="11"></td></tr>
+        <tr>
+            <td colspan="11"></td>
+        </tr>
         @foreach($totalDeposits as $depositVat => $depositGrouped)
             @foreach($depositGrouped as $depositPrice => $deposit)
                 <tr>
@@ -180,26 +186,22 @@
             <td colspan="2" class="border-left"></td>
             <td class="border-left">{{ $orderItems->sum('products_quantity')  }}</td>
             <td class="border-left">
-                {{
-                    auto_number_format($orderItems->sum(function($item){
-                        return $item->product->brutto_weight * $item->packages_quantity;
-                    }), 2, ',', '&nbsp;')
-                }}
+                {!! auto_number_format($orderItems->sum(function($item) { return $item->product->brutto_weight * $item->packages_quantity; }), 2, ',', '&nbsp;') !!}
             </td>
             <td colspan="3" class="border-left"></td>
-            <td colspan="2">{{ auto_number_format($totalPrice, 2, ',', '&nbsp;') }} €</td>
+            <td colspan="2">{!! auto_number_format($totalPrice, 2, ',', '&nbsp;') !!} €</td>
         </tr>
         @foreach ($totalVats as $vat => $total)
             <tr>
                 <td colspan="6"></td>
                 <td colspan="3"><small>Vero ALV {{ $vat }}%</small></td>
-                <td colspan="2">{{ auto_number_format($total, 2, ',', '&nbsp;') }} €</td>
+                <td colspan="2">{!! auto_number_format($total, 2, ',', '&nbsp;') !!} €</td>
             </tr>
         @endforeach
         <tr>
             <td colspan="6" rowspan="4"></td>
             <td colspan="3"><small>Yhteensä</small></td>
-            <td colspan="2">{{ auto_number_format($totalVatPrice, 2, ',', '&nbsp;') }} €</td>
+            <td colspan="2">{!! auto_number_format($totalVatPrice, 2, ',', '&nbsp;') !!} €</td>
         </tr>
         </tbody>
     </table>

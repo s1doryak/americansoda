@@ -15,19 +15,19 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class CustomerShipmentPolicy implements DatatablePolicyContract
 {
-	use HandlesAuthorization;
+    use HandlesAuthorization;
 
-	/**
-	 * Determine whether the user can list of entities.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function index(Authenticatable $authenticatable)
-	{
-		return true;
-	}
+    /**
+     * Determine whether the user can list of entities.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function index(Authenticatable $authenticatable)
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can list of trashed entities.
@@ -41,100 +41,110 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
         return true;
     }
 
-	/**
-	 * Determine whether the user can view action column.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function action(Authenticatable $authenticatable)
-	{
-		return true;
-	}
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function action(Authenticatable $authenticatable)
+    {
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can view the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerShipment $customerShipment
-	 *
-	 * @return boolean
-	 */
-	public function view(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-	{
-		return true;
-	}
+    /**
+     * Determine whether the user can view the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerShipment $customerShipment
+     *
+     * @return boolean
+     */
+    public function view(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    {
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can create entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function create(Authenticatable $authenticatable)
-	{
-		return false;
-	}
+    /**
+     * Determine whether the user can create entity.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function create(Authenticatable $authenticatable)
+    {
+        return false;
+    }
 
-	/**
-	 * Determine whether the user can update the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerShipment $customerShipment
-	 *
-	 * @return boolean
-	 */
-	public function update(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-	{
-		return false;
-	}
+    /**
+     * Determine whether the user can update the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerShipment $customerShipment
+     *
+     * @return boolean
+     */
+    public function update(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    {
+        return false;
+    }
 
-	/**
-	 * Determine whether the user can delete the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerShipment $customerShipment
-	 *
-	 * @return boolean
-	 */
-	public function delete(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-	{
-		return false;
-	}
+    /**
+     * Determine whether the user can delete the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerShipment $customerShipment
+     *
+     * @return boolean
+     */
+    public function delete(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    {
+        return false;
+    }
 
-	/**
-	 * Determine whether the user can restore the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerShipment $customerShipment
-	 *
-	 * @return boolean
-	 */
-	public function restore(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-	{
+    /**
+     * Determine whether the user can restore the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerShipment $customerShipment
+     *
+     * @return boolean
+     */
+    public function restore(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    {
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerShipment $customerShipment
-	 * @return boolean
-	 */
-	public function package_list(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-	{
-		return true;
-	}
+    /**
+     * @param Authenticatable $authenticatable
+     * @param CustomerShipment $customerShipment
+     * @return boolean
+     */
+    public function package_list(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    {
+        return true;
+    }
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerShipment $customerShipment
-	 * @return boolean
-	 */
-	public function waybill(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-	{
-		return true;
-	}
+    /**
+     * @param Authenticatable $authenticatable
+     * @param CustomerShipment $customerShipment
+     * @return boolean
+     */
+    public function waybill(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    {
+        return true;
+    }
+
+    /**
+     * @param Authenticatable $authenticatable
+     * @param CustomerShipment $customerShipment
+     * @return boolean
+     */
+    public function invoice(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    {
+        return true;
+    }
 }

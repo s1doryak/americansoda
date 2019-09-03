@@ -40,6 +40,36 @@ insert into migrations values
 ('2016_06_03_102037_create_stock_movement_products_table', 1),
 ('2016_08_02_094119_create_stock_products_table', 1);
 ```
+### Обновить Product
+```bash
+docker-compose run artisan modify:resource CustomerInvoice \
+    --namespace=Dashboard \
+    \
+    --field=maventa_paid:boolean \
+    --field=maventa_sent_at:timestamp \
+    \
+    --translate=ru \
+    \
+    --translate-field=maventa_paid:ru:"Оплачен" \
+    --translate-field=maventa_sent_at:ru:"Отправлен в Maventa" \
+    \
+    --force
+```
+
+### Обновить Product
+```bash
+docker-compose run artisan modify:resource Product \
+    --namespace=Dashboard \
+    \
+    --field=unit_type \
+    \
+    --translate=ru \
+    \
+    --translate-field=unit_type:ru:"Единица измерения" \
+    \
+    --force
+```
+
 ### Обновить CustomerInvoiceItem
 ```bash
 docker-compose run artisan modify:resource CustomerInvoiceItem \

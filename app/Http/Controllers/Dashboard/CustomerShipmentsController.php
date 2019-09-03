@@ -4,8 +4,15 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Company;
 use App\Customer;
+use App\CustomerInvoice;
 use App\CustomerOrderItem;
+use App\Repositories\Contracts\CompanyBankAccountRepository;
 use App\Repositories\Contracts\CompanyRepository;
+use App\Repositories\Contracts\CustomerInvoiceItemRepository;
+use App\Repositories\Contracts\CustomerInvoiceRepository;
+use App\Transformers\Dashboard\CustomerOrderItemTransformer;
+use Crmplease\MaterialAdmin\Events\ResourceStored;
+use Illuminate\Support\Collection;
 use PDF;
 use App\CustomerShipment;
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
@@ -26,204 +33,298 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class CustomerShipmentsController extends ResourceController
 {
-	use DashboardSidebar;
+    use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
-	/**
-	 * @var string
-	 */
-	protected $prefix = 'dashboard';
+    /**
+     * @var string
+     */
+    protected $prefix = 'dashboard';
 
-	/**
-	 * @var string
-	 */
-	protected $resource = 'customer_shipment';
+    /**
+     * @var string
+     */
+    protected $resource = 'customer_shipment';
 
-	/**
-	 * @var PackageTypeRepository
-	 */
-	protected $packageTypes;
+    /**
+     * @var PackageTypeRepository
+     */
+    protected $packageTypes;
 
-	/**
-	 * @var CustomerRepository
-	 */
-	protected $customers;
+    /**
+     * @var CustomerRepository
+     */
+    protected $customers;
 
-	/**
-	 * @var UserRepository
-	 */
-	protected $users;
+    /**
+     * @var UserRepository
+     */
+    protected $users;
 
-	/**
-	 * @var ProductRepository
-	 */
-	protected $products;
+    /**
+     * @var ProductRepository
+     */
+    protected $products;
 
-	/**
-	 * @var CustomerOrderItemRepository
-	 */
-	protected $customerOrderItems;
+    /**
+     * @var CustomerOrderItemRepository
+     */
+    protected $customerOrderItems;
 
-	/**
-	 * @var CompanyRepository
-	 */
-	private $companies;
+    /**
+     * @var CustomerInvoiceRepository
+     */
+    protected $customerInvoices;
 
-	/**
-	 * @var array
-	 */
-	protected $editActionFormData = [
-		'customers' => [
-			'lists' => 'name',
-			'prepend_empty' => true
-		],
-		'packageTypes' => [
-			'lists' => 'name',
-			'prepend_empty' => true
-		],
-		'users' => 'name',
-		'products' => 'name',
-	];
+    /**
+     * @var CustomerInvoiceItemRepository
+     */
+    protected $customerInvoiceItems;
 
-	/**
-	 * CustomerShipmentsController constructor.
-	 * @param Gate $gate
-	 * @param CustomerShipmentRepository $customerShipmentRepository
-	 * @param PackageTypeRepository $packageTypeRepository
-	 * @param CustomerRepository $customerRepository
-	 * @param UserRepository $userRepository
-	 */
-	public function __construct(
-		Gate $gate,
-		CustomerShipmentRepository $customerShipmentRepository,
-		PackageTypeRepository $packageTypeRepository,
-		CustomerRepository $customerRepository,
-		UserRepository $userRepository,
-		ProductRepository $productRepository,
-		CustomerOrderItemRepository $customerOrderItemRepository,
-		CompanyRepository $companyRepository
-	)
-	{
-		$this->gate = $gate;
-		$this->repository = $customerShipmentRepository;
-		$this->packageTypes = $packageTypeRepository;
-		$this->customers = $customerRepository;
-		$this->users = $userRepository;
-		$this->products = $productRepository;
-		$this->customerOrderItems = $customerOrderItemRepository;
-		$this->companies = $companyRepository;
+    /**
+     * @var CompanyBankAccountRepository
+     */
+    protected $companyBankAccounts;
 
-		$this->middleware('auth:dashboard');
-		$this->shareSidebar();
-	}
+    /**
+     * @var CompanyRepository
+     */
+    private $companies;
 
-	/**
-	 * Generate a package list.
-	 *
-	 * @param Request $request
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function packageList(Request $request)
-	{
-		/** @var CustomerShipment $shipment */
-		$shipment = $this->repository->with('customer')->find($this->getResourceId());
+    /**
+     * @var array
+     */
+    protected $editActionFormData = [
+        'customers' => [
+            'lists' => 'name',
+            'prepend_empty' => true
+        ],
+        'packageTypes' => [
+            'lists' => 'name',
+            'prepend_empty' => true
+        ],
+        'users' => 'name',
+        'products' => 'name',
+    ];
 
-		$filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Lähetysluettelo')));
+    /**
+     * CustomerShipmentsController constructor.
+     * @param Gate $gate
+     * @param CustomerShipmentRepository $customerShipmentRepository
+     * @param PackageTypeRepository $packageTypeRepository
+     * @param CustomerRepository $customerRepository
+     * @param UserRepository $userRepository
+     */
+    public function __construct(
+        Gate $gate,
+        CustomerShipmentRepository $customerShipmentRepository,
+        PackageTypeRepository $packageTypeRepository,
+        CustomerRepository $customerRepository,
+        UserRepository $userRepository,
+        ProductRepository $productRepository,
+        CustomerInvoiceRepository $customerInvoiceRepository,
+        CustomerInvoiceItemRepository $customerInvoiceItemRepository,
+        CustomerOrderItemRepository $customerOrderItemRepository,
+        CompanyRepository $companyRepository,
+        CompanyBankAccountRepository $companyBankAccountRepository
+    )
+    {
+        $this->gate = $gate;
+        $this->repository = $customerShipmentRepository;
+        $this->packageTypes = $packageTypeRepository;
+        $this->customers = $customerRepository;
+        $this->users = $userRepository;
+        $this->products = $productRepository;
+        $this->customerInvoices = $customerInvoiceRepository;
+        $this->customerInvoiceItems = $customerInvoiceItemRepository;
+        $this->customerOrderItems = $customerOrderItemRepository;
+        $this->companies = $companyRepository;
+        $this->companyBankAccounts = $companyBankAccountRepository;
 
-		return PDF::loadView('dashboard::documents.package-list', $this->getDocumentData($request))->inline($filename);
-	}
+        $this->middleware('auth:dashboard');
+        $this->shareSidebar();
+    }
 
-	/**
-	 * Generate a waybill.
-	 *
-	 * @param Request $request
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function waybill(Request $request)
-	{
-		/** @var CustomerShipment $shipment */
-		$shipment = $this->repository->with('customer')->find($this->getResourceId());
+    /**
+     * Generate a package list.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function packageList(Request $request)
+    {
+        /** @var CustomerShipment $shipment */
+        $shipment = $this->repository->with('customer')->find($this->getResourceId());
 
-		$filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Rahtikirja')));
+        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Lähetysluettelo')));
 
-		return PDF::loadView('dashboard::documents.waybill', $this->getDocumentData($request))->inline($filename);
-	}
+        if ($request->has('inline')) {
+            return view('dashboard::documents.package-list', $this->getDocumentData($request));
+        }
 
-	/**
-	 * Return common document data.
-	 *
-	 * @param Request $request
-	 *
-	 * @return array
-	 */
-	private function getDocumentData(Request $request, $hideBackOrder = true, $hideCancelled = true)
-	{
-		/** @var CustomerShipment $shipment */
-		$shipment = $this->repository->with(['packageType', 'customer', 'customer.billingRegion', 'customer.shippingRegion', 'customer.user', 'customer.stock', 'customer.stock.region'])->find($this->getResourceId());
+        return PDF::loadView('dashboard::documents.package-list', $this->getDocumentData($request))->inline($filename);
+    }
 
-		$customerOrderItemIds = $shipment->customerOrderItems->pluck('id')->toArray();
+    /**
+     * Generate a waybill.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function waybill(Request $request)
+    {
+        /** @var CustomerShipment $shipment */
+        $shipment = $this->repository->with('customer')->find($this->getResourceId());
 
-		/** @var Company $company */
-		$company = $this->companies->with('region')->first();
+        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Rahtikirja')));
 
-		/** @var Customer $customer */
-		$customer = $shipment->customer;
+        if ($request->has('inline')) {
+            return view('dashboard::documents.waybill', $this->getDocumentData($request));
+        }
 
-		$orderItemsConditions = [
-			[
-				function ($query) use ($customerOrderItemIds) {
-					/** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
-					$query->whereIn('id', $customerOrderItemIds);
-				},
-				null,
-				null
-			]
+        return PDF::loadView('dashboard::documents.waybill', $this->getDocumentData($request))->inline($filename);
+    }
 
-		];
+    /**
+     * Generate a invoice.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function invoice(Request $request)
+    {
+        /** @var CustomerShipment $shipment */
+        $shipment = $this->repository->with(['customer', 'customerOrderItems', 'customerOrderItems.product', 'customerInvoice'])->find($this->getResourceId());
 
-		if ($hideBackOrder) {
-			$orderItemsConditions['back_order'] = 0;
-			/*$orderItemsConditions[] = [
-				function($query) {
-					$query->where('expected_date', '=', 'NULL');
-				},
-				null,
-				null
-			];*/
-		}
+        /** @var Customer|null $customer */
+        $customer = $shipment->customer;
 
-		if ($hideCancelled) {
-			$orderItemsConditions['cancelled'] = 0;
-		}
+        /** @var CustomerInvoice|null $customerInvoice */
+        $customerInvoice = $shipment->customerInvoice;
 
-		/** @var \Illuminate\Database\Eloquent\Collection $shipmentItems */
-		$shipmentItems = $this->customerOrderItems->with(['product', 'product.productGroup', 'product.packageType', 'customerOrder', 'customerShipment'])->findWhere($orderItemsConditions);
+        /** @var \Illuminate\Support\Collection|CustomerOrderItem[] $customerOrderItems */
+        $customerOrderItems = $shipment->customerOrderItems;
 
-		/** @var \Illuminate\Database\Eloquent\Collection $orderDepositItems */
-		$orderDepositItems = $shipmentItems->filter(function (CustomerOrderItem $shipmentItem) {
-			return $shipmentItem->deposit_enabled;
-		});
+        /** @var Collection $customerInvoiceItems */
+        $customerInvoiceItems = CustomerOrderItemTransformer::mapCustomerInvoiceItemsArray($customerOrderItems);
 
-		$totalVats = get_total_vats($shipmentItems);
-		$totalDeposits = get_total_deposits($shipmentItems);
-		$totalPrice = $shipmentItems->sum('total_price') + $orderDepositItems->sum('deposit_total_price');
-		$totalVatPrice = $shipmentItems->sum('total_vat_price') + $orderDepositItems->sum('deposit_total_vat_price');
+        /** @var Collection $customerInvoicePalpaItems */
+        $customerInvoicePalpaItems = CustomerOrderItemTransformer::mapCustomerInvoicePalpaItemsArray($customerOrderItems);
 
-		return compact(
-			'company',
-			'customer',
-			'shipment',
-			'shipmentItems',
-			'totalVats',
-			'totalDeposits',
-			'totalPrice',
-			'totalVatPrice'
-		);
-	}
+        if (is_null($customerInvoice)) {
+
+            if (empty(trim($customer->nr))) {
+                return redirect(
+                    route(sprintf('%s.customer.edit', $this->getPrefix()), $customer->getKey())
+                )->withErrors(
+                    trans('models/customer.requirements.nr')
+                );
+            }
+
+            /** @var CustomerInvoice $customerInvoice */
+            $customerInvoice = $this->customerInvoices->firstOrCreate([
+                'customer_id' => $customer->getKey(),
+                'customer_shipment_id' => $shipment->getKey()
+            ]);
+
+            $customerInvoice->update([
+                'date' => now()->format('Ymd'),
+                'invoice_nr' => $this->customerInvoices->getFirstAvailableNumber()
+            ]);
+
+            $customerInvoice->companyBankAccounts()->sync(
+                $this->companyBankAccounts->getDefault()->pluck('id')
+            );
+
+            $attributes = $customerInvoice->toArray();
+
+            $params = [
+                'customer' => $customer->getKey(),
+                'customerInvoiceItems' => $customerInvoiceItems->concat($customerInvoicePalpaItems)->toArray()
+            ];
+
+            event(new ResourceStored($this->getPrefix(), 'customer_invoice', $attributes, $params));
+        }
+
+        return redirect(route(sprintf('%s.customer_invoice.edit', $this->getPrefix()), $customerInvoice->getKey()));
+    }
+
+    /**
+     * Return common document data.
+     *
+     * @param Request $request
+     *
+     * @return array
+     */
+    private function getDocumentData(Request $request, $hideBackOrder = true, $hideCancelled = true)
+    {
+        /** @var CustomerShipment $shipment */
+        $shipment = $this->repository->with(['packageType', 'customer', 'customer.billingRegion', 'customer.shippingRegion', 'customer.user', 'customer.stock', 'customer.stock.region'])->find($this->getResourceId());
+
+        $customerOrderItemIds = $shipment->customerOrderItems->pluck('id')->toArray();
+
+        /** @var Company $company */
+        $company = $this->companies->with('region')->first();
+
+        /** @var Customer $customer */
+        $customer = $shipment->customer;
+
+        $orderItemsConditions = [
+            [
+                function ($query) use ($customerOrderItemIds) {
+                    /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                    $query->whereIn('id', $customerOrderItemIds);
+                },
+                null,
+                null
+            ]
+
+        ];
+
+        if ($hideBackOrder) {
+            $orderItemsConditions['back_order'] = 0;
+            /*$orderItemsConditions[] = [
+                function($query) {
+                    $query->where('expected_date', '=', 'NULL');
+                },
+                null,
+                null
+            ];*/
+        }
+
+        if ($hideCancelled) {
+            $orderItemsConditions['cancelled'] = 0;
+        }
+
+        /** @var \Illuminate\Database\Eloquent\Collection $shipmentItems */
+        $shipmentItems = $this->customerOrderItems->with(['product', 'product.productGroup', 'product.packageType', 'customerOrder', 'customerShipment'])->findWhere($orderItemsConditions);
+
+        /** @var \Illuminate\Database\Eloquent\Collection $orderDepositItems */
+        $orderDepositItems = $shipmentItems->filter(function (CustomerOrderItem $shipmentItem) {
+            return $shipmentItem->deposit_enabled;
+        });
+
+        $totalVats = get_total_vats($shipmentItems);
+        $totalDeposits = get_total_deposits($shipmentItems);
+        $totalPrice = $shipmentItems->sum('total_price') + $orderDepositItems->sum('deposit_total_price');
+        $totalVatPrice = $shipmentItems->sum('total_vat_price') + $orderDepositItems->sum('deposit_total_vat_price');
+
+        return compact(
+            'company',
+            'customer',
+            'shipment',
+            'shipmentItems',
+            'totalVats',
+            'totalDeposits',
+            'totalPrice',
+            'totalVatPrice'
+        );
+    }
 }

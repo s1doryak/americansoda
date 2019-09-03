@@ -264,7 +264,7 @@
                 }}
             </td>
             <td colspan="3" class="border-left"></td>
-            <td colspan="2">{{ auto_number_format($totalPrice, 2, ',', '&nbsp;') }} €</td>
+            <td colspan="2">{!! auto_number_format($totalPrice, 2, ',', '&nbsp;') !!} €</td>
         </tr>
         @foreach ($totalVats as $vat => $total)
             <tr>
@@ -273,7 +273,7 @@
                 <td colspan="3">
                     <small>Vero ALV {{ $vat }}%</small>
                 </td>
-                <td colspan="2">{{ auto_number_format($total, 2, ',', '&nbsp;') }} €</td>
+                <td colspan="2">{!! auto_number_format($total, 2, ',', '&nbsp;') !!} €</td>
             </tr>
         @endforeach
         <tr>
@@ -282,7 +282,7 @@
             <td colspan="3">
                 <small>Yhteensä</small>
             </td>
-            <td colspan="2">{{ auto_number_format($totalVatPrice, 2, ',', '&nbsp;') }} €</td>
+            <td colspan="2">{!! auto_number_format($totalVatPrice, 2, ',', '&nbsp;') !!} €</td>
         </tr>
         </tbody>
     </table>

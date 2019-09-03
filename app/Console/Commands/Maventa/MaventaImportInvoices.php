@@ -63,29 +63,29 @@ class MaventaImportInvoices extends Command
 
         if ($force) {
 
-            foreach ($invoices as $invoice) {
+            foreach ($invoices as $idx => $invoice) {
 
                 if ($invoice->status !== 'OK') {
                     throw new Exception($invoice->status);
                 }
 
                 \App\Jobs\MaventaImportInvoice::dispatchNow($invoice->id, $tiff);
-            }
 
-            $this->info(sprintf('%d invoices imported.', $invoices->count()));
+                $this->info(sprintf('%d/%d invoice imported.', $idx + 1, $invoices->count()));
+            }
 
         } else {
 
-            foreach ($invoices as $invoice) {
+            foreach ($invoices as $idx => $invoice) {
 
                 if ($invoice->status !== 'OK') {
                     throw new Exception($invoice->status);
                 }
 
                 \App\Jobs\MaventaImportInvoice::dispatch($invoice->id, $tiff);
-            }
 
-            $this->info(sprintf('%d invoices scheduled to import.', $invoices->count()));
+                $this->info(sprintf('%d/%d invoice scheduled to import.', $idx + 1, $invoices->count()));
+            }
 
         }
 

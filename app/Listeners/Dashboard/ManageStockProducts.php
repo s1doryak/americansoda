@@ -595,10 +595,20 @@ class ManageStockProducts
 	/**
 	 * @return array
 	 */
-	protected function getParentResourceNames()
+	protected function getValidResources()
 	{
 		return [
 			'customer_order_item',
 		];
 	}
+
+    /**
+     * @return array
+     */
+    protected function getValidNamespaces()
+    {
+        return [
+            'dashboard',
+        ];
+    }
 }

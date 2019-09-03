@@ -6,11 +6,12 @@ use Crmplease\MaterialAdmin\Events\ResourceStored;
 use Crmplease\MaterialAdmin\Events\ResourceUpdated;
 use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
 use App\Repositories\Contracts\CustomerPricingPolicyRepository;
+use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
 
 class AssignCustomerPricingPolicies
 {
-	use ValidatesResource;
+    use ValidatesResource, ValidatesNamespace;
 
 	/**
 	 * @var CustomerPricingPolicyRepository
@@ -94,7 +95,7 @@ class AssignCustomerPricingPolicies
 		event(new ResourceUpdated('dashboard', 'customer.pricing_policy', $updated, $params));
 	}
 
-	protected function getParentResourceNames()
+	protected function getValidResources()
 	{
 		return [
 			'customer'

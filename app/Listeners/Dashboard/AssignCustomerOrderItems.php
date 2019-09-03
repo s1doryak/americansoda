@@ -13,12 +13,13 @@ use App\Repositories\Contracts\CustomerOrderRepository;
 use App\Repositories\Contracts\CustomerPricingPolicyRepository;
 use App\Repositories\Contracts\ProductRepository;
 use Carbon\Carbon;
+use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
 use Illuminate\Support\Collection;
 
 class AssignCustomerOrderItems
 {
-	use ValidatesResource;
+    use ValidatesResource, ValidatesNamespace;
 
 	/**
 	 * @var CustomerOrderRepository
@@ -60,13 +61,14 @@ class AssignCustomerOrderItems
 		$this->products = $productRepository;
 	}
 
-	/**
-	 * Handle the event.
-	 *
-	 * @param ResourceEventInterface $event
-	 *
-	 * @return void
-	 */
+    /**
+     * Handle the event.
+     *
+     * @param ResourceEventInterface $event
+     *
+     * @return void
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
 	public function handle(ResourceEventInterface $event)
 	{
 
@@ -218,16 +220,26 @@ class AssignCustomerOrderItems
 		event(new CustomerOrderItemsAssigned($order, $customerOrderItems, $attributes, $params));
 	}
 
-	/**
-	 * @return array
-	 */
-	protected function getParentResourceNames()
-	{
-		return [
-			'customer.order',
-			'customer_order',
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getValidNamespaces()
+    {
+        return [
+            'dashboard',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getValidResources()
+    {
+        return [
+            'customer.order',
+            'customer_order',
+        ];
+    }
 
 	/**
 	 * @param Collection $items

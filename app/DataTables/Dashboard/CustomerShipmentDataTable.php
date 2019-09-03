@@ -133,6 +133,16 @@ class CustomerShipmentDataTable extends DataTable
         $defaults = $this->getDefaultActions($customerShipment);
 
         $actions = [
+            'invoice' => [
+                'url' => route(
+                    sprintf('%s.%s.invoice', $this->prefix, $this->resource),
+                    $customerShipment->getKey()
+                ),
+                'target' => '_blank',
+                'icon' => 'file-plus',
+                'color' => $customerShipment->customerInvoice ? 'primary' : 'green',
+                'title' => trans(sprintf('models/%s.invoice.title', $this->resource)),
+            ],
             'package_list' => [
                 'url' => route(
                     sprintf('%s.%s.package_list', $this->prefix, $this->resource),

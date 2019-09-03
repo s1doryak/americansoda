@@ -19,6 +19,7 @@ namespace App;
  * @property float $volume
  * @property float $brutto_weight
  * @property float $brutto_volume
+ * @property string $unit_type
  * @property boolean $deposit_enabled
  * @property float $deposit_price
  * @property integer $deposit_vat
@@ -56,6 +57,7 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'volume',
 		'brutto_weight',
 		'brutto_volume',
+        'unit_type',
 		'deposit_enabled',
 		'deposit_price',
 		'deposit_vat',

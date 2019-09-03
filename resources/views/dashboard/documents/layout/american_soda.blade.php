@@ -8,11 +8,11 @@
     <style>
         @font-face {
             font-family: viisaseanmatala;
-            src: url('{{ env('APP_URL') }}/build/fonts/viisaseanmatala/viisaseanmatala.eot');
-            src: url('{{ env('APP_URL') }}/build/fonts/viisaseanmatala/viisaseanmatala.eot?#iefix') format('embedded-opentype'),
-            url('{{ env('APP_URL') }}/build/fonts/viisaseanmatala/viisaseanmatala.woff') format('woff'),
-            url('{{ env('APP_URL') }}/build/fonts/viisaseanmatala/viisaseanmatala.ttf') format('truetype'),
-            url('{{ env('APP_URL') }}/build/fonts/viisaseanmatala/viisaseanmatala.svg#icon') format('svg');
+            src: url('{{ env('APP_URL') }}/vendor/material-admin/fonts/viisaseanmatala/viisaseanmatala.eot');
+            src: url('{{ env('APP_URL') }}/vendor/material-admin/fonts/viisaseanmatala/viisaseanmatala.eot?#iefix') format('embedded-opentype'),
+            url('{{ env('APP_URL') }}/vendor/material-admin/fonts/viisaseanmatala/viisaseanmatala.woff') format('woff'),
+            url('{{ env('APP_URL') }}/vendor/material-admin/fonts/viisaseanmatala/viisaseanmatala.ttf') format('truetype'),
+            url('{{ env('APP_URL') }}/vendor/material-admin/fonts/viisaseanmatala/viisaseanmatala.svg#icon') format('svg');
             font-weight: normal;
             font-style: normal;
         }

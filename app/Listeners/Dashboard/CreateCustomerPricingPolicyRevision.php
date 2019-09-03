@@ -80,11 +80,21 @@ class CreateCustomerPricingPolicyRevision
 	/**
 	 * @return array
 	 */
-	protected function getParentResourceNames()
+	protected function getValidResources()
 	{
 		return [
 			'customer.pricing_policy',
 			'customer_pricing_policy'
 		];
 	}
+
+    /**
+     * @return array
+     */
+    protected function getValidNamespaces()
+    {
+        return [
+            'dashboard',
+        ];
+    }
 }

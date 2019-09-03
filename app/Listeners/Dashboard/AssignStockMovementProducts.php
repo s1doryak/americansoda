@@ -8,12 +8,13 @@ use App\Repositories\Contracts\StockMovementProductRepository;
 use App\Repositories\Contracts\StockProductRepository;
 use App\StockProduct;
 use Carbon\Carbon;
+use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
 use Illuminate\Support\Collection;
 
 class AssignStockMovementProducts
 {
-	use ValidatesResource;
+    use ValidatesResource, ValidatesNamespace;
 
 	/**
 	 * @var StockMovementProductRepository
@@ -152,10 +153,20 @@ class AssignStockMovementProducts
 	/**
 	 * @return array
 	 */
-	protected function getParentResourceNames()
+	protected function getValidResources()
 	{
 		return [
 			'stock_movement',
 		];
 	}
+
+    /**
+     * @return array
+     */
+    protected function getValidNamespaces()
+    {
+        return [
+            'dashboard',
+        ];
+    }
 }

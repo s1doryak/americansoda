@@ -3,7 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Product::class, function (Faker\Generator $faker) {
     return [
-		'name' => $faker->unique()->name,
+        'name' => $faker->unique()->name,
 		'product_barcode' => null,
 		'product_barcode_plaintext' => null,
 		'package_barcode' => null,
@@ -13,6 +13,7 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
 		'description' => null,
 		'contents' => null,
 		'number_in_package' => null,
+        'unit_type' => null,
 		'weight' => null,
 		'volume' => null,
 		'brutto_weight' => null,
@@ -22,5 +23,5 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
 		'deposit_vat' => null,
 		'deposit_vat_price' => null,
 		'comment' => null,
-    ];
+];
 });

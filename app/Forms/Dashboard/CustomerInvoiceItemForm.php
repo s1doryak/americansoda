@@ -19,6 +19,22 @@ class CustomerInvoiceItemForm extends Form
     public static function getCreateFormFields()
     {
         return [
+            'id' => [
+                'type' => 'hidden'
+            ],
+            'customerOrderItem' => [
+                'type' => 'hidden',
+            ],
+            'product' => [
+                'type' => 'hidden',
+            ],
+            '_remove' => [
+                'type' => 'hidden',
+                'value' => 0,
+                'attr' => [
+                    'data-remove',
+                ],
+            ],
             //'position' => 'number',
             //'item_code' => 'text',
             'subject' => 'text',
@@ -47,11 +63,6 @@ class CustomerInvoiceItemForm extends Form
             ],
             //'discount' => 'text',
             //'customerInvoice' => 'choice',
-            //'customerOrderItem' => 'choice',
-            /*'product' => [
-                'type' => 'choice',
-                'multiple' => false,
-            ],*/
         ];
     }
 

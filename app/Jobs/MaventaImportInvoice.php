@@ -232,7 +232,10 @@ class MaventaImportInvoice implements ShouldQueue
                         if ($product) {
 
                             $product->update([
-                                'description' => strip_tags($product->description) ? $product->description : $item->definition
+                                'comment' => !empty(trim(strip_tags($product->comment))) ? trim(strip_tags($product->comment)) : '',
+                                'contents' => !empty(trim(strip_tags($product->contents))) ? trim(strip_tags($product->contents)) : '',
+                                'description' => !empty(trim(strip_tags($product->description))) ? trim(strip_tags($product->description)) : $item->definition,
+                                'unit_type' => !empty(trim(strip_tags($product->unit_type))) ? trim(strip_tags($product->unit_type)) : $item->unit_type,
                             ]);
 
                             $customerInvoiceItem->product()->associate($product);

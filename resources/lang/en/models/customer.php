@@ -194,4 +194,7 @@ return [
 			'name' => 'Shipping Region',
 		],
     ],
+    'requirements' => [
+        'nr' => 'You need to setup customer number first.'
+    ]
 ];
