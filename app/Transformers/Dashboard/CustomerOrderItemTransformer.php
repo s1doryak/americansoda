@@ -161,6 +161,39 @@ class CustomerOrderItemTransformer implements TransformerContract
      */
     public static function mapCustomerInvoicePalpaItemsArray($collection)
     {
-        return $collection;
+        return $collection
+            ->filter(
+                function (CustomerOrderItem $customerOrderItem) {
+                    return $customerOrderItem->deposit_enabled;
+                }
+            )->groupBy(
+                function (CustomerOrderItem $customerOrderItem) {
+                    return (string)$customerOrderItem->deposit_vat;
+                }
+            )->map(
+                function (Collection $group, $vat) {
+                    return $group
+                        ->groupBy(
+                            function (CustomerOrderItem $customerOrderItem) {
+                                return (string)$customerOrderItem->deposit_price;
+                            }
+                        )->map(
+                            function (Collection $group, $price) use ($vat) {
+
+                                $k = 1 + ($vat / 100);
+
+                                return [
+                                    'subject' => sprintf("PANTTIMAKSU (PALPA %.2f EUR)", round($price * $k, 2)),
+                                    'definition' => sprintf("Pantillinen (%.8f EUR, ALV 0%%)", $price),
+                                    'price' => $price,
+                                    'unit_type' => 'kpl',
+                                    'amount' => $group->sum('products_quantity'),
+                                    'tax' => $vat
+                                ];
+                            }
+                        );
+                }
+            )
+            ->flatten(1);
     }
 }

@@ -61,8 +61,8 @@ class CustomerShipmentDataTable extends DataTable
     public function getRawColumns()
     {
         return [
-            'name',
             'number',
+            'customer.name',
             'status',
             'action'
         ];
@@ -174,6 +174,18 @@ class CustomerShipmentDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param CustomerShipment $customerShipment
+     * @return string
+     */
+    public function renderCustomer__NameColumn($customerShipment)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerShipment->customer ? $customerShipment->customer->renderName() : $this->renderDefaultView();
+        }
+        return optional($customerShipment->customer)->name;
     }
 
     /**

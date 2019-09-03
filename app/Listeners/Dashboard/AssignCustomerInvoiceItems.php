@@ -174,7 +174,7 @@ class AssignCustomerInvoiceItems
                 'position' => $idx,
                 'item_code' => $item_code,
                 'subject' => $subject,
-                'definition' => $definition,
+                'definition' => trim(strip_tags($definition)),
                 'price' => round($price, 2),
                 'unit_type' => $unit_type,
                 'amount' => $amount,

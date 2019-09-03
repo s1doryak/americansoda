@@ -99,8 +99,8 @@ function get_total_deposits($orderItems)
     });
 
     /** @var \Illuminate\Database\Eloquent\Collection $group */
-    foreach ($groups as $depositPrice => $group) {
-        $groups[$depositPrice] = $group->groupBy(function ($item) {
+    foreach ($groups as $vat => $group) {
+        $groups[$vat] = $group->groupBy(function ($item) {
             return (string)$item->deposit_price;
         });
     }

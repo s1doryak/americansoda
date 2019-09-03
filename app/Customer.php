@@ -26,12 +26,24 @@ namespace App;
  * @property string $delivery_payer
  * @property string $payment_conditions
  * @property boolean $pays_vat
+ * @property boolean $archived
+ * @property string $nr
+ * @property string $country
+ * @property string $state
+ * @property string $post_code
+ * @property string $post_office
+ * @property string $address1
+ * @property string $address2
+ * @property string $contact_p
+ * @property string $ovt
+ * @property string $y_tunnus
  * @property \App\Stock $stock
  * @property \App\CustomerType $customerType
  * @property \App\PaymentType $paymentType
  * @property \App\User $user
  * @property \App\Region $billingRegion
  * @property \App\Region $shippingRegion
+ * @property \App\PriceGroup $priceGroup
  * @property \Illuminate\Support\Collection|CustomerOrder[] $customerOrders
  * @property \Illuminate\Support\Collection|CustomerShipment[] $customerShipments
  * @property \Illuminate\Support\Collection|CustomerPricingPolicy[] $customerPricingPolicies
@@ -46,24 +58,12 @@ namespace App;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo user()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo billingRegion()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo shippingRegion()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo priceGroup()
  * @method \Illuminate\Database\Eloquent\Relations\HasMany customerOrders()
  * @method \Illuminate\Database\Eloquent\Relations\HasMany customerShipments()
  * @method \Illuminate\Database\Eloquent\Relations\HasMany customerPricingPolicies()
  * @method \Illuminate\Database\Eloquent\Relations\HasMany customerInvoices()
  *
- * @property boolean $archived
- * @property string $nr
- * @property string $country
- * @property string $state
- * @property string $post_code
- * @property string $post_office
- * @property string $address1
- * @property string $address2
- * @property string $contact_p
- * @property string $ovt
- * @property \App\PriceGroup $priceGroup
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo priceGroup()
- * @property string $y_tunnus
  * @package App
  */
 class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
@@ -210,11 +210,20 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     /**
      * @return string
      */
-    public function getContentAttribute()
+    public function renderName()
     {
         return $this->renderMediaView(
-            $this->name,
+            $this->nr ? sprintf("%s #%d", $this->name, $this->nr) : $this->name,
             sprintf("%s / BID %s / OVT %s", $this->legal_name, $this->bid ?? '—', $this->ovt ?? '—')
         );
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getContentAttribute()
+    {
+        return $this->renderName();
     }
 }
