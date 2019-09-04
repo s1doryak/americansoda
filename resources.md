@@ -394,7 +394,7 @@ docker-compose run artisan generate:resource CustomerInvoice \
     \
     --translate-field=maventa_id:ru:"Номер Maventa" \
     --translate-field=maventa_tiff:ru:"TIFF файл" \
-    --translate-field=maventa_initiated:ru:"Был создан в Mavento" \
+    --translate-field=maventa_initiated:ru:"Был создан в Maventa" \
     \
     --translate-field=currency:ru:"Валюта" \
     --translate-field=data:ru:"Данные" \

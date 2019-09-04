@@ -64,6 +64,8 @@ class CustomerInvoiceDataTable extends DataTable
             'customerShipment.number' => [
                 'data' => 'customerShipment.number'
             ],
+            'maventa_paid',
+            'maventa_sent_at',
         ];
     }
 
@@ -76,6 +78,8 @@ class CustomerInvoiceDataTable extends DataTable
             'maventa_id',
             'maventa_tiff',
             'maventa_initiated',
+            'maventa_paid',
+            'maventa_sent_at',
             'currency',
             'data',
             'date',
@@ -180,8 +184,10 @@ class CustomerInvoiceDataTable extends DataTable
      */
     protected function getActions($customerInvoice)
     {
+        $actions = parent::getActions($customerInvoice);
+
         if ((string)$customerInvoice->maventa_tiff) {
-            return array_merge([
+            $actions = array_merge([
                 'tiff' => [
                     '_blank' => true,
                     'url' => asset($customerInvoice->maventa_tiff),
@@ -189,10 +195,10 @@ class CustomerInvoiceDataTable extends DataTable
                     'color' => 'primary',
                     'title' => trans(sprintf('models/%s.columns.maventa_tiff', $this->resource)),
                 ]
-            ], parent::getActions($customerInvoice));
+            ], $actions);
         }
 
-        return parent::getActions($customerInvoice);
+        return $actions;
     }
 
     /**
@@ -235,5 +241,22 @@ class CustomerInvoiceDataTable extends DataTable
         }
 
         return $customerInvoice->customerShipment ? $customerInvoice->customerShipment->number : '';
+    }
+
+    /**
+     * @param CustomerInvoice $customerInvoice
+     * @return string
+     */
+    public function renderMaventaPaidColumn($customerInvoice)
+    {
+        $label = $customerInvoice->maventa_paid ? 'models/customer_invoice.maventa_paid.true' : 'models/customer_invoice.maventa_paid.false';
+
+        if ($this->isDataTableRequest()) {
+            return $this->renderView('dashboard::resources.customer_invoice.columns.maventa_paid', [
+                'model' => $customerInvoice
+            ]);
+        }
+
+        return trans($label);
     }
 }

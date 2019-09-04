@@ -1,16 +1,12 @@
 @extends('dashboard::documents.layout.american_soda')
-@section('title', 'Tilausvahvistus')
+@section('title', 'Laskufaktura')
 @section('content')
     <table class="table-33p">
         <tr>
             <td class="logo">
                 <img src="{{ asset('assets/dashboard/img/american_soda/logo_document.png') }}">
             </td>
-            @if($hasNegativeItems)
-                <td class="caption text-center">Hyvityslasku</td>
-            @else
-                <td class="caption text-center">Tilausvahvistus</td>
-            @endif
+            <td class="caption text-center">Laskufaktura</td>
             <td></td>
         </tr>
     </table>
@@ -23,8 +19,8 @@
         </tr>
         <tr>
             <td class="upper">{{ $company->name }} / {{ $company->legal_name }}</td>
-            <td>{{ $order->created_at->format('d.m.Y') }}</td>
-            <td class="number">{{ $order->number }}</td>
+            <td>{{ $invoice->created_at->format('d.m.Y') }}</td>
+            <td class="number">{{ $invoice->number }}</td>
         </tr>
         <tr>
             <td>{{ $company->address }}</td>
@@ -39,7 +35,7 @@
             <td colspan="2"><small>Vastaanottajan viite</small></td>
         </tr>
         <tr>
-            <td colspan="2">{{ $order->batch_number }}</td>
+            <td colspan="2">{{ $invoice->batch_number }}</td>
         </tr>
         </tbody>
     </table>
@@ -126,7 +122,7 @@
         <tr>
             <td colspan="11"></td>
         </tr>
-        @foreach($orderItems as $item)
+        @foreach($invoiceItems as $item)
             <tr class="{{ $item->expected_week || $item->back_order || $item->cancelled ? 'muted' : '' }}">
                 <td>
                     @if($item->cancelled)
@@ -186,11 +182,11 @@
         </tr>
         <tr class="divider-thick">
             <td></td>
-            <td class="border-left">{{ $orderItems->sum('packages_quantity') }}</td>
+            <td class="border-left">{{ $invoiceItems->sum('packages_quantity') }}</td>
             <td colspan="2" class="border-left"></td>
-            <td class="border-left">{{ $orderItems->sum('products_quantity')  }}</td>
+            <td class="border-left">{{ $invoiceItems->sum('products_quantity')  }}</td>
             <td class="border-left">
-                {!! auto_number_format($orderItems->sum(function($item) { return $item->product->brutto_weight * $item->packages_quantity; }), 2, ',', '&nbsp;') !!}
+                {!! auto_number_format($invoiceItems->sum(function($item) { return $item->product->brutto_weight * $item->packages_quantity; }), 2, ',', '&nbsp;') !!}
             </td>
             <td colspan="3" class="border-left"></td>
             <td colspan="2">{!! auto_number_format($totalPrice, 2, ',', '&nbsp;') !!} €</td>
@@ -215,7 +211,7 @@
             <td colspan="11"><small>Lisätiedot</small></td>
         </tr>
         <tr>
-            <td colspan="11">{!! $order->comment !!}</td>
+            <td colspan="11">{!! $invoice->comment !!}</td>
         </tr>
         </tbody>
     </table>

@@ -47,7 +47,9 @@ return [
 	'fields' => [
 		'maventa_id' => 'Номер Maventa',
 		'maventa_tiff' => 'TIFF файл',
-		'maventa_initiated' => 'Был создан в Mavento',
+		'maventa_initiated' => 'Был создан в Maventa',
+        'maventa_paid' => 'Оплачен',
+        'maventa_sent_at' => 'Отправлен в Maventa',
 		'currency' => 'Валюта',
 		'data' => 'Данные',
 		'date' => 'Дата счета',
@@ -119,7 +121,9 @@ return [
     'columns' => [
 		'maventa_id' => 'Номер Maventa',
 		'maventa_tiff' => 'TIFF файл',
-		'maventa_initiated' => 'Был создан в Mavento',
+		'maventa_initiated' => 'Был создан в Maventa',
+        'maventa_paid' => 'Оплачен',
+        'maventa_sent_at' => 'Отправлен в Maventa',
 		'currency' => 'Валюта',
 		'data' => 'Данные',
 		'date' => 'Дата счета',
@@ -205,4 +209,12 @@ return [
 			'name' => 'Позиции заказа',
 		],
     ],
+    'maventa_initiated' => [
+        'true' => 'Maventa',
+        'false' => 'CRM',
+    ],
+    'maventa_paid' => [
+        'true' => 'Оплачен',
+        'false' => 'Не оплачен',
+    ]
 ];

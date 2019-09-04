@@ -12,6 +12,8 @@ namespace App;
  * @property string $maventa_id
  * @property \Crmplease\MaterialAdmin\Database\Eloquent\Traits\File\FileField $maventa_tiff
  * @property boolean $maventa_initiated
+ * @property boolean $maventa_paid
+ * @property \Illuminate\Support\Carbon|null $maventa_sent_at
  *
  * @property string $currency
  * @property string $data
@@ -81,6 +83,8 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'maventa_id',
         'maventa_tiff',
         'maventa_initiated',
+        'maventa_paid',
+        'maventa_sent_at',
 
         'currency',
         'data',
@@ -128,11 +132,12 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $casts = [
         'maventa_initiated' => 'boolean',
         'state' => 'integer',
+		'maventa_paid' => 'boolean',
     ];
 
     protected $dates = [
-
-    ];
+		'maventa_sent_at',
+	];
 
     protected $hidden = [
 

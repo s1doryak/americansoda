@@ -45,9 +45,9 @@ function transform_barcode($value)
 }
 
 /**
- * @param \Illuminate\Database\Eloquent\Collection $orderItems
+ * @param \Illuminate\Support\Collection $orderItems
  *
- * @return \Illuminate\Database\Eloquent\Collection
+ * @return \Illuminate\Support\Collection
  */
 function get_total_vats($orderItems)
 {
@@ -84,9 +84,9 @@ function get_total_vats($orderItems)
 }
 
 /**
- * @param \Illuminate\Database\Eloquent\Collection $orderItems
+ * @param \Illuminate\Support\Collection $orderItems
  *
- * @return \Illuminate\Database\Eloquent\Collection
+ * @return \Illuminate\Support\Collection
  */
 function get_total_deposits($orderItems)
 {

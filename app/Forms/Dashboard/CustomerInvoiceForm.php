@@ -135,6 +135,8 @@ class CustomerInvoiceForm extends Form
             'customerShipment' => 'sometimes|exists:customer_shipments,id',
             'customerOrderItems.*.subject' => 'sometimes',
             'notes' => 'sometimes',
+			'maventa_paid' => 'sometimes',
+			'maventa_sent_at' => 'sometimes',
         ];
     }
 
@@ -152,6 +154,8 @@ class CustomerInvoiceForm extends Form
             'customerShipment' => 'sometimes|exists:customer_shipments,id',
             'customerOrderItems.*.subject' => 'sometimes',
             'notes' => 'sometimes',
+			'maventa_paid' => 'sometimes',
+			'maventa_sent_at' => 'sometimes',
         ];
     }
 }

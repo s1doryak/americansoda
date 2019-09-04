@@ -88,7 +88,7 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
     public function update(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
 
-        return is_local() || $customerInvoice->maventa_initiated === false;
+        return $customerInvoice->maventa_initiated === false && $customerInvoice->maventa_paid === false;
     }
 
     /**
@@ -99,7 +99,7 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
     public function delete(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
 
-        return is_local() || $customerInvoice->maventa_initiated === false;
+        return $customerInvoice->maventa_initiated === false && $customerInvoice->maventa_paid === false;
     }
 
     /**

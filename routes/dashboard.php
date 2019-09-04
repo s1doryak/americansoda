@@ -8,7 +8,7 @@
 
 Route::group(['middleware' => 'web'], function () {
 
-	Route::group(['prefix' => 'dashboard'], function () {
+    Route::group(['prefix' => 'dashboard'], function () {
 
         // Authentication Routes...
         Route::get('login', 'Auth\LoginController@showLoginForm')->name('dashboard.login');
@@ -50,28 +50,28 @@ Route::group(['middleware' => 'web'], function () {
             'uses' => 'HomeController@calendarUpdate'
         ]);
 
-		foreach (get_route_resources() as $resource => $controller) {
+        foreach (get_route_resources() as $resource => $controller) {
 
-			if (!class_exists(sprintf('%s\%s', get_controller_namespace('dashboard'), $controller))) {
-				continue;
-			}
+            if (!class_exists(sprintf('%s\%s', get_controller_namespace('dashboard'), $controller))) {
+                continue;
+            }
 
-			Route::put("{$resource}/{{$resource}}/restore", [
-				'as' => sprintf("%s.{$resource}.restore", 'dashboard'),
-				'uses' => "{$controller}@restore"
-			]);
+            Route::put("{$resource}/{{$resource}}/restore", [
+                'as' => "dashboard.{$resource}.restore",
+                'uses' => "{$controller}@restore"
+            ]);
 
-			Route::get("{$resource}/trashed", [
-				'as' => sprintf("%s.{$resource}.trashed", 'dashboard'),
-				'uses' => "{$controller}@trashed"
-			]);
+            Route::get("{$resource}/trashed", [
+                'as' => "dashboard.{$resource}.trashed",
+                'uses' => "{$controller}@trashed"
+            ]);
 
-			Route::resource($resource, $controller, ['as' => 'dashboard']);
+            Route::resource($resource, $controller, ['as' => 'dashboard']);
 
             if ($resource == 'assembly') {
 
                 Route::get("{$resource}/{{$resource}}/assembly_list", [
-                    'as' => sprintf("%s.{$resource}.assembly_list", 'dashboard'),
+                    'as' => "dashboard.{$resource}.assembly_list",
                     'uses' => "{$controller}@assemblyList"
                 ]);
 
@@ -80,17 +80,17 @@ Route::group(['middleware' => 'web'], function () {
             if ($resource == 'customer_order') {
 
                 Route::get("{$resource}/{{$resource}}/order_review", [
-                    'as' => sprintf("%s.{$resource}.order_review", 'dashboard'),
+                    'as' => "dashboard.{$resource}.order_review",
                     'uses' => "{$controller}@orderReview"
                 ]);
 
                 Route::get("{$resource}/{{$resource}}/order_review_plain", [
-                    'as' => sprintf("%s.{$resource}.order_review_plain", 'dashboard'),
+                    'as' => "dashboard.{$resource}.order_review_plain",
                     'uses' => "{$controller}@orderReviewPlain"
                 ]);
 
                 Route::any("{$resource}/{{$resource}}/send_email", [
-                    'as' => sprintf("%s.{$resource}.send_email", 'dashboard'),
+                    'as' => "dashboard.{$resource}.send_email",
                     'uses' => "{$controller}@sendEmail"
                 ]);
 
@@ -102,12 +102,12 @@ Route::group(['middleware' => 'web'], function () {
                  * Split items
                  */
                 Route::get("{$resource}/{{$resource}}/split", [
-                    'as' => sprintf("%s.{$resource}.split", 'dashboard'),
+                    'as' => "dashboard.{$resource}.split",
                     'uses' => "{$controller}@getSplitForm"
                 ]);
 
                 Route::post("{$resource}/{{$resource}}/split", [
-                    'as' => sprintf("%s.{$resource}.split", 'dashboard'),
+                    'as' => "dashboard.{$resource}.split",
                     'uses' => "{$controller}@split"
                 ]);
 
@@ -115,12 +115,12 @@ Route::group(['middleware' => 'web'], function () {
                  * Assign shipment number
                  */
                 Route::get("{$resource}/{{$resource}}/shipment/assign", [
-                    'as' => sprintf("%s.{$resource}.shipment.assign", 'dashboard'),
+                    'as' => "dashboard.{$resource}.shipment.assign",
                     'uses' => "{$controller}@getShipmentAssignForm"
                 ]);
 
                 Route::post("{$resource}/{{$resource}}/shipment/assign", [
-                    'as' => sprintf("%s.{$resource}.shipment.assign", 'dashboard'),
+                    'as' => "dashboard.{$resource}.shipment.assign",
                     'uses' => "{$controller}@shipmentAssign"
                 ]);
 
@@ -129,24 +129,38 @@ Route::group(['middleware' => 'web'], function () {
             if ($resource == 'customer_shipment') {
 
                 Route::get("customer_shipment/{customer_shipment}/package_list", [
-                    'as' => sprintf("%s.{$resource}.package_list", 'dashboard'),
+                    'as' => "dashboard.{$resource}.package_list",
                     'uses' => "{$controller}@packageList"
                 ]);
 
                 Route::get("customer_shipment/{customer_shipment}/waybill", [
-                    'as' => sprintf("%s.{$resource}.waybill", 'dashboard'),
+                    'as' => "dashboard.{$resource}.waybill",
                     'uses' => "{$controller}@waybill"
                 ]);
 
                 Route::get("customer_shipment/{customer_shipment}/invoice", [
-                    'as' => sprintf("%s.{$resource}.invoice", 'dashboard'),
+                    'as' => "dashboard.{$resource}.invoice",
                     'uses' => "{$controller}@invoice"
                 ]);
 
             }
 
-		}
+            if ($resource == 'customer_invoice') {
 
-	});
+                Route::get("customer_invoice/{customer_invoice}/invoice", [
+                    'as' => "dashboard.{$resource}.invoice",
+                    'uses' => "{$controller}@invoice"
+                ]);
+
+                Route::post("customer_invoice/{customer_invoice}/maventa_paid", [
+                    'as' => "dashboard.{$resource}.maventa_paid",
+                    'uses' => "{$controller}@maventaPaid"
+                ]);
+
+            }
+
+        }
+
+    });
 
 });

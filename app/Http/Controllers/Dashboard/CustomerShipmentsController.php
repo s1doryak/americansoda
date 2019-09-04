@@ -271,7 +271,15 @@ class CustomerShipmentsController extends ResourceController
     private function getDocumentData(Request $request, $hideBackOrder = true, $hideCancelled = true)
     {
         /** @var CustomerShipment $shipment */
-        $shipment = $this->repository->with(['packageType', 'customer', 'customer.billingRegion', 'customer.shippingRegion', 'customer.user', 'customer.stock', 'customer.stock.region'])->find($this->getResourceId());
+        $shipment = $this->repository->with([
+            'packageType',
+            'customer',
+            'customer.billingRegion',
+            'customer.shippingRegion',
+            'customer.user',
+            'customer.stock',
+            'customer.stock.region'
+        ])->find($this->getResourceId());
 
         $customerOrderItemIds = $shipment->customerOrderItems->pluck('id')->toArray();
 

@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Company;
+use App\Customer;
+use App\Repositories\Contracts\CompanyRepository;
+use Crmplease\MaterialAdmin\Http\Requests\Request;
+use PDF;
 use App\CustomerInvoice;
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Repositories\Contracts\CustomerInvoiceRepository;
@@ -50,6 +55,11 @@ class CustomerInvoicesController extends ResourceController
      * @var CustomerShipmentRepository
      */
     protected $customerShipments;
+
+    /**
+     * @var CompanyRepository
+     */
+    protected $companies;
 
     /**
      * @var CompanyBankAccountRepository
@@ -116,6 +126,7 @@ class CustomerInvoicesController extends ResourceController
      * @param CustomerInvoiceRepository $customerInvoiceRepository
      * @param CustomerRepository $customerRepository
      * @param CustomerShipmentRepository $customerShipmentRepository
+     * @param CompanyRepository $companyRepository
      * @param CompanyBankAccountRepository $companyBankAccountRepository
      * @param CustomerInvoiceItemRepository $customerInvoiceItemRepository
      * @param CustomerInvoiceActionRepository $customerInvoiceActionRepository
@@ -129,6 +140,7 @@ class CustomerInvoicesController extends ResourceController
         CustomerInvoiceRepository $customerInvoiceRepository,
         CustomerRepository $customerRepository,
         CustomerShipmentRepository $customerShipmentRepository,
+        CompanyRepository $companyRepository,
         CompanyBankAccountRepository $companyBankAccountRepository,
         CustomerInvoiceItemRepository $customerInvoiceItemRepository,
         CustomerInvoiceActionRepository $customerInvoiceActionRepository,
@@ -142,6 +154,7 @@ class CustomerInvoicesController extends ResourceController
         $this->repository = $customerInvoiceRepository;
         $this->customers = $customerRepository;
         $this->customerShipments = $customerShipmentRepository;
+        $this->companies = $companyRepository;
         $this->companyBankAccounts = $companyBankAccountRepository;
         $this->customerInvoiceItems = $customerInvoiceItemRepository;
         $this->customerInvoiceActions = $customerInvoiceActionRepository;
@@ -218,6 +231,74 @@ class CustomerInvoicesController extends ResourceController
         }
 
         return route(sprintf('%s.%s.index', $this->getPrefix(), $this->getResource()));
+    }
+
+    protected function getDocumentData(Request $request)
+    {
+        /** @var Company $company */
+        $company = $this->companies->with('region')->first();
+
+        /** @var CustomerInvoice $invoice */
+        $invoice = $this->repository->with([
+            'customer',
+            'customer.billingRegion',
+            'customer.shippingRegion',
+            'customer.user',
+            'customer.stock',
+            'customer.stock.region'
+        ])->find(
+            $this->getResourceId()
+        );
+
+        /** @var Customer $customer */
+        $customer = $invoice->customer;
+
+        $invoiceItems = collect();
+
+        $totalVats = get_total_vats($invoiceItems);
+        $totalDeposits = get_total_deposits($invoiceItems);
+        $totalPrice = $invoiceItems->sum('total_price');
+        $totalVatPrice = $invoiceItems->sum('total_vat_price');
+
+        return compact(
+            'company',
+            'customer',
+            'invoice',
+            'invoiceItems',
+            'totalVats',
+            'totalDeposits',
+            'totalPrice',
+            'totalVatPrice'
+        );
+    }
+
+    /**
+     * @return mixed
+     */
+    public function invoice(Request $request)
+    {
+        /** @var CustomerInvoice $customerInvoice */
+        $customerInvoice = $this->repository->find(
+            $this->getResourceId()
+        );
+
+        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $customerInvoice->id, $customerInvoice->invoice_nr, $customerInvoice->customer->name, mb_strtoupper('Laskufaktura')));
+
+        if ($request->has('inline')) {
+            return view('dashboard::documents.invoice', $this->getDocumentData($request));
+        }
+
+        return PDF::loadView('dashboard::documents.invoice', $this->getDocumentData($request))->inline($filename);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function maventaPaid()
+    {
+        return $this->repository->update([
+            'maventa_paid' => true
+        ], $this->getResourceId());
     }
 
 }
