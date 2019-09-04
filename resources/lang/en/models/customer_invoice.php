@@ -44,6 +44,12 @@ return [
         'success' => 'CustomerInvoice destroyed successfully!',
         'error' => 'CustomerInvoice destroyed unsuccessfully!'
     ],
+    'tiff' => [
+        'title' => 'Download TIFF',
+    ],
+    'send' => [
+        'title' => 'Send to Maventa',
+    ],
     'fields' => [
         'maventa_id' => 'Maventa',
         'maventa_tiff' => 'Maventa Tiff',

@@ -157,6 +157,11 @@ Route::group(['middleware' => 'web'], function () {
                     'uses' => "{$controller}@maventaPaid"
                 ]);
 
+                Route::post("customer_invoice/{customer_invoice}/maventa_sent_at", [
+                    'as' => "dashboard.{$resource}.maventa_sent_at",
+                    'uses' => "{$controller}@maventaSentAt"
+                ]);
+
             }
 
         }

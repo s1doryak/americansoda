@@ -64,6 +64,17 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
      * @param CustomerInvoice $customerInvoice
      * @return boolean
      */
+    public function send(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
+    {
+
+        return true;
+    }
+
+    /**
+     * @param Authenticatable $authenticatable
+     * @param CustomerInvoice $customerInvoice
+     * @return boolean
+     */
     public function view(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
 

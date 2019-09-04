@@ -6,13 +6,13 @@
     @else
         @if($model->hasDefaultAssemblyNumber())
             <div class="toggle-switch" data-ts-color="green">
-                <input type="checkbox" data-action="shipment_assign" data-url="{!! route('dashboard.customer_order_item.shipment.assign', $model->getKey()) !!}" data-token="{{ csrf_token() }}" checked="checked">
-                <label for="checkable" class="ts-helper"></label>
+                <input type="checkbox" id="shipment_assign[{{ $model->getKey() }}]" data-action="shipment_assign" data-url="{!! route('dashboard.customer_order_item.shipment.assign', $model->getKey()) !!}" data-method="post" data-token="{{ csrf_token() }}" checked="checked">
+                <label for="shipment_assign[{{ $model->getKey() }}]" class="ts-helper"></label>
             </div>
         @else
             <div class="toggle-switch" data-ts-color="green">
-                <input type="checkbox" data-action="shipment_assign" data-url="{!! route('dashboard.customer_order_item.shipment.assign', $model->getKey()) !!}" data-token="{{ csrf_token() }}">
-                <label for="checkable" class="ts-helper"></label>
+                <input type="checkbox" id="shipment_assign[{{ $model->getKey() }}]" data-action="shipment_assign" data-url="{!! route('dashboard.customer_order_item.shipment.assign', $model->getKey()) !!}" data-method="post" data-token="{{ csrf_token() }}">
+                <label for="shipment_assign[{{ $model->getKey() }}]" class="ts-helper"></label>
             </div>
         @endif
     @endif

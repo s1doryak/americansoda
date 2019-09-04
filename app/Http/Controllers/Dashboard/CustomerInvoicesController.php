@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Company;
 use App\Customer;
+use App\Jobs\MaventaCreateInvoice;
 use App\Repositories\Contracts\CompanyRepository;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use PDF;
@@ -233,6 +234,10 @@ class CustomerInvoicesController extends ResourceController
         return route(sprintf('%s.%s.index', $this->getPrefix(), $this->getResource()));
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     protected function getDocumentData(Request $request)
     {
         /** @var Company $company */
@@ -296,9 +301,25 @@ class CustomerInvoicesController extends ResourceController
      */
     public function maventaPaid()
     {
-        return $this->repository->update([
+        /** @var CustomerInvoice $customerInvoice */
+        $customerInvoice = $this->repository->update([
             'maventa_paid' => true
         ], $this->getResourceId());
+
+        return $customerInvoice->maventa_paid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function maventaSentAt()
+    {
+        /** @var CustomerInvoice|null $customerInvoice */
+        $result = MaventaCreateInvoice::dispatchNow(
+            $this->getResourceId()
+        );
+
+        return $result ? $result->status : 'ERROR';
     }
 
 }

@@ -30,34 +30,107 @@ jQuery(document).ready(function ($) {
 
     });
 
-    $(document).on('click', '[data-action="send_email"]', function (e) {
-
-        var progressIconClass = 'zmdi-hourglass-alt';
-        var actionIconSelector = 'i.zmdi';
+    $(document).on('click', '[data-action="send"]', function (e) {
 
         var $this = $(this),
-            $icon = $this.find(actionIconSelector),
-            iconClass = 'zmdi-email';
+            $icon = $this.find('i.zmdi'),
+            iconClass = $this.data('icon-class'),
+            colorClass = $this.data('color-class'),
+            progressIconClass = $this.data('progress-icon-class'),
+            progressColorClass = $this.data('progress-color-class'),
+            $row = $this.closest('tr'),
+            $table = $this.closest('table'),
+            dt = $table.DataTable();
 
-        $this.prop('disabled', true);
-        $icon.removeClass(iconClass).addClass(progressIconClass);
+        if ($table.hasClass('responsive') && $table.hasClass('collapsed')) {
+            $row = $this.closest('tr').prev('[role="row"]');
+        }
+
+        $this.attr('disabled', true);
+        $icon.removeClass(iconClass)
+            .removeClass(colorClass)
+            .addClass(progressIconClass)
+            .addClass(progressColorClass);
 
         $.ajax({
             url: $this.data('url'),
             method: 'post',
             data: {
                 _token: $this.data('token'),
-                _method: 'post'
+                _method: $this.data('method')
             },
             cache: false,
             async: true
         }).complete(function (response) {
 
-            if (response.status === 200) {
-                $this.replaceWith(response.responseText);
-            } else {
-                $this.prop('disabled', false);
-                $icon.addClass(iconClass).removeClass(progressIconClass);
+            $this.attr('disabled', false);
+            $icon.addClass(iconClass)
+                .addClass(colorClass)
+                .removeClass(progressIconClass)
+                .removeClass(progressColorClass);
+
+            switch (response.status) {
+                case 200:
+                    $this.replaceWith(response.responseText);
+                    break;
+                case 404:
+                case 500:
+                    notify(response.responseJSON.message, 'danger');
+                    break;
+            }
+
+        });
+
+        e.preventDefault();
+    });
+
+    $(document).on('click', '[data-action="send_email"]', function (e) {
+
+        var $this = $(this),
+            $icon = $this.find('i.zmdi'),
+            iconClass = $this.data('icon-class'),
+            colorClass = $this.data('color-class'),
+            progressIconClass = $this.data('progress-icon-class'),
+            progressColorClass = $this.data('progress-color-class'),
+            $row = $this.closest('tr'),
+            $table = $this.closest('table'),
+            dt = $table.DataTable();
+
+        if ($table.hasClass('responsive') && $table.hasClass('collapsed')) {
+            $row = $this.closest('tr').prev('[role="row"]');
+        }
+
+        $this.attr('disabled', true);
+        $icon.removeClass(iconClass)
+            .removeClass(colorClass)
+            .addClass(progressIconClass)
+            .addClass(progressColorClass);
+
+        $.ajax({
+            url: $this.data('url'),
+            method: 'post',
+            data: {
+                _token: $this.data('token'),
+                _method: $this.data('method')
+            },
+            cache: false,
+            async: true
+        }).complete(function (response) {
+
+            $this.attr('disabled', false);
+            $icon.addClass(iconClass)
+                .addClass(colorClass)
+                .removeClass(progressIconClass)
+                .removeClass(progressColorClass);
+
+            switch (response.status) {
+                case 200:
+                    $this.replaceWith(response.responseText);
+                    break;
+                case 404:
+                case 500:
+                    notify(response.responseJSON.message, 'danger');
+                    break;
             }
 
         });
@@ -76,7 +149,7 @@ jQuery(document).ready(function ($) {
             method: 'post',
             data: {
                 _token: $this.data('token'),
-                _method: 'post',
+                _method: $this.data('method'),
                 need_shipping: checked
             },
             cache: false,

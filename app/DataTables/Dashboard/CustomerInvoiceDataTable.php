@@ -193,7 +193,7 @@ class CustomerInvoiceDataTable extends DataTable
                     'url' => asset($customerInvoice->maventa_tiff),
                     'icon' => 'file-text',
                     'color' => 'primary',
-                    'title' => trans(sprintf('models/%s.columns.maventa_tiff', $this->resource)),
+                    'title' => trans(sprintf('models/%s.tiff.title', $this->resource)),
                 ]
             ], $actions);
         }
@@ -258,5 +258,30 @@ class CustomerInvoiceDataTable extends DataTable
         }
 
         return trans($label);
+    }
+
+    /**
+     * @param CustomerInvoice $customerInvoice
+     * @return string
+     */
+    public function renderMaventaSentAtColumn($customerInvoice)
+    {
+        if ($this->isDataTableRequest()) {
+
+            return $customerInvoice->maventa_sent_at
+                ? format_date($customerInvoice->maventa_sent_at)
+                : $this->renderActionView([
+                    'send' => [
+                        '_blank' => true,
+                        'url' => route(sprintf('%s.%s.maventa_sent_at', $this->prefix, $this->resource), $customerInvoice->getKey()),
+                        'method' => 'post',
+                        'icon' => 'upload',
+                        'color' => 'green',
+                        'title' => trans(sprintf('models/%s.send.title', $this->resource)),
+                    ]
+                ], $customerInvoice);
+        }
+
+        return $customerInvoice->maventa_sent_at ? format_date($customerInvoice->maventa_sent_at) : null;
     }
 }
