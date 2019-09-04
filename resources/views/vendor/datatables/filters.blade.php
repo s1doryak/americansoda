@@ -2,15 +2,25 @@
     <form id="{{ $id }}" class="{{ $class }}" enctype="multipart/form-data" style="display: none;">
         <div class="row p-t-30">
             @foreach($filters as $idx => $filter)
-                @if(view()->exists($filter->template))
-                    @include($filter->template, compact('filter'))
+                @php($data = compact('filter'))
+                @if(view()->exists($view = $filter->template))
+                    @include($view, $data)
                 @else
-                    <div class="form-group col-sm-6">
-                        <label class="col-sm-4 control-label">{{ $filter->title }}</label>
-                        <div class="col-sm-8">
-                            @include(sprintf('datatables::filters.%s', $filter->type), compact('filter'))
+                    @if(view()->exists($view = sprintf('datatables::filters.%s', $filter->type)))
+                        <div class="form-group col-sm-6">
+                            <label class="col-sm-4 control-label">{{ $filter->title }}</label>
+                            <div class="col-sm-8">
+                                @include($view, $data)
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="form-group col-sm-6">
+                            <label class="col-sm-4 control-label">{{ $filter->title }}</label>
+                            <div class="col-sm-8">
+                                @include('datatables::filters.text', $data)
+                            </div>
+                        </div>
+                    @endif
                 @endif
             @endforeach
         </div>

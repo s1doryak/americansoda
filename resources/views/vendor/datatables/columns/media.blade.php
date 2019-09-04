@@ -2,7 +2,7 @@
     @if($image)
         <div class="pull-left lightbox">
             <div data-src="{{ $image }}">
-                <img src="{{ $image }}" alt="{{ $title }}" class="lgi-img">
+                <img src="{{ $thumbnail ?? $image }}" alt="{{ $title }}" class="lgi-img">
             </div>
         </div>
     @endif

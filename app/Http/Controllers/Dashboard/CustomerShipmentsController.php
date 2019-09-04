@@ -118,6 +118,12 @@ class CustomerShipmentsController extends ResourceController
      * @param PackageTypeRepository $packageTypeRepository
      * @param CustomerRepository $customerRepository
      * @param UserRepository $userRepository
+     * @param ProductRepository $productRepository
+     * @param CustomerInvoiceRepository $customerInvoiceRepository
+     * @param CustomerInvoiceItemRepository $customerInvoiceItemRepository
+     * @param CustomerOrderItemRepository $customerOrderItemRepository
+     * @param CompanyRepository $companyRepository
+     * @param CompanyBankAccountRepository $companyBankAccountRepository
      */
     public function __construct(
         Gate $gate,
@@ -201,7 +207,7 @@ class CustomerShipmentsController extends ResourceController
     public function invoice(Request $request)
     {
         /** @var CustomerShipment $shipment */
-        $shipment = $this->repository->with(['customer', 'customerOrderItems', 'customerOrderItems.product', 'customerInvoice'])->find($this->getResourceId());
+        $shipment = $this->repository->with(['customer', 'customerInvoice'])->find($this->getResourceId());
 
         /** @var Customer|null $customer */
         $customer = $shipment->customer;
@@ -209,24 +215,23 @@ class CustomerShipmentsController extends ResourceController
         /** @var CustomerInvoice|null $customerInvoice */
         $customerInvoice = $shipment->customerInvoice;
 
-        /** @var \Illuminate\Support\Collection|CustomerOrderItem[] $customerOrderItems */
-        $customerOrderItems = $shipment->customerOrderItems;
-
-        /** @var Collection $customerInvoiceItems */
-        $customerInvoiceItems = CustomerOrderItemTransformer::mapCustomerInvoiceItemsArray($customerOrderItems);
-
-        /** @var Collection $customerInvoicePalpaItems */
-        $customerInvoicePalpaItems = CustomerOrderItemTransformer::mapCustomerInvoicePalpaItemsArray($customerOrderItems);
+        if (empty(trim($customer->nr))) {
+            return redirect(
+                route(sprintf('%s.customer.edit', $this->getPrefix()), $customer->getKey())
+            )->withErrors(
+                trans('models/customer.requirements.nr')
+            );
+        }
 
         if (is_null($customerInvoice)) {
 
-            if (empty(trim($customer->nr))) {
-                return redirect(
-                    route(sprintf('%s.customer.edit', $this->getPrefix()), $customer->getKey())
-                )->withErrors(
-                    trans('models/customer.requirements.nr')
-                );
-            }
+            $shipment->load(['customerOrderItems', 'customerOrderItems.product']);
+
+            /** @var Collection $customerInvoiceItems */
+            $customerInvoiceItems = CustomerOrderItemTransformer::mapCustomerInvoiceItemsArray($shipment->customerOrderItems);
+
+            /** @var Collection $customerInvoicePalpaItems */
+            $customerInvoicePalpaItems = CustomerOrderItemTransformer::mapCustomerInvoicePalpaItemsArray($shipment->customerOrderItems);
 
             /** @var CustomerInvoice $customerInvoice */
             $customerInvoice = $this->customerInvoices->firstOrCreate([

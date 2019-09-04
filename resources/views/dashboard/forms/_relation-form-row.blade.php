@@ -26,10 +26,7 @@
                 @php($containerClass .= ' has-error')
             @endif
             <div class="{{ $containerClass }}">
-                @php($attrs = [])
-                @if ($type !== 'static')
-                    @php($attrs = ['attr' => ['class' => 'form-control fc-alt']])
-                @endif
+                @php($attrs = $field->getOptions())
 
                 @if(isset($item))
                     @if(is_object($item))

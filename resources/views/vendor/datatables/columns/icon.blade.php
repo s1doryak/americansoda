@@ -1,8 +1,8 @@
 @if($icon)
-    @if(starts_with($color, 'c-'))
-        <i class="zmdi zmdi-{{ str_replace_first('zmdi-', '', $icon) }} {{ implode(' ', $classes) }} {{ $color }}"></i>
+    @if(Str::startsWith($color, 'c-'))
+        <i class="zmdi zmdi-{{ Str::replaceFirst('zmdi-', '', $icon) }} {{ implode(' ', $classes) }} {{ $color }}"></i>
     @else
-        <i class="zmdi zmdi-{{ str_replace_first('zmdi-', '', $icon) }} {{ implode(' ', $classes) }}" style="color: {{ $color }}"></i>
+        <i class="zmdi zmdi-{{ Str::replaceFirst('zmdi-', '', $icon) }} {{ implode(' ', $classes) }}" style="color: {{ $color }}"></i>
     @endif
 @endif
 @if($title)

@@ -15,51 +15,52 @@ use App\Repositories\Contracts\ProductRepository;
 use Carbon\Carbon;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class AssignCustomerOrderItems
 {
     use ValidatesResource, ValidatesNamespace;
 
-	/**
-	 * @var CustomerOrderRepository
-	 */
-	protected $customerOrders;
+    /**
+     * @var CustomerOrderRepository
+     */
+    protected $customerOrders;
 
-	/**
-	 * @var CustomerOrderItemRepository
-	 */
-	protected $customerOrderItems;
+    /**
+     * @var CustomerOrderItemRepository
+     */
+    protected $customerOrderItems;
 
-	/**
-	 * @var CustomerPricingPolicyRepository
-	 */
-	protected $customerPricingPolicies;
+    /**
+     * @var CustomerPricingPolicyRepository
+     */
+    protected $customerPricingPolicies;
 
-	/**
-	 * @var ProductRepository
-	 */
-	protected $products;
+    /**
+     * @var ProductRepository
+     */
+    protected $products;
 
-	/**
-	 * AssignCustomerOrderItems constructor.
-	 * @param CustomerOrderRepository $customerOrderRepository
-	 * @param CustomerOrderItemRepository $customerOrderItemRepository
-	 * @param CustomerPricingPolicyRepository $customerPricingPolicyRepository
-	 * @param ProductRepository $productRepository
-	 */
-	public function __construct(
-		CustomerOrderRepository $customerOrderRepository,
-		CustomerOrderItemRepository $customerOrderItemRepository,
-		CustomerPricingPolicyRepository $customerPricingPolicyRepository,
-		ProductRepository $productRepository
-	)
-	{
-		$this->customerOrders = $customerOrderRepository;
-		$this->customerOrderItems = $customerOrderItemRepository;
-		$this->customerPricingPolicies = $customerPricingPolicyRepository;
-		$this->products = $productRepository;
-	}
+    /**
+     * AssignCustomerOrderItems constructor.
+     * @param CustomerOrderRepository $customerOrderRepository
+     * @param CustomerOrderItemRepository $customerOrderItemRepository
+     * @param CustomerPricingPolicyRepository $customerPricingPolicyRepository
+     * @param ProductRepository $productRepository
+     */
+    public function __construct(
+        CustomerOrderRepository $customerOrderRepository,
+        CustomerOrderItemRepository $customerOrderItemRepository,
+        CustomerPricingPolicyRepository $customerPricingPolicyRepository,
+        ProductRepository $productRepository
+    )
+    {
+        $this->customerOrders = $customerOrderRepository;
+        $this->customerOrderItems = $customerOrderItemRepository;
+        $this->customerPricingPolicies = $customerPricingPolicyRepository;
+        $this->products = $productRepository;
+    }
 
     /**
      * Handle the event.
@@ -69,156 +70,161 @@ class AssignCustomerOrderItems
      * @return void
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-	public function handle(ResourceEventInterface $event)
-	{
+    public function handle(ResourceEventInterface $event)
+    {
 
-		if (!$this->isValidResource($event->getResource())) {
-			return;
-		}
+        if (!$this->isValidResource($event->getResource())) {
+            return;
+        }
 
-		$attributes = $event->getAttributes();
-		$params = $event->getParams();
+        $attributes = $event->getAttributes();
+        $params = $event->getParams();
 
-		$order = $this->customerOrders->scopeQuery(
-			function ($query) {
-				/** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
-				return $query->withTrashed();
-			}
-		)->find($attributes['id']);
+        $order = $this->customerOrders->scopeQuery(
+            function ($query) {
+                /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                return $query->withTrashed();
+            }
+        )->find($attributes['id']);
 
-		if ($event instanceof ResourceTrashed) {
+        if ($event instanceof ResourceTrashed) {
 
-			$customerOrderItems = $this->customerOrderItems->with(
-				['product', 'product.productGroup', 'customer', 'customerOrder']
-			)->findAllByOrderId($attributes['id']);
+            $customerOrderItems = $this->customerOrderItems->with(
+                ['product', 'product.productGroup', 'customer', 'customerOrder']
+            )->findAllByOrderId($attributes['id']);
 
-			$this->customerOrderItems->trashWhere(
-				[
-					['customer_order_id', 'in', $customerOrderItems->pluck('customer_order_id')]
-				]
-			);
-		}
+            $this->customerOrderItems->trashWhere(
+                [
+                    ['customer_order_id', 'in', $customerOrderItems->pluck('customer_order_id')]
+                ]
+            );
+        }
 
-		if ($event instanceof ResourceDestroyed) {
+        if ($event instanceof ResourceDestroyed) {
 
-			$customerOrderItems = $this->customerOrderItems->with(
-				['product', 'product.productGroup', 'customer', 'customerOrder']
-			)->findAllByOrderId($attributes['id']);
+            $customerOrderItems = $this->customerOrderItems->with(
+                ['product', 'product.productGroup', 'customer', 'customerOrder']
+            )->findAllByOrderId($attributes['id']);
 
-			$this->customerOrderItems->destroyWhere(
-				[
-					['customer_order_id', 'in', $customerOrderItems->pluck('customer_order_id')]
-				]
-			);
-		}
+            $this->customerOrderItems->destroyWhere(
+                [
+                    ['customer_order_id', 'in', $customerOrderItems->pluck('customer_order_id')]
+                ]
+            );
+        }
 
-		if ($event instanceof ResourceRestored) {
+        if ($event instanceof ResourceRestored) {
 
-			$customerOrderItems = $this->customerOrderItems->with(
-				['product', 'product.productGroup', 'customer', 'customerOrder']
-			)->findAllByOrderId($attributes['id']);
+            $customerOrderItems = $this->customerOrderItems->with(
+                ['product', 'product.productGroup', 'customer', 'customerOrder']
+            )->findAllByOrderId($attributes['id']);
 
-			$this->customerOrderItems->restoreWhere(
-				[
-					['customer_order_id', 'in', $customerOrderItems->pluck('customer_order_id')]
-				]
-			);
-		}
+            $this->customerOrderItems->restoreWhere(
+                [
+                    ['customer_order_id', 'in', $customerOrderItems->pluck('customer_order_id')]
+                ]
+            );
+        }
 
-		$items = collect(array_get($params, 'customerOrderItems', []));
+        $items = Arr::get($params, 'customerOrderItems', []);
 
-		if ($items->count()) {
-			$totalQuantity = $this->getTotalSalesUnitQuantity($items);
+        $totalQuantity = $this->getTotalSalesUnitQuantity($items);
 
-			foreach ($items as $idx => $item) {
+        foreach ($items as $idx => $item) {
 
-				if (isset($item['_remove']) && (boolean)$item['_remove'] === true) {
-					$this->customerOrderItems->trash($item['id']);
+            $id = $item['id'] ?? false;
+            $status = $item['status'] ?? false;
+            $removing = $item['_remove'] ?? false;
 
-					continue;
-				}
+            if ($removing) {
 
-				if (isset($item['status']) && $item['status'] === config('stock.status.invoice')) {
-					continue;
-				}
+                if ($id) {
+                    $this->customerOrderItems->destroy($item['id']);
+                }
 
-				$item['product_manual_price'] = (isset($item['product_manual_price']) ? (boolean)$item['product_manual_price'] : false);
+                continue;
+            }
 
-				$product = $this->products->with('productGroup')->find($item['product']);
-				$productGroup = $product->productGroup;
-				$price = $item['product_manual_price'] ? $item['product_price'] : $this->customerPricingPolicies->getPriceBySalesUnitQuantity(
-					$totalQuantity,
-					$attributes['customer_id'],
-					$productGroup->id
-				);
+            if ($status && $status === config('stock.status.invoice')) {
+                continue;
+            }
 
-				$depositPrice = (float)$product->deposit_price;
-				$depositVat = (int)$product->deposit_vat;
+            $item['product_manual_price'] = booleanize($item['product_manual_price'] ?? false);
 
-				unset($item['product']);
+            $product = $this->products->with('productGroup')->find($item['product']);
+            $productGroup = $product->productGroup;
+            $price = $item['product_manual_price'] ? $item['product_price'] : $this->customerPricingPolicies->getPriceBySalesUnitQuantity(
+                $totalQuantity,
+                $attributes['customer_id'],
+                $productGroup->id
+            );
 
-				$item['product_id'] = $product->id;
-				$item['product_name'] = $product->name;
-				$item['product_price'] = $price;
-				$item['product_vat_price'] = $price + ($price * ($productGroup->vat / 100));
-				$item['packages_quantity'] = $item['sales_unit_quantity'] * $productGroup->sales_unit_volume / $product->number_in_package;
+            $depositPrice = (float)$product->deposit_price;
+            $depositVat = (int)$product->deposit_vat;
 
-				$item['products_quantity'] = $item['packages_quantity'] * $product->number_in_package;
+            unset($item['product']);
 
-				$item['total_price'] = $item['products_quantity'] * $item['product_price'];
-				$item['total_vat_price'] = $item['total_price'] + ($item['total_price'] * ($productGroup->vat / 100));
-				$item['vat'] = $productGroup->vat;
+            $item['product_id'] = $product->id;
+            $item['product_name'] = $product->name;
+            $item['product_price'] = $price;
+            $item['product_vat_price'] = $price + ($price * ($productGroup->vat / 100));
+            $item['packages_quantity'] = $item['sales_unit_quantity'] * $productGroup->sales_unit_volume / $product->number_in_package;
 
-				$item['bypass'] = (isset($item['bypass']) ? (boolean)$item['bypass'] : false);
-				$item['back_order'] = (isset($item['back_order']) ? (boolean)$item['back_order'] : false);
+            $item['products_quantity'] = $item['packages_quantity'] * $product->number_in_package;
 
-				if ($event instanceof ResourceStored) {
-					$item['status'] = config('stock.status.open');
-				}
+            $item['total_price'] = $item['products_quantity'] * $item['product_price'];
+            $item['total_vat_price'] = $item['total_price'] + ($item['total_price'] * ($productGroup->vat / 100));
+            $item['vat'] = $productGroup->vat;
 
-				if ($item['back_order']) {
-					if (isset($item['expected_date']) && $item['expected_date']) {
-						$item['expected_date'] = Carbon::createFromFormat('d/m/Y', $item['expected_date']);
-					} else {
-						$item['expected_date'] = Carbon::now()->addDays(7);
-					}
+            $item['bypass'] = (isset($item['bypass']) ? (boolean)$item['bypass'] : false);
+            $item['back_order'] = (isset($item['back_order']) ? (boolean)$item['back_order'] : false);
 
-					$item['status'] = config('stock.status.open');
-					$item['customer_shipment_id'] = null;
-				} else {
-					$item['expected_date'] = null;
-				}
+            if ($event instanceof ResourceStored) {
+                $item['status'] = config('stock.status.open');
+            }
 
-				$item['cancelled'] = (isset($item['cancelled']) ? (boolean)$item['cancelled'] : false);
+            if ($item['back_order']) {
+                if (isset($item['expected_date']) && $item['expected_date']) {
+                    $item['expected_date'] = Carbon::createFromFormat('d/m/Y', $item['expected_date']);
+                } else {
+                    $item['expected_date'] = Carbon::now()->addDays(7);
+                }
 
-				$item['deposit_enabled'] = $product->deposit_enabled;
+                $item['status'] = config('stock.status.open');
+                $item['customer_shipment_id'] = null;
+            } else {
+                $item['expected_date'] = null;
+            }
 
-				$item['deposit_price'] = $depositPrice;
-				$item['deposit_vat'] = $depositVat;
-				$item['deposit_vat_price'] = $depositPrice + ($depositPrice * ($depositVat / 100));
+            $item['cancelled'] = (isset($item['cancelled']) ? (boolean)$item['cancelled'] : false);
 
-				$item['deposit_total_price'] = $item['products_quantity'] * $item['deposit_price'];
-				$item['deposit_total_vat'] = 0.00;
-				$item['deposit_total_vat_price'] = $item['products_quantity'] * $item['deposit_vat_price'];
+            $item['deposit_enabled'] = $product->deposit_enabled;
 
-				$item['customer_id'] = $attributes['customer_id'];
-				$item['customer_order_id'] = $attributes['id'];
+            $item['deposit_price'] = $depositPrice;
+            $item['deposit_vat'] = $depositVat;
+            $item['deposit_vat_price'] = $depositPrice + ($depositPrice * ($depositVat / 100));
 
-				if ($event instanceof ResourceStored) {
-					$this->customerOrderItems->create($item);
-				} else {
-					$id = array_pull($item, 'id');
-					$this->customerOrderItems->updateOrCreate(compact('id'), $item);
-				}
-			}
-		}
+            $item['deposit_total_price'] = $item['products_quantity'] * $item['deposit_price'];
+            $item['deposit_total_vat'] = 0.00;
+            $item['deposit_total_vat_price'] = $item['products_quantity'] * $item['deposit_vat_price'];
 
-		$customerOrderItems = $this->customerOrderItems->with(
-			['product', 'product.productGroup', 'customer', 'customerOrder']
-		)->findAllByOrderId($attributes['id']);
+            $item['customer_id'] = $attributes['customer_id'];
+            $item['customer_order_id'] = $attributes['id'];
 
-		event(new CustomerOrderItemsAssigned($order, $customerOrderItems, $attributes, $params));
-	}
+            if ($event instanceof ResourceStored) {
+                $this->customerOrderItems->create($item);
+            } else {
+                $id = Arr::pull($item, 'id');
+                $this->customerOrderItems->updateOrCreate(compact('id'), $item);
+            }
+        }
+
+        $customerOrderItems = $this->customerOrderItems->with(
+            ['product', 'product.productGroup', 'customer', 'customerOrder']
+        )->findAllByOrderId($attributes['id']);
+
+        event(new CustomerOrderItemsAssigned($order, $customerOrderItems, $attributes, $params));
+    }
 
     /**
      * @return array
@@ -241,15 +247,15 @@ class AssignCustomerOrderItems
         ];
     }
 
-	/**
-	 * @param Collection $items
-	 *
-	 * @return mixed
-	 */
-	protected function getTotalSalesUnitQuantity(Collection $items)
-	{
-		return $items->filter(function ($item) {
-			return !(isset($item['_remove']) && (boolean)$item['_remove'] === true);
-		})->sum('sales_unit_quantity');
-	}
+    /**
+     * @param Collection $items
+     *
+     * @return mixed
+     */
+    protected function getTotalSalesUnitQuantity($items)
+    {
+        return collect($items)->filter(function ($item) {
+            return false === booleanize($item['_remove'] ?? false);
+        })->sum('sales_unit_quantity');
+    }
 }

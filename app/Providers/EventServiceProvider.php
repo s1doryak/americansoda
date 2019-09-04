@@ -22,28 +22,170 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceStored::class => [
+
+            /**
+             * Исправляем номер клиента
+             */
+            \App\Listeners\Dashboard\FixCustomerNumber::class,
+
+            /**
+             * Исправляем номер заказа
+             */
+            \App\Listeners\Dashboard\FixCustomerOrderNumber::class,
+
+            /**
+             * Устанавливаем атрибуты счёта
+             */
             \App\Listeners\Dashboard\SetupCustomerInvoiceAttributes::class,
+
+            /**
+             * Создает позициии счёта клиента (делает синхронизацию 1-М сущностей)
+             */
             \App\Listeners\Dashboard\AssignCustomerInvoiceItems::class,
+
+            /**
+             * Создает ценовые политики (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignCustomerPricingPolicies::class,
+
+            /**
+             * Создает позициии заказа клиента (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignCustomerOrderItems::class,
+
+            /**
+             * Создает позициии товара на складе (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignStockMovementProducts::class,
+
+            /**
+             * Создает ревизию информации о клиенте
+             */
+            \App\Listeners\Dashboard\CreateCustomerRevision::class,
+
+            /**
+             * Создает ревизию ценовых политик клиента
+             */
+            \App\Listeners\Dashboard\CreateCustomerPricingPolicyRevision::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceUpdated::class => [
+
+            /**
+             * Устанавливаем атрибуты счёта
+             */
             \App\Listeners\Dashboard\SetupCustomerInvoiceAttributes::class,
+
+            /**
+             * Создает позициии счёта клиента (делает синхронизацию 1-М сущностей)
+             */
             \App\Listeners\Dashboard\AssignCustomerInvoiceItems::class,
+
+            /**
+             * Создает ценовые политики (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignCustomerPricingPolicies::class,
+
+            /**
+             * Создает позициии заказа клиента (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignCustomerOrderItems::class,
+
+            /**
+             * Удаляет позиции заказ из отгрузки (если была нажата кнопка Remove)
+             */
+            \App\Listeners\Dashboard\ManageShipmentsAndAssemblies::class,
+
+            /**
+             * Создает ревизию информации о клиенте
+             */
+            \App\Listeners\Dashboard\CreateCustomerRevision::class,
+
+            /**
+             * Создает ревизию ценовых политик клиента
+             */
+            \App\Listeners\Dashboard\CreateCustomerPricingPolicyRevision::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceDestroyed::class => [
-            \App\Listeners\Dashboard\SetupCustomerInvoiceAttributes::class,
+
+            /**
+             * Создает позициии счёта клиента (делает синхронизацию 1-М сущностей)
+             */
             \App\Listeners\Dashboard\AssignCustomerInvoiceItems::class,
+
+            /**
+             * Создает позициии заказа клиента (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignCustomerOrderItems::class,
+
+            /**
+             * При удалении отгрузки очищать номера сборки у позиций заказа
+             */
+            \App\Listeners\Dashboard\ManageShipmentsAndAssemblies::class,
+
+            /**
+             * Создает ревизию информации о клиенте
+             */
+            \App\Listeners\Dashboard\CreateCustomerRevision::class,
+
+            /**
+             * Создает ревизию ценовых политик клиента
+             */
+            \App\Listeners\Dashboard\CreateCustomerPricingPolicyRevision::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceTrashed::class => [
-            \App\Listeners\Dashboard\SetupCustomerInvoiceAttributes::class,
+
+            /**
+             * Создает позициии счёта клиента (делает синхронизацию 1-М сущностей)
+             */
             \App\Listeners\Dashboard\AssignCustomerInvoiceItems::class,
+
+            /**
+             * Создает позициии заказа клиента (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignCustomerOrderItems::class,
+
+            /**
+             * При удалении отгрузки очищать номера сборки у позиций заказа
+             */
+            \App\Listeners\Dashboard\ManageShipmentsAndAssemblies::class,
+
+            /**
+             * Создает ревизию информации о клиенте
+             */
+            \App\Listeners\Dashboard\CreateCustomerRevision::class,
+
+            /**
+             * Создает ревизию ценовых политик клиента
+             */
+            \App\Listeners\Dashboard\CreateCustomerPricingPolicyRevision::class,
+
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceRestored::class => [
-            \App\Listeners\Dashboard\SetupCustomerInvoiceAttributes::class,
+
+            /**
+             * Создает позициии счёта клиента (делает синхронизацию 1-М сущностей)
+             */
             \App\Listeners\Dashboard\AssignCustomerInvoiceItems::class,
+
+            /**
+             * Создает позициии заказа клиента (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignCustomerOrderItems::class,
+
+            /**
+             * Создает ревизию информации о клиенте
+             */
+            \App\Listeners\Dashboard\CreateCustomerRevision::class,
+
+            /**
+             * Создает ревизию ценовых политик клиента
+             */
+            \App\Listeners\Dashboard\CreateCustomerPricingPolicyRevision::class,
+
         ],
 
         /**

@@ -6,7 +6,11 @@
             <td class="logo">
                 <img src="{{ asset('assets/dashboard/img/american_soda/logo_document.png') }}" alt="{{ $company->name }}">
             </td>
-            <td class="caption text-center">Tilausvahvistus</td>
+            @if($hasNegativeItems)
+                <td class="caption text-center">Hyvityslasku</td>
+            @else
+                <td class="caption text-center">Tilausvahvistus</td>
+            @endif
             <td></td>
         </tr>
     </table>

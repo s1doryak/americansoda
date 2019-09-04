@@ -26,10 +26,10 @@ class CustomerOrderTransformer implements TransformerContract
 			'number' => $request->get('number'),
 			'batch_number' => $request->get('batch_number'),
 			'comment' => $request->get('comment'),
-			'fc_overdue' => (integer)$request->get('fc_overdue'),
-			'fc_comment' => $request->get('fc_comment'),
-			'fc_future_comment' => $request->get('fc_future_comment'),
-			'sent_at' => $request->get('sent_at'),
+			//'fc_overdue' => (integer)$request->get('fc_overdue'),
+			//'fc_comment' => $request->get('fc_comment'),
+			//'fc_future_comment' => $request->get('fc_future_comment'),
+			//'sent_at' => $request->get('sent_at'),
 			'customer' => (integer)$request->get('customer'),
 			'user' => (integer)$request->get('user'),
 
@@ -46,12 +46,12 @@ class CustomerOrderTransformer implements TransformerContract
 			'number' => $request->get('number'),
 			'batch_number' => $request->get('batch_number'),
 			'comment' => $request->get('comment'),
-			'fc_overdue' => (integer)$request->get('fc_overdue'),
-			'fc_comment' => $request->get('fc_comment'),
-			'fc_future_comment' => $request->get('fc_future_comment'),
-			'sent_at' => $request->get('sent_at'),
-			'customer' => (integer)$request->get('customer'),
-			'user' => (integer)$request->get('user'),
+			//'fc_overdue' => (integer)$request->get('fc_overdue'),
+			//'fc_comment' => $request->get('fc_comment'),
+			//'fc_future_comment' => $request->get('fc_future_comment'),
+			//'sent_at' => $request->get('sent_at'),
+			//'customer' => (integer)$request->get('customer'),
+			//'user' => (integer)$request->get('user'),
 
 		];
 	}

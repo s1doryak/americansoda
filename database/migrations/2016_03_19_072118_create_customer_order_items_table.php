@@ -31,8 +31,8 @@ class CreateCustomerOrderItemsTable extends Migration
 			$table->decimal('product_price', 20, 4)->nullable();
 			$table->unsignedInteger('vat')->nullable();
 			$table->decimal('product_vat_price', 20, 4)->nullable();
-			$table->unsignedInteger('products_quantity')->nullable();
-			$table->unsignedInteger('packages_quantity')->nullable();
+			$table->integer('products_quantity')->nullable();
+			$table->integer('packages_quantity')->nullable();
 			$table->decimal('total_price', 20, 4)->nullable();
 			$table->decimal('total_vat_price', 20, 4)->nullable();
 

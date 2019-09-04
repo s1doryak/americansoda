@@ -2,7 +2,7 @@
 
     <div class="daterangepicker-container" data-filter-container="{{ $filter->name }}">
         <input type="hidden" name="filters[{{ $idx }}][name]" value="{{ $filter->name }}">
-        <input type="text" name="filters[{{ $idx }}][value]" value="" data-filter-name="{{ $filter->name }}" class="form-control input-sm">
+        <input type="text" name="filters[{{ $idx }}][value]" value="{{ $filter->default }}" data-filter-name="{{ $filter->name }}" class="form-control input-sm">
     </div>
 
     @section('scripts')

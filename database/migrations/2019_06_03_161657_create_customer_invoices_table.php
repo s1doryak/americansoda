@@ -34,7 +34,7 @@ class CreateCustomerInvoicesTable extends Migration
 			$table->string('delivery_type')->nullable();
 			$table->string('error_message')->nullable();
 			$table->string('invoice_delivery_address')->nullable();
-			$table->string('invoice_nr')->nullable();
+			$table->integer('invoice_nr')->nullable();
 			$table->string('invoice_seller_information')->nullable();
 			$table->string('lang')->nullable();
 			$table->text('notes')->nullable();
@@ -51,7 +51,7 @@ class CreateCustomerInvoicesTable extends Migration
 			$table->string('company_reminder')->nullable();
 			$table->text('company_comment')->nullable();
 			$table->string('company_reference')->nullable();
-			$table->string('customer_nr')->nullable();
+			$table->integer('customer_nr')->nullable();
 			$table->string('customer_email')->nullable();
 			$table->string('customer_name')->nullable();
 			$table->string('customer_country')->nullable();

@@ -2,28 +2,29 @@
 
 namespace App\Listeners\Dashboard;
 
+use App\Customer;
+use App\Repositories\Contracts\CustomerRepository;
 use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
-use App\Repositories\Contracts\CustomerOrderRepository;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
 
-class FixCustomerOrderNumber
+class FixCustomerNumber
 {
     use ValidatesResource;
 
     /**
-     * @var CustomerOrderRepository
+     * @var CustomerRepository
      */
-    protected $customerOrders;
+    protected $customers;
 
     /**
-     * FixCustomerOrderNumber constructor.
-     * @param CustomerOrderRepository $customerOrderRepository
+     * FixCustomerNumber constructor.
+     * @param CustomerRepository $customerRepository
      */
     public function __construct(
-        CustomerOrderRepository $customerOrderRepository
+        CustomerRepository $customerRepository
     )
     {
-        $this->customerOrders = $customerOrderRepository;
+        $this->customers = $customerRepository;
     }
 
     /**
@@ -42,19 +43,20 @@ class FixCustomerOrderNumber
 
         $attributes = $event->getAttributes();
 
-        $order = $this->customerOrders->scopeQuery(
+        /** @var Customer $customer */
+        $customer = $this->customers->scopeQuery(
             function ($query) {
                 /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\SoftDeletes $query */
                 return $query->withTrashed();
             }
         )->find($attributes['id']);
 
-        if ($order->trashed()) {
+        if ($customer->trashed()) {
             return;
         }
 
-        $this->customerOrders->update([
-            'number' => $this->customerOrders->getFirstAvailableNumber($order->number, [$order->id])
+        $this->customers->update([
+            'nr' => $this->customers->getFirstAvailableNumber([$customer->id])
         ], $attributes['id']);
     }
 
@@ -64,8 +66,8 @@ class FixCustomerOrderNumber
     protected function getValidResources()
     {
         return [
-            'customer.order',
-            'customer_order',
+            'customer',
+            'customer',
         ];
     }
 
