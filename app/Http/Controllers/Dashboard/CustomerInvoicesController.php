@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Company;
 use App\Customer;
+use App\Jobs\MaventaConfirmInvoice;
 use App\Jobs\MaventaCreateInvoice;
 use App\Repositories\Contracts\CompanyRepository;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
@@ -301,12 +302,12 @@ class CustomerInvoicesController extends ResourceController
      */
     public function maventaPaid()
     {
-        /** @var CustomerInvoice $customerInvoice */
-        $customerInvoice = $this->repository->update([
-            'maventa_paid' => true
-        ], $this->getResourceId());
+        /** @var CustomerInvoice|null $customerInvoice */
+        $result = MaventaConfirmInvoice::dispatchNow(
+            $this->getResourceId()
+        );
 
-        return $customerInvoice->maventa_paid;
+        return $result ? $result : 'ERROR';
     }
 
     /**
