@@ -191,6 +191,124 @@ class CustomerInvoiceTransformer implements TransformerContract
      */
     public static function toMaventaArray($customerInvoice)
     {
+        /**
+         * # Gather needed data for invoice customer
+         * $customer = array();
+         * $customer['customer_nr'] = '1001';
+         * $customer['name'] = 'Test Customer';
+         * $customer['email'] = 'test.customer@maventa.com';
+         * $customer['bid'] = 'FI12345678';
+         * $customer['address1'] = 'Customer address';
+         * $customer['address2'] = ';
+         * $customer['post_code'] = '00100';
+         * $customer['post_office'] = 'Helsinki';
+         * $customer['country'] = 'FI';
+         * $customer['contact_p'] = 'Customer Test';
+         * $customer['lang'] = 'FI';
+         * $customer['customer_type'] = 'COMPANY';
+         * $customer['state'] = null;
+         * $customer['phone'] = null;
+         * $customer['gsm'] = null;
+         * $customer['ovt'] = null;
+         */
+
+        $customer = CustomerTransformer::toMaventaArray($customerInvoice->customer);
+
+        /**
+         * # Gather invoice items into array
+         * # NOTE! Items are an array of arrays
+         * $items = array();
+         *
+         * $inv_items = array();
+         * $inv_items['position'] = 1;
+         * $inv_items['item_code'] = 'itm0001';
+         * $inv_items['subject'] = 'Test item';
+         * $inv_items['unit_type'] = 'pcs';
+         * $inv_items['amount'] = 10;
+         * $inv_items['price'] = '10';
+         * $inv_items['discount'] = 0;
+         * $inv_items['definition'] = 'red';
+         * $inv_items['tax'] = 22;
+         * $inv_items['sum'] = '100';
+         * $inv_items['sum_tax'] = '122';
+         * $inv_items['data'] = 'null';
+         *
+         * array_push($items, $inv_items);
+         */
+
+        $items = CustomerInvoiceItemTransformer::mapMaventa($customerInvoice->customerInvoiceItems)->toArray();
+
+        /**
+         * $bank_accounts = array();
+         *
+         * $bank_account = array();
+         * $bank_account['iban'] = 'FI1234561212244';
+         * $bank_account['swift'] = 'TSTBNKFIHH';
+         * $bank_account['account'] = null;
+         * $bank_account['bank'] = null;
+         * $bank_account['default'] = null;
+         *
+         * array_push($bank_accounts, $bank_account);
+         */
+
+        $bank_accounts = CompanyBankAccountTransformer::mapMaventa($customerInvoice->companyBankAccounts)->toArray();
+
+        $disabled_routes = array();
+        $disabled_routes['paper'] = false;
+        $disabled_routes['relay'] = true;
+        $disabled_routes['email'] = true;
+
+        $attachments_out = array();
+
+        $attachment = array();
+        $attachment['filename'] = 'liite1.pdf';
+        $attachment['attachment_type'] = 'ATTACHMENT';
+        $attachment['file'] = base64_encode(file_get_contents('liite1.pdf'));
+
+        array_push($attachments_out, $attachment);
+
+        # Gather invoice data
+        $invoice = array();
+        $invoice['attachments'] = [];
+        $invoice['bank_accounts'] = [];
+        $invoice['company_comment'] = null;
+        $invoice['company_interest'] = null;
+        $invoice['company_paper_fee'] = null;
+        $invoice['company_postal'] = null;
+        $invoice['company_reference'] = null;
+        $invoice['company_reminder'] = null;
+        $invoice['company_website'] = null;
+        $invoice['currency'] = 'EUR';
+        $invoice['customer'] = [];
+        $invoice['customer_maventa_id'] = null;
+        $invoice['customer_reference'] = null;
+        $invoice['data'] = [];
+        $invoice['date'] = '20091028';
+        $invoice['date_due'] = '20091104';
+        $invoice['delivery_date'] = null;
+        $invoice['delivery_type'] = null;
+        $invoice['disabled_routes'] = [];
+        $invoice['invoice_delivery_address'] = null;
+        $invoice['invoice_nr'] = '1001';
+        $invoice['invoice_seller_information'] = null;
+        $invoice['items'] = [];
+        $invoice['lang'] = 'FI';
+        $invoice['notes'] = null;
+        $invoice['order_nr'] = null;
+        $invoice['payment_terms'] = null;
+        $invoice['reference_nr'] = '10012';
+        $invoice['require_sign'] = null;
+        $invoice['sum'] = '100.00';
+        $invoice['sum_tax'] = '122.00';
+        $invoice['work_order_nr'] = null;
+
+        # Assign customer and item info to invoice
+        $invoice['customer'] = $customer;
+        $invoice['items'] = $items;
+        $invoice['disabled_routes'] = $disabled_routes;
+        $invoice['attachments'] = $attachments_out;
+        $invoice['bank_accounts'] = $bank_accounts;
+
         throw new \Exception('Method not implemented yet.');
     }
 }

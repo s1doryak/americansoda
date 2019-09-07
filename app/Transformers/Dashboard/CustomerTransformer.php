@@ -165,4 +165,15 @@ class CustomerTransformer implements TransformerContract
 
         ];
     }
+
+    /**
+     * @param Customer $customer
+     * @return array
+     */
+    public static function toMaventaArray($customer)
+    {
+        return [
+
+        ];
+    }
 }

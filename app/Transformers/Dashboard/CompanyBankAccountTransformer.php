@@ -6,6 +6,7 @@ use App\CompanyBankAccount;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Transformers\Contracts\TransformerContract;
 use Crmplease\MaterialAdmin\Transformers\Traits\Collector;
+use Illuminate\Support\Collection;
 
 /**
  * CompanyBankAccount transformer.
@@ -70,4 +71,30 @@ class CompanyBankAccountTransformer implements TransformerContract
 			'deleted_at' => (string)$companyBankAccount->deleted_at,
 		];
 	}
+
+    /**
+     * @param CompanyBankAccount $companyBankAccount
+     * @return array
+     */
+    public static function toMaventaArray($companyBankAccount)
+    {
+        return [
+            'bank' => $companyBankAccount->bank,
+            'swift' => $companyBankAccount->swift,
+            'account' => $companyBankAccount->account,
+            'iban' => $companyBankAccount->iban,
+            'default' => (boolean)$companyBankAccount->default,
+        ];
+    }
+
+    /**
+     * @param Collection $collection
+     * @return Collection
+     */
+    public static function mapMaventa($collection)
+    {
+        return $collection->map(function ($item) {
+            return self::toMaventaArray($item);
+        });
+    }
 }

@@ -6,6 +6,7 @@ use App\CustomerInvoiceItem;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Transformers\Contracts\TransformerContract;
 use Crmplease\MaterialAdmin\Transformers\Traits\Collector;
+use Illuminate\Support\Collection;
 
 /**
  * CustomerInvoiceItem transformer.
@@ -91,5 +92,27 @@ class CustomerInvoiceItemTransformer implements TransformerContract
             'updated_at' => (string)$customerInvoiceItem->updated_at,
             'deleted_at' => (string)$customerInvoiceItem->deleted_at,
         ];
+    }
+
+    /**
+     * @param CustomerInvoiceItem $customerInvoiceItem
+     * @return array
+     */
+    public static function toMaventaArray($customerInvoiceItem)
+    {
+        return [
+
+        ];
+    }
+
+    /**
+     * @param Collection $collection
+     * @return Collection
+     */
+    public static function mapMaventa($collection)
+    {
+        return $collection->map(function ($item) {
+            return self::toMaventaArray($item);
+        });
     }
 }
