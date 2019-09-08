@@ -22,7 +22,8 @@ class CustomerTransformer implements TransformerContract
      */
     public static function transformStoreRequest(Request $request)
     {
-        return ['name' => $request->get('name'),
+        return [
+            'name' => $request->get('name'),
             'legal_name' => $request->get('legal_name'),
             'billing_postcode' => $request->get('billing_postcode'),
             'billing_address' => $request->get('billing_address'),
@@ -70,7 +71,8 @@ class CustomerTransformer implements TransformerContract
      */
     public static function transformUpdateRequest(Request $request)
     {
-        return ['name' => $request->get('name'),
+        return [
+            'name' => $request->get('name'),
             'legal_name' => $request->get('legal_name'),
             'billing_postcode' => $request->get('billing_postcode'),
             'billing_address' => $request->get('billing_address'),
@@ -118,7 +120,8 @@ class CustomerTransformer implements TransformerContract
      */
     public static function toArray($customer)
     {
-        return ['id' => (int)$customer->getKey(),
+        return [
+            'id' => (int)$customer->getKey(),
             'name' => $customer->name,
             'legal_name' => $customer->legal_name,
             'billing_postcode' => $customer->billing_postcode,
@@ -162,7 +165,6 @@ class CustomerTransformer implements TransformerContract
             'bid' => $customer->bid,
             'ovt' => $customer->ovt,
             'priceGroup' => $customer->priceGroup ? PriceGroupTransformer::toArray($customer->priceGroup) : null,
-
         ];
     }
 
@@ -172,8 +174,49 @@ class CustomerTransformer implements TransformerContract
      */
     public static function toMaventaArray($customer)
     {
-        return [
+        /**
+         * # Gather needed data for invoice customer
+         * $customer = array();
+         * $customer['customer_nr'] = '1001';
+         * $customer['name'] = 'Test Customer';
+         * $customer['email'] = 'test.customer@maventa.com';
+         * $customer['bid'] = 'FI12345678';
+         * $customer['address1'] = 'Customer address';
+         * $customer['address2'] = '';
+         * $customer['post_code'] = '00100';
+         * $customer['post_office'] = 'Helsinki';
+         * $customer['country'] = 'FI';
+         * $customer['contact_p'] = 'Customer Test';
+         * $customer['lang'] = 'FI';
+         * $customer['customer_type'] = 'COMPANY';
+         * $customer['state'] = null;
+         * $customer['phone'] = null;
+         * $customer['gsm'] = null;
+         * $customer['ovt'] = null;
+         */
 
+        return [
+            'customer_type' => 'COMPANY',
+            'customer_nr' => $customer->nr,
+
+            'name' => $customer->name,
+            'email' => $customer->email,
+            'phone' => $customer->phone,
+            'gsm' => null,
+
+
+            'lang' => 'FI',
+            'country' => $customer->country,
+            'state' => $customer->state,
+            'post_code' => $customer->post_code,
+            'post_office' => $customer->post_office,
+            'address1' => $customer->address1,
+            'address2' => $customer->address2,
+
+            'contact_p' => $customer->contact_p,
+
+            'bid' => $customer->bid,
+            'ovt' => $customer->ovt,
         ];
     }
 }

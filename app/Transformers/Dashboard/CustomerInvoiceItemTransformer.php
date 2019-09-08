@@ -100,8 +100,40 @@ class CustomerInvoiceItemTransformer implements TransformerContract
      */
     public static function toMaventaArray($customerInvoiceItem)
     {
-        return [
+        /**
+         * # Gather invoice items into array
+         * # NOTE! Items are an array of arrays
+         * $items = array();
+         *
+         * $inv_items = array();
+         * $inv_items['position'] = 1;
+         * $inv_items['item_code'] = 'itm0001';
+         * $inv_items['subject'] = 'Test item';
+         * $inv_items['unit_type'] = 'pcs';
+         * $inv_items['amount'] = 10;
+         * $inv_items['price'] = '10';
+         * $inv_items['discount'] = 0;
+         * $inv_items['definition'] = 'red';
+         * $inv_items['tax'] = 22;
+         * $inv_items['sum'] = '100';
+         * $inv_items['sum_tax'] = '122';
+         * $inv_items['data'] = 'null';
+         *
+         * array_push($items, $inv_items);
+         */
 
+        return [
+            'position' => $customerInvoiceItem->position,
+            'item_code' => $customerInvoiceItem->item_code,
+            'subject' => $customerInvoiceItem->subject,
+            'definition' => $customerInvoiceItem->discount,
+            'unit_type' => $customerInvoiceItem->unit_type,
+            'price' => $customerInvoiceItem->price,
+            'discount' => $customerInvoiceItem->discount,
+            'amount' => $customerInvoiceItem->amount,
+            'sum' => $customerInvoiceItem->sum,
+            'tax' => $customerInvoiceItem->tax,
+            'sum_tax' => $customerInvoiceItem->sum_tax,
         ];
     }
 

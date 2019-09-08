@@ -10,6 +10,94 @@ docker-compose run artisan generate:namespace Dashboard
 docker-compose run artisan generate:locale fi
 ```
 
+### Тестовый счет:
+```json
+{
+    "status": "OK",
+    "customer_bid": "FI22875676",
+    "customer_ovt": "003722875676",
+    "customer_country": "FI",
+    "reference_nr": "316 48062",
+    "company_paper_fee": "0.0",
+    "items": [
+        {
+            "item_code": "",
+            "sum_tax": "0.0",
+            "unit_type": "kpl",
+            "tax": 24.0,
+            "position": 1,
+            "amount": 1.0,
+            "subject": "KYLM\u00c4LAITE",
+            "sum": "0.0",
+            "discount": 0.0,
+            "price": "0.0",
+            "definition": "AMERICAN SODA - kylm\u00e4laite C5G HELKAMA"
+        }
+    ],
+    "sum_tax": "0.0",
+    "payment_terms": "",
+    "notes": "testi laskutus",
+    "company_reference": "",
+    "customer_comment": null,
+    "work_order_nr": "",
+    "actions": [
+        {
+            "timestamp": "Wed Sep 04 22:00:18 +0300 2019",
+            "action": "CREATED"
+        },
+        {
+            "timestamp": "Wed Sep 04 22:10:19 +0300 2019",
+            "action": "INTERNAL"
+        },
+        {
+            "timestamp": "Thu Sep 05 12:25:12 +0300 2019",
+            "action": "INCOMING_RECEIVE"
+        },
+        {
+            "timestamp": "Thu Sep 05 12:25:12 +0300 2019",
+            "action": "SEEN"
+        }
+    ],
+    "invoice_seller_information": null,
+    "state": 1,
+    "customer_address1": "Hitsaajankatu 6",
+    "customer_state": null,
+    "accounts": [
+        {
+            "account": "106430-240775",
+            "swift": "NDEAFIHH",
+            "iban": "FI72 1064 3000 240775",
+            "bank": "Nordea"
+        }
+    ],
+    "customer_contact_p": "DENIS SARVI",
+    "company_reminder": "0.0",
+    "date_due": "20190918",
+    "attachments": null,
+    "customer_address2": "",
+    "customer_name": "GTP OY",
+    "customer_email": "",
+    "delivery_type": null,
+    "lang": "FI",
+    "company_comment": "",
+    "invoice_nr": "4806",
+    "date": "20190904",
+    "customer_post_code": "00810",
+    "invoice_delivery_address": null,
+    "customer_nr": "316",
+    "customer_reference": "",
+    "sum": "0.0",
+    "id": "16bb6282-2ad3-49a8-9eb3-1c5eab355773",
+    "currency": "EUR",
+    "customer_post_office": "Helsinki",
+    "delivery_date": null,
+    "error_message": "",
+    "order_nr": null,
+    "company_interest": "8.0",
+    "data": null
+}
+```
+
 ### Восстановление таблицы `migrations`:
 ```sql
 insert into migrations values
