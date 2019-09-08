@@ -129,9 +129,9 @@ insert into migrations values
 ('2016_08_02_094119_create_stock_products_table', 1);
 ```
 
-### Обновить Customer
+### Обновить Administrator
 ```bash
-docker-compose run artisan modify:resource Customer \
+docker-compose run artisan modify:resource Administrator \
     --namespace=Dashboard \
     \
     --field=locale \
