@@ -8,6 +8,7 @@ $factory->define(App\Administrator::class, function (Faker\Generator $faker) {
 		'password' => bcrypt('secret'),
 		'name' => $faker->unique()->name,
 		'phone' => $faker->unique()->phoneNumber,
+        'locale' => $faker->randomElement(['en', 'ru', 'fi']),
 		'avatar' => null,
     ];
 });

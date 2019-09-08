@@ -21,6 +21,7 @@ class AdministratorDataTable extends DataTable
             'name' => [
                 'searchable' => true
             ],
+            'locale',
             'phone',
             'role.name' => [
                 'data' => 'role.name'
@@ -38,6 +39,7 @@ class AdministratorDataTable extends DataTable
     {
         return [
             'name',
+            'locale',
             'email',
             'phone',
             'avatar',
