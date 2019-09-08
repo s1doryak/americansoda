@@ -26,6 +26,7 @@ class AdministratorTransformer implements TransformerContract
 			'email' => $request->get('email'),
 			'name' => $request->get('name'),
 			'phone' => $request->get('phone'),
+            'locale' => $request->get('locale'),
 			'avatar' => $request->file('avatar'),
 			'role' => (integer)$request->get('role'),
 			'company' => (integer)$request->get('company'),
@@ -43,10 +44,10 @@ class AdministratorTransformer implements TransformerContract
 			'email' => $request->get('email'),
 			'name' => $request->get('name'),
 			'phone' => $request->get('phone'),
+            'locale' => $request->get('locale'),
 			'avatar' => $request->file('avatar'),
 			'role' => (integer)$request->get('role'),
 			'company' => (integer)$request->get('company'),
-
 		];
 	}
 
@@ -61,6 +62,7 @@ class AdministratorTransformer implements TransformerContract
 			'email' => $administrator->email,
 			'name' => $administrator->name,
 			'phone' => $administrator->phone,
+            'locale' => $administrator->locale,
 			'avatar' => (string)$administrator->avatar ? asset((string)$administrator->avatar) : null,
 			'role' => $administrator->role ? RoleTransformer::toArray($administrator->role) : null,
 			'company' => $administrator->company ? CompanyTransformer::toArray($administrator->company) : null,

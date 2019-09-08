@@ -49,6 +49,7 @@ return [
 		'email_verified_at' => 'Email Verified At',
 		'password' => 'Password',
 		'name' => 'Name',
+        'locale' => 'Locale',
 		'phone' => 'Phone',
 		'avatar' => 'Avatar',
 		'role' => [
@@ -67,6 +68,7 @@ return [
 		'email_verified_at' => 'Email Verified At',
 		'password' => 'Password',
 		'name' => 'Name',
+        'locale' => 'Locale',
 		'phone' => 'Phone',
 		'avatar' => 'Avatar',
 		'role' => [

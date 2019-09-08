@@ -12,6 +12,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
  * @property string $password
  * @property string $name
  * @property string $phone
+ * @property string $locale
  * @property string $avatar
  * @property \App\Role $role
  * @property \App\Company $company
@@ -21,7 +22,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo role()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo company()
- *
  *
  * @package App
  */
@@ -33,6 +33,7 @@ class Administrator extends \Crmplease\MaterialAdmin\Foundation\Auth\User
 		'password',
 		'name',
 		'phone',
+        'locale',
 		'avatar',
 		'role_id',
 		'company_id',

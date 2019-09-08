@@ -49,6 +49,7 @@ return [
 		'email_verified_at' => 'Подтвержден',
 		'password' => 'Пароль',
 		'name' => 'Имя',
+        'locale' => 'Язык',
 		'phone' => 'Телефон',
 		'avatar' => 'Фотография',
 		'role' => [
@@ -67,6 +68,7 @@ return [
 		'email_verified_at' => 'Подтвержден',
 		'password' => 'Пароль',
 		'name' => 'Имя',
+        'locale' => 'Язык',
 		'phone' => 'Телефон',
 		'avatar' => 'Фотография',
 		'role' => [
