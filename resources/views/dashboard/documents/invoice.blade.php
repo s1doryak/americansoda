@@ -4,54 +4,96 @@
     <table class="table-33p">
         <tr>
             <td class="logo">
-                <img src="{{ asset('assets/dashboard/img/american_soda/logo_document.png') }}">
+                <img src="{{ asset('assets/dashboard/img/american_soda/logo_document.png') }}" alt="">
             </td>
-            <td class="caption text-center">Laskufaktura</td>
-            <td></td>
+            <td class="caption text-center">
+                Laskufaktura
+            </td>
+            <td>
+                <!-- ... -->
+            </td>
         </tr>
     </table>
     <table class="table-50p3">
         <tbody class="divider-thick">
         <tr>
-            <td><small>Toimittaja</small></td>
-            <td><small>Päivämäärä</small></td>
-            <td class="text-right"><small>Tilausnumero</small></td>
+            <td>
+                <small>Toimittaja</small>
+            </td>
+            <td>
+                <small>Päivämäärä</small>
+            </td>
+            <td class="text-right">
+                <small>Tilausnumero</small>
+            </td>
         </tr>
         <tr>
-            <td class="upper">{{ $company->name }} / {{ $company->legal_name }}</td>
-            <td>{{ $invoice->created_at->format('d.m.Y') }}</td>
-            <td class="number">{{ $invoice->number }}</td>
+            <td class="upper">
+                {{ $company->name }} / {{ $company->legal_name }}
+            </td>
+            <td>
+                {{ $invoice->created_at->format('d.m.Y') }}
+            </td>
+            <td class="number">
+                {{ $invoice->number }}
+            </td>
         </tr>
         <tr>
-            <td>{{ $company->address }}</td>
-            <td colspan="2"><small>Toimittaja viite</small></td>
+            <td>
+                {{ $company->address }}
+            </td>
+            <td colspan="2">
+                <small>Toimittaja viite</small>
+            </td>
         </tr>
         <tr>
-            <td>{{ $company->postcode }} {{ $company->region->name }}</td>
-            <td colspan="2">{{ $customer->user->name }}</td>
+            <td>
+                {{ $company->postcode }} {{ $company->region->name }}
+            </td>
+            <td colspan="2">
+                {{ $customer->user->name }}
+            </td>
         </tr>
         <tr>
-            <td rowspan="2">Y-tunnus: {{ $company->bid }}</td>
-            <td colspan="2"><small>Vastaanottajan viite</small></td>
+            <td rowspan="2">
+                Y-tunnus: {{ $company->bid }}
+            </td>
+            <td colspan="2">
+                <small>Vastaanottajan viite</small>
+            </td>
         </tr>
         <tr>
-            <td colspan="2">{{ $invoice->batch_number }}</td>
+            <td colspan="2">
+                {{ $invoice->batch_number }}
+            </td>
         </tr>
         </tbody>
     </table>
     <table class="table-50p">
         <tbody class="divider-thin">
         <tr>
-            <td><small>Tilaaja</small></td>
-            <td class="border-left"><small>Rahdinkuljettaja ja/tai Huolitsija</small></td>
+            <td>
+                <small>Tilaaja</small>
+            </td>
+            <td class="border-left">
+                <small>Rahdinkuljettaja ja/tai Huolitsija</small>
+            </td>
         </tr>
         <tr>
-            <td>{{ $customer->legal_name }}</td>
-            <td class="border-left transporter">{{ $company->name }} / {{ $company->legal_name }}</td>
+            <td>
+                {{ $customer->legal_name }}
+            </td>
+            <td class="border-left transporter">
+                {{ $company->name }} / {{ $company->legal_name }}
+            </td>
         </tr>
         <tr>
-            <td><b class="upper">{{ $customer->name }}</b></td>
-            <td class="border-left">Puh. <b>{{ $company->phone }}</b> Toimisto</td>
+            <td>
+                <b class="upper">{{ $customer->name }}</b>
+            </td>
+            <td class="border-left">
+                Puh. <b>{{ $company->phone }}</b> Toimisto
+            </td>
         </tr>
         <tr>
             <td>
@@ -59,15 +101,25 @@
                 {{ $customer->billing_postcode }}
                 {{ $customer->billingRegion->name }}
             </td>
-            <td class="border-left">Puh. <b>{{ $customer->user->phone }}</b> Myyjä</td>
+            <td class="border-left">
+                Puh. <b>{{ $customer->user->phone }}</b> Myyjä
+            </td>
         </tr>
         <tr>
-            <td>Y-tunnus: {{ $customer->bid }}</td>
-            <td class="border-left border-bottom">S-posti: {{ $customer->user->email }}</td>
+            <td>
+                Y-tunnus: {{ $customer->bid }}
+            </td>
+            <td class="border-left border-bottom">
+                S-posti: {{ $customer->user->email }}
+            </td>
         </tr>
         <tr>
-            <td><small>Tavaran toimitusosoite</small></td>
-            <td class="border-left"><small>Maksuehto</small></td>
+            <td>
+                <small>Tavaran toimitusosoite</small>
+            </td>
+            <td class="border-left">
+                <small>Maksuehto</small>
+            </td>
         </tr>
         <tr>
             <td>
@@ -75,13 +127,19 @@
                 {{ $customer->shipping_postcode }}
                 {{ $customer->shippingRegion->name }}
             </td>
-            <td class="border-left">{{ $customer->payment_conditions }}</td>
+            <td class="border-left">
+                {{ $customer->payment_conditions }}
+            </td>
         </tr>
         </tbody>
         <tbody class="divider-thin">
         <tr>
-            <td><small>Lähtö-ja lastauspaikka</small></td>
-            <td class="border-left"><small>Toimituslauseke</small></td>
+            <td>
+                <small>Lähtö-ja lastauspaikka</small>
+            </td>
+            <td class="border-left">
+                <small>Toimituslauseke</small>
+            </td>
         </tr>
         <tr>
             <td>
@@ -89,11 +147,17 @@
                 {{ $customer->stock->postcode }}
                 {{ $customer->stock->region->name }}
             </td>
-            <td class="border-left incomterms">{{ $customer->incomterms }}</td>
+            <td class="border-left incomterms">
+                {{ $customer->incomterms }}
+            </td>
         </tr>
         <tr>
-            <td><small>Määräpaikka</small></td>
-            <td class="border-left"><small>Rahdinmaksaja</small></td>
+            <td>
+                <small>Määräpaikka</small>
+            </td>
+            <td class="border-left">
+                <small>Rahdinmaksaja</small>
+            </td>
         </tr>
         <tr>
             <td>
@@ -101,7 +165,9 @@
                 {{ $customer->shipping_postcode }}
                 {{ $customer->shippingRegion->name }}
             </td>
-            <td class="border-left">{{ $customer->delivery_payer }}</td>
+            <td class="border-left">
+                {{ $customer->delivery_payer }}
+            </td>
         </tr>
         </tbody>
     </table>
