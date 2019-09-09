@@ -13,6 +13,7 @@ namespace App;
  * @property string $subject
  * @property string $definition
  * @property string $price
+ * @property float $price_tax
  * @property string $unit_type
  * @property string $amount
  * @property string $sum
@@ -121,4 +122,14 @@ class CustomerInvoiceItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Mod
     protected $files = [
 
     ];
+
+    /**
+     * @return float
+     */
+    protected function getPriceTaxAttribute()
+    {
+        $k = 1 + ($this->tax / 100);
+
+        return (float)$this->price * $k;
+    }
 }

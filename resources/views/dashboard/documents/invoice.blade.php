@@ -108,51 +108,127 @@
     <table class="products-table">
         <tbody class="divider-thin">
         <tr>
-            <td><small>Jälkitoimitus</small></td>
-            <td><small>Pakkauksia</small></td>
-            <td colspan="2"><small>Nimike</small></td>
-            <td><small>Yksiköitä</small></td>
-            <td><small>Paino yht. (kg)</small></td>
-            <td><small>Hinta yks.<br>(Veroton)</small></td>
-            <td><small>Alv %</small></td>
-            <td><small>Hinta yks.<br>(Verollinen)</small></td>
-            <td><small>Yhteensä<br>(Veroton)</small></td>
-            <td><small>Yhteensä<br>(Verollinen)</small></td>
+            <td>
+                <small>Jälkitoimitus</small>
+            </td>
+            <td>
+                <small>Pakkauksia</small>
+            </td>
+            <td colspan="2">
+                <small>Nimike</small>
+            </td>
+            <td>
+                <small>Yksiköitä</small>
+            </td>
+            <td>
+                <small>Paino yht. (kg)</small>
+            </td>
+            <td>
+                <small>Hinta yks.<br>(Veroton)</small>
+            </td>
+            <td>
+                <small>Alv %</small>
+            </td>
+            <td>
+                <small>Hinta yks.<br>(Verollinen)</small>
+            </td>
+            <td>
+                <small>Yhteensä<br>(Veroton)</small>
+            </td>
+            <td>
+                <small>Yhteensä<br>(Verollinen)</small>
+            </td>
         </tr>
         <tr>
-            <td colspan="11"></td>
+            <td colspan="11">
+                <!-- ... -->
+            </td>
         </tr>
         @foreach($invoiceItems as $item)
-            <tr class="{{ $item->expected_week || $item->back_order || $item->cancelled ? 'muted' : '' }}">
-                <td>
-                    @if($item->cancelled)
-                        {{ sprintf('cancelled') }}
-                    @else
-                        @if($item->back_order)
-                            @if($item->expected_week)
-                                {{ sprintf('vko %s', $item->expected_week) }}
-                            @else
-                                {{ sprintf('backorder') }}
+            @if($item->customerOrderItem)
+                <tr class="{{ $item->customerOrderItem->expected_week || $item->customerOrderItem->back_order || $item->customerOrderItem->cancelled ? 'muted' : '' }}">
+                    <td>
+                        @if($item->customerOrderItem->cancelled)
+                            {{ sprintf('cancelled') }}
+                        @else
+                            @if($item->customerOrderItem->back_order)
+                                @if($item->customerOrderItem->expected_week)
+                                    {{ sprintf('vko %s', $item->customerOrderItem->expected_week) }}
+                                @else
+                                    {{ sprintf('backorder') }}
+                                @endif
                             @endif
                         @endif
-                    @endif
-                </td>
-                <td class="text-center">
-                    <b>{{ $item->packages_quantity }}</b><br>{{ $item->product->packageType->name }}
-                </td>
-                <td colspan="2"><b>{{ $item->product_name }}</b></td>
-                <td><b>{{ $item->products_quantity }}</b></td>
-                <td>{{ auto_number_format($item->product->brutto_weight * $item->packages_quantity, 2, ',', '&nbsp;') }}</td>
-                <td class="price">{{ auto_number_format($item->product_price, 4, ',', '&nbsp;') }}</td>
-                <td class="price">{{ $item->vat }}%</td>
-                <td class="price">{{ auto_number_format($item->product_vat_price, 2, ',', '&nbsp;') }}</td>
-                <td class="price">{{ auto_number_format($item->total_price, 2, ',', '&nbsp;') }}</td>
-                <td class="price">{{ auto_number_format($item->total_vat_price, 2, ',', '&nbsp;') }}</td>
-            </tr>
+                    </td>
+                    <td class="text-center">
+                        <b>{{ $item->customerOrderItem->packages_quantity }}</b><br>{{ $item->customerOrderItem->product->packageType->name }}
+                    </td>
+                    <td colspan="2">
+                        <b>{{ $item->customerOrderItem->product_name }}</b>
+                    </td>
+                    <td>
+                        <b>{{ $item->customerOrderItem->products_quantity }}</b>
+                    </td>
+                    <td>
+                        {!! auto_number_format($item->customerOrderItem->product->brutto_weight * $item->customerOrderItem->packages_quantity, 2, ',', '&nbsp;') !!}
+                    </td>
+                    <td class="price">
+                        {!! auto_number_format($item->customerOrderItem->product_price, 4, ',', '&nbsp;') !!}
+                    </td>
+                    <td class="price">
+                        {!! $item->customerOrderItem->vat !!}%
+                    </td>
+                    <td class="price">
+                        {!! auto_number_format($item->customerOrderItem->product_vat_price, 2, ',', '&nbsp;') !!}
+                    </td>
+                    <td class="price">
+                        {!! auto_number_format($item->customerOrderItem->total_price, 2, ',', '&nbsp;') !!}
+                    </td>
+                    <td class="price">
+                        {!! auto_number_format($item->customerOrderItem->total_vat_price, 2, ',', '&nbsp;') !!}
+                    </td>
+                </tr>
+            @else
+                <tr class="">
+                    <td>
+                        <!-- ... -->
+                    </td>
+                    <td class="text-center">
+                        <!-- ... -->
+                    </td>
+                    <td colspan="2">
+                        <b>{{ $item->subject }}</b>
+                    </td>
+                    <td>
+                        <b>{{ $item->amount }}</b><br>{{ $item->unit_type }}
+                    </td>
+                    <td>
+                        <!-- ... -->
+                    </td>
+                    <td class="price">
+                        {!! auto_number_format($item->price, 4, ',', '&nbsp;') !!}
+                    </td>
+                    <td class="price">
+                        {!! $item->tax !!}%
+                    </td>
+                    <td class="price">
+                        {!! auto_number_format($item->price_tax, 2, ',', '&nbsp;') !!}
+                    </td>
+                    <td class="price">
+                        {!! auto_number_format($item->sum, 2, ',', '&nbsp;') !!}
+                    </td>
+                    <td class="price">
+                        {!! auto_number_format($item->sum_tax, 2, ',', '&nbsp;') !!}
+                    </td>
+                </tr>
+            @endif
         @endforeach
         <tr>
-            <td colspan="11"></td>
+            <td colspan="11">
+                <!-- ... -->
+            </td>
         </tr>
+        {{--
         @foreach($totalDeposits as $depositVat => $depositGrouped)
             @foreach($depositGrouped as $depositPrice => $deposit)
                 <tr>
@@ -169,49 +245,94 @@
                 </tr>
             @endforeach
         @endforeach
+        --}}
         </tbody>
         <tbody>
         <tr>
-            <td></td>
-            <td class="border-left"><small>Pakkauksia yht.</small></td>
-            <td colspan="2" class="border-left"></td>
-            <td class="border-left"><small>Yksiköitä yht.</small></td>
-            <td class="border-left"><small>Paino yht. (kg)</small></td>
-            <td colspan="3" class="border-left"></td>
-            <td colspan="2"><small>ALV 0% Veroton</small></td>
+            <td>
+                <!-- ... -->
+            </td>
+            <td class="border-left">
+                <small>Pakkauksia yht.</small>
+            </td>
+            <td colspan="2" class="border-left">
+
+            </td>
+            <td class="border-left">
+                <small>Yksiköitä yht.</small>
+            </td>
+            <td class="border-left">
+                <small>Paino yht. (kg)</small></td>
+            <td colspan="3" class="border-left">
+                <!-- ... -->
+            </td>
+            <td colspan="2">
+                <small>ALV 0% Veroton</small>
+            </td>
         </tr>
         <tr class="divider-thick">
-            <td></td>
-            <td class="border-left">{{ $invoiceItems->sum('packages_quantity') }}</td>
-            <td colspan="2" class="border-left"></td>
-            <td class="border-left">{{ $invoiceItems->sum('products_quantity')  }}</td>
-            <td class="border-left">
-                {!! auto_number_format($invoiceItems->sum(function($item) { return $item->product->brutto_weight * $item->packages_quantity; }), 2, ',', '&nbsp;') !!}
+            <td>
+                <!-- ... -->
             </td>
-            <td colspan="3" class="border-left"></td>
-            <td colspan="2">{!! auto_number_format($totalPrice, 2, ',', '&nbsp;') !!} €</td>
+            <td class="border-left">
+                #
+                {{--{{ $invoiceItems->sum('packages_quantity') }}--}}
+            </td>
+            <td colspan="2" class="border-left">
+                <!-- ... -->
+            </td>
+            <td class="border-left">
+                #
+                {{--{{ $invoiceItems->sum('products_quantity')  }}--}}
+            </td>
+            <td class="border-left">
+                #
+                {{--{!! auto_number_format($invoiceItems->sum(function($item) { return $item->product->brutto_weight * $item->packages_quantity; }), 2, ',', '&nbsp;') !!}--}}
+            </td>
+            <td colspan="3" class="border-left">
+                <!-- ... -->
+            </td>
+            <td colspan="2">
+                {!! auto_number_format($totalPrice, 2, ',', '&nbsp;') !!} €
+            </td>
         </tr>
         @foreach ($totalVats as $vat => $total)
             <tr>
-                <td colspan="6"></td>
-                <td colspan="3"><small>Vero ALV {{ $vat }}%</small></td>
-                <td colspan="2">{!! auto_number_format($total, 2, ',', '&nbsp;') !!} €</td>
+                <td colspan="6">
+                    <!-- ... -->
+                </td>
+                <td colspan="3">
+                    <small>Vero ALV {{ $vat }}%</small>
+                </td>
+                <td colspan="2">
+                    {!! auto_number_format($total, 2, ',', '&nbsp;') !!} €
+                </td>
             </tr>
         @endforeach
         <tr>
-            <td colspan="6" rowspan="4"></td>
-            <td colspan="3"><small>Yhteensä</small></td>
-            <td colspan="2">{!! auto_number_format($totalVatPrice, 2, ',', '&nbsp;') !!} €</td>
+            <td colspan="6" rowspan="4">
+                <!-- ... -->
+            </td>
+            <td colspan="3">
+                <small>Yhteensä</small>
+            </td>
+            <td colspan="2">
+                {!! auto_number_format($totalVatPrice, 2, ',', '&nbsp;') !!} €
+            </td>
         </tr>
         </tbody>
     </table>
     <table>
         <tbody class="divider-thin">
         <tr>
-            <td colspan="11"><small>Lisätiedot</small></td>
+            <td colspan="11">
+                <small>Lisätiedot</small>
+            </td>
         </tr>
         <tr>
-            <td colspan="11">{!! $invoice->comment !!}</td>
+            <td colspan="11">
+                {!! $invoice->notes !!}
+            </td>
         </tr>
         </tbody>
     </table>

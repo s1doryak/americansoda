@@ -1,5 +1,9 @@
 <?php
 
+use App\CustomerInvoiceItem;
+use App\CustomerOrderItem;
+use Illuminate\Support\Collection;
+
 function is_app()
 {
     return prefix_name() == '';
@@ -45,65 +49,143 @@ function transform_barcode($value)
 }
 
 /**
- * @param \Illuminate\Support\Collection $orderItems
+ * @param \Illuminate\Support\Collection $items
  *
  * @return \Illuminate\Support\Collection
  */
-function get_total_vats($orderItems)
+function get_total_vats($items)
 {
-    $groups = $orderItems->groupBy('vat');
+    $depositItems = $items->filter(function ($item) {
 
-    foreach ($groups as $vat => $group) {
-        $groups[$vat] = $group->sum(
-            function ($item) {
-                return $item->total_vat_price - $item->total_price;
-            }
-        );
-    }
-
-    $depositGroups = $orderItems->filter(
-        function ($orderItem) {
-            return $orderItem->deposit_enabled;
-        }
-    )->groupBy('deposit_vat');
-
-    foreach ($depositGroups as $vat => $group) {
-
-        if (!isset($groups[$vat])) {
-            $groups[$vat] = 0;
+        if ($item instanceof CustomerInvoiceItem) {
+            return false;
         }
 
-        $groups[$vat] += $group->sum(
-            function ($item) {
+        if ($item instanceof CustomerOrderItem) {
+            return (boolean)$item->deposit_enabled;
+        }
+
+        throw new \Exception('Unexpected item', $item);
+    });
+
+    $depositGroups = $depositItems->groupBy(function ($item) {
+
+        if ($item instanceof CustomerOrderItem) {
+            return (string)$item->deposit_vat;
+        }
+
+        throw new \Exception('Unexpected item', $item);
+
+    })->map(function (Collection $items, $vat) {
+
+        return $items->sum(function ($item) {
+
+            if ($item instanceof CustomerOrderItem) {
                 return $item->deposit_total_vat_price - $item->deposit_total_price;
             }
-        );
-    }
 
-    return $groups;
+            throw new \Exception('Unexpected item', $item);
+        });
+
+    });
+
+    $groups = $items->groupBy(function ($item) {
+
+        if ($item instanceof CustomerInvoiceItem) {
+            return (string)$item->tax;
+        }
+
+        if ($item instanceof CustomerOrderItem) {
+            return (string)$item->vat;
+        }
+
+        throw new \Exception('Unexpected item', $item);
+
+    })->map(function (Collection $items, $vat) {
+
+        return $items->sum(function ($item) {
+
+            if ($item instanceof CustomerInvoiceItem) {
+                return $item->sum_tax - $item->sum;
+            }
+
+            if ($item instanceof CustomerOrderItem) {
+                return $item->total_vat_price - $item->total_price;
+            }
+
+            throw new \Exception('Unexpected item', $item);
+        });
+
+    });
+
+    return collect()
+        ->merge($groups->keys())
+        ->merge($depositGroups->keys())
+        ->mapWithKeys(function ($vat) use ($groups, $depositGroups) {
+
+            $sum = 0.00;
+
+            if ($groups->has($vat)) {
+                $sum += (float)$groups->get($vat);
+            }
+
+            if ($depositGroups->has($vat)) {
+                $sum += (float)$depositGroups->get($vat);
+            }
+
+            return [
+                $vat => $sum
+            ];
+        });
 }
 
 /**
- * @param \Illuminate\Support\Collection $orderItems
+ * @param \Illuminate\Support\Collection $items
  *
  * @return \Illuminate\Support\Collection
  */
-function get_total_deposits($orderItems)
+function get_total_deposits($items)
 {
-    $groups = $orderItems->filter(
-        function ($orderItem) {
-            return $orderItem->deposit_enabled;
-        }
-    )->groupBy(function ($item) {
-        return (string)$item->deposit_vat;
-    });
+    $groups = $items->filter(function ($item) {
 
-    /** @var \Illuminate\Database\Eloquent\Collection $group */
-    foreach ($groups as $vat => $group) {
-        $groups[$vat] = $group->groupBy(function ($item) {
-            return (string)$item->deposit_price;
-        });
+        if ($item instanceof CustomerInvoiceItem) {
+            return $item->customerOrderItem ? $item->customerOrderItem->deposit_enabled : false;
+        }
+
+        if ($item instanceof CustomerOrderItem) {
+            return $item->deposit_enabled;
+        }
+
+        throw new \Exception('Unexpected item', $item);
     }
+    )->groupBy(function ($item) {
+
+        if ($item instanceof CustomerInvoiceItem) {
+            return $item->customerOrderItem ? (string)$item->customerOrderItem->deposit_vat : '0';
+        }
+
+        if ($item instanceof CustomerOrderItem) {
+            return (string)$item->deposit_vat;
+        }
+
+        throw new \Exception('Unexpected item', $item);
+
+    })->map(function (Collection $items, $vat) {
+
+        return $items->groupBy(function ($item) {
+
+            if ($item instanceof CustomerInvoiceItem) {
+                return $item->customerOrderItem ? (string)$item->customerOrderItem->deposit_price : '0';
+            }
+
+            if ($item instanceof CustomerOrderItem) {
+                return (string)$item->deposit_price;
+            }
+
+            throw new \Exception('Unexpected item', $item);
+
+        });
+    });
 
     return $groups;
 }

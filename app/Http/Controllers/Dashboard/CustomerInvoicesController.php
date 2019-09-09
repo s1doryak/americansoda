@@ -259,12 +259,12 @@ class CustomerInvoicesController extends ResourceController
         /** @var Customer $customer */
         $customer = $invoice->customer;
 
-        $invoiceItems = collect();
+        $invoiceItems = $invoice->customerInvoiceItems;
 
         $totalVats = get_total_vats($invoiceItems);
         $totalDeposits = get_total_deposits($invoiceItems);
-        $totalPrice = $invoiceItems->sum('total_price');
-        $totalVatPrice = $invoiceItems->sum('total_vat_price');
+        $totalPrice = $invoiceItems->sum('sum');
+        $totalVatPrice = $invoiceItems->sum('sum_tax');
 
         return compact(
             'company',
