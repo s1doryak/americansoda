@@ -123,4 +123,14 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
 
         return true;
     }
+
+    /**
+     * @param Authenticatable $authenticatable
+     * @param CustomerInvoice $customerInvoice
+     * @return boolean
+     */
+    public function invoice(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
+    {
+        return true;
+    }
 }

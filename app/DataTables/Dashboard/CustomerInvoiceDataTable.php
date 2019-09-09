@@ -184,21 +184,29 @@ class CustomerInvoiceDataTable extends DataTable
      */
     protected function getActions($customerInvoice)
     {
-        $actions = parent::getActions($customerInvoice);
+        $actions = [];
 
-        if ((string)$customerInvoice->maventa_tiff) {
-            $actions = array_merge([
-                'tiff' => [
-                    '_blank' => true,
-                    'url' => asset($customerInvoice->maventa_tiff),
-                    'icon' => 'file-text',
-                    'color' => 'primary',
-                    'title' => trans(sprintf('models/%s.tiff.title', $this->resource)),
-                ]
-            ], $actions);
+        if (false === $customerInvoice->maventa_initiated) {
+            $actions['invoice'] = [
+                'target' => '_blank',
+                'url' => route(sprintf('%s.%s.invoice', $this->prefix, $this->resource), $customerInvoice->getKey()),
+                'icon' => 'file-text',
+                'color' => 'primary',
+                'title' => trans(sprintf('models/%s.invoice.title', $this->resource)),
+            ];
         }
 
-        return $actions;
+        if ((string)$customerInvoice->maventa_tiff) {
+            $actions['tiff'] = [
+                'target' => '_blank',
+                'url' => asset($customerInvoice->maventa_tiff),
+                'icon' => 'file-text',
+                'color' => 'primary',
+                'title' => trans(sprintf('models/%s.tiff.title', $this->resource)),
+            ];
+        }
+
+        return array_merge($actions, parent::getActions($customerInvoice));
     }
 
     /**
@@ -272,7 +280,7 @@ class CustomerInvoiceDataTable extends DataTable
                 ? format_date($customerInvoice->maventa_sent_at)
                 : $this->renderActionView([
                     'send' => [
-                        '_blank' => true,
+                        'target' => '_blank',
                         'url' => route(sprintf('%s.%s.maventa_sent_at', $this->prefix, $this->resource), $customerInvoice->getKey()),
                         'method' => 'post',
                         'icon' => 'upload',
