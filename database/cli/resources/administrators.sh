@@ -6,6 +6,7 @@ EXTRA=${EXTRA:-}
 ${ARTISAN} resource:create:administrator \
   --name="Aleksey Sidoryak" \
   --email="a@sidoryak.ru" \
+  --email_verified_at="-3 days" \
   --password="secret" \
   --phone="+7 (921) 443-07-48" \
   --locale="ru" \

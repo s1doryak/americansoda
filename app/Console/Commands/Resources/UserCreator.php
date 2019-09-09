@@ -7,6 +7,7 @@ use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\RoleRepository;
 use App\Repositories\Contracts\CompanyRepository;
 use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
+use Illuminate\Support\Carbon;
 
 /**
  * User resource creator.
@@ -83,4 +84,20 @@ class UserCreator extends ResourceCreator
 	{
 		return [];
 	}
+
+    /**
+     * @param string $value
+     * @return \Illuminate\Support\Carbon
+     * @throws \Exception
+     */
+    public function parseEmailVerifiedAtOption($value)
+    {
+        switch ($value) {
+            case 'now':
+            case 'now()':
+                return now();
+            default:
+                return new Carbon($value);
+        }
+    }
 }
