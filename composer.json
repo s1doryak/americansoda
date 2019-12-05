@@ -21,8 +21,10 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.8",
+        "nesbot/carbon": "^2.27",
         "prettus/l5-repository": "^2.6",
         "ramsey/uuid": "^3.8",
+        "tymon/jwt-auth": "^1.0",
         "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {

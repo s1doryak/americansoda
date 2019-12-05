@@ -1,39 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Auth\AuthRequest;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Requests\Api\V1\Auth\SendTokenRequest;
+use App\Mail\Api\V1\AuthToken;
+use App\Services\Api\V1\AuthService;
 use Crmplease\MaterialAdmin\Routing\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\Mail;
 
-class ApiAuthController extends Controller
+class AuthController extends Controller
 {
     protected $prefix = 'api';
 
-    public function sendEmail(AuthRequest $request)
+    public function sendToken(SendTokenRequest $request, AuthService $authService)
     {
+        $email = $request->input('email');
+        $token = $authService->getOrCreateToken($email);
 
+        return Mail::to($email)->send(new AuthToken($token));
     }
-
-    public function auth(AuthRequest $request)
-    {
-        if (!$request->acceptsJson() || !$request->expectsJson()) {
-            throw new NotFoundHttpException();
-        }
-
-        $credentials = $request->only('email', 'password');
-
-        try {
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
-        }
-
-        return response()->json(compact('token'));
-    }
-
 }
