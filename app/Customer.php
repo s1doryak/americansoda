@@ -194,7 +194,7 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
      */
     public function getWith()
     {
-        $condition = is_resource_page(['customer']) || is_datatable(['customer']);
+        $condition = is_resource_page(['customer']) || is_datatable(['customer']) || is_api();
 
         return [
             $condition ? 'billingRegion' : null,

@@ -14,6 +14,11 @@ function is_dashboard()
     return prefix_name() == 'dashboard';
 }
 
+function is_api()
+{
+    return strpos(prefix_name(), 'api/') !== false;
+}
+
 /**
  * Check whether current page is a resource page.
  *
@@ -240,4 +245,9 @@ function viitenumero_check_digit($number)
     }
 
     return $sum % 10;
+}
+
+function is_local()
+{
+    return env('APP_ENV', 'production') === 'local';
 }

@@ -51,6 +51,7 @@ class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User impleme
     protected $hidden = [
 		'password',
 		'remember_token',
+        'token',
     ];
 
     protected $belongsTo = [
@@ -70,8 +71,6 @@ class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User impleme
     ];
 
     protected $hasOne = [
-        'customerUserToken' => \App\CustomerUserToken::class,
-
     ];
 
     protected $hasMany = [
