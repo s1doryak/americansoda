@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Api\V1;
 
 use App\Repositories\Eloquent\CustomerUserRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\EntityService;
