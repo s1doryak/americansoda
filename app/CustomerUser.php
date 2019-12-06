@@ -89,7 +89,7 @@ class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User impleme
     ];
 
     protected $with = [
-		'customers',
+//		'customers',
     ];
 
     protected $images = [

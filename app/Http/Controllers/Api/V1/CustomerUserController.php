@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Api\V1\Profile\GetProfileRequest;
+use App\Services\Api\V1\CustomerUserService;
 use Barryvdh\TranslationManager\Controller;
-use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class CustomerUserController extends Controller
 {
     protected $prefix = 'api';
 
-    public function profile(GetProfileRequest $request)
+    public function profile(GetProfileRequest $request, CustomerUserService $service)
     {
-        return response()->json(Auth::user());
+        return response()->json($service->getProfile(), Response::HTTP_OK);
     }
 }
