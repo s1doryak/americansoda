@@ -7,8 +7,6 @@ use Crmplease\MaterialAdmin\Services\EntityService;
 
 class BannerService extends EntityService
 {
-    protected $customerUserService;
-
     public function __construct()
     {
         $this->setRepository(BannerRepositoryEloquent::class);
