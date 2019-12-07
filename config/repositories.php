@@ -35,4 +35,5 @@
 	App\Repositories\Contracts\CustomerUserTokenRepository::class => App\Repositories\Eloquent\CustomerUserTokenRepositoryEloquent::class,
 	App\Repositories\Contracts\CustomerPreOrderRepository::class => App\Repositories\Eloquent\CustomerPreOrderRepositoryEloquent::class,
 	App\Repositories\Contracts\CustomerPreOrderItemRepository::class => App\Repositories\Eloquent\CustomerPreOrderItemRepositoryEloquent::class,
+    App\Repositories\Contracts\BannerRepository::class => App\Repositories\Eloquent\BannerRepositoryEloquent::class,
 ];

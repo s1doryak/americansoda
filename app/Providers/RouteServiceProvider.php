@@ -38,7 +38,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
         $this->mapAppRoutes();
         $this->mapDashboardRoutes();
-        // ...$this->mapRoutes()
+        $this->mapApiV1Routes();
+		// ...$this->mapRoutes()
     }
 
     /**
@@ -79,6 +80,18 @@ class RouteServiceProvider extends ServiceProvider
     }
 
 
-    // ...mapRoutes()
+    /**
+	 * Define the "api/V1" routes for the application.
+	 *
+	 * @return void
+	 */
+	protected function mapApiV1Routes()
+	{
+		Route::middleware('api/V1')
+			->namespace(config('namespaces.api/V1'))
+			->group(base_path('routes/api/v1.php'));
+	}
+	
+	// ...mapRoutes()
 
 }

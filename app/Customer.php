@@ -172,13 +172,13 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-        'stock',
-        'customerType',
-        'paymentType',
-        'user',
-        'billingRegion',
-        'shippingRegion',
-        'priceGroup',
+//        'stock',
+//        'customerType',
+//        'paymentType',
+//        'user',
+//        'billingRegion',
+//        'shippingRegion',
+//        'priceGroup',
     ];
 
     protected $images = [
@@ -189,23 +189,23 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
-    /**
-     * @return array
-     */
-    public function getWith()
-    {
-        $condition = is_resource_page(['customer']) || is_datatable(['customer']);
-
-        return [
-            $condition ? 'billingRegion' : null,
-            $condition ? 'shippingRegion' : null,
-            $condition ? 'customerType' : null,
-            $condition ? 'paymentType' : null,
-            $condition ? 'priceGroup' : null,
-            $condition ? 'user' : null,
-            $condition ? 'stock' : null,
-        ];
-    }
+//    /**
+//     * @return array
+//     */
+//    public function getWith()
+//    {
+//        $condition = is_resource_page(['customer']) || is_datatable(['customer']) || is_api();
+//
+//        return [
+//            $condition ? 'billingRegion' : null,
+//            $condition ? 'shippingRegion' : null,
+//            $condition ? 'customerType' : null,
+//            $condition ? 'paymentType' : null,
+//            $condition ? 'priceGroup' : null,
+//            $condition ? 'user' : null,
+//            $condition ? 'stock' : null,
+//        ];
+//    }
 
     /**
      * @return string

@@ -32,4 +32,5 @@
 	'customer_user_token' => \App\CustomerUserToken::class,
 	'customer_pre_order' => \App\CustomerPreOrder::class,
 	'customer_pre_order_item' => \App\CustomerPreOrderItem::class,
+    'banner' => \App\Banner::class,
 ];

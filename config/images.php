@@ -47,6 +47,14 @@
 				'quality' => 90,
 			],
 		],
-        // ...dimensions
+        		\App\Banner::class => [
+					'image' => [
+						'width' => 150,
+						'height' => 150,
+						'crop' => true,
+						'quality' => 90,
+					],
+				],
+		// ...dimensions
 	]
 ];

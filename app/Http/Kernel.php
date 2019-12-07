@@ -51,7 +51,11 @@ class Kernel extends HttpKernel
             // \App\Http\Middleware\Dashboard\Authenticate::class,
         ],
 
-        // ...$middlewareGroups
+        'api/V1' => [
+			// \App\Http\Middleware\Api\V1\Authenticate::class,
+		],
+		
+		// ...$middlewareGroups
 
     ];
 
