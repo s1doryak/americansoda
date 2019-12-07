@@ -4,7 +4,6 @@ namespace App\Services\Api\V1;
 
 use App\CustomerUser;
 use App\Notifications\Api\V1\AuthAttempt;
-use App\Services\CustomerUserService;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -17,20 +16,30 @@ class AuthService extends ResourceService
         $this->customerUserService = app(CustomerUserService::class);
     }
 
+    /**
+     * @param string $email
+     */
     public function sendAuthAttemptNotification($email)
     {
+        /** @var CustomerUser $user */
         $user = CustomerUser::where(['email' => $email])->firstOrFail();
-        $token = $this->getOrCreateToken($user);
-        $user->notify((new AuthAttempt($token)));
+
+        $user->notify(
+            new AuthAttempt($this->getOrCreateToken($user))
+        );
     }
 
+    /**
+     * @param CustomerUser $user
+     * @return string
+     */
     protected function getOrCreateToken(CustomerUser $user)
     {
-        if (is_null($user->token)) {
+        $token = $user->token;
+
+        if (is_null($token)) {
             $token = JWTAuth::fromUser($user);
             $this->customerUserService->update(['token' => $token], $user->id);
-        } else {
-            $token = $user->token;
         }
 
         return $token;

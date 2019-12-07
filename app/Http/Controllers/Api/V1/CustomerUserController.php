@@ -11,6 +11,11 @@ class CustomerUserController extends Controller
 {
     protected $prefix = 'api';
 
+    /**
+     * @param GetProfileRequest $request
+     * @param CustomerUserService $service
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function profile(GetProfileRequest $request, CustomerUserService $service)
     {
         return response()->json($service->getProfile(), Response::HTTP_OK);

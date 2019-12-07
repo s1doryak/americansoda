@@ -13,8 +13,9 @@ class AuthController extends Controller
 
     public function sendToken(SendTokenRequest $request, AuthService $authService)
     {
-        $email = $request->input('email');
-        $authService->sendAuthAttemptNotification($email);
+        $authService->sendAuthAttemptNotification(
+            $request->input('email')
+        );
 
         return response('', Response::HTTP_OK);
     }

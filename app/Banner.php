@@ -3,7 +3,6 @@
 namespace App;
 
 
-
 /**
  * Banner
  *
@@ -20,26 +19,26 @@ namespace App;
  */
 class Banner extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'name',
-		'image',
-		'url',
-	];
+    protected $fillable = [
+        'name',
+        'image',
+        'url',
+    ];
 
-	protected $appends = [
+    protected $appends = [
 
-	];
+    ];
 
-	protected $casts = [
+    protected $casts = [
 
-	];
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $images = [
-		'image',
+        'image',
     ];
 
     protected $files = [
@@ -55,7 +54,7 @@ class Banner extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $belongsToMany = [
-		'customerTypes' => [\App\CustomerType::class, 'banner_customer_type'],
+        'customerTypes' => [\App\CustomerType::class, 'banner_customer_type'],
     ];
 
     protected $belongsToManyPivot = [
@@ -103,6 +102,6 @@ class Banner extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $touches = [
-		'customerTypes',
+        'customerTypes',
     ];
 }

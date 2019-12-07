@@ -13,12 +13,16 @@ class CustomerUserService extends ResourceService
         $this->setRepository(CustomerUserRepositoryEloquent::class);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
     public function getProfile()
     {
         return Auth::user()
             ->has('customers')
             ->has('customers.user')
             ->with(['customers' => function ($query) {
+                /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
                 return $query->whereNull('deleted_at');
             }, 'customers.user'])
             ->first();

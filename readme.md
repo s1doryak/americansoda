@@ -10,31 +10,22 @@ git submodule update --init --recursive
 cp .env.example .env
 ```
 
-### Окружение
-
-Если вы используете Docker:
-```bash
-export ARTISAN="docker-compose run artisan"
-export COMPOSER="docker-compose run composer"
-```
-
 ### Запуск
 ```bash
-${COMPOSER:-composer} install
-${ARTISAN:-php artisan} key:generate --ansi
-${ARTISAN:-php artisan} migrate
+docker-compose run composer install
+docker-compose run artisan key:generate --ansi
+docker-compose run artisan migrate
 ```
 
 Для разработки
 ```bash
-${ARTISAN:-php artisan} ide-helper:generate
-${ARTISAN:-php artisan} ide-helper:models
-${ARTISAN:-php artisan} ide-helper:meta
+docker-compose run artisan ide-helper:generate
+docker-compose run artisan ide-helper:models
+docker-compose run artisan ide-helper:meta
 ```
 
 ### Данные
 ```bash
-export ARTISAN="docker-compose run artisan"
 export EXTRA="--skip-event"
 
 sh ./database/cli/seed.sh
@@ -42,7 +33,7 @@ sh ./database/cli/seed.sh
 
 ### Счета
 ```bash
-${ARTISAN:-php artisan} maventa:import:invoices 20190401000000 --tiff --force
+docker-compose run artisan maventa:import:invoices 20190401000000 --tiff --force
 ```
 
 ## Фронтенд
@@ -62,37 +53,37 @@ npm run production
 ### WebSocket
 ```bash
 WEBSOCKET_PORT=6003
-WEBSOCKET_HTTPS_KEY=/home/demo/conf/web/ssl.gtp-wws.demo.crmplease.me.key
-WEBSOCKET_HTTPS_CERT=/home/demo/conf/web/ssl.gtp-wws.demo.crmplease.me.pem
+WEBSOCKET_HTTPS_KEY=/home/demo/conf/web/ssl.gtp.americansoda.demo.crmplease.me.key
+WEBSOCKET_HTTPS_CERT=/home/demo/conf/web/ssl.gtp.americansoda.demo.crmplease.me.pem
 ```
 
 ```bash
-chown -R root:demo /home/demo/conf/web/ssl.gtp-wws.demo.crmplease.me.ca
-chown -R root:demo /home/demo/conf/web/ssl.gtp-wws.demo.crmplease.me.crt
-chown -R root:demo /home/demo/conf/web/ssl.gtp-wws.demo.crmplease.me.key
-chown -R root:demo /home/demo/conf/web/ssl.gtp-wws.demo.crmplease.me.pem
+chown -R root:demo /home/demo/conf/web/ssl.gtp.americansoda.demo.crmplease.me.ca
+chown -R root:demo /home/demo/conf/web/ssl.gtp.americansoda.demo.crmplease.me.crt
+chown -R root:demo /home/demo/conf/web/ssl.gtp.americansoda.demo.crmplease.me.key
+chown -R root:demo /home/demo/conf/web/ssl.gtp.americansoda.demo.crmplease.me.pem
 ```
 
 ### Supervisor
-Настройки `/home/demo/conf/supervisor/gtp-wws.demo.crmplease.me.conf`:
+Настройки `/home/demo/conf/supervisor/gtp.americansoda.demo.crmplease.me.conf`:
 ```ini
-[program:gtp-wws.demo.crmplease.me-queue]
+[program:gtp.americansoda.demo.crmplease.me-queue]
 process_name=%(program_name)s_%(process_num)02d
-command=php /home/demo/web/gtp-wws.demo.crmplease.me/public_html/artisan queue:listen
+command=php /home/demo/web/gtp.americansoda.demo.crmplease.me/public_html/artisan queue:listen
 autostart=true
 autorestart=true
 user=demo
 redirect_stderr=true
-stdout_logfile=/home/demo/web/gtp-wws.demo.crmplease.me/logs/gtp-wws.demo.crmplease.me.supervisor.log
+stdout_logfile=/home/demo/web/gtp.americansoda.demo.crmplease.me/logs/gtp.americansoda.demo.crmplease.me.supervisor.log
 
-[program:gtp-wws.demo.crmplease.me-websocket]
+[program:gtp.americansoda.demo.crmplease.me-websocket]
 process_name=%(program_name)s_%(process_num)02d
-command=node /home/demo/web/gtp-wws.demo.crmplease.me/public_html/websocket.js
+command=node /home/demo/web/gtp.americansoda.demo.crmplease.me/public_html/websocket.js
 autostart=true
 autorestart=true
 user=demo
 redirect_stderr=true
-stdout_logfile=/home/demo/web/gtp-wws.demo.crmplease.me/logs/gtp-wws.demo.crmplease.me.supervisor.log
+stdout_logfile=/home/demo/web/gtp.americansoda.demo.crmplease.me/logs/gtp.americansoda.demo.crmplease.me.supervisor.log
 ```
 
 ```bash
