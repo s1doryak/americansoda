@@ -5,10 +5,10 @@ namespace App\Services\Api\V1;
 use App\CustomerUser;
 use App\Notifications\Api\V1\AuthAttempt;
 use App\Services\CustomerUserService;
-use Crmplease\MaterialAdmin\Services\EntityService;
+use Crmplease\MaterialAdmin\Services\ResourceService;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class AuthService extends EntityService
+class AuthService extends ResourceService
 {
     protected $customerUserService;
 

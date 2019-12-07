@@ -3,10 +3,10 @@
 namespace App\Services\Api\V1;
 
 use App\Repositories\Eloquent\CustomerUserRepositoryEloquent;
-use Crmplease\MaterialAdmin\Services\EntityService;
+use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Support\Facades\Auth;
 
-class CustomerUserService extends EntityService
+class CustomerUserService extends ResourceService
 {
     public function __construct()
     {
