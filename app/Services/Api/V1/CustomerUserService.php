@@ -4,7 +4,6 @@ namespace App\Services\Api\V1;
 
 use App\Repositories\Eloquent\CustomerUserRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerUserService extends ResourceService
