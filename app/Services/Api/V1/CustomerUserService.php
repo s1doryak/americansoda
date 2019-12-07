@@ -16,10 +16,10 @@ class CustomerUserService extends ResourceService
     public function getProfile()
     {
         return Auth::user()
-            ->with(['customers', 'customers.user'])
             ->whereHas('customers', function ($query) {
                 return $query->whereNull('deleted_at');
             })
+            ->with(['customers', 'customers.user'])
             ->first();
     }
 }
