@@ -4,6 +4,7 @@ namespace App\Services\Api\V1;
 
 use App\Repositories\Eloquent\CustomerUserRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerUserService extends ResourceService
@@ -15,9 +16,11 @@ class CustomerUserService extends ResourceService
 
     public function getProfile()
     {
-        return $this
-            ->repository
+        return Auth::user()
             ->with(['customers', 'customers.user'])
-            ->firstWhere(['id' => Auth::id()]);
+            ->whereHas('customers', function ($query) {
+                return $query->whereNull('deleted_at');
+            })
+            ->first();
     }
 }
