@@ -19,7 +19,7 @@ class BannersController extends Controller
      */
     public function get(GetRequest $request, BannerService $service)
     {
-        $data = $service->getByShopId($request->route('shop_id'));
+        $data = $service->getByShopId($request->route('id'));
 
         return response()->json($data, Response::HTTP_OK);
     }

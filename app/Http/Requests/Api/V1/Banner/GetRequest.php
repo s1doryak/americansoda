@@ -20,6 +20,6 @@ class GetRequest extends FormRequest
     public function validateResolved()
     {
         parent::validateResolved();
-        Customer::findOrFail($this->route('shop_id'));
+        Customer::findOrFail($this->route('id'));
     }
 }
