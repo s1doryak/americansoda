@@ -91,8 +91,8 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 	];
 
 	protected $with = [
-		'customer',
-		'user',
+//		'customer',
+//		'user',
 	];
 
 	protected $images = [

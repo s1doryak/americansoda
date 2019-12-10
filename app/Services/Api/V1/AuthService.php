@@ -37,7 +37,7 @@ class AuthService extends ResourceService
     {
         $token = $user->token;
 
-        if (is_null($token)) {
+        if (empty($token)) {
             $token = JWTAuth::fromUser($user);
             $this->customerUserService->update(['token' => $token], $user->id);
         }

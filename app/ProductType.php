@@ -2,45 +2,53 @@
 
 namespace App;
 
+
+
 /**
- * ProductGroup
+ * ProductType
  *
+ * @property integer $id
  * @property string $name
- * @property integer $vat
- * @property integer $sales_unit_volume
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- *
- * @property \App\ProductType|null $productType
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo productType()
+ * @property \Illuminate\Support\Collection|\App\ProductGroup[] $productGroups
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany productGroups()
  * @package App
  */
-class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
+class ProductType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
 	protected $fillable = [
 		'name',
-		'vat',
-		'sales_unit_volume',
-		'product_type_id',
+	];
+
+	protected $appends = [
+
 	];
 
 	protected $casts = [
-		'vat' => 'integer',
-		'sales_unit_volume' => 'integer',
+
 	];
 
 	protected $dates = [
 
 	];
 
+    protected $images = [
+
+    ];
+
+    protected $files = [
+
+    ];
+
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'productType' => \App\ProductType::class,
-	];
+
+    ];
 
     protected $belongsToMany = [
 
@@ -54,13 +62,12 @@ class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
-	protected $hasOne = [
+    protected $hasOne = [
 
-	];
+    ];
 
-	protected $hasMany = [
-        'products' => Product::class,
-        'pricingPolicies' => CustomerPricingPolicy::class
+    protected $hasMany = [
+		'productGroups' => \App\ProductGroup::class,
     ];
 
     protected $hasManyThrough = [
@@ -71,7 +78,19 @@ class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
+    protected $morphOne = [
+
+    ];
+
     protected $morphMany = [
+
+    ];
+
+    protected $morphToMany = [
+
+    ];
+
+    protected $morphedByMany = [
 
     ];
 
@@ -79,11 +98,7 @@ class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     ];
 
-    protected $images = [
-
-    ];
-
-    protected $files = [
+    protected $touches = [
 
     ];
 }
