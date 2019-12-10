@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductRepository
 {
-    public function getByShopId($shopId)
+    public function getByShopId($shopId, $customerUserId = null)
     {
+        $customerUserId = (is_null($customerUserId)) ? Auth::id() : $customerUserId;
+
         return $this
             ->model
             ->getQuery()
@@ -27,7 +29,7 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
                 'customer_pricing_policies.customer_id'
             )
             ->where(['customer_pricing_policies.customer_id' => $shopId])
-            ->where('customer_user_customer.customer_user_id', '=', Auth::id())
+            ->where('customer_user_customer.customer_user_id', '=', $customerUserId)
             ->whereNull('customer_pricing_policies.deleted_at')
             ->get();
     }
