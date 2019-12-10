@@ -14,12 +14,23 @@ class GetRequest extends FormRequest
 
     public function rules()
     {
-        return [];
+        return [
+            'with_count' => 'array',
+            'with_count.*' => 'in:' . $this->getRelations()
+        ];
     }
 
     public function validateResolved()
     {
         parent::validateResolved();
         Customer::findOrFail($this->route('id'));
+    }
+
+    protected function getRelations()
+    {
+        return implode(',', [
+            'products',
+            'pricingPolicies'
+        ]);
     }
 }

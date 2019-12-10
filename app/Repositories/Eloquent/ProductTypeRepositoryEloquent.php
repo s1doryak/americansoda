@@ -18,9 +18,10 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
 
     /**
      * @param $shopId
+     * @param array $withCount
      * @return mixed
      */
-    public function getByShopId($shopId)
+    public function getByShopId($shopId, $withCount = [])
     {
         $products = $this->productRepository->getByShopId($shopId);
         $productGroupIds = $products->pluck('product_group_id')->unique();
@@ -34,6 +35,9 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
                 },
                 'productGroups.pricingPolicies' => function ($query) use ($shopId) {
                     return $query->where('customer_id', $shopId);
+                },
+                'productGroups' => function ($query) use ($withCount) {
+                    return $query->withCount($withCount);
                 }
             ])
             ->get();

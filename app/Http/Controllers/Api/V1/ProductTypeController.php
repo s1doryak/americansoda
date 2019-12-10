@@ -18,7 +18,7 @@ class ProductTypeController extends Controller
      */
     public function get(GetRequest $request, ProductTypeService $service)
     {
-        $data = $service->getByShopId($request->route('id'));
+        $data = $service->getByShopId($request->route('id'), $request->input('with_count'));
 
         return response()->json($data, Response::HTTP_OK);
     }
