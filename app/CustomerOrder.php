@@ -29,345 +29,371 @@ use Carbon\Carbon;
  */
 class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'number',
-		'batch_number',
-		'comment',
-		'fc_overdue',
-		'fc_comment',
-		'fc_future_comment',
-		'sent_at',
-		'customer_id',
-		'user_id',
-	];
+    protected $fillable = [
+        'number',
+        'batch_number',
+        'comment',
+        'fc_overdue',
+        'fc_comment',
+        'fc_future_comment',
+        'sent_at',
+        'customer_id',
+        'user_id',
+    ];
 
-	protected $casts = [
-		'fc_overdue' => 'integer',
-	];
+    protected $casts = [
+        'fc_overdue' => 'integer',
+    ];
 
-	protected $dates = [
-		'sent_at',
-	];
+    protected $dates = [
+        'sent_at',
+    ];
 
-	protected $hidden = [
+    protected $appends = [
+        'status',
+        'amount',
+        'amount_vat',
+    ];
 
-	];
+    protected $hidden = [
 
-	protected $belongsTo = [
-		'customer' => \App\Customer::class,
-		'user' => \App\User::class,
-	];
+    ];
 
-	protected $belongsToMany = [
+    protected $belongsTo = [
+        'customer' => \App\Customer::class,
+        'user' => \App\User::class,
+    ];
 
-	];
+    protected $belongsToMany = [
 
-	protected $belongsToManyPivot = [
+    ];
 
-	];
+    protected $belongsToManyPivot = [
 
-	protected $belongsToManyPivotTimestamps = [
+    ];
 
-	];
+    protected $belongsToManyPivotTimestamps = [
 
-	protected $hasOne = [
+    ];
 
-	];
+    protected $hasOne = [
 
-	protected $hasMany = [
-		'customerOrderItems' => CustomerOrderItem::class,
-	];
+    ];
 
-	protected $hasManyThrough = [
+    protected $hasMany = [
+        'customerOrderItems' => CustomerOrderItem::class,
+    ];
 
-	];
+    protected $hasManyThrough = [
 
-	protected $morphTo = [
+    ];
 
-	];
+    protected $morphTo = [
 
-	protected $morphMany = [
+    ];
 
-	];
+    protected $morphMany = [
 
-	protected $with = [
+    ];
+
+    protected $with = [
 //		'customer',
 //		'user',
-	];
+    ];
 
-	protected $images = [
+    protected $images = [
 
-	];
+    ];
 
-	protected $files = [
+    protected $files = [
 
-	];
+    ];
 
-	/**
-	 * @return array
-	 */
-	public function getWith()
-	{
-		$condition = is_resource_page(['customer_order']) || is_datatable(['customer_order']);
+    /**
+     * @return array
+     */
+    public function getWith()
+    {
+        $condition = is_resource_page(['customer_order']) || is_datatable(['customer_order']);
 
-		return [
-			$condition ? 'customer' : null,
-			$condition ? 'user' : null,
-			$condition ? 'customerOrderItems' : null,
-			$condition ? 'customerOrderItems.product' : null,
-		];
-	}
+        return [
+            $condition ? 'customer' : null,
+            $condition ? 'user' : null,
+            $condition ? 'customerOrderItems' : null,
+            $condition ? 'customerOrderItems.product' : null,
+        ];
+    }
 
-	/**
-	 * @param $value
-	 * @return string
-	 */
-	public function getStatusAttribute($value)
-	{
-		$statuses = array_keys(config('stock.status'));
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getStatusAttribute($value)
+    {
+        $statuses = array_keys(config('stock.status'));
 
-		$status = $this->customerOrderItems->map(
-			function ($customerOrderItem) use ($statuses) {
-				return array_search($customerOrderItem->status, $statuses);
-			}
-		)->max();
+        $status = $this->customerOrderItems->map(
+            function ($customerOrderItem) use ($statuses) {
+                return array_search($customerOrderItem->status, $statuses);
+            }
+        )->max();
 
-		return isset($statuses[$status]) ? $statuses[$status] : 'open';
-	}
+        return isset($statuses[$status]) ? $statuses[$status] : 'open';
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEmailSubject()
-	{
-		return $this->getOrderReviewFileName();
-	}
+    public function getAmountAttribute($value)
+    {
+        return number_format(
+            $this->customerOrderItems->sum('total_price'),
+            2,
+            '.',
+            ''
+        );
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getOrderReviewFileName()
-	{
-		return preg_replace(
-			'/\s+/mui',
-			'_',
-			sprintf('%s_%s_%s', $this->number, $this->customer->name, mb_strtoupper('Tilausvahvistus'))
-		);
-	}
+    public function getAmountVatAttribute($value)
+    {
+        return number_format(
+            $this->customerOrderItems->sum('total_vat_price'),
+            2,
+            '.',
+            ''
+        );
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getOrderReviewStorageFileName()
-	{
-		return preg_replace('/\s+/mui', '_', sprintf('%s_%s', $this->number, mb_strtoupper('Tilausvahvistus')));
-	}
+    /**
+     * @return string
+     */
+    public function getEmailSubject()
+    {
+        return $this->getOrderReviewFileName();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getUrl()
-	{
-		return route('dashboard.customer_order.edit', $this->getKey());
-	}
+    /**
+     * @return string
+     */
+    public function getOrderReviewFileName()
+    {
+        return preg_replace(
+            '/\s+/mui',
+            '_',
+            sprintf('%s_%s_%s', $this->number, $this->customer->name, mb_strtoupper('Tilausvahvistus'))
+        );
+    }
 
-	/**
-	 * @return Carbon
-	 */
-	public function getDate()
-	{
-		if (preg_match('/[a-zA-Z\-]*([0-9]{4})([0-9]{2})([0-9]{2})[0-9\-]*/mui', $this->number, $matches)) {
-			$date = Carbon::createFromFormat('d/m/Y', sprintf('%s/%s/%s', $matches[3], $matches[2], $matches[1]));
-		} else {
-			$date = $this->created_at;
-		}
+    /**
+     * @return string
+     */
+    public function getOrderReviewStorageFileName()
+    {
+        return preg_replace('/\s+/mui', '_', sprintf('%s_%s', $this->number, mb_strtoupper('Tilausvahvistus')));
+    }
 
-		return $date;
-	}
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return route('dashboard.customer_order.edit', $this->getKey());
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getFcId()
-	{
-		return $this->getKey();
-	}
+    /**
+     * @return Carbon
+     */
+    public function getDate()
+    {
+        if (preg_match('/[a-zA-Z\-]*([0-9]{4})([0-9]{2})([0-9]{2})[0-9\-]*/mui', $this->number, $matches)) {
+            $date = Carbon::createFromFormat('d/m/Y', sprintf('%s/%s/%s', $matches[3], $matches[2], $matches[1]));
+        } else {
+            $date = $this->created_at;
+        }
 
-	/**
-	 * @return string
-	 */
-	public function getFcTitle()
-	{
-		if ($this->customer) {
-			return $this->customer->name;
-		}
+        return $date;
+    }
 
-		return $this->number;
-	}
+    /**
+     * @return mixed
+     */
+    public function getFcId()
+    {
+        return $this->getKey();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getFcStartDate()
-	{
-		$date = $this->getDate();
+    /**
+     * @return string
+     */
+    public function getFcTitle()
+    {
+        if ($this->customer) {
+            return $this->customer->name;
+        }
 
-		return $date->toIso8601String();
-	}
+        return $this->number;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function getFcAllDay()
-	{
-		return true;
-	}
+    /**
+     * @return string
+     */
+    public function getFcStartDate()
+    {
+        $date = $this->getDate();
 
-	/**
-	 * @return string
-	 */
-	public function getFcClassName()
-	{
-		/** @var Customer|null $customer */
-		$customer = $this->customer;
+        return $date->toIso8601String();
+    }
 
-		$classes = [];
+    /**
+     * @return boolean
+     */
+    public function getFcAllDay()
+    {
+        return true;
+    }
 
-		$classes[] = sprintf('fc-order-status-%s', $this->status);
+    /**
+     * @return string
+     */
+    public function getFcClassName()
+    {
+        /** @var Customer|null $customer */
+        $customer = $this->customer;
 
-		if (!empty(trim(strip_tags($this->fc_comment)))) {
-			$classes[] = 'fc-order-has-comment';
-		}
+        $classes = [];
 
-		if ($customer && !empty(trim(strip_tags($customer->calendar_comment)))) {
-			$classes[] = 'fc-order-has-comment';
-		}
+        $classes[] = sprintf('fc-order-status-%s', $this->status);
 
-		return collect($classes)->implode(' ');
-	}
+        if (!empty(trim(strip_tags($this->fc_comment)))) {
+            $classes[] = 'fc-order-has-comment';
+        }
 
-	/**
-	 * @return string
-	 */
-	public function getFcComment()
-	{
-		/** @var Customer|null $customer */
-		$customer = $this->customer;
+        if ($customer && !empty(trim(strip_tags($customer->calendar_comment)))) {
+            $classes[] = 'fc-order-has-comment';
+        }
 
-		if ($customer) {
-			return (string)$customer->calendar_comment;
-		}
+        return collect($classes)->implode(' ');
+    }
 
-		return (string)$this->fc_comment;
-	}
+    /**
+     * @return string
+     */
+    public function getFcComment()
+    {
+        /** @var Customer|null $customer */
+        $customer = $this->customer;
 
-	/**
-	 * @return string
-	 */
-	public function getFcFutureComment()
-	{
-		/** @var Customer|null $customer */
-		$customer = $this->customer;
+        if ($customer) {
+            return (string)$customer->calendar_comment;
+        }
 
-		if ($customer) {
-			return (string)$customer->calendar_comment;
-		}
+        return (string)$this->fc_comment;
+    }
 
-		return (string)$this->fc_future_comment;
-	}
+    /**
+     * @return string
+     */
+    public function getFcFutureComment()
+    {
+        /** @var Customer|null $customer */
+        $customer = $this->customer;
 
-	/**
-	 * @return integer
-	 */
-	public function getFcOverdue()
-	{
-		return (int)$this->fc_overdue;
-	}
+        if ($customer) {
+            return (string)$customer->calendar_comment;
+        }
 
-	/**
-	 * @return array
-	 */
-	public function getFcDescription()
-	{
-		$description = [
-			'order_url' => route('dashboard.customer_order.edit', $this->getRouteKey()),
-			'order_number' => $this->number,
-			'order_status' => trans(sprintf('models/customer_order.statuses.%s', $this->status))
-		];
+        return (string)$this->fc_future_comment;
+    }
 
-		/** @var Customer|null $customer */
-		$customer = $this->customer;
+    /**
+     * @return integer
+     */
+    public function getFcOverdue()
+    {
+        return (int)$this->fc_overdue;
+    }
 
-		if ($customer) {
-			$description['customer_url'] = route('dashboard.customer.edit', $customer->getRouteKey());
-			$description['customer_name'] = sprintf('%s / %s', $customer->name, $customer->legal_name);
-			$description['customer_address'] = sprintf('%s, %s', $customer->shipping_address, $customer->shipping_postcode);
-			$description['customer_phone'] = $customer->phone;
-			$description['customer_email'] = $customer->email;
-		}
+    /**
+     * @return array
+     */
+    public function getFcDescription()
+    {
+        $description = [
+            'order_url' => route('dashboard.customer_order.edit', $this->getRouteKey()),
+            'order_number' => $this->number,
+            'order_status' => trans(sprintf('models/customer_order.statuses.%s', $this->status))
+        ];
 
-		return $description;
-	}
+        /** @var Customer|null $customer */
+        $customer = $this->customer;
 
-	/**
-	 * @return array
-	 */
-	public function toFcEvent()
-	{
-		return [
-			'type' => 'order',
-			'editable' => false,
-			'durationEditable' => false,
-			'order' => $this->getKey(),
-			'title' => $this->getFcTitle(),
-			'comment' => $this->getFcComment(),
-			'future_comment' => $this->getFcFutureComment(),
-			'description' => $this->getFcDescription(),
-			'start' => $this->getFcStartDate(),
-			'overdue' => $this->getFcOverdue(),
-			'allDay' => $this->getFcAllDay(),
-			'className' => $this->getFcClassName(),
-		];
-	}
+        if ($customer) {
+            $description['customer_url'] = route('dashboard.customer.edit', $customer->getRouteKey());
+            $description['customer_name'] = sprintf('%s / %s', $customer->name, $customer->legal_name);
+            $description['customer_address'] = sprintf('%s, %s', $customer->shipping_address, $customer->shipping_postcode);
+            $description['customer_phone'] = $customer->phone;
+            $description['customer_email'] = $customer->email;
+        }
 
-	/**
-	 * @param $attachment
-	 * @return boolean
-	 */
-	public function sendEmail($attachment)
-	{
-		try {
+        return $description;
+    }
 
-			/** @var CustomerOrder $order */
-			$order = $this;
+    /**
+     * @return array
+     */
+    public function toFcEvent()
+    {
+        return [
+            'type' => 'order',
+            'editable' => false,
+            'durationEditable' => false,
+            'order' => $this->getKey(),
+            'title' => $this->getFcTitle(),
+            'comment' => $this->getFcComment(),
+            'future_comment' => $this->getFcFutureComment(),
+            'description' => $this->getFcDescription(),
+            'start' => $this->getFcStartDate(),
+            'overdue' => $this->getFcOverdue(),
+            'allDay' => $this->getFcAllDay(),
+            'className' => $this->getFcClassName(),
+        ];
+    }
 
-			Mail::send(
-				'dashboard::resources.customer.mail.order_review',
-				['order' => $order],
+    /**
+     * @param $attachment
+     * @return boolean
+     */
+    public function sendEmail($attachment)
+    {
+        try {
 
-				function (Message $message) use ($order, $attachment) {
+            /** @var CustomerOrder $order */
+            $order = $this;
 
-					/** @var Customer $customer */
-					$customer = $order->customer;
+            Mail::send(
+                'dashboard::resources.customer.mail.order_review',
+                ['order' => $order],
 
-					$message->from(env('MAIL_FROM'), env('MAIL_FROM_NAME'))
-						->to($customer->email, $customer->name)
-						->cc(env('MAIL_FROM'), env('MAIL_FROM_NAME'))
-						->subject($order->getEmailSubject())
-						->attach(
-							$attachment,
-							[
-								'as' => sprintf('%s.pdf', $order->getOrderReviewFileName()),
-								'mime' => 'application/pdf',
-							]
-						);
+                function (Message $message) use ($order, $attachment) {
 
-				}
-			);
+                    /** @var Customer $customer */
+                    $customer = $order->customer;
 
-		} catch (\Swift_TransportException $e) {
-		}
+                    $message->from(env('MAIL_FROM'), env('MAIL_FROM_NAME'))
+                        ->to($customer->email, $customer->name)
+                        ->cc(env('MAIL_FROM'), env('MAIL_FROM_NAME'))
+                        ->subject($order->getEmailSubject())
+                        ->attach(
+                            $attachment,
+                            [
+                                'as' => sprintf('%s.pdf', $order->getOrderReviewFileName()),
+                                'mime' => 'application/pdf',
+                            ]
+                        );
 
-		return true;
-	}
+                }
+            );
+
+        } catch (\Swift_TransportException $e) {
+        }
+
+        return true;
+    }
 }

@@ -8,6 +8,7 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BannersController;
+use App\Http\Controllers\Api\V1\CustomerOrdersController;
 use App\Http\Controllers\Api\V1\CustomerUserController;
 use App\Http\Controllers\Api\V1\ProductTypeController;
 
@@ -19,6 +20,7 @@ Route::group(['middleware' => 'api'], function () {
 
             Route::get('shop/{id}/banners', [BannersController::class, 'get']);
             Route::get('shop/{id}/nomenclature', [ProductTypeController::class, 'get']);
+            Route::get('shop/{id}/orders', [CustomerOrdersController::class, 'get']);
         });
 
         Route::post('/auth', [AuthController::class, 'sendToken']);
