@@ -127,9 +127,9 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 	];
 
 	protected $with = [
-		'brand',
-		'packageType',
-		'productGroup',
+//		'brand',
+//		'packageType',
+//		'productGroup',
 		'productTags',
 	];
 
@@ -147,7 +147,7 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 	 */
 	public function getWith()
 	{
-		$condition = is_resource_page(['product']) || is_datatable(['product']);
+		$condition = (is_resource_page(['product']) || is_datatable(['product'])) && !is_api();
 
 		return [
 			$condition ? 'brand' : null,

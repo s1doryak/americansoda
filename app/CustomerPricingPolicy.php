@@ -78,8 +78,8 @@ class CustomerPricingPolicy extends \Crmplease\MaterialAdmin\Database\Eloquent\M
     ];
 
     protected $with = [
-		'productGroup',
-		'customer',
+//		'productGroup',
+//		'customer',
     ];
 
     protected $images = [

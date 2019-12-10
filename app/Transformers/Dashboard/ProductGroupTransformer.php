@@ -26,6 +26,7 @@ class ProductGroupTransformer implements TransformerContract
 			'name' => $request->get('name'),
 			'vat' => (integer)$request->get('vat'),
 			'sales_unit_volume' => (integer)$request->get('sales_unit_volume'),
+			'productType' => (integer)$request->get('productType'),
 
 
 		];
@@ -41,6 +42,7 @@ class ProductGroupTransformer implements TransformerContract
 			'name' => $request->get('name'),
 			'vat' => (integer)$request->get('vat'),
 			'sales_unit_volume' => (integer)$request->get('sales_unit_volume'),
+			'productType' => (integer)$request->get('productType'),
 
 
 		];
@@ -62,6 +64,7 @@ class ProductGroupTransformer implements TransformerContract
 			'created_at' => (string)$productGroup->created_at,
 			'updated_at' => (string)$productGroup->updated_at,
 			'deleted_at' => (string)$productGroup->deleted_at,
+			'productType' => $productGroup->productType ? ProductTypeTransformer::toArray($productGroup->productType) : null,
 		];
 	}
 }

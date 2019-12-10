@@ -5,6 +5,7 @@ namespace App\Console\Commands\Resources;
 use App\ProductGroup;
 use App\Repositories\Contracts\ProductGroupRepository;
 use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
+use App\Repositories\Contracts\ProductTypeRepository;
 
 /**
  * ProductGroup resource creator.
@@ -13,6 +14,11 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class ProductGroupCreator extends ResourceCreator
 {
+	
+	/**
+	 * @var ProductTypeRepository
+	 */
+	protected $productTypes;
     protected $name = 'resource:create:product_group';
 
 
@@ -21,15 +27,17 @@ class ProductGroupCreator extends ResourceCreator
 	 * @var array
 	 */
 	protected $findOrCreateData = [
-
+		'productTypes' => 'name',
 	];
 
 	public function __construct(
 	    ProductGroup $productGroup,
-		ProductGroupRepository $productGroupRepository
+		ProductGroupRepository $productGroupRepository,
+		ProductTypeRepository $productTypeRepository
 	)
 	{
-	    $this->resource = $productGroup;
+	    $this->productTypes = $productTypeRepository;
+		$this->resource = $productGroup;
 		$this->repository = $productGroupRepository;
 
         parent::__construct();

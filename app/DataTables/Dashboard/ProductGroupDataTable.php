@@ -25,6 +25,9 @@ class ProductGroupDataTable extends DataTable
             'sales_unit_volume',
             'created_at',
             'updated_at',
+			'productType.name' => [
+				'data' => 'productType.name'
+			],
         ];
     }
 
@@ -60,8 +63,14 @@ class ProductGroupDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-
-        ];
+			'productType.name' => [
+				'type' => 'choice',
+				'multiple' => true,
+				'operator' => 'in',
+				'data' => 'productType.id',
+				'lists' => 'productType.name',
+			],
+	];
     }
 
     /**

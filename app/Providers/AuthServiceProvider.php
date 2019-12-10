@@ -51,6 +51,7 @@ class AuthServiceProvider extends ServiceProvider
 		\App\CustomerPreOrder::class => \App\Policies\CustomerPreOrderPolicy::class,
 		\App\CustomerPreOrderItem::class => \App\Policies\CustomerPreOrderItemPolicy::class,
         \App\Banner::class => \App\Policies\BannerPolicy::class,
+\App\ProductType::class => \App\Policies\ProductTypePolicy::class,
 
 
 
