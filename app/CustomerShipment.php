@@ -99,9 +99,9 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-        'packageType',
-        'customer',
-        'user',
+//        'packageType',
+//        'customer',
+//        'user',
     ];
 
     protected $images = [

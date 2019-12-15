@@ -1,0 +1,104 @@
+<?php
+
+namespace App\Services\Api\V1;
+
+use App\Company;
+use App\Customer;
+use App\CustomerOrderItem;
+use App\Repositories\Eloquent\CompanyRepositoryEloquent;
+use App\Repositories\Eloquent\CustomerOrderItemRepositoryEloquent;
+use App\Repositories\Eloquent\CustomerShipmentRepositoryEloquent;
+use Crmplease\MaterialAdmin\Services\ResourceService;
+use PDF;
+
+class CustomerShipmentService extends ResourceService
+{
+    protected $companyRepository;
+    protected $customerOrderItemRepository;
+
+    public function __construct()
+    {
+        $this->setRepository(CustomerShipmentRepositoryEloquent::class);
+
+        $this->companyRepository = app(CompanyRepositoryEloquent::class);
+        $this->customerOrderItemRepository = app(CustomerOrderItemRepositoryEloquent::class);
+    }
+
+    public function downloadPdfFile($shipmentId, $inline = false)
+    {
+        $shipment = $this->repository->with([
+            'packageType',
+            'customer',
+            'customer.billingRegion',
+            'customer.shippingRegion',
+            'customer.user',
+            'customer.stock',
+            'customer.stock.region'
+        ])->find($shipmentId);
+        $pdf = PDF::loadView('dashboard::documents.package-list', $this->prepareShipmentData($shipment));
+        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Lähetysluettelo')));
+
+        return $pdf->inline($filename)->send();
+    }
+
+
+    protected function prepareShipmentData($shipment, $hideBackOrder = true, $hideCancelled = true)
+    {
+        $customerOrderItemIds = $shipment->customerOrderItems->pluck('id')->toArray();
+
+        /** @var Company $company */
+        $company = $this->companyRepository->with('region')->first();
+
+        /** @var Customer $customer */
+        $customer = $shipment->customer;
+
+        $orderItemsConditions = [
+            [
+                function ($query) use ($customerOrderItemIds) {
+                    /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                    $query->whereIn('id', $customerOrderItemIds);
+                },
+                null,
+                null
+            ]
+        ];
+
+        if ($hideBackOrder) {
+            $orderItemsConditions['back_order'] = 0;
+        }
+
+        if ($hideCancelled) {
+            $orderItemsConditions['cancelled'] = 0;
+        }
+
+        /** @var \Illuminate\Database\Eloquent\Collection $shipmentItems */
+        $shipmentItems = $this->customerOrderItemRepository->with([
+            'product',
+            'product.productGroup',
+            'product.packageType',
+            'customerOrder',
+            'customerShipment'
+        ])->findWhere($orderItemsConditions);
+
+        /** @var \Illuminate\Database\Eloquent\Collection $orderDepositItems */
+        $orderDepositItems = $shipmentItems->filter(function (CustomerOrderItem $shipmentItem) {
+            return $shipmentItem->deposit_enabled;
+        });
+
+        $totalVats = get_total_vats($shipmentItems);
+        $totalDeposits = get_total_deposits($shipmentItems);
+        $totalPrice = $shipmentItems->sum('total_price') + $orderDepositItems->sum('deposit_total_price');
+        $totalVatPrice = $shipmentItems->sum('total_vat_price') + $orderDepositItems->sum('deposit_total_vat_price');
+
+        return compact(
+            'company',
+            'customer',
+            'shipment',
+            'shipmentItems',
+            'totalVats',
+            'totalDeposits',
+            'totalPrice',
+            'totalVatPrice'
+        );
+    }
+}
