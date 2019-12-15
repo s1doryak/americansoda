@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests\Api\V1\CustomerOrder;
 
-use App\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class DownloadPdfRequest extends FormRequest
+class CopyRequest extends FormRequest
 {
     public function authorize()
     {
@@ -23,11 +22,5 @@ class DownloadPdfRequest extends FormRequest
     public function rules()
     {
         return [];
-    }
-
-    public function validateResolved()
-    {
-        parent::validateResolved();
-        Customer::findOrFail($this->route('id'));
     }
 }
