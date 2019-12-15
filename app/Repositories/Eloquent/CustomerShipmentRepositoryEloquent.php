@@ -22,4 +22,11 @@ class CustomerShipmentRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
 
 		return $query;
 	}
+
+    public function getByShopId($shopId)
+    {
+        return $this
+            ->with('customerInvoice')
+            ->findWhere(['customer_id' => $shopId]);
+    }
 }
