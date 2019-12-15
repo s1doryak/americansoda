@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\Auth;
 class CustomerPreOrderService extends ResourceService
 {
     protected $customerPreOrderItemsService;
+    protected $customerOrderService;
 
     public function __construct()
     {
         $this->setRepository(CustomerPreOrderRepositoryEloquent::class);
 
         $this->customerPreOrderItemsService = app(CustomerPreOrderItemService::class);
+        $this->customerOrderService = app(CustomerOrderService::class);
     }
 
     public function create(array $data, $shopId)
@@ -29,5 +31,25 @@ class CustomerPreOrderService extends ResourceService
         );
         $customerPreOrder = $this->repository->create($customerPreOrderData);
         $this->customerPreOrderItemsService->create(Arr::get($data, 'pre_order_items'), $customerPreOrder);
+    }
+
+    public function createFromCustomerOrder($shopId, $orderId)
+    {
+        $customerOrderItems = $this->customerOrderService
+            ->with('customerOrderItems')
+            ->find($orderId)
+            ->customerOrderItems->toArray();
+        $customerOrderItems = array_map(function ($customerOrderItem) {
+            return [
+                'product_id' => $customerOrderItem['product_id'],
+                'quantity' => $customerOrderItem['sales_unit_quantity']
+            ];
+        }, $customerOrderItems);
+        $customerPreOrder = $this->repository->create([
+            'customer_user_id' => Auth::id(),
+            'customer_id' => $shopId
+        ]);
+
+        $this->customerPreOrderItemsService->create($customerOrderItems, $customerPreOrder);
     }
 }

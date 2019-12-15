@@ -24,7 +24,7 @@ Route::group(['middleware' => 'api'], function () {
             Route::get('/shop/{id}/orders', [CustomerOrdersController::class, 'get']);
             Route::get('shop/{id}/order/{order_id}/pdf', [CustomerOrdersController::class, 'downloadPdf']);
 
-            Route::post('/shop/{id}/order/{order_id}/copy');
+            Route::post('/shop/{id}/order/{order_id}/copy', [CustomerPreOrderController::class, 'copy']);
             Route::post('/shop/{id}/pre-order/', [CustomerPreOrderController::class, 'create']);
         });
 

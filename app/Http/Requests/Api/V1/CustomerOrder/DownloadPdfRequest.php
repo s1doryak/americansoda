@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Api\V1\CustomerOrder;
 
 use App\Customer;
-use App\CustomerOrder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +10,6 @@ class DownloadPdfRequest extends FormRequest
 {
     public function authorize()
     {
-        CustomerOrder::findOrFail($this->route('order_id'));
         $customerUser = Auth::user()
             ->customers()
             ->with(['customerOrders' => function ($query) {
@@ -19,7 +17,7 @@ class DownloadPdfRequest extends FormRequest
             }])
             ->first();
 
-        return $customerUser->customerOrders->count() > 0;
+        return $customerUser->customerOrders->isNotEmpty();
     }
 
     public function rules()

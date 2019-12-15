@@ -29,7 +29,7 @@ class CustomerPreOrderItemService extends ResourceService
 
     }
 
-    protected function makeCustomerOrderItemsData($preOrderItems, $customerPreOrder)
+    public function makeCustomerOrderItemsData($preOrderItems, $customerPreOrder)
     {
         $customerPreOrderItems = [];
         $preOrderItemsCustomerData = [
