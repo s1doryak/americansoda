@@ -20,18 +20,19 @@ Route::group(['middleware' => 'api'], function () {
         Route::group(['middleware' => 'jwt.auth'], function () {
             Route::get('/profile', [CustomerUserController::class, 'profile']);
 
-            Route::get('/shop/{id}/banners', [BannersController::class, 'get']);
-            Route::get('/shop/{id}/nomenclature', [ProductTypeController::class, 'get']);
+            Route::group(['prefix' => '/shop/{id}'], function () {
+                Route::get('/banners', [BannersController::class, 'get']);
+                Route::get('/nomenclature', [ProductTypeController::class, 'get']);
 
-            Route::post('/shop/{id}/pre-order/', [CustomerPreOrderController::class, 'create']);
+                Route::post('/pre-order/', [CustomerPreOrderController::class, 'create']);
 
-            Route::get('/shop/{id}/orders', [CustomerOrdersController::class, 'get']);
-            Route::get('/shop/{id}/order/{order_id}/pdf', [CustomerOrdersController::class, 'downloadPdf']);
-            Route::post('/shop/{id}/order/{order_id}/copy', [CustomerPreOrderController::class, 'copy']);
+                Route::get('/orders', [CustomerOrdersController::class, 'get']);
+                Route::get('/order/{order_id}/pdf', [CustomerOrdersController::class, 'downloadPdf']);
+                Route::post('/order/{order_id}/copy', [CustomerPreOrderController::class, 'copy']);
 
-            Route::get('/shop/{id}/documents', [CustomerShipmentsController::class, 'get']);
-            Route::get('/shop/{id}/documents/{shipment_id}/pdf', [CustomerShipmentsController::class, 'downloadPdf']);
-
+                Route::get('/documents', [CustomerShipmentsController::class, 'get']);
+                Route::get('/documents/{shipment_id}/pdf', [CustomerShipmentsController::class, 'downloadPdf']);
+            });
         });
 
         Route::post('/auth', [AuthController::class, 'sendToken']);
