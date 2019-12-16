@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Nomenclature;
+namespace App\Http\Requests\Api\V1\ProductType;
 
 use App\Customer;
 use Illuminate\Foundation\Http\FormRequest;
@@ -15,8 +15,8 @@ class GetRequest extends FormRequest
     public function rules()
     {
         return [
-            'with_count' => 'array',
-            'with_count.*' => 'in:' . $this->getRelations()
+            'ids' => 'sometimes|array',
+            'ids.*' => 'integer|exists:product_types,id'
         ];
     }
 
@@ -24,13 +24,5 @@ class GetRequest extends FormRequest
     {
         parent::validateResolved();
         Customer::findOrFail($this->route('id'));
-    }
-
-    protected function getRelations()
-    {
-        return implode(',', [
-            'products',
-            'pricingPolicies'
-        ]);
     }
 }

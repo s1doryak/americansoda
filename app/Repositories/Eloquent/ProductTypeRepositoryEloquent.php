@@ -42,4 +42,14 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
             ])
             ->get(['id']);
     }
+
+    public function getCleanByShopId($shopId, $ids = [])
+    {
+        $query = $this
+            ->whereHas('productGroups.pricingPolicies', function ($query) use ($shopId) {
+                return $query->select('id', 'product_group_id')->where('customer_id', $shopId);
+            });
+
+        return ($ids) ? $query->findWhereIn('id', $ids) : $query->get();
+    }
 }
