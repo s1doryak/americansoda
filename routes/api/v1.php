@@ -12,6 +12,9 @@ use App\Http\Controllers\Api\V1\CustomerOrdersController;
 use App\Http\Controllers\Api\V1\CustomerPreOrderController;
 use App\Http\Controllers\Api\V1\CustomerShipmentsController;
 use App\Http\Controllers\Api\V1\CustomerUserController;
+use App\Http\Controllers\Api\V1\PricingPolicyController;
+use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\ProductGroupController;
 use App\Http\Controllers\Api\V1\ProductTypeController;
 
 Route::group(['middleware' => 'api'], function () {
@@ -23,6 +26,9 @@ Route::group(['middleware' => 'api'], function () {
             Route::group(['prefix' => '/shop/{id}'], function () {
                 Route::get('/banners', [BannersController::class, 'get']);
                 Route::get('/nomenclature', [ProductTypeController::class, 'get']);
+                Route::get('/products', [ProductController::class, 'get']);
+                Route::get('/product-groups', [ProductGroupController::class, 'get']);
+                Route::get('/pricing-policies', [PricingPolicyController::class, 'get']);
 
                 Route::post('/pre-order/', [CustomerPreOrderController::class, 'create']);
 

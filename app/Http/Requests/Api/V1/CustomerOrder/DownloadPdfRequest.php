@@ -12,6 +12,7 @@ class DownloadPdfRequest extends FormRequest
     {
         $customerUser = Auth::user()
             ->customers()
+            ->where('customer_id', $this->route('id'))
             ->with(['customerOrders' => function ($query) {
                 return $query->where('id', $this->route('order_id'));
             }])
