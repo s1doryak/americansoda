@@ -7,8 +7,8 @@ use Crmplease\MaterialAdmin\Services\ResourceService;
 
 class CustomerPricingPolicyService extends ResourceService
 {
-    public function __construct()
-    {
-        $this->setRepository(CustomerPricingPolicyRepositoryEloquent::class);
-    }
+     public function __construct()
+     {
+         $this->setRepository(CustomerPricingPolicyRepositoryEloquent::class);
+     }
 }

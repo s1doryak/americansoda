@@ -34,5 +34,5 @@
     'customer_pre_order' => \App\CustomerPreOrder::class,
     'customer_pre_order_item' => \App\CustomerPreOrderItem::class,
     'banner' => \App\Banner::class,
-'product_type' => \App\ProductType::class,
+    'product_type' => \App\ProductType::class,
 ];
