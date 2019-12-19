@@ -1,3 +1,3 @@
 <footer id="footer">
-    {{--  {!! sprintf(trans('material-admin::footer.copyright'), carbon()->year) !!} --}}
+    {!! trans('material-admin::footer.copyright', ['year' => date('Y')]) !!}
 </footer>

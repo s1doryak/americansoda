@@ -5,8 +5,8 @@
     <div class="toggle-switch" data-ts-color="{{ isset($attr['ts-color']) ? $attr['ts-color'] : 'green' }}">
         {!! Form::checkbox(sprintf('filters[%d][value]', $idx), $filter->default, $filter->default) !!}
         <label for="filters[{{ $idx }}][value]" class="ts-helper"></label>
-        @if(isset($attr['ts-label']))
+        @isset($attr['ts-label'])
             <label for="filters[{{ $idx }}][value]" class="ts-label">{!! $attr['ts-label'] !!}</label>
-        @endif
+        @endisset
     </div>
 </div>

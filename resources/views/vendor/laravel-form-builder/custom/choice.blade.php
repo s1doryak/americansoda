@@ -9,7 +9,6 @@
 
             @if ($showField)
                 {!! Form::select($name, $options['choices'], $options['selected'], $options['attr'], $options['options'] ?? []) !!}
-
                 @include('laravel-form-builder::help_block')
             @endif
 

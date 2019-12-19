@@ -8,7 +8,7 @@
 @endif
 @if ($showField)
     {!! Form::textarea($name, $options['value'], ['class' => 'html-editor']) !!}
-@include('laravel-form-builder::help_block')
+    @include('laravel-form-builder::help_block')
 @endif
 
 @include('laravel-form-builder::errors')

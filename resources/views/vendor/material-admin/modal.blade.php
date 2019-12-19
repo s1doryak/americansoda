@@ -8,12 +8,14 @@
 </div>
 
 <div class="modal-body">
-    @hasSection('modal-content')
-        @yield('modal-content')
+    @hasSection('card-body')
+        @yield('card-body')
     @else
-        <div class="form-container">
-            {!! form($form) !!}
-        </div>
+        @isset($form)
+            <div class="form-container">
+                {!! form($form) !!}
+            </div>
+        @endisset
     @endif
 </div>
 

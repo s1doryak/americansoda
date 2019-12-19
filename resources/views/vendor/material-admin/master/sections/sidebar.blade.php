@@ -2,10 +2,10 @@
     @hasSection('sidebar')
         @yield('sidebar')
     @else
-        @if (Auth::check())
+        @if(Auth::check())
             <div class="s-profile">
                 <a href="#" data-ma-action="profile-menu-toggle">
-                    @if(Auth::user()->photo && Auth::user()->photo->original)
+                    @if(Auth::user()->photo->original->url ?? null)
                         <div class="sp-pic">
                             <img src="{{ Auth::user()->photo->original->url }}" alt="{{ Auth::user()->name }}">
                         </div>
@@ -17,24 +17,27 @@
                 </a>
 
                 <ul class="main-menu">
-                    <li>
-                        <a href="{{ route(sprintf('%s.logout', prefix_name())) }}"><i class="zmdi zmdi-sign-in zmdi-hc-rotate-180"></i> {{ trans('material-admin::auth.logout.logout') }}</a>
-                    </li>
+                    @if(has_route(prefix_name() . '.logout'))
+                        <li>
+                            <a href="{{ route(prefix_name() . '.logout') }}">
+                                <i class="zmdi zmdi-sign-in zmdi-hc-rotate-180"></i> {{ trans('material-admin::auth.logout.logout') }}
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         @endif
 
         <ul class="main-menu">
-            @if(isset($sidebar))
+            @isset($sidebar)
                 @foreach($sidebar as $group)
                     @include('material-admin::master.sections._submenu', [
-                        'admin' => isset($group['admin']) && $group['admin'] === true,
                         'title' => $group['title'],
                         'resources' => $group['resources'],
                         'active' => is_active_sidebar_group($group)
                     ])
                 @endforeach
-            @endif
+            @endisset
         </ul>
     @endif
 </aside>

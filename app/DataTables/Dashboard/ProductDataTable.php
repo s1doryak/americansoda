@@ -140,6 +140,32 @@ class ProductDataTable extends DataTable
      * @param Product $product
      * @return string
      */
+    public function renderProductGroup__NameColumn($product)
+    {
+        if ($this->isDataTableRequest()) {
+            return $product->productGroup ? $product->productGroup->name : $this->renderDefaultView();
+        }
+
+        return optional($product->productGroup)->name;
+    }
+
+    /**
+     * @param Product $product
+     * @return string
+     */
+    public function renderPackageType__NameColumn($product)
+    {
+        if ($this->isDataTableRequest()) {
+            return $product->packageType ? $product->packageType->name : $this->renderDefaultView();
+        }
+
+        return optional($product->packageType)->name;
+    }
+
+    /**
+     * @param Product $product
+     * @return string
+     */
     public function renderProductTags__NameColumn($product)
     {
         $fallback = $product->productTags->map(function (ProductTag $productTag) {

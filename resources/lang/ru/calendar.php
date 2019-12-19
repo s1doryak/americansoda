@@ -2,7 +2,7 @@
 
 return [
 	'index' => [
-		'title' => 'Календарь'
+		'title' => 'План'
 	],
 	'view' => [
 		'day' => 'День',

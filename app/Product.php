@@ -127,10 +127,7 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 	];
 
 	protected $with = [
-//		'brand',
-//		'packageType',
-//		'productGroup',
-		'productTags',
+
 	];
 
 	protected $images = [

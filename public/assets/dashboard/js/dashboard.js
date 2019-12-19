@@ -1,1 +1,595 @@
-jQuery(document).ready(function(e){e(document).on("change",'[data-action="maventa_paid"]',function(t){var a=e(this),o=a.prop("checked"),n=a.closest("table").DataTable();e.ajax({url:a.data("url"),method:"post",data:{_token:a.data("token"),_method:a.data("method")},cache:!1,async:!0}).complete(function(e){200===e.status?(a.prop("checked",o),a.prop("disabled",!0),n.draw(!1)):(a.prop("checked",!o),a.prop("disabled",!1))})}),e(document).on("click",'[data-action="send"]',function(t){var a=e(this),o=a.find("i.zmdi"),n=a.data("icon-class"),r=a.data("color-class"),d=a.data("progress-icon-class"),i=a.data("progress-color-class"),s=(a.closest("tr"),a.closest("table"));s.DataTable();s.hasClass("responsive")&&s.hasClass("collapsed")&&a.closest("tr").prev('[role="row"]'),a.attr("disabled",!0),o.removeClass(n).removeClass(r).addClass(d).addClass(i),e.ajax({url:a.data("url"),method:"post",data:{_token:a.data("token"),_method:a.data("method")},cache:!1,async:!0}).complete(function(e){switch(a.attr("disabled",!1),o.addClass(n).addClass(r).removeClass(d).removeClass(i),e.status){case 200:a.replaceWith(e.responseText);break;case 404:case 500:notify(e.responseJSON.message,"danger")}}),t.preventDefault()}),e(document).on("click",'[data-action="send_email"]',function(t){var a=e(this),o=a.find("i.zmdi"),n=a.data("icon-class"),r=a.data("color-class"),d=a.data("progress-icon-class"),i=a.data("progress-color-class"),s=(a.closest("tr"),a.closest("table"));s.DataTable();s.hasClass("responsive")&&s.hasClass("collapsed")&&a.closest("tr").prev('[role="row"]'),a.attr("disabled",!0),o.removeClass(n).removeClass(r).addClass(d).addClass(i),e.ajax({url:a.data("url"),method:"post",data:{_token:a.data("token"),_method:a.data("method")},cache:!1,async:!0}).complete(function(e){switch(a.attr("disabled",!1),o.addClass(n).addClass(r).removeClass(d).removeClass(i),e.status){case 200:a.replaceWith(e.responseText);break;case 404:case 500:notify(e.responseJSON.message,"danger")}}),t.preventDefault()}),e(document).on("change",'[data-action="shipment_assign"]',function(t){var a=e(this),o=a.prop("checked");a.prop("disabled",!0),e.ajax({url:a.data("url"),method:"post",data:{_token:a.data("token"),_method:a.data("method"),need_shipping:o},cache:!1,async:!0}).complete(function(e){200===e.status?a.prop("checked",o):a.prop("checked",!o),a.prop("disabled",!1)})})}),jQuery(function(e){var t=e(".js-relation-form"),a={};function o(t){var a=0;t.find(".js-row").each(function(t,o){var n=e(o);a++,n.find("input,select,textarea,label").each(function(t,o){var n=e(o),r=n.attr("id"),d=n.attr("for"),i=n.attr("name");r&&n.attr("name",r.replace(/[\d]+/,a)),d&&n.attr("name",d.replace(/[\d]+/,a)),i&&n.attr("name",i.replace(/[\d]+/,a))}),n.find(".selectpicker").selectpicker(),n.find(".date-picker").datetimepicker({format:"DD/MM/YYYY"})})}function n(e){"customer_pricing_policy"!==e.data("resource")&&(0===e.find(".js-row").length?e.hide():e.show())}e(".js-relation-form-row").each(function(t,o){var n=e(o),r=n.data("resource");a[r]=Handlebars.compile(n.html())}),e(document).on("click",".js-add-row",function(){var t,r,d,i,s,c=e(this);return r=c.closest(".js-relation-form").length?(t=c.closest(".js-relation-form")).closest(".form-group"):t=c.closest(".form-group").find(".js-relation-form"),d=t.data("resource"),i=t.find(".js-row").last(),$idx=i.index()+1,(s=e(a[d]().replace(/\[(%%idx%%|idx|\d*)]/gm,"["+$idx+"]"))).addClass("new"),i.length?s.insertAfter(i):t.find("tbody").append(s),o(r),n(t),t.trigger("relation-form-row-added",[s]).trigger("relation-form-row-added/"+d,[s]),!1}),t.each(function(t,a){var o=e(a);o.on("click",".js-remove-row",function(){var t=e(this),a=t.closest(".js-row");if(1===a.closest("form").data("create")||a.hasClass("new"))return a.remove(),n(o),!1;var r=t.text();return t.text(t.data("text")),t.data("text",r),a.data("removed",1!==a.data("removed")?1:0),a.find("[data-remove]").val(a.data("removed")),a.find("td:not(.js-td-removed)").toggleClass("hidden"),a.find(".js-td-removed").toggleClass("hidden").attr("colspan",a.find("td:not(.js-td-removed)").length),n(o),!1}),o.on("click",".js-undo-link",function(){return e(this).closest(".js-row").find(".js-remove-row").click(),!1}),o.on("input change",".form-control",function(){var t=e(this),a=t.closest(".js-row"),o=(t.val()||t.text())!==t.data("initial")?1:0;a.find("[data-changed]").val(o)}),n(o)}),$policies=e('.js-relation-form[data-resource^="customer_pricing_policy"]'),$policies.length&&o($policies.closest(".js-relation-form"))}),jQuery(function(e){var t=e("#supplier-order-form");t.length&&(t.on("change","[data-product_id]",function(){var t=e(this),a=t.find("option:selected").data("number_in_package");t.data("number_in_package",a),t.closest(".js-row").find("[data-pallets_quantity]").trigger("input")}),t.on("keydown input","[data-pallets_quantity]",function(){var t=e(this),a=t.val(),o=t.closest(".js-row"),n=o.find("[data-product_id]"),r=n.data("number_in_package")||n.find("option:selected").data("number_in_package"),d=o.find("[data-packages_quantity]"),i=o.find("[data-products_quantity]"),s=d.attr("data-package-"+r),c=i.data("initial")||i.attr("data-initial");d.val(a*s),i.val(a*c)}),t.on("click",".js-add-row",function(){t.find("[data-product_id]").trigger("change"),t.find("[data-pallets_quantity]").trigger("input")}),t.find("[data-product_id]").trigger("change"),1==t.data("create")&&t.find("[data-pallets_quantity]").trigger("input"))}),jQuery(function(e){function t(){e(".customer-order-items-table .js-row").each(function(t,a){var o=e(a),n=o.find(".td-product_manual_price input"),r=o.find(".td-product_price input"),d=n.prop("checked");r.prop("disabled",!d)})}e(document).on("relation-form-row-added",".customer-order-items-table",function(e){t()}),e(document).on("change",".customer-order-items-table .td-product_manual_price input",function(t){var a=e(this),o=a.closest(".js-row").find(".td-product_price input"),n=a.prop("checked");o.prop("disabled",!n)}),t(),e(".customer-order-items-table .js-row").each(function(t,a){var o=e(a).find(".td-back_order input"),n=o.prop("checked");o.data("original-state",n)}),e(document).on("change",".customer-order-items-table .td-back_order input",function(t){var a=e(this),o=a.prop("checked");a.data("original-state",o)}),e(document).on("change",".customer-order-items-table .td-bypass input",function(t){var a=e(this),o=a.closest(".js-row").find(".td-back_order input");a.prop("checked")?o.prop("checked",!1):o.prop("checked",o.data("original-state"))})}),jQuery(document).ready(function(e){e(document).on("input",'#customer-order-item-form input[name="a_quantity"]',function(t){var a=e(this),o=e('#customer-order-item-form input[name="b_quantity"]'),n=+e('#customer-order-item-form input[name="sales_unit_quantity"]').val(),r=+a.val();isNaN(r)||(r>n&&(r=n),a.val(r),o.val(n-r))}),e(document).on("input",'#customer-order-item-form input[name="b_quantity"]',function(t){var a=e('#customer-order-item-form input[name="a_quantity"]'),o=e(this),n=+e('#customer-order-item-form input[name="sales_unit_quantity"]').val(),r=+o.val();isNaN(r)||(r>n&&(r=n),o.val(r),a.val(n-r))})}),jQuery(function(e){var t=e("#stock-movement-form");if(t.length){var a=e(".js-relation-form"),o=t.find('[name="movement_type"]'),n=t.find('[name="_supplierOrderConnected"]').prop("checked");l(),u(n),c(n),t.find('[name="_supplierOrderConnected"]').on("change",function(t){u(n=e(this).prop("checked")),c(n)});var r=o.val();s(r),d().on("loaded.bs.select",function(){i(r)}),o.on("change",function(){r=e(this).val(),l(),i(r),s(r),c(n)}),e(document).on("relation-form-row-added",".stock_movement-products-table",function(e,t){l(),i(r,t),s(r),c(n)})}function d(e){return(e=e||a).find('[name$="[movement_type]"]')}function i(t,a){var o=d(a),n=o.siblings(".dropdown-menu"),r=o.find('optgroup[label="'+t+'"]'),i=r.index()+1,s=n.find(".dropdown-menu li");s.hide(),s.filter(function(t,a){return e(a).data("optgroup")===i}).show(),o.val(r.find("option:first").attr("value")).trigger("change")}function s(e){var t=a.find(".th-expiration_date").add(a.find(".td-expiration_date"));"cancellation"===e?t.hide():t.show()}function c(e){var t=a.find(".th-delivery_number").add(a.find(".td-delivery_number"));e?t.hide():t.show()}function l(){var e="cancellation"===o.val(),a=t.find('[name="_supplierOrderConnected"]'),n=a.closest(".form-group");e?(a.prop("checked",!1).trigger("change"),n.hide()):(a.trigger("change"),n.show())}function u(e){var a=t.find('[name="supplierOrder"]').closest(".form-group");e?a.show():a.hide()}});
+jQuery(document).ready(function ($) {
+
+    $(document).on('change', '[data-action="maventa_paid"]', function (e) {
+        var $this = $(this),
+            checked = $this.prop('checked'),
+            $table = $this.closest('table'),
+            dt = $table.DataTable();
+
+        $.ajax({
+            url: $this.data('url'),
+            method: 'post',
+            data: {
+                _token: $this.data('token'),
+                _method: $this.data('method')
+            },
+            cache: false,
+            async: true
+        }).complete(function (response) {
+
+            if (response.status === 200) {
+                $this.prop('checked', checked);
+                $this.prop('disabled', true);
+                dt.draw(false);
+            } else {
+                $this.prop('checked', !checked);
+                $this.prop('disabled', false);
+            }
+
+        });
+
+    });
+
+    $(document).on('click', '[data-action="send"]', function (e) {
+
+        var $this = $(this),
+            $icon = $this.find('i.zmdi'),
+            iconClass = $this.data('icon-class'),
+            colorClass = $this.data('color-class'),
+            progressIconClass = $this.data('progress-icon-class'),
+            progressColorClass = $this.data('progress-color-class'),
+            $row = $this.closest('tr'),
+            $table = $this.closest('table'),
+            dt = $table.DataTable();
+
+        if ($table.hasClass('responsive') && $table.hasClass('collapsed')) {
+            $row = $this.closest('tr').prev('[role="row"]');
+        }
+
+        $this.attr('disabled', true);
+        $icon.removeClass(iconClass)
+            .removeClass(colorClass)
+            .addClass(progressIconClass)
+            .addClass(progressColorClass);
+
+        $.ajax({
+            url: $this.data('url'),
+            method: 'post',
+            data: {
+                _token: $this.data('token'),
+                _method: $this.data('method')
+            },
+            cache: false,
+            async: true
+        }).complete(function (response) {
+
+            $this.attr('disabled', false);
+            $icon.addClass(iconClass)
+                .addClass(colorClass)
+                .removeClass(progressIconClass)
+                .removeClass(progressColorClass);
+
+            switch (response.status) {
+                case 200:
+                    $this.replaceWith(response.responseText);
+                    break;
+                case 404:
+                case 500:
+                    notify(response.responseJSON.message, 'danger');
+                    break;
+            }
+
+        });
+
+        e.preventDefault();
+    });
+
+    $(document).on('click', '[data-action="send_email"]', function (e) {
+
+        var $this = $(this),
+            $icon = $this.find('i.zmdi'),
+            iconClass = $this.data('icon-class'),
+            colorClass = $this.data('color-class'),
+            progressIconClass = $this.data('progress-icon-class'),
+            progressColorClass = $this.data('progress-color-class'),
+            $row = $this.closest('tr'),
+            $table = $this.closest('table'),
+            dt = $table.DataTable();
+
+        if ($table.hasClass('responsive') && $table.hasClass('collapsed')) {
+            $row = $this.closest('tr').prev('[role="row"]');
+        }
+
+        $this.attr('disabled', true);
+        $icon.removeClass(iconClass)
+            .removeClass(colorClass)
+            .addClass(progressIconClass)
+            .addClass(progressColorClass);
+
+        $.ajax({
+            url: $this.data('url'),
+            method: 'post',
+            data: {
+                _token: $this.data('token'),
+                _method: $this.data('method')
+            },
+            cache: false,
+            async: true
+        }).complete(function (response) {
+
+            $this.attr('disabled', false);
+            $icon.addClass(iconClass)
+                .addClass(colorClass)
+                .removeClass(progressIconClass)
+                .removeClass(progressColorClass);
+
+            switch (response.status) {
+                case 200:
+                    $this.replaceWith(response.responseText);
+                    break;
+                case 404:
+                case 500:
+                    notify(response.responseJSON.message, 'danger');
+                    break;
+            }
+
+        });
+
+        e.preventDefault();
+    });
+
+    $(document).on('change', '[data-action="shipment_assign"]', function (e) {
+        var $this = $(this),
+            checked = $this.prop('checked');
+
+        $this.prop('disabled', true);
+
+        $.ajax({
+            url: $this.data('url'),
+            method: 'post',
+            data: {
+                _token: $this.data('token'),
+                _method: $this.data('method'),
+                need_shipping: checked
+            },
+            cache: false,
+            async: true
+        }).complete(function (response) {
+
+            if (response.status === 200) {
+                $this.prop('checked', checked);
+            } else {
+                $this.prop('checked', !checked);
+            }
+
+            $this.prop('disabled', false);
+        });
+
+    });
+});
+
+
+jQuery(function ($) {
+    var $forms = $('.js-relation-form'),
+        templates = {};
+
+    function updateRelationForm($table) {
+        var row_index = 0;
+
+        $table.find('.js-row').each(function (idx, row) {
+            var $row = $(row);
+
+            row_index++;
+
+            $row.find('input,select,textarea,label').each(function (idx, input) {
+                var $input = $(input),
+                    _id = $input.attr('id'),
+                    _for = $input.attr('for'),
+                    _name = $input.attr('name');
+
+                if (_id) {
+                    $input.attr('name', _id.replace(/[\d]+/, row_index));
+                }
+
+                if (_for) {
+                    $input.attr('name', _for.replace(/[\d]+/, row_index));
+                }
+
+                if (_name) {
+                    $input.attr('name', _name.replace(/[\d]+/, row_index));
+                }
+            });
+
+            $row.find('.selectpicker').selectpicker();
+            $row.find('.date-picker').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+    }
+
+    function toggleRelationForm($table) {
+        if ($table.data('resource') === 'customer_pricing_policy') {
+            return;
+        }
+
+        if ($table.find('.js-row').length === 0) {
+            $table.hide();
+        } else {
+            $table.show();
+        }
+    }
+
+    $('.js-relation-form-row').each(function (idx, el) {
+        var $template = $(el),
+            resource = $template.data('resource');
+
+        templates[resource] = Handlebars.compile($template.html());
+    });
+
+    $(document).on('click', '.js-add-row', function () {
+        var $this = $(this),
+            $table, $parentTable, resource, $lastRow, $row;
+
+        if ($this.closest('.js-relation-form').length) {
+            $table = $this.closest('.js-relation-form');
+            $parentTable = $table.closest('.form-group');
+        } else {
+            $table = $this.closest('.form-group').find('.js-relation-form');
+            $parentTable = $table;
+        }
+
+        resource = $table.data('resource');
+        $lastRow = $table.find('.js-row').last();
+        $idx = $lastRow.index() + 1;
+        $row = $(
+            templates[resource]()
+                .replace(/\[(%%idx%%|idx|\d*)]/gm, '[' + $idx + ']')
+        );
+
+        $row.addClass('new');
+
+        if ($lastRow.length) {
+            $row.insertAfter($lastRow);
+        } else {
+            $table.find('tbody').append($row);
+        }
+
+        updateRelationForm($parentTable);
+
+        toggleRelationForm($table);
+
+        $table.trigger('relation-form-row-added', [$row]).trigger('relation-form-row-added/' + resource, [$row]);
+
+        return false;
+    });
+
+    $forms.each(function (i, form) {
+        var $form = $(form);
+
+        $form.on('click', '.js-remove-row', function () {
+            var $this = $(this),
+                $row = $this.closest('.js-row'),
+                $mainForm = $row.closest('form');
+
+            if ($mainForm.data('create') === 1 || $row.hasClass('new')) {
+                $row.remove();
+
+                toggleRelationForm($form);
+
+                return false;
+            }
+
+            var oldText = $this.text();
+
+            $this.text($this.data('text'));
+            $this.data('text', oldText);
+
+            $row.data('removed', $row.data('removed') !== 1 ? 1 : 0);
+
+            $row.find('[data-remove]').val($row.data('removed'));
+
+            $row.find('td:not(.js-td-removed)').toggleClass('hidden');
+            $row.find('.js-td-removed').toggleClass('hidden').attr('colspan', $row.find('td:not(.js-td-removed)').length);
+
+            toggleRelationForm($form);
+
+            return false;
+        });
+
+        $form.on('click', '.js-undo-link', function () {
+            $(this).closest('.js-row').find('.js-remove-row').click();
+
+            return false;
+        });
+
+        $form.on('input change', '.form-control', function () {
+            var $this = $(this),
+                $row = $this.closest('.js-row'),
+                val = $this.val() || $this.text(),
+                changed = (val !== $this.data('initial') ? 1 : 0);
+
+            $row.find('[data-changed]').val(changed);
+        });
+
+        toggleRelationForm($form);
+
+    });
+
+    (function () {
+
+        $policies = $('.js-relation-form[data-resource^="customer_pricing_policy"]');
+
+        if ($policies.length) {
+            updateRelationForm($policies.closest('.js-relation-form'));
+        }
+
+    }());
+
+});
+
+jQuery(function($) {
+    var $form = $('#supplier-order-form');
+
+    if (!$form.length) {
+        return;
+    }
+
+    $form.on('change', '[data-product_id]', function() {
+        var $this = $(this),
+            number = $this.find('option:selected').data('number_in_package');
+
+        $this.data('number_in_package', number);
+        $this.closest('.js-row').find('[data-pallets_quantity]').trigger('input');
+    });
+
+    $form.on('keydown input', '[data-pallets_quantity]', function() {
+        var $this = $(this),
+            palletsQuantity = $this.val(),
+            $row = $this.closest('.js-row'),
+            $product = $row.find('[data-product_id]'),
+            number = $product.data('number_in_package') || $product.find('option:selected').data('number_in_package'),
+            $packagesQuantity = $row.find('[data-packages_quantity]'),
+            $productsQuantity = $row.find('[data-products_quantity]'),
+            packagesQuantity = $packagesQuantity.attr('data-package-' + number),
+            initialProductsQuantity = $productsQuantity.data('initial') || $productsQuantity.attr('data-initial');
+
+        $packagesQuantity.val(palletsQuantity * packagesQuantity);
+        $productsQuantity.val(palletsQuantity * initialProductsQuantity);
+    });
+
+    $form.on('click', '.js-add-row', function() {
+        $form.find('[data-product_id]').trigger('change');
+        $form.find('[data-pallets_quantity]').trigger('input');
+    });
+
+    $form.find('[data-product_id]').trigger('change');
+
+    if ($form.data('create') == 1) {
+        $form.find('[data-pallets_quantity]').trigger('input');
+    }
+});
+jQuery(function($) {
+
+    function triggerPriceField()
+    {
+        $('.customer-order-items-table .js-row').each(function(idx, row) {
+            var $row = $(row),
+                $manualPriceField = $row.find('.td-product_manual_price input'),
+                $priceField = $row.find('.td-product_price input'),
+                checked = $manualPriceField.prop('checked');
+
+            $priceField.prop('disabled', !checked);
+
+        });
+    }
+
+    $(document).on('relation-form-row-added', '.customer-order-items-table', function(e) {
+        triggerPriceField();
+    });
+
+    $(document).on('change', '.customer-order-items-table .td-product_manual_price input', function(e) {
+        var $this = $(this),
+            $row = $this.closest('.js-row'),
+            $priceField = $row.find('.td-product_price input'),
+            checked = $this.prop('checked');
+
+        $priceField.prop('disabled', !checked);
+    });
+
+    triggerPriceField();
+
+    /**
+     * Save original back_order states
+     */
+    $('.customer-order-items-table .js-row').each(function(idx, row) {
+        var $row = $(row),
+            $backOrderField = $row.find('.td-back_order input'),
+            checked = $backOrderField.prop('checked');
+
+        $backOrderField.data('original-state', checked);
+
+    });
+
+    $(document).on('change', '.customer-order-items-table .td-back_order input', function(e) {
+        var $this = $(this),
+            checked = $this.prop('checked');
+
+        $this.data('original-state', checked);
+    });
+
+    $(document).on('change', '.customer-order-items-table .td-bypass input', function(e) {
+        var $this = $(this),
+            $row = $this.closest('.js-row'),
+            $backOrderField = $row.find('.td-back_order input'),
+            checked = $this.prop('checked');
+
+        if(checked) {
+            $backOrderField.prop('checked', false);
+        } else {
+            $backOrderField.prop('checked', $backOrderField.data('original-state'));
+        }
+    });
+
+
+});
+jQuery(document).ready(function($) {
+
+    $(document).on('input', '#customer-order-item-form input[name="a_quantity"]', function(e) {
+        var $aQuantity = $(this),
+            $bQuantity = $('#customer-order-item-form input[name="b_quantity"]'),
+            total = +$('#customer-order-item-form input[name="sales_unit_quantity"]').val(),
+            value = +$aQuantity.val();
+
+        if(!isNaN(value)) {
+            if(value > total) {
+                value = total;
+            }
+
+            $aQuantity.val(value);
+            $bQuantity.val(total - value);
+        }
+    });
+
+    $(document).on('input', '#customer-order-item-form input[name="b_quantity"]', function(e) {
+        var $aQuantity = $('#customer-order-item-form input[name="a_quantity"]'),
+            $bQuantity = $(this),
+            total = +$('#customer-order-item-form input[name="sales_unit_quantity"]').val(),
+            value = +$bQuantity.val();
+
+        if(!isNaN(value)) {
+            if(value > total) {
+                value = total;
+            }
+
+            $bQuantity.val(value);
+            $aQuantity.val(total - value);
+        }
+    });
+
+});
+jQuery(function ($) {
+
+    var $form = $('#stock-movement-form');
+
+    if (!$form.length) {
+        return;
+    }
+
+    var $table = $('.js-relation-form'),
+        $movementType = $form.find('[name="movement_type"]');
+
+    function getMovementTypes($parent) {
+        $parent = $parent ? $parent : $table;
+
+        return $parent.find('[name$="[movement_type]"]');
+    }
+
+    function getExpirationDates() {
+        var $dates = $table.find('.th-expiration_date');
+
+        return $dates.add($table.find('.td-expiration_date'));
+    }
+
+    function getDeliveryNumbers() {
+        var $dates = $table.find('.th-delivery_number');
+
+        return $dates.add($table.find('.td-delivery_number'));
+    }
+
+    function toggleAvailableMovementTypes(parentMovementType, $parent) {
+        var $movement = getMovementTypes($parent),
+            $dropdown = $movement.siblings('.dropdown-menu'),
+            $optgroup = $movement.find('optgroup[label="' + parentMovementType + '"]'),
+            index = $optgroup.index() + 1,
+            $li = $dropdown.find('.dropdown-menu li');
+
+        $li.hide();
+        $li.filter(function (idx, item) {
+            return $(item).data('optgroup') === index;
+        }).show();
+
+        $movement.val($optgroup.find('option:first').attr('value')).trigger('change');
+    }
+
+    function toggleExpirationDates(movementType) {
+        var $dates = getExpirationDates();
+
+        if (movementType === 'cancellation') {
+            $dates.hide();
+        } else {
+            $dates.show();
+        }
+    }
+
+    function toggleDeliveryNumbers(isSupplierOrderConnected) {
+        var $deliveryNumbers = getDeliveryNumbers();
+
+        if (isSupplierOrderConnected) {
+            $deliveryNumbers.hide();
+        } else {
+            $deliveryNumbers.show();
+        }
+    }
+
+    function toggleSupplierOrderConnected() {
+        var isCancellationMovementType = $movementType.val() === 'cancellation';
+        var $_supplierOrderConnectedCheckbox = $form.find('[name="_supplierOrderConnected"]');
+        var $_supplierOrderConnected = $_supplierOrderConnectedCheckbox.closest('.form-group');
+
+        if (isCancellationMovementType) {
+            $_supplierOrderConnectedCheckbox.prop('checked', false).trigger('change');
+            $_supplierOrderConnected.hide();
+        } else {
+            $_supplierOrderConnectedCheckbox.trigger('change');
+            $_supplierOrderConnected.show();
+        }
+    }
+
+    function toggleSupplierOrder(isSupplierOrderConnected) {
+        var $supplierOrder = $form.find('[name="supplierOrder"]').closest('.form-group');
+
+        if (!isSupplierOrderConnected) {
+            $supplierOrder.hide();
+        } else {
+            $supplierOrder.show();
+        }
+    }
+
+    var isSupplierOrderConnected = $form.find('[name="_supplierOrderConnected"]').prop('checked');
+
+    toggleSupplierOrderConnected();
+    toggleSupplierOrder(isSupplierOrderConnected);
+    toggleDeliveryNumbers(isSupplierOrderConnected);
+
+    $form.find('[name="_supplierOrderConnected"]').on('change', function (e) {
+        isSupplierOrderConnected = $(this).prop('checked');
+
+        toggleSupplierOrder(isSupplierOrderConnected);
+        toggleDeliveryNumbers(isSupplierOrderConnected);
+    });
+
+    var currentMovementType = $movementType.val();
+
+    toggleExpirationDates(currentMovementType);
+
+    getMovementTypes().on('loaded.bs.select', function () {
+        toggleAvailableMovementTypes(currentMovementType);
+    });
+
+    $movementType.on('change', function () {
+        currentMovementType = $(this).val();
+
+        toggleSupplierOrderConnected();
+        toggleAvailableMovementTypes(currentMovementType);
+        toggleExpirationDates(currentMovementType);
+        toggleDeliveryNumbers(isSupplierOrderConnected);
+    });
+
+    $(document).on('relation-form-row-added', '.stock_movement-products-table', function (e, $row) {
+        toggleSupplierOrderConnected();
+        toggleAvailableMovementTypes(currentMovementType, $row);
+        toggleExpirationDates(currentMovementType);
+        toggleDeliveryNumbers(isSupplierOrderConnected);
+    });
+
+});

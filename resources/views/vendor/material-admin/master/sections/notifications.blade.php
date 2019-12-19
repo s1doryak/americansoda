@@ -1,11 +1,11 @@
 @if (Session::has('success'))
-    <script class="js-notification" type="text/html" data-type="success">
+    <script data-role="notification" data-type="success" type="text/html">
             {{ Session::get('success') }}
     </script>
 @endif
 
 @if (Session::has('errors'))
-    <script class="js-notification" type="text/html" data-type="danger">
+    <script data-role="notification" data-type="danger" type="text/html">
             {{ Session::get('errors')->first() }}
     </script>
 @endif

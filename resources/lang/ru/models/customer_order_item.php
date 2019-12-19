@@ -2,8 +2,8 @@
 
 return [
     'labels' => [
-        'singular' => 'Строка заказа',
-        'plural' => 'Строки заказа',
+        'singular' => 'Позиция',
+        'plural' => 'Позиции',
 		'create' => 'Создать'
     ],
 	'index' => [
