@@ -101,12 +101,12 @@ class ProductGroupDataTable extends DataTable
      * @param ProductGroup $productGroup
      * @return string
      */
-    public function renderPackageType__NameColumn($productGroup)
+    public function renderProductType__NameColumn($productGroup)
     {
         if ($this->isDataTableRequest()) {
-            return $productGroup->packageType ? $productGroup->packageType->name : $this->renderDefaultView();
+            return $productGroup->productType ? $productGroup->productType->name : $this->renderDefaultView();
         }
 
-        return optional($productGroup->packageType)->name;
+        return optional($productGroup->productType)->name;
     }
 }
