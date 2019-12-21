@@ -34,8 +34,8 @@ Route::group(['middleware' => 'api'], function () {
                 Route::post('/pre-order/', [CustomerPreOrderController::class, 'create']);
 
                 Route::get('/orders', [CustomerOrdersController::class, 'get']);
-                Route::get('/order/{order_id}/pdf', [CustomerOrdersController::class, 'downloadPdf']);
-                Route::post('/order/{order_id}/copy', [CustomerPreOrderController::class, 'copy']);
+                Route::get('/orders/{order_id}/pdf', [CustomerOrdersController::class, 'downloadPdf']);
+                Route::post('/orders/{order_id}/copy', [CustomerPreOrderController::class, 'copy']);
 
                 Route::get('/documents', [CustomerShipmentsController::class, 'get']);
                 Route::get('/documents/{shipment_id}/pdf', [CustomerShipmentsController::class, 'downloadPdf']);
