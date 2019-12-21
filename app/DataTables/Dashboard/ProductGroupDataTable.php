@@ -49,6 +49,7 @@ class ProductGroupDataTable extends DataTable
             'sales_unit_volume',
             'created_at',
             'updated_at',
+            'productType.name',
             'action',
         ];
     }
