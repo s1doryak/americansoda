@@ -16,54 +16,54 @@ class ProductGroupForm extends Form
     /**
      * @return array
      */
-	public static function getCreateFormFields()
-	{
+    public static function getCreateFormFields()
+    {
         return [
-				'name' => 'text',
-				'vat' => 'number',
-				'sales_unit_volume' => 'number',
-			'productType' => 'choice',
+            'name' => 'text',
+            'vat' => 'number',
+            'sales_unit_volume' => 'number',
+            'productType' => 'choice',
         ];
-	}
+    }
 
     /**
      * @param ProductGroup $productGroup
      * @return array
      */
-	public static function getEditFormFields($productGroup)
-	{
+    public static function getEditFormFields($productGroup)
+    {
         return [
-				'name' => 'text',
-				'vat' => 'number',
-				'sales_unit_volume' => 'number',
-			'productType' => 'choice',
+            'name' => 'text',
+            'vat' => 'number',
+            'sales_unit_volume' => 'number',
+            'productType' => 'choice',
         ];
-	}
+    }
 
     /**
      * @return array
      */
-	public static function getStoreValidationRules()
-	{
+    public static function getStoreValidationRules()
+    {
         return [
-			'name' => 'sometimes',
-			'vat' => 'sometimes',
-			'sales_unit_volume' => 'sometimes',
-			'productType' => 'sometimes|exists:product_types,id',
+            'name' => 'sometimes',
+            'vat' => 'sometimes',
+            'sales_unit_volume' => 'sometimes',
+            'productType' => 'sometimes|exists:product_types,id',
         ];
-	}
+    }
 
     /**
      * @param ProductGroup $productGroup
      * @return array
      */
-	public static function getUpdateValidationRules($productGroup)
-	{
+    public static function getUpdateValidationRules($productGroup)
+    {
         return [
-			'name' => 'sometimes',
-			'vat' => 'sometimes',
-			'sales_unit_volume' => 'sometimes',
-			'productType' => 'sometimes|exists:product_types,id',
+            'name' => 'sometimes',
+            'vat' => 'sometimes',
+            'sales_unit_volume' => 'sometimes',
+            'productType' => 'sometimes|exists:product_types,id',
         ];
-	}
+    }
 }

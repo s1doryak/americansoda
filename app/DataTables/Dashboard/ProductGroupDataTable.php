@@ -13,6 +13,13 @@ use App\ProductGroup;
 class ProductGroupDataTable extends DataTable
 {
     /**
+     * Enable or disable table pagination.
+     * @see https://datatables.net/reference/option/paging
+     * @var boolean
+     */
+    protected $paging = false;
+
+    /**
      * @return array
      */
     protected function getColumns()
@@ -25,9 +32,9 @@ class ProductGroupDataTable extends DataTable
             'sales_unit_volume',
             'created_at',
             'updated_at',
-			'productType.name' => [
-				'data' => 'productType.name'
-			],
+            'productType.name' => [
+                'data' => 'productType.name'
+            ],
         ];
     }
 
@@ -42,7 +49,7 @@ class ProductGroupDataTable extends DataTable
             'sales_unit_volume',
             'created_at',
             'updated_at',
-			'action',
+            'action',
         ];
     }
 
@@ -63,14 +70,14 @@ class ProductGroupDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-			'productType.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'operator' => 'in',
-				'data' => 'productType.id',
-				'lists' => 'productType.name',
-			],
-	];
+            'productType.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'operator' => 'in',
+                'data' => 'productType.id',
+                'lists' => 'productType.name',
+            ],
+        ];
     }
 
     /**
@@ -88,5 +95,18 @@ class ProductGroupDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param ProductGroup $productGroup
+     * @return string
+     */
+    public function renderPackageType__NameColumn($productGroup)
+    {
+        if ($this->isDataTableRequest()) {
+            return $productGroup->packageType ? $productGroup->packageType->name : $this->renderDefaultView();
+        }
+
+        return optional($productGroup->packageType)->name;
     }
 }
