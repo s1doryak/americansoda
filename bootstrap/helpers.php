@@ -251,3 +251,8 @@ function is_local()
 {
     return env('APP_ENV', 'production') === 'local';
 }
+
+function generateApiAuthLink($token)
+{
+    return config('app.shop_url') . 'auth/' . $token;
+}
