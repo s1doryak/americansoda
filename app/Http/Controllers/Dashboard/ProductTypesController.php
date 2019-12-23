@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Repositories\Contracts\ProductTypeRepository;
 use Illuminate\Contracts\Auth\Access\Gate;
 
@@ -12,6 +13,8 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class ProductTypesController extends \Crmplease\MaterialAdmin\Routing\ResourceController
 {
+    use DashboardSidebar;
+
 	/**
 	 * @var Gate
 	 */
@@ -51,5 +54,6 @@ class ProductTypesController extends \Crmplease\MaterialAdmin\Routing\ResourceCo
 		$this->repository = $productTypeRepository;
 
 	    $this->middleware('auth:dashboard');
+        $this->shareSidebar();
 	}
 }

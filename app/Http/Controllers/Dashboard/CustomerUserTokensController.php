@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use App\Repositories\Contracts\CustomerUserTokenRepository;
 use App\Repositories\Contracts\CustomerUserRepository;
@@ -14,6 +15,8 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class CustomerUserTokensController extends ResourceController
 {
+    use DashboardSidebar;
+
 	/**
 	 * @var Gate
 	 */
@@ -29,7 +32,7 @@ class CustomerUserTokensController extends ResourceController
      */
     protected $resource = 'customer_user_token';
 
-	
+
 	/**
 	 * @var CustomerUserRepository
 	 */
@@ -59,5 +62,6 @@ class CustomerUserTokensController extends ResourceController
 		$this->customerUsers = $customerUserRepository;
 
 	    $this->middleware('auth:dashboard');
+        $this->shareSidebar();
 	}
 }

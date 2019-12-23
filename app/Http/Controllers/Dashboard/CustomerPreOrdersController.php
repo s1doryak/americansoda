@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use App\Repositories\Contracts\CustomerPreOrderRepository;
 use App\Repositories\Contracts\CustomerUserRepository;
@@ -16,6 +17,8 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class CustomerPreOrdersController extends ResourceController
 {
+    use DashboardSidebar;
+
 	/**
 	 * @var Gate
 	 */
@@ -31,17 +34,17 @@ class CustomerPreOrdersController extends ResourceController
      */
     protected $resource = 'customer_pre_order';
 
-	
+
 	/**
 	 * @var CustomerUserRepository
 	 */
 	protected $customerUsers;
-	
+
 	/**
 	 * @var CustomerOrderRepository
 	 */
 	protected $customerOrders;
-	
+
 	/**
 	 * @var CustomerRepository
 	 */
@@ -79,5 +82,6 @@ class CustomerPreOrdersController extends ResourceController
 		$this->customers = $customerRepository;
 
 	    $this->middleware('auth:dashboard');
+        $this->shareSidebar();
 	}
 }

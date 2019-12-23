@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Repositories\Contracts\BannerRepository;
 use App\Repositories\Contracts\CustomerTypeRepository;
 use Illuminate\Contracts\Auth\Access\Gate;
@@ -13,6 +14,8 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class BannersController extends \Crmplease\MaterialAdmin\Routing\ResourceController
 {
+    use DashboardSidebar;
+
 	/**
 	 * @var Gate
 	 */
@@ -28,7 +31,7 @@ class BannersController extends \Crmplease\MaterialAdmin\Routing\ResourceControl
      */
     protected $resource = 'banner';
 
-	
+
 	/**
 	 * @var CustomerTypeRepository
 	 */
@@ -61,5 +64,6 @@ class BannersController extends \Crmplease\MaterialAdmin\Routing\ResourceControl
 		$this->customerTypes = $customerTypeRepository;
 
 	    $this->middleware('auth:dashboard');
+	    $this->shareSidebar();
 	}
 }

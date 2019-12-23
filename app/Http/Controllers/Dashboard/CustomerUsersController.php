@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use App\Repositories\Contracts\CustomerUserRepository;
 use App\Repositories\Contracts\CustomerRepository;
@@ -14,6 +15,8 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class CustomerUsersController extends ResourceController
 {
+    use DashboardSidebar;
+
 	/**
 	 * @var Gate
 	 */
@@ -29,7 +32,7 @@ class CustomerUsersController extends ResourceController
      */
     protected $resource = 'customer_user';
 
-	
+
 	/**
 	 * @var CustomerRepository
 	 */
@@ -59,5 +62,6 @@ class CustomerUsersController extends ResourceController
 		$this->customers = $customerRepository;
 
 	    $this->middleware('auth:dashboard');
+        $this->shareSidebar();
 	}
 }
