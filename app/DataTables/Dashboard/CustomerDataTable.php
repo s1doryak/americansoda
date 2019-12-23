@@ -30,9 +30,9 @@ class CustomerDataTable extends DataTable
             /*'billing_postcode' => [
                 'searchable' => true
             ],*/
-           /* 'billing_address' => [
-                'searchable' => true
-            ],*/
+            /* 'billing_address' => [
+                 'searchable' => true
+             ],*/
 
             /*'shippingRegion.name' => [
                 'data' => 'shippingRegion.name',
@@ -184,14 +184,51 @@ class CustomerDataTable extends DataTable
      * @param Customer $customer
      * @return string
      */
-    public function renderPriceGroup__NameColumn($customer)
+    public function renderCustomerType__NameColumn($customer)
     {
-        $priceGroup = $customer->priceGroup;
-
         if ($this->isDataTableRequest()) {
-            return $priceGroup ? $priceGroup->name : $this->renderView('datatables::columns.default');
+            return $customer->customerType ? $customer->customerType->name : $this->renderView('datatables::columns.default');
         }
 
-        return $priceGroup;
+        return optional($customer->customerType)->name;
+    }
+
+    /**
+     * @param Customer $customer
+     * @return string
+     */
+    public function renderPaymentType__NameColumn($customer)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customer->paymentType ? $customer->paymentType->name : $this->renderView('datatables::columns.default');
+        }
+
+        return optional($customer->paymentType)->name;
+    }
+
+    /**
+     * @param Customer $customer
+     * @return string
+     */
+    public function renderPriceGroup__NameColumn($customer)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customer->priceGroup ? $customer->priceGroup->name : $this->renderView('datatables::columns.default');
+        }
+
+        return optional($customer->priceGroup)->name;
+    }
+
+    /**
+     * @param Customer $customer
+     * @return string
+     */
+    public function renderStock__NameColumn($customer)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customer->stock ? $customer->stock->name : $this->renderView('datatables::columns.default');
+        }
+
+        return optional($customer->stock)->name;
     }
 }

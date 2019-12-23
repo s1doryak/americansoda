@@ -11,20 +11,23 @@ use Illuminate\Contracts\Auth\Authenticatable;
 /**
  * PriceGroupBreakpoint policy.
  *
- * @package App\Policies
+ * @payment App\Policies
  */
 class PriceGroupBreakpointPolicy implements DatatablePolicyContract
 {
-	use HandlesAuthorization;
+    use HandlesAuthorization;
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @return boolean
-	 */
-	public function index(Authenticatable $authenticatable)
-	{
-		return true;
-	}
+    /**
+     * Determine whether the user can list of entities.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function index(Authenticatable $authenticatable)
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can list of trashed entities.
@@ -38,65 +41,110 @@ class PriceGroupBreakpointPolicy implements DatatablePolicyContract
         return true;
     }
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @return boolean
-	 */
-	public function action(Authenticatable $authenticatable)
-	{
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function export(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
-
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param PriceGroupBreakpoint $priceGroupBreakpoint
-	 * @return boolean
-	 */
-	public function view(Authenticatable $authenticatable, PriceGroupBreakpoint $priceGroupBreakpoint)
-	{
-
-		return true;
-	}
-
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @return boolean
-	 */
-	public function create(Authenticatable $authenticatable)
-	{
-
-		return true;
-	}
-
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param PriceGroupBreakpoint $priceGroupBreakpoint
-	 * @return boolean
-	 */
-	public function update(Authenticatable $authenticatable, PriceGroupBreakpoint $priceGroupBreakpoint)
-	{
-
-		return true;
-	}
-
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param PriceGroupBreakpoint $priceGroupBreakpoint
-	 * @return boolean
-	 */
-	public function delete(Authenticatable $authenticatable, PriceGroupBreakpoint $priceGroupBreakpoint)
-	{
-
-		return true;
-	}
+        return true;
+    }
 
     /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function action(Authenticatable $authenticatable)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can view the entity.
+     *
      * @param Authenticatable $authenticatable
      * @param PriceGroupBreakpoint $priceGroupBreakpoint
+     *
+     * @return boolean
+     */
+    public function view(Authenticatable $authenticatable, PriceGroupBreakpoint $priceGroupBreakpoint)
+    {
+
+        return false;
+    }
+
+    /**
+     * Determine whether the user can create entity.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function create(Authenticatable $authenticatable)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can update the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param PriceGroupBreakpoint $priceGroupBreakpoint
+     *
+     * @return boolean
+     */
+    public function update(Authenticatable $authenticatable, PriceGroupBreakpoint $priceGroupBreakpoint)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can trash the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param PriceGroupBreakpoint $priceGroupBreakpoint
+     *
+     * @return boolean
+     */
+    public function trash(Authenticatable $authenticatable, PriceGroupBreakpoint $priceGroupBreakpoint)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can restore the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param PriceGroupBreakpoint $priceGroupBreakpoint
+     *
      * @return boolean
      */
     public function restore(Authenticatable $authenticatable, PriceGroupBreakpoint $priceGroupBreakpoint)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can destroy the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param PriceGroupBreakpoint $priceGroupBreakpoint
+     *
+     * @return boolean
+     */
+    public function destroy(Authenticatable $authenticatable, PriceGroupBreakpoint $priceGroupBreakpoint)
     {
 
         return true;

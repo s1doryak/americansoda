@@ -11,23 +11,23 @@ use Illuminate\Contracts\Auth\Authenticatable;
 /**
  * ProductTag policy.
  *
- * @package App\Policies
+ * @payment App\Policies
  */
 class ProductTagPolicy implements DatatablePolicyContract
 {
-	use HandlesAuthorization;
+    use HandlesAuthorization;
 
-	/**
-	 * Determine whether the user can list of entities.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function index(Authenticatable $authenticatable)
-	{
-		return true;
-	}
+    /**
+     * Determine whether the user can list of entities.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function index(Authenticatable $authenticatable)
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can list of trashed entities.
@@ -41,73 +41,86 @@ class ProductTagPolicy implements DatatablePolicyContract
         return true;
     }
 
-	/**
-	 * Determine whether the user can view action column.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function action(Authenticatable $authenticatable)
-	{
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function export(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can view the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param ProductTag $productTag
-	 *
-	 * @return boolean
-	 */
-	public function view(Authenticatable $authenticatable, ProductTag $productTag)
-	{
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function action(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can create entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function create(Authenticatable $authenticatable)
-	{
+    /**
+     * Determine whether the user can view the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param ProductTag $productTag
+     *
+     * @return boolean
+     */
+    public function view(Authenticatable $authenticatable, ProductTag $productTag)
+    {
 
-		return true;
-	}
+        return false;
+    }
 
-	/**
-	 * Determine whether the user can update the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param ProductTag $productTag
-	 *
-	 * @return boolean
-	 */
-	public function update(Authenticatable $authenticatable, ProductTag $productTag)
-	{
+    /**
+     * Determine whether the user can create entity.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function create(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can delete the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param ProductTag $productTag
-	 *
-	 * @return boolean
-	 */
-	public function delete(Authenticatable $authenticatable, ProductTag $productTag)
-	{
+    /**
+     * Determine whether the user can update the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param ProductTag $productTag
+     *
+     * @return boolean
+     */
+    public function update(Authenticatable $authenticatable, ProductTag $productTag)
+    {
 
-		return true;
-	}
+        return true;
+    }
+
+    /**
+     * Determine whether the user can trash the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param ProductTag $productTag
+     *
+     * @return boolean
+     */
+    public function trash(Authenticatable $authenticatable, ProductTag $productTag)
+    {
+
+        return true;
+    }
 
     /**
      * Determine whether the user can restore the entity.
@@ -118,6 +131,20 @@ class ProductTagPolicy implements DatatablePolicyContract
      * @return boolean
      */
     public function restore(Authenticatable $authenticatable, ProductTag $productTag)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can destroy the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param ProductTag $productTag
+     *
+     * @return boolean
+     */
+    public function destroy(Authenticatable $authenticatable, ProductTag $productTag)
     {
 
         return true;

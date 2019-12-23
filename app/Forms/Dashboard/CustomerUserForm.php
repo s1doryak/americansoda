@@ -20,8 +20,6 @@ class CustomerUserForm extends Form
 	{
         return [
 			'email' => 'text',
-			'email_verified_at' => 'datepicker',
-			'password' => 'password',
 			'name' => 'text',
 			'phone' => 'text',
 			'comment' => 'editor',
@@ -37,8 +35,6 @@ class CustomerUserForm extends Form
 	{
         return [
 			'email' => 'text',
-			'email_verified_at' => 'datepicker',
-			'password' => 'password',
 			'name' => 'text',
 			'phone' => 'text',
 			'comment' => 'editor',
@@ -53,8 +49,6 @@ class CustomerUserForm extends Form
 	{
         return [
 			'email' => 'sometimes|email|unique:customer_users',
-			'email_verified_at' => 'sometimes',
-			'password' => 'sometimes|string|min:6',
 			'name' => 'sometimes',
 			'phone' => 'sometimes',
 			'comment' => 'sometimes',
@@ -72,10 +66,8 @@ class CustomerUserForm extends Form
 			'email' => [
 				'required',
 				'email',
-				Rule::unique('customer_users')->ignore($customer_user->getKey()),
+				Rule::unique('customer_users')->ignore($customerUser->getKey()),
 			],
-			'email_verified_at' => 'sometimes',
-			'password' => 'sometimes|string|min:6',
 			'name' => 'sometimes',
 			'phone' => 'sometimes',
 			'comment' => 'sometimes',

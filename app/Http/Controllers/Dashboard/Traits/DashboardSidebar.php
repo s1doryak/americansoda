@@ -13,11 +13,13 @@ trait DashboardSidebar
 			'resources' => [
 				'assembly',
 				'customer',
-				'customer_invoice',
+                'customer_user',
+                'customer_pre_order',
 				'customer_order',
 				'customer_order_item',
 				'customer_shipment',
-				'customer_type',
+                'customer_invoice',
+                'customer_type',
 				'payment_type',
 				'price_group',
 				'region',
@@ -28,6 +30,7 @@ trait DashboardSidebar
 			'resources' => [
 				'product',
 				'product_group',
+                'product_type',
 				'product_tag',
 				'brand',
 				'package_type',

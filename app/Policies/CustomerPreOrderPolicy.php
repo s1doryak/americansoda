@@ -15,16 +15,19 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class CustomerPreOrderPolicy implements DatatablePolicyContract
 {
-	use HandlesAuthorization;
+    use HandlesAuthorization;
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @return boolean
-	 */
-	public function index(Authenticatable $authenticatable)
-	{
-		return true;
-	}
+    /**
+     * Determine whether the user can list of entities.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function index(Authenticatable $authenticatable)
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can list of trashed entities.
@@ -38,65 +41,110 @@ class CustomerPreOrderPolicy implements DatatablePolicyContract
         return true;
     }
 
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @return boolean
-	 */
-	public function action(Authenticatable $authenticatable)
-	{
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function export(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
-
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerPreOrder $customerPreOrder
-	 * @return boolean
-	 */
-	public function view(Authenticatable $authenticatable, CustomerPreOrder $customerPreOrder)
-	{
-
-		return true;
-	}
-
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @return boolean
-	 */
-	public function create(Authenticatable $authenticatable)
-	{
-
-		return true;
-	}
-
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerPreOrder $customerPreOrder
-	 * @return boolean
-	 */
-	public function update(Authenticatable $authenticatable, CustomerPreOrder $customerPreOrder)
-	{
-
-		return true;
-	}
-
-	/**
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerPreOrder $customerPreOrder
-	 * @return boolean
-	 */
-	public function delete(Authenticatable $authenticatable, CustomerPreOrder $customerPreOrder)
-	{
-
-		return true;
-	}
+        return true;
+    }
 
     /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function action(Authenticatable $authenticatable)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can view the entity.
+     *
      * @param Authenticatable $authenticatable
      * @param CustomerPreOrder $customerPreOrder
+     *
+     * @return boolean
+     */
+    public function view(Authenticatable $authenticatable, CustomerPreOrder $customerPreOrder)
+    {
+
+        return false;
+    }
+
+    /**
+     * Determine whether the user can create entity.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function create(Authenticatable $authenticatable)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can update the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerPreOrder $customerPreOrder
+     *
+     * @return boolean
+     */
+    public function update(Authenticatable $authenticatable, CustomerPreOrder $customerPreOrder)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can trash the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerPreOrder $customerPreOrder
+     *
+     * @return boolean
+     */
+    public function trash(Authenticatable $authenticatable, CustomerPreOrder $customerPreOrder)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can restore the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerPreOrder $customerPreOrder
+     *
      * @return boolean
      */
     public function restore(Authenticatable $authenticatable, CustomerPreOrder $customerPreOrder)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can destroy the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerPreOrder $customerPreOrder
+     *
+     * @return boolean
+     */
+    public function destroy(Authenticatable $authenticatable, CustomerPreOrder $customerPreOrder)
     {
 
         return true;

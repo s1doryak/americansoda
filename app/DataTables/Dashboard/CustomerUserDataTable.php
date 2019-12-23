@@ -65,12 +65,6 @@ class CustomerUserDataTable extends DataTable
 				'data' => 'customers.id',
 				'lists' => 'customers.name',
 			],
-			'customerUserTokens.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'customerUserTokens.id',
-				'lists' => 'customerUserTokens.name',
-			],
         ];
     }
 
