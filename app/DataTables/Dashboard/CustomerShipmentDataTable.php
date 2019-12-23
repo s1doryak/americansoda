@@ -205,4 +205,30 @@ class CustomerShipmentDataTable extends DataTable
     {
         return $customerShipment->order_batch_numbers;
     }
+
+    /**
+     * @param CustomerShipment $customerShipment
+     * @return string
+     */
+    public function renderPackageType__NameColumn($customerShipment)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerShipment->packageType ? $customerShipment->packageType->name : $this->renderDefaultView();
+        }
+
+        return optional($customerShipment->packageType)->name;
+    }
+
+    /**
+     * @param CustomerShipment $customerShipment
+     * @return string
+     */
+    public function renderUser__NameColumn($customerShipment)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerShipment->user ? $customerShipment->user->name : $this->renderDefaultView();
+        }
+
+        return optional($customerShipment->user)->name;
+    }
 }

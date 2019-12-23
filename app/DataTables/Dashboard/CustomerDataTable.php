@@ -187,7 +187,7 @@ class CustomerDataTable extends DataTable
     public function renderCustomerType__NameColumn($customer)
     {
         if ($this->isDataTableRequest()) {
-            return $customer->customerType ? $customer->customerType->name : $this->renderView('datatables::columns.default');
+            return $customer->customerType ? $customer->customerType->name : $this->renderDefaultView();
         }
 
         return optional($customer->customerType)->name;
@@ -200,7 +200,7 @@ class CustomerDataTable extends DataTable
     public function renderPaymentType__NameColumn($customer)
     {
         if ($this->isDataTableRequest()) {
-            return $customer->paymentType ? $customer->paymentType->name : $this->renderView('datatables::columns.default');
+            return $customer->paymentType ? $customer->paymentType->name : $this->renderDefaultView();
         }
 
         return optional($customer->paymentType)->name;
@@ -213,7 +213,7 @@ class CustomerDataTable extends DataTable
     public function renderPriceGroup__NameColumn($customer)
     {
         if ($this->isDataTableRequest()) {
-            return $customer->priceGroup ? $customer->priceGroup->name : $this->renderView('datatables::columns.default');
+            return $customer->priceGroup ? $customer->priceGroup->name : $this->renderDefaultView();
         }
 
         return optional($customer->priceGroup)->name;
@@ -226,7 +226,7 @@ class CustomerDataTable extends DataTable
     public function renderStock__NameColumn($customer)
     {
         if ($this->isDataTableRequest()) {
-            return $customer->stock ? $customer->stock->name : $this->renderView('datatables::columns.default');
+            return $customer->stock ? $customer->stock->name : $this->renderDefaultView();
         }
 
         return optional($customer->stock)->name;

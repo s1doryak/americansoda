@@ -14,9 +14,7 @@ class UpdateAdministratorsTable1234dba74 extends Migration
     public function up()
     {
         Schema::table('administrators', function (Blueprint $table) {
-
 			$table->string('locale')->nullable();
-
         });
     }
 

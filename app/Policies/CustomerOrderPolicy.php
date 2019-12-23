@@ -50,7 +50,6 @@ class CustomerOrderPolicy implements DatatablePolicyContract
      */
     public function export(Authenticatable $authenticatable)
     {
-
         return true;
     }
 
@@ -63,7 +62,6 @@ class CustomerOrderPolicy implements DatatablePolicyContract
      */
     public function action(Authenticatable $authenticatable)
     {
-
         return true;
     }
 
@@ -90,7 +88,6 @@ class CustomerOrderPolicy implements DatatablePolicyContract
      */
     public function create(Authenticatable $authenticatable)
     {
-
         return true;
     }
 
@@ -104,7 +101,6 @@ class CustomerOrderPolicy implements DatatablePolicyContract
      */
     public function update(Authenticatable $authenticatable, CustomerOrder $customerOrderItem)
     {
-
         return true;
     }
 
@@ -118,7 +114,6 @@ class CustomerOrderPolicy implements DatatablePolicyContract
      */
     public function trash(Authenticatable $authenticatable, CustomerOrder $customerOrderItem)
     {
-
         return true;
     }
 
@@ -132,7 +127,6 @@ class CustomerOrderPolicy implements DatatablePolicyContract
      */
     public function restore(Authenticatable $authenticatable, CustomerOrder $customerOrderItem)
     {
-
         return true;
     }
 
@@ -146,7 +140,26 @@ class CustomerOrderPolicy implements DatatablePolicyContract
      */
     public function destroy(Authenticatable $authenticatable, CustomerOrder $customerOrderItem)
     {
+        return true;
+    }
 
+    /**
+     * @param Authenticatable $authenticatable
+     * @param Customerorder $customerorder
+     * @return boolean
+     */
+    public function order_review(Authenticatable $authenticatable, Customerorder $customerorder)
+    {
+        return true;
+    }
+
+    /**
+     * @param Authenticatable $authenticatable
+     * @param Customerorder $customerorder
+     * @return boolean
+     */
+    public function send_email(Authenticatable $authenticatable, Customerorder $customerorder)
+    {
         return true;
     }
 }

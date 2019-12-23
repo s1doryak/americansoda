@@ -50,7 +50,6 @@ class AssemblyPolicy implements DatatablePolicyContract
      */
     public function export(Authenticatable $authenticatable)
     {
-
         return true;
     }
 
@@ -63,7 +62,6 @@ class AssemblyPolicy implements DatatablePolicyContract
      */
     public function action(Authenticatable $authenticatable)
     {
-
         return true;
     }
 
@@ -77,7 +75,6 @@ class AssemblyPolicy implements DatatablePolicyContract
      */
     public function view(Authenticatable $authenticatable, Assembly $assembly)
     {
-
         return false;
     }
 
@@ -90,7 +87,6 @@ class AssemblyPolicy implements DatatablePolicyContract
      */
     public function create(Authenticatable $authenticatable)
     {
-
         return true;
     }
 
@@ -104,7 +100,6 @@ class AssemblyPolicy implements DatatablePolicyContract
      */
     public function update(Authenticatable $authenticatable, Assembly $assembly)
     {
-
         return true;
     }
 
@@ -118,7 +113,6 @@ class AssemblyPolicy implements DatatablePolicyContract
      */
     public function trash(Authenticatable $authenticatable, Assembly $assembly)
     {
-
         return true;
     }
 
@@ -132,7 +126,6 @@ class AssemblyPolicy implements DatatablePolicyContract
      */
     public function restore(Authenticatable $authenticatable, Assembly $assembly)
     {
-
         return true;
     }
 
@@ -146,7 +139,16 @@ class AssemblyPolicy implements DatatablePolicyContract
      */
     public function destroy(Authenticatable $authenticatable, Assembly $assembly)
     {
-
         return true;
     }
+    /**
+     * @param Authenticatable $authenticatable
+     * @param Assembly $assembly
+     * @return boolean
+     */
+    public function assembly_list(Authenticatable $authenticatable, Assembly $assembly)
+    {
+        return true;
+    }
+
 }

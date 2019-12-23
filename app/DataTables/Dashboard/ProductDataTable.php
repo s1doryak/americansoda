@@ -128,7 +128,7 @@ class ProductDataTable extends DataTable
     public function renderNameColumn($product)
     {
         if ($this->isDataTableRequest()) {
-            $brand = $product->brand ? $product->brand->name : $this->renderView('datatables::columns.default');
+            $brand = $product->brand ? $product->brand->name : $this->renderDefaultView();
 
             return $this->renderMediaView($product->name, $brand, $product->product_image);
         }

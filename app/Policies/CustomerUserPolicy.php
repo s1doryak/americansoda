@@ -50,7 +50,6 @@ class CustomerUserPolicy implements DatatablePolicyContract
      */
     public function export(Authenticatable $authenticatable)
     {
-
         return true;
     }
 
@@ -63,7 +62,19 @@ class CustomerUserPolicy implements DatatablePolicyContract
      */
     public function action(Authenticatable $authenticatable)
     {
+        return true;
+    }
 
+    /**
+     * Determine whether the user can view the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerUser $customerUser
+     *
+     * @return boolean
+     */
+    public function login(Authenticatable $authenticatable, CustomerUser $customerUser)
+    {
         return true;
     }
 
@@ -77,7 +88,6 @@ class CustomerUserPolicy implements DatatablePolicyContract
      */
     public function view(Authenticatable $authenticatable, CustomerUser $customerUser)
     {
-
         return false;
     }
 
@@ -90,7 +100,6 @@ class CustomerUserPolicy implements DatatablePolicyContract
      */
     public function create(Authenticatable $authenticatable)
     {
-
         return true;
     }
 
@@ -104,7 +113,6 @@ class CustomerUserPolicy implements DatatablePolicyContract
      */
     public function update(Authenticatable $authenticatable, CustomerUser $customerUser)
     {
-
         return true;
     }
 
@@ -118,7 +126,6 @@ class CustomerUserPolicy implements DatatablePolicyContract
      */
     public function trash(Authenticatable $authenticatable, CustomerUser $customerUser)
     {
-
         return true;
     }
 
@@ -132,7 +139,6 @@ class CustomerUserPolicy implements DatatablePolicyContract
      */
     public function restore(Authenticatable $authenticatable, CustomerUser $customerUser)
     {
-
         return true;
     }
 
@@ -146,7 +152,6 @@ class CustomerUserPolicy implements DatatablePolicyContract
      */
     public function destroy(Authenticatable $authenticatable, CustomerUser $customerUser)
     {
-
         return true;
     }
 }

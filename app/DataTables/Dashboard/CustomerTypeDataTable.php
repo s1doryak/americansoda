@@ -87,7 +87,7 @@ class CustomerTypeDataTable extends DataTable
         if ($customerTypeName) {
             return $customerTypeName;
         } else {
-            return $this->renderView('datatables::columns.default');
+            return $this->renderDefaultView();
         }
     }
 

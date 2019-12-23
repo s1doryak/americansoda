@@ -228,7 +228,7 @@ class CustomerInvoiceDataTable extends DataTable
                 return $customerInvoice->customer->name;
             }
 
-            return $this->renderView('datatables::columns.default');
+            return $this->renderDefaultView();
         }
 
         return $customerInvoice->customer ? $customerInvoice->customer->name : '';
@@ -245,7 +245,7 @@ class CustomerInvoiceDataTable extends DataTable
                 return $customerInvoice->customerShipment->number;
             }
 
-            return $this->renderView('datatables::columns.default');
+            return $this->renderDefaultView();
         }
 
         return $customerInvoice->customerShipment ? $customerInvoice->customerShipment->number : '';
