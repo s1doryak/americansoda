@@ -270,5 +270,5 @@ function viitenumero_check_digit($number)
  */
 function generateApiAuthLink($token)
 {
-    return config('app.shop_url') . 'auth/' . $token;
+    return config('app.shop_url') . '?token=' . $token;
 }
