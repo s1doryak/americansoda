@@ -51,6 +51,20 @@ class CustomerShipmentsController extends ResourceController
     protected $resource = 'customer_shipment';
 
     /**
+     * @var array
+     */
+    protected $with = [
+        'customer',
+        'user',
+        'packageType',
+        'customerInvoice',
+        'customerOrder',
+        'customerOrderItems',
+        'customerOrderItems.customerOrder',
+        'customerOrderItems.product',
+    ];
+
+    /**
      * @var PackageTypeRepository
      */
     protected $packageTypes;

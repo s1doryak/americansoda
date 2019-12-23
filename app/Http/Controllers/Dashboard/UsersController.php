@@ -16,12 +16,12 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class UsersController extends ResourceController
 {
-	use DashboardSidebar;
+    use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
     /**
      * @var string
@@ -33,45 +33,52 @@ class UsersController extends ResourceController
      */
     protected $resource = 'user';
 
-	/**
-	 * @var RoleRepository
-	 */
-	protected $roles;
-	
-	/**
-	 * @var CompanyRepository
-	 */
-	protected $companies;
-	
+    /**
+     * @var array
+     */
+    protected $with = [
+        'role',
+        'company',
+    ];
+
+    /**
+     * @var RoleRepository
+     */
+    protected $roles;
+
+    /**
+     * @var CompanyRepository
+     */
+    protected $companies;
 
     /**
      * @var array
      */
-	protected $editActionFormData = [
-		'roles' => 'name',
-		'companies' => 'name',
-	];
+    protected $editActionFormData = [
+        'roles' => 'name',
+        'companies' => 'name',
+    ];
 
     /**
      * UsersController constructor.
      * @param Gate $gate
-	 * @param UserRepository $userRepository
-	 * @param RoleRepository $roleRepository
-	 * @param CompanyRepository $companyRepository
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
+     * @param CompanyRepository $companyRepository
      */
-	public function __construct(
-	    Gate $gate,
-		UserRepository $userRepository,
-		RoleRepository $roleRepository,
-		CompanyRepository $companyRepository
-	)
-	{
-	    $this->gate = $gate;
-		$this->repository = $userRepository;
-		$this->roles = $roleRepository;
-		$this->companies = $companyRepository;
+    public function __construct(
+        Gate $gate,
+        UserRepository $userRepository,
+        RoleRepository $roleRepository,
+        CompanyRepository $companyRepository
+    )
+    {
+        $this->gate = $gate;
+        $this->repository = $userRepository;
+        $this->roles = $roleRepository;
+        $this->companies = $companyRepository;
 
-	    $this->middleware('auth:dashboard');
-	    $this->shareSidebar();
-	}
+        $this->middleware('auth:dashboard');
+        $this->shareSidebar();
+    }
 }

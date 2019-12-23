@@ -3,6 +3,8 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * CustomerOrder
@@ -97,8 +99,7 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-//		'customer',
-//		'user',
+
     ];
 
     protected $images = [
@@ -108,21 +109,6 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
-
-    /**
-     * @return array
-     */
-    public function getWith()
-    {
-        $condition = is_resource_page(['customer_order']) || is_datatable(['customer_order']);
-
-        return [
-            $condition ? 'customer' : null,
-            $condition ? 'user' : null,
-            $condition ? 'customerOrderItems' : null,
-            $condition ? 'customerOrderItems.product' : null,
-        ];
-    }
 
     /**
      * @param $value

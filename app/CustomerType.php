@@ -70,8 +70,7 @@ class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-//        'customerType',
-//        'banners',
+
     ];
 
     protected $images = [
@@ -81,17 +80,4 @@ class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
-
-//    /**
-//     * @return array
-//     */
-//    public function getWith()
-//    {
-//        $condition = is_resource_page(['customer_type']) || is_datatable(['customer_type']) || is_api();
-//
-//        return [
-//            $condition ? 'customerType' : null,
-//            $condition ? 'banners' : null,
-//        ];
-//    }
 }

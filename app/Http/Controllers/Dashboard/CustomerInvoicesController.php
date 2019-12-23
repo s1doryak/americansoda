@@ -49,6 +49,15 @@ class CustomerInvoicesController extends ResourceController
     protected $resource = 'customer_invoice';
 
     /**
+     * @var array
+     */
+    protected $with = [
+        'customer',
+        'customerShipment',
+        'companyBankAccounts',
+    ];
+
+    /**
      * @var CustomerRepository
      */
     protected $customers;

@@ -24,230 +24,244 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class CustomerOrderItemsController extends ResourceController
 {
-	use DashboardSidebar;
+    use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
-	/**
-	 * @var string
-	 */
-	protected $prefix = 'dashboard';
+    /**
+     * @var string
+     */
+    protected $prefix = 'dashboard';
 
-	/**
-	 * @var string
-	 */
-	protected $resource = 'customer_order_item';
+    /**
+     * @var string
+     */
+    protected $resource = 'customer_order_item';
 
-	/**
-	 * @var ProductRepository
-	 */
-	protected $products;
+    /**
+     * @var array
+     */
+    protected $with = [
+        'customerOrder',
+        'customerOrder.customer',
+        'customerOrder.customer.user',
+        'customerShipment',
+        'product',
+        'product.productGroup',
+        'customer',
+        'customer.user',
+    ];
 
-	/**
-	 * @var CustomerRepository
-	 */
-	protected $customers;
+    /**
+     * @var ProductRepository
+     */
+    protected $products;
 
-	/**
-	 * @var CustomerOrderRepository
-	 */
-	protected $customerOrders;
+    /**
+     * @var CustomerRepository
+     */
+    protected $customers;
 
-	/**
-	 * @var CustomerShipmentRepository
-	 */
-	protected $customerShipments;
+    /**
+     * @var CustomerOrderRepository
+     */
+    protected $customerOrders;
 
-	/**
-	 * @var CustomerInvoiceRepository
-	 */
-	protected $customerInvoices;
+    /**
+     * @var CustomerShipmentRepository
+     */
+    protected $customerShipments;
 
-	/**
-	 * @var array
-	 */
-	protected $editActionFormData = [
-		'products' => 'name',
-		'customers' => 'name',
-		'customerOrders' => 'name',
-		'customerShipments' => 'name',
-		'customerInvoices' => 'name',
-	];
+    /**
+     * @var CustomerInvoiceRepository
+     */
+    protected $customerInvoices;
 
-	/**
-	 * CustomerOrderItemsController constructor.
-	 * @param Gate $gate
-	 * @param CustomerOrderItemRepository $customerOrderItemRepository
-	 * @param ProductRepository $productRepository
-	 * @param CustomerRepository $customerRepository
-	 * @param CustomerOrderRepository $customerOrderRepository
-	 * @param CustomerShipmentRepository $customerShipmentRepository
-	 * @param CustomerInvoiceRepository $customerInvoiceRepository
-	 */
-	public function __construct(
-		Gate $gate,
-		CustomerOrderItemRepository $customerOrderItemRepository,
-		ProductRepository $productRepository,
-		CustomerRepository $customerRepository,
-		CustomerOrderRepository $customerOrderRepository,
-		CustomerShipmentRepository $customerShipmentRepository,
-		CustomerInvoiceRepository $customerInvoiceRepository
-	)
-	{
-		$this->gate = $gate;
-		$this->repository = $customerOrderItemRepository;
-		$this->products = $productRepository;
-		$this->customers = $customerRepository;
-		$this->customerOrders = $customerOrderRepository;
-		$this->customerShipments = $customerShipmentRepository;
-		$this->customerInvoices = $customerInvoiceRepository;
+    /**
+     * @var array
+     */
+    protected $editActionFormData = [
+        'products' => 'name',
+        'customers' => 'name',
+        'customerOrders' => 'name',
+        'customerShipments' => 'name',
+        'customerInvoices' => 'name',
+    ];
 
-		$this->middleware('auth:dashboard');
-		$this->shareSidebar();
-	}
+    /**
+     * CustomerOrderItemsController constructor.
+     * @param Gate $gate
+     * @param CustomerOrderItemRepository $customerOrderItemRepository
+     * @param ProductRepository $productRepository
+     * @param CustomerRepository $customerRepository
+     * @param CustomerOrderRepository $customerOrderRepository
+     * @param CustomerShipmentRepository $customerShipmentRepository
+     * @param CustomerInvoiceRepository $customerInvoiceRepository
+     */
+    public function __construct(
+        Gate $gate,
+        CustomerOrderItemRepository $customerOrderItemRepository,
+        ProductRepository $productRepository,
+        CustomerRepository $customerRepository,
+        CustomerOrderRepository $customerOrderRepository,
+        CustomerShipmentRepository $customerShipmentRepository,
+        CustomerInvoiceRepository $customerInvoiceRepository
+    )
+    {
+        $this->gate = $gate;
+        $this->repository = $customerOrderItemRepository;
+        $this->products = $productRepository;
+        $this->customers = $customerRepository;
+        $this->customerOrders = $customerOrderRepository;
+        $this->customerShipments = $customerShipmentRepository;
+        $this->customerInvoices = $customerInvoiceRepository;
 
-	/**
-	 * @param Request $request
-	 * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-	 */
-	public function shipmentAssign(Request $request)
-	{
-		$needShipping = $request->get('need_shipping') != 'false' ? true : false;
+        $this->middleware('auth:dashboard');
+        $this->shareSidebar();
+    }
 
-		$assemblyNumber = CustomerShipment::getDefaultAssemblyNumber();
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function shipmentAssign(Request $request)
+    {
+        $needShipping = $request->get('need_shipping') != 'false' ? true : false;
 
-		$customerOrderItemId = resource_id('customer_order_item');
+        $assemblyNumber = CustomerShipment::getDefaultAssemblyNumber();
 
-		/** @var CustomerOrderItem $customerOrderItem */
-		$customerOrderItem = $this->repository->find($customerOrderItemId);
+        $customerOrderItemId = resource_id('customer_order_item');
 
-		/** @var CustomerShipment|null $customerShipment */
-		$customerShipment = $this->customerShipments->firstWhere(
-			[
-				'customer_id' => $customerOrderItem->customer_id,
-				'status' => config('stock.status.open'),
-			]
-		);
+        /** @var CustomerOrderItem $customerOrderItem */
+        $customerOrderItem = $this->repository->find($customerOrderItemId);
 
-		if ($needShipping) {
+        /** @var CustomerShipment|null $customerShipment */
+        $customerShipment = $this->customerShipments->firstWhere(
+            [
+                'customer_id' => $customerOrderItem->customer_id,
+                'status' => config('stock.status.open'),
+            ]
+        );
 
-			if (!$customerShipment) {
+        if ($needShipping) {
 
-				/** @var \App\User|null $user */
-				$user = $this->guard()->user();
+            if (!$customerShipment) {
 
-				$customerShipment = $this->customerShipments->create(
-					[
-						'user_id' => $user ? $user->getKey() : null,
-						'customer_id' => $customerOrderItem->customer_id,
-						'assembly_number' => $assemblyNumber,
-						'status' => config('stock.status.open'),
-						'number' => CustomerShipment::getDefaultNumber(),
-					]
-				);
+                /** @var \App\User|null $user */
+                $user = $this->guard()->user();
 
-			}
+                $customerShipment = $this->customerShipments->create(
+                    [
+                        'user_id' => $user ? $user->getKey() : null,
+                        'customer_id' => $customerOrderItem->customer_id,
+                        'assembly_number' => $assemblyNumber,
+                        'status' => config('stock.status.open'),
+                        'number' => CustomerShipment::getDefaultNumber(),
+                    ]
+                );
 
-			if ($customerShipment) {
+            }
 
-				$customerOrderItem->update(
-					[
-						'customer_shipment_id' => $customerShipment->getKey(),
-						'status' => config('stock.status.assembly'),
-					]
-				);
+            if ($customerShipment) {
 
-				$customerShipment->touch();
+                $customerOrderItem->update(
+                    [
+                        'customer_shipment_id' => $customerShipment->getKey(),
+                        'status' => config('stock.status.assembly'),
+                    ]
+                );
 
-				event(new ResourceUpdated(resource_name(), $customerShipment->getAttributes(), [], []));
-			}
+                $customerShipment->touch();
 
-		} else {
+                event(new ResourceUpdated(resource_name(), $customerShipment->getAttributes(), [], []));
+            }
 
-			$customerOrderItem->update(
-				[
-					'customer_shipment_id' => null,
-					'assembly_number' => null,
-				]
-			);
+        } else {
 
-			$customerShipment = $this->customerShipments->firstWhere(
-				[
-					'customer_id' => $customerOrderItem->customer_id,
-					'status' => config('stock.status.open'),
-				]
-			);
+            $customerOrderItem->update(
+                [
+                    'customer_shipment_id' => null,
+                    'assembly_number' => null,
+                ]
+            );
 
-			if ($customerShipment) {
+            $customerShipment = $this->customerShipments->firstWhere(
+                [
+                    'customer_id' => $customerOrderItem->customer_id,
+                    'status' => config('stock.status.open'),
+                ]
+            );
 
-				if ($customerShipment->customerOrderItems->count() == 0) {
+            if ($customerShipment) {
 
-					$this->customerShipments->destroy($customerShipment->getKey());
+                if ($customerShipment->customerOrderItems->count() == 0) {
 
-				} else {
+                    $this->customerShipments->destroy($customerShipment->getKey());
 
-					$customerShipment->touch();
+                } else {
 
-				}
+                    $customerShipment->touch();
 
-				event(new ResourceUpdated(resource_name(), $customerShipment->getAttributes(), [], []));
+                }
 
-			}
-		}
+                event(new ResourceUpdated(resource_name(), $customerShipment->getAttributes(), [], []));
 
-		return response((string)$needShipping);
-	}
+            }
+        }
 
-	/**
-	 * @param CustomerOrder $customerOrder
-	 * @return array
-	 */
-	protected function getSplitViewData($customerOrder)
-	{
-		return [];
-	}
+        return response((string)$needShipping);
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function getSplitViewName()
-	{
-		return 'customer_order_items.split';
-	}
+    /**
+     * @param CustomerOrder $customerOrder
+     * @return array
+     */
+    protected function getSplitViewData($customerOrder)
+    {
+        return [];
+    }
 
-	/**
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-	 * @throws \Exception
-	 */
-	public function getSplitForm()
-	{
-		$title = trans(sprintf('%s.split.title', $this->getTranslationPrefix()));
-		$model = $this->repository->find($this->getResourceId());
-		$formData = array_merge($model->transform(), $this->getEditActionFormData($model));
-		$form = $this->getResourceProvider()
-			->setModel($model)
-			->getForm(
-				'edit',
-				[
-					'url' => route('customer_order_item.split', $model),
-					'method' => 'post',
-					'data-update' => 1,
-				],
-				$formData
-			);
+    /**
+     * @return string
+     */
+    protected function getSplitViewName()
+    {
+        return 'customer_order_items.split';
+    }
 
-		$data = array_merge(compact('title', 'model', 'form'), $this->getSplitViewData($model));
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     */
+    public function getSplitForm()
+    {
+        $title = trans(sprintf('%s.split.title', $this->getTranslationPrefix()));
+        $model = $this->repository->find($this->getResourceId());
+        $formData = array_merge($model->transform(), $this->getEditActionFormData($model));
+        $form = $this->getResourceProvider()
+            ->setModel($model)
+            ->getForm(
+                'edit',
+                [
+                    'url' => route('customer_order_item.split', $model),
+                    'method' => 'post',
+                    'data-update' => 1,
+                ],
+                $formData
+            );
 
-		return view($this->getSplitViewName(), $data);
-	}
+        $data = array_merge(compact('title', 'model', 'form'), $this->getSplitViewData($model));
 
-	public function split(Request $request)
-	{
-		$model = $this->repository->find($this->getResourceId());
+        return view($this->getSplitViewName(), $data);
+    }
 
-		return response('OK!');
-	}
+    public function split(Request $request)
+    {
+        $model = $this->repository->find($this->getResourceId());
+
+        return response('OK!');
+    }
 }

@@ -99,9 +99,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-//        'packageType',
-//        'customer',
-//        'user',
+
     ];
 
     protected $images = [
@@ -111,21 +109,6 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
-
-    public function getWith()
-    {
-        $condition = is_resource_page(['customer_shipment']) || is_datatable(['customer_shipment']);
-
-        return [
-            $condition ? 'customer' : null,
-            $condition ? 'user' : null,
-            $condition ? 'packageType' : null,
-            $condition ? 'customerInvoice' : null,
-            $condition ? 'customerOrderItems' : null,
-            $condition ? 'customerOrderItems.customerOrder' : null,
-            $condition ? 'customerOrderItems.product' : null,
-        ];
-    }
 
     /**
      * Get all of the appendable values that are arrayable.

@@ -32,7 +32,7 @@ class CreateCustomerInvoicesTable extends Migration
 			$table->string('date_due')->nullable();
 			$table->string('delivery_date')->nullable();
 			$table->string('delivery_type')->nullable();
-			$table->string('error_message')->nullable();
+			$table->text('error_message')->nullable();
 			$table->string('invoice_delivery_address')->nullable();
 			$table->integer('invoice_nr')->nullable();
 			$table->string('invoice_seller_information')->nullable();

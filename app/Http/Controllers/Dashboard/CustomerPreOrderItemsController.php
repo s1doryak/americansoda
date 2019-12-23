@@ -35,6 +35,15 @@ class CustomerPreOrderItemsController extends ResourceController
      */
     protected $resource = 'customer_pre_order_item';
 
+    /**
+     * @var array
+     */
+    protected $with = [
+        'customerPreOrder',
+        'customerUser',
+        'customer',
+        'product',
+    ];
 
 	/**
 	 * @var CustomerPreOrderRepository

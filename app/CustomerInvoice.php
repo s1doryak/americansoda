@@ -184,9 +184,7 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-        'customer',
-        'customerShipment',
-        'companyBankAccounts',
+
     ];
 
     protected $images = [
@@ -196,17 +194,6 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
         'maventa_tiff',
     ];
-
-    public function getWith()
-    {
-        $condition = is_resource_page(['customer_invoice']) || is_datatable(['customer_invoice']);
-
-        return [
-            $condition ? 'customer' : null,
-            $condition ? 'customerShipment' : null,
-            $condition ? 'companyBankAccounts' : null,
-        ];
-    }
 
     /**
      * @return string

@@ -17,71 +17,80 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class StockProductsController extends ResourceController
 {
-	use DashboardSidebar;
+    use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
-	/**
-	 * @var string
-	 */
-	protected $prefix = 'dashboard';
+    /**
+     * @var string
+     */
+    protected $prefix = 'dashboard';
 
-	/**
-	 * @var string
-	 */
-	protected $resource = 'stock_product';
+    /**
+     * @var string
+     */
+    protected $resource = 'stock_product';
 
-	/**
-	 * @var StockRepository
-	 */
-	protected $stocks;
+    /**
+     * @var array
+     */
+    protected $with = [
+        'stock',
+        'product',
+        'product.productGroup',
+        'customerOrderItem',
+    ];
 
-	/**
-	 * @var ProductRepository
-	 */
-	protected $products;
+    /**
+     * @var StockRepository
+     */
+    protected $stocks;
 
-	/**
-	 * @var CustomerOrderItemRepository
-	 */
-	protected $customerOrderItems;
+    /**
+     * @var ProductRepository
+     */
+    protected $products;
 
+    /**
+     * @var CustomerOrderItemRepository
+     */
+    protected $customerOrderItems;
 
-	/**
-	 * @var array
-	 */
-	protected $editActionFormData = [
-		'stocks' => 'name',
-		'products' => 'name',
-		'customerOrderItems' => 'name',
-	];
+    /**
+     * @var array
+     */
+    protected $editActionFormData = [
+        'stocks' => 'name',
+        'products' => 'name',
+        'customerOrderItems' => 'name',
+    ];
 
-	/**
-	 * StockProductsController constructor.
-	 * @param Gate $gate
-	 * @param StockProductRepository $stockProductRepository
-	 * @param StockRepository $stockRepository
-	 * @param ProductRepository $productRepository
-	 * @param CustomerOrderItemRepository $customerOrderItemRepository
-	 */
-	public function __construct(
-		Gate $gate,
-		StockProductRepository $stockProductRepository,
-		StockRepository $stockRepository,
-		ProductRepository $productRepository,
-		CustomerOrderItemRepository $customerOrderItemRepository
-	)
-	{
-		$this->gate = $gate;
-		$this->repository = $stockProductRepository;
-		$this->stocks = $stockRepository;
-		$this->products = $productRepository;
-		$this->customerOrderItems = $customerOrderItemRepository;
+    /**
+     * StockProductsController constructor.
+     * @param Gate $gate
+     * @param StockProductRepository $stockProductRepository
+     * @param StockRepository $stockRepository
+     * @param ProductRepository $productRepository
+     * @param CustomerOrderItemRepository $customerOrderItemRepository
+     */
+    public function __construct(
+        Gate $gate,
+        StockProductRepository $stockProductRepository,
+        StockRepository $stockRepository,
+        ProductRepository $productRepository,
+        CustomerOrderItemRepository $customerOrderItemRepository
+    )
+    {
+        $this->gate = $gate;
+        $this->repository = $stockProductRepository;
+        $this->stocks = $stockRepository;
+        $this->products = $productRepository;
+        $this->customerOrderItems = $customerOrderItemRepository;
 
-		$this->middleware('auth:dashboard');
-		$this->shareSidebar();
-	}
+        $this->middleware('auth:dashboard');
+        $this->shareSidebar();
+    }
 }

@@ -80,7 +80,7 @@ class CustomerInvoiceAttachment extends \Crmplease\MaterialAdmin\Database\Eloque
     ];
 
     protected $with = [
-		'customerInvoice',
+
     ];
 
     protected $images = [

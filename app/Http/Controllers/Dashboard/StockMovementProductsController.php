@@ -16,12 +16,12 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class StockMovementProductsController extends ResourceController
 {
-	use DashboardSidebar;
+    use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
     /**
      * @var string
@@ -33,45 +33,52 @@ class StockMovementProductsController extends ResourceController
      */
     protected $resource = 'stock_movement_product';
 
-	/**
-	 * @var StockMovementRepository
-	 */
-	protected $stockMovements;
-	
-	/**
-	 * @var ProductRepository
-	 */
-	protected $products;
-	
+    /**
+     * @var array
+     */
+    protected $with = [
+        'stockMovement',
+        'stockMovement.stock',
+        'product',
+    ];
+    /**
+     * @var StockMovementRepository
+     */
+    protected $stockMovements;
+
+    /**
+     * @var ProductRepository
+     */
+    protected $products;
 
     /**
      * @var array
      */
-	protected $editActionFormData = [
-		'stockMovements' => 'name',
-		'products' => 'name',
-	];
+    protected $editActionFormData = [
+        'stockMovements' => 'name',
+        'products' => 'name',
+    ];
 
     /**
      * StockMovementProductsController constructor.
      * @param Gate $gate
-	 * @param StockMovementProductRepository $stockMovementProductRepository
-	 * @param StockMovementRepository $stockMovementRepository
-	 * @param ProductRepository $productRepository
+     * @param StockMovementProductRepository $stockMovementProductRepository
+     * @param StockMovementRepository $stockMovementRepository
+     * @param ProductRepository $productRepository
      */
-	public function __construct(
-	    Gate $gate,
-		StockMovementProductRepository $stockMovementProductRepository,
-		StockMovementRepository $stockMovementRepository,
-		ProductRepository $productRepository
-	)
-	{
-	    $this->gate = $gate;
-		$this->repository = $stockMovementProductRepository;
-		$this->stockMovements = $stockMovementRepository;
-		$this->products = $productRepository;
+    public function __construct(
+        Gate $gate,
+        StockMovementProductRepository $stockMovementProductRepository,
+        StockMovementRepository $stockMovementRepository,
+        ProductRepository $productRepository
+    )
+    {
+        $this->gate = $gate;
+        $this->repository = $stockMovementProductRepository;
+        $this->stockMovements = $stockMovementRepository;
+        $this->products = $productRepository;
 
-	    $this->middleware('auth:dashboard');
-	    $this->shareSidebar();
-	}
+        $this->middleware('auth:dashboard');
+        $this->shareSidebar();
+    }
 }

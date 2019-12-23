@@ -52,7 +52,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Maventa\MaventaImportInvoice::class,
         \App\Console\Commands\Maventa\MaventaImportInvoices::class,
         \App\Console\Commands\Resources\BannerCreator::class,
-\App\Console\Commands\Resources\ProductTypeCreator::class,
+        \App\Console\Commands\Resources\ProductTypeCreator::class,
 	];
 
 	/**

@@ -17,80 +17,68 @@ namespace App;
  */
 class StockMovement extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'movement_type',
-		'stock_id',
-	];
+    protected $fillable = [
+        'movement_type',
+        'stock_id',
+    ];
 
-	protected $casts = [
+    protected $casts = [
 
-	];
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
-	protected $hidden = [
+    protected $hidden = [
 
-	];
+    ];
 
-	protected $belongsTo = [
-		'stock' => \App\Stock::class,
-	];
+    protected $belongsTo = [
+        'stock' => \App\Stock::class,
+    ];
 
-	protected $belongsToMany = [
+    protected $belongsToMany = [
 
-	];
+    ];
 
-	protected $belongsToManyPivot = [
+    protected $belongsToManyPivot = [
 
-	];
+    ];
 
-	protected $belongsToManyPivotTimestamps = [
+    protected $belongsToManyPivotTimestamps = [
 
-	];
+    ];
 
-	protected $hasOne = [
+    protected $hasOne = [
 
-	];
+    ];
 
-	protected $hasMany = [
-		'stockMovementProducts' => StockMovementProduct::class,
-	];
+    protected $hasMany = [
+        'stockMovementProducts' => StockMovementProduct::class,
+    ];
 
-	protected $hasManyThrough = [
+    protected $hasManyThrough = [
 
-	];
+    ];
 
-	protected $morphTo = [
+    protected $morphTo = [
 
-	];
+    ];
 
-	protected $morphMany = [
+    protected $morphMany = [
 
-	];
+    ];
 
-	protected $with = [
-		'stock',
-	];
+    protected $with = [
 
-	protected $images = [
+    ];
 
-	];
+    protected $images = [
 
-	protected $files = [
+    ];
 
-	];
+    protected $files = [
 
-	/**
-	 * @return array
-	 */
-	public function getWith()
-	{
-		$condition = is_resource_page(['stock_movement']) || is_datatable(['stock_movement']);
-
-		return [
-			$condition ? 'stock' : null,
-		];
-	}
+    ];
 }

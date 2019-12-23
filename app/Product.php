@@ -140,20 +140,6 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 	];
 
 	/**
-	 * @return array
-	 */
-	public function getWith()
-	{
-		$condition = (is_resource_page(['product']) || is_datatable(['product'])) && !is_api();
-
-		return [
-			$condition ? 'brand' : null,
-			$condition ? 'packageType' : null,
-			$condition ? 'productGroup' : null,
-		];
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getProductBarcodeAttribute()

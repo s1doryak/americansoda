@@ -78,7 +78,7 @@ class CustomerInvoiceAction extends \Crmplease\MaterialAdmin\Database\Eloquent\M
     ];
 
     protected $with = [
-		'customerInvoice',
+
     ];
 
     protected $images = [

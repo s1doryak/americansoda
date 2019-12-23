@@ -151,11 +151,7 @@ class CustomerOrderItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-        'product',
-        'customer',
-        'customerOrder',
-        'customerShipment',
-        'customerInvoice',
+
     ];
 
     protected $images = [
@@ -165,29 +161,6 @@ class CustomerOrderItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
-
-    /**
-     * @return array
-     */
-    public function getWith()
-    {
-        $conditionA = is_resource_page(['customer_order_item', 'customer_shipment']) || is_datatable(
-                ['customer_order_item', 'customer_shipment']
-            ) || is_document_page(['customer_shipment']);
-        $conditionB = is_resource_page(['customer_order_item']) || is_datatable(['customer_order_item']);
-
-        return [
-            $conditionA ? 'customerOrder' : null,
-            $conditionB ? 'customerOrder' : null,
-            $conditionB ? 'customerOrder.customer' : null,
-            $conditionB ? 'customerOrder.customer.user' : null,
-            $conditionB ? 'customerShipment' : null,
-            $conditionB ? 'product' : null,
-            $conditionB ? 'product.productGroup' : null,
-            $conditionB ? 'customer' : null,
-            $conditionB ? 'customer.user' : null,
-        ];
-    }
 
     /**
      * @param $value

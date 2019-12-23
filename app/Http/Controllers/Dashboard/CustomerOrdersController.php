@@ -45,6 +45,15 @@ class CustomerOrdersController extends ResourceController
     protected $resource = 'customer_order';
 
     /**
+     * @var array
+     */
+    protected $with = [
+        'customer',
+        'user',
+        'customerOrderItems',
+        'customerOrderItems.product',
+    ];
+    /**
      * @var CompanyRepository
      */
     private $companies;

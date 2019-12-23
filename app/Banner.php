@@ -98,10 +98,10 @@ class Banner extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-//		'customerTypes',
+
     ];
 
     protected $touches = [
-        'customerTypes',
+
     ];
 }

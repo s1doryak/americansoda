@@ -32,7 +32,13 @@ class CompanyBankAccountsController extends ResourceController
      */
     protected $resource = 'company_bank_account';
 
-	
+    /**
+     * @var array
+     */
+    protected $with = [
+        'company',
+    ];
+
 	/**
 	 * @var CompanyRepository
 	 */

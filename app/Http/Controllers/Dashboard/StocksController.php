@@ -32,11 +32,17 @@ class StocksController extends ResourceController
      */
     protected $resource = 'stock';
 
+    /**
+     * @var array
+     */
+    protected $with = [
+        'region',
+    ];
+
 	/**
 	 * @var RegionRepository
 	 */
 	protected $regions;
-	
 
     /**
      * @var array

@@ -17,10 +17,10 @@ class CustomerUserTokensController extends ResourceController
 {
     use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
     /**
      * @var string
@@ -32,36 +32,42 @@ class CustomerUserTokensController extends ResourceController
      */
     protected $resource = 'customer_user_token';
 
+    /**
+     * @var array
+     */
+    protected $with = [
+        'customerUser',
+    ];
 
-	/**
-	 * @var CustomerUserRepository
-	 */
-	protected $customerUsers;
+    /**
+     * @var CustomerUserRepository
+     */
+    protected $customerUsers;
 
     /**
      * @var array
      */
-	protected $editActionFormData = [
-		'customerUsers' => 'name',
-	];
+    protected $editActionFormData = [
+        'customerUsers' => 'name',
+    ];
 
     /**
      * CustomerUserTokensController constructor.
      * @param Gate $gate
-	 * @param CustomerUserTokenRepository $customerUserTokenRepository
-	 * @param CustomerUserRepository $customerUserRepository
+     * @param CustomerUserTokenRepository $customerUserTokenRepository
+     * @param CustomerUserRepository $customerUserRepository
      */
-	public function __construct(
-	    Gate $gate,
-		CustomerUserTokenRepository $customerUserTokenRepository,
-		CustomerUserRepository $customerUserRepository
-	)
-	{
-	    $this->gate = $gate;
-		$this->repository = $customerUserTokenRepository;
-		$this->customerUsers = $customerUserRepository;
+    public function __construct(
+        Gate $gate,
+        CustomerUserTokenRepository $customerUserTokenRepository,
+        CustomerUserRepository $customerUserRepository
+    )
+    {
+        $this->gate = $gate;
+        $this->repository = $customerUserTokenRepository;
+        $this->customerUsers = $customerUserRepository;
 
-	    $this->middleware('auth:dashboard');
+        $this->middleware('auth:dashboard');
         $this->shareSidebar();
-	}
+    }
 }

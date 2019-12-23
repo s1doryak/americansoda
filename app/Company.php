@@ -34,96 +34,83 @@ namespace App;
  */
 class Company extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'name',
-		'legal_name',
-		'short_name',
-		'postcode',
-		'address',
-		'bid',
-		'email',
-		'phone',
-		'code',
-		'smtp_host',
-		'smtp_port',
-		'smtp_encryption',
-		'smtp_username',
-		'smtp_password',
-		'smtp_from',
-		'smtp_from_name',
-		'region_id',
-	];
+    protected $fillable = [
+        'name',
+        'legal_name',
+        'short_name',
+        'postcode',
+        'address',
+        'bid',
+        'email',
+        'phone',
+        'code',
+        'smtp_host',
+        'smtp_port',
+        'smtp_encryption',
+        'smtp_username',
+        'smtp_password',
+        'smtp_from',
+        'smtp_from_name',
+        'region_id',
+    ];
 
-	protected $casts = [
+    protected $casts = [
 
-	];
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
-	protected $hidden = [
+    protected $hidden = [
 
-	];
+    ];
 
-	protected $belongsTo = [
-		'region' => \App\Region::class,
-	];
+    protected $belongsTo = [
+        'region' => \App\Region::class,
+    ];
 
-	protected $belongsToMany = [
+    protected $belongsToMany = [
 
-	];
+    ];
 
-	protected $belongsToManyPivot = [
+    protected $belongsToManyPivot = [
 
-	];
+    ];
 
-	protected $belongsToManyPivotTimestamps = [
+    protected $belongsToManyPivotTimestamps = [
 
-	];
+    ];
 
-	protected $hasOne = [
+    protected $hasOne = [
 
-	];
+    ];
 
-	protected $hasMany = [
-		'companyBankAccounts' => CompanyBankAccount::class
-	];
+    protected $hasMany = [
+        'companyBankAccounts' => CompanyBankAccount::class
+    ];
 
-	protected $hasManyThrough = [
+    protected $hasManyThrough = [
 
-	];
+    ];
 
-	protected $morphTo = [
+    protected $morphTo = [
 
-	];
+    ];
 
-	protected $morphMany = [
+    protected $morphMany = [
 
-	];
+    ];
 
-	protected $with = [
-		'region',
-	];
+    protected $with = [
 
-	protected $images = [
+    ];
 
-	];
+    protected $images = [
 
-	protected $files = [
+    ];
 
-	];
+    protected $files = [
 
-	/**
-	 * @return array
-	 */
-	public function getWith()
-	{
-		$condition = is_resource_page(['company']) || is_datatable(['company']);
-
-		return [
-			$condition ? 'region' : null,
-			$condition ? 'companyBankAccounts' : null,
-		];
-	}
+    ];
 }

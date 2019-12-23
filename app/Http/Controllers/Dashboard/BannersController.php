@@ -31,6 +31,12 @@ class BannersController extends \Crmplease\MaterialAdmin\Routing\ResourceControl
      */
     protected $resource = 'banner';
 
+    /**
+     * @var array
+     */
+    protected $with = [
+        'customerTypes',
+    ];
 
 	/**
 	 * @var CustomerTypeRepository
