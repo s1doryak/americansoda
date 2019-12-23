@@ -75,7 +75,7 @@ class CustomerUserDataTable extends DataTable
         return array_merge(
             [
                 'login' => [
-                    'url' => generateApiAuthLink($customerUser->token),
+                    'url' => route('redirect', ['to' => generateApiAuthLink($customerUser->token)]),
                     'target' => '_blank',
                     'icon' => 'account-circle',
                     'color' => 'blue',
