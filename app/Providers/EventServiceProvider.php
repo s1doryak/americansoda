@@ -67,6 +67,11 @@ class EventServiceProvider extends ServiceProvider
              * Создает ревизию ценовых политик клиента
              */
             \App\Listeners\Dashboard\CreateCustomerPricingPolicyRevision::class,
+
+            /**
+             * Генерирует JWT токен для созданного юзера
+             */
+            \App\Listeners\Api\GenerateUserAuthToken::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceUpdated::class => [
