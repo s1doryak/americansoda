@@ -4,19 +4,36 @@ use App\CustomerInvoiceItem;
 use App\CustomerOrderItem;
 use Illuminate\Support\Collection;
 
+/**
+ * @return boolean
+ */
 function is_app()
 {
-    return prefix_name() == '';
+    return prefix_name() === '';
 }
 
+/**
+ * @return boolean
+ */
 function is_dashboard()
 {
-    return prefix_name() == 'dashboard';
+    return prefix_name() === 'dashboard';
 }
 
+/**
+ * @return boolean
+ */
 function is_api()
 {
     return strpos(prefix_name(), 'api/') !== false;
+}
+
+/**
+ * @return boolean
+ */
+function is_local()
+{
+    return env('APP_ENV', 'production') === 'local';
 }
 
 /**
@@ -247,11 +264,10 @@ function viitenumero_check_digit($number)
     return $sum % 10;
 }
 
-function is_local()
-{
-    return env('APP_ENV', 'production') === 'local';
-}
-
+/**
+ * @param string $token
+ * @return string
+ */
 function generateApiAuthLink($token)
 {
     return config('app.shop_url') . 'auth/' . $token;

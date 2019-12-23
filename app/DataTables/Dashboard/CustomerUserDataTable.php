@@ -75,7 +75,7 @@ class CustomerUserDataTable extends DataTable
         return array_merge(
             [
                 'login' => [
-                    'url' => config('app.shop_url') . '/auth/' . $customerUser->token,
+                    'url' => generateApiAuthLink($customerUser->token),
                     'target' => '_blank',
                     'icon' => 'account-circle',
                     'color' => 'blue',
