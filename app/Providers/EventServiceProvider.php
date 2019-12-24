@@ -59,6 +59,11 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Dashboard\AssignStockMovementProducts::class,
 
             /**
+             * Создает градации цен по каждой товарной группе (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignPriceGroupBreakpoints::class,
+
+            /**
              * Создает ревизию информации о клиенте
              */
             \App\Listeners\Dashboard\CreateCustomerRevision::class,
@@ -97,6 +102,11 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Dashboard\AssignCustomerOrderItems::class,
 
             /**
+             * Создает градации цен по каждой товарной группе (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignPriceGroupBreakpoints::class,
+
+            /**
              * Удаляет позиции заказ из отгрузки (если была нажата кнопка Remove)
              */
             \App\Listeners\Dashboard\ManageShipmentsAndAssemblies::class,
@@ -123,6 +133,11 @@ class EventServiceProvider extends ServiceProvider
              * Создает позициии заказа клиента (делает синхронизацию 1-М сущностей)
              */
             \App\Listeners\Dashboard\AssignCustomerOrderItems::class,
+
+            /**
+             * Создает градации цен по каждой товарной группе (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignPriceGroupBreakpoints::class,
 
             /**
              * При удалении отгрузки очищать номера сборки у позиций заказа
@@ -153,6 +168,11 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Dashboard\AssignCustomerOrderItems::class,
 
             /**
+             * Создает градации цен по каждой товарной группе (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignPriceGroupBreakpoints::class,
+
+            /**
              * При удалении отгрузки очищать номера сборки у позиций заказа
              */
             \App\Listeners\Dashboard\ManageShipmentsAndAssemblies::class,
@@ -180,6 +200,11 @@ class EventServiceProvider extends ServiceProvider
              * Создает позициии заказа клиента (делает синхронизацию 1-М сущностей)
              */
             \App\Listeners\Dashboard\AssignCustomerOrderItems::class,
+
+            /**
+             * Создает градации цен по каждой товарной группе (делает синхронизацию 1-М сущностей)
+             */
+            \App\Listeners\Dashboard\AssignPriceGroupBreakpoints::class,
 
             /**
              * Создает ревизию информации о клиенте

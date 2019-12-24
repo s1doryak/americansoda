@@ -50,7 +50,7 @@ return [
 			'name' => 'Price Group',
 		],
 		'productGroups' => [
-			'name' => 'Product Groups',
+			'name' => 'Product Groups / Price',
 			'price' => 'Price',
 		],
 	],
@@ -64,7 +64,7 @@ return [
 			'name' => 'Price Group',
 		],
 		'productGroups' => [
-			'name' => 'Product Groups',
+			'name' => 'Product Groups / Price',
 			'price' => 'Price',
 		],
         'created_at' => 'Created',

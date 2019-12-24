@@ -3,6 +3,7 @@
 namespace App\Forms\Dashboard;
 
 use App\PriceGroupBreakpoint;
+use App\Repositories\Contracts\ProductGroupRepository;
 use Crmplease\MaterialAdmin\Forms\Form;
 use Illuminate\Validation\Rule;
 
@@ -16,50 +17,53 @@ class PriceGroupBreakpointForm extends Form
     /**
      * @return array
      */
-	public static function getCreateFormFields()
-	{
+    public static function getCreateFormFields()
+    {
         return [
-			'breakpoint' => 'text',
-			'priceGroup' => 'choice',
-			'productGroups' => 'choice',
+            'breakpoint' => 'text',
+            'productGroups' => [
+                'type' => 'choice',
+                'groups' => app(ProductGroupRepository::class)->all(),
+                'template' => 'dashboard::resources.price_group_breakpoint.fields.productGroups',
+            ],
         ];
-	}
+    }
 
     /**
      * @param PriceGroupBreakpoint $priceGroupBreakpoint
      * @return array
      */
-	public static function getEditFormFields($priceGroupBreakpoint)
-	{
+    public static function getEditFormFields($priceGroupBreakpoint)
+    {
         return [
-			'breakpoint' => 'text',
-			'priceGroup' => 'choice',
-			'productGroups' => 'choice',
+            'breakpoint' => 'text',
+            'priceGroup' => 'choice',
+            'productGroups' => 'choice',
         ];
-	}
+    }
 
     /**
      * @return array
      */
-	public static function getStoreValidationRules()
-	{
+    public static function getStoreValidationRules()
+    {
         return [
-			'breakpoint' => 'sometimes',
-			'priceGroup' => 'sometimes|exists:price_groups,id',
-			'productGroups' => 'sometimes|exists:product_groups,id',
+            'breakpoint' => 'sometimes',
+            'priceGroup' => 'sometimes|exists:price_groups,id',
+            'productGroups' => 'sometimes|exists:product_groups,id',
         ];
-	}
+    }
 
     /**
      * @param PriceGroupBreakpoint $priceGroupBreakpoint
      * @return array
      */
-	public static function getUpdateValidationRules($priceGroupBreakpoint)
-	{
+    public static function getUpdateValidationRules($priceGroupBreakpoint)
+    {
         return [
-			'breakpoint' => 'sometimes',
-			'priceGroup' => 'sometimes|exists:price_groups,id',
-			'productGroups' => 'sometimes|exists:product_groups,id',
+            'breakpoint' => 'sometimes',
+            'priceGroup' => 'sometimes|exists:price_groups,id',
+            'productGroups' => 'sometimes|exists:product_groups,id',
         ];
-	}
+    }
 }
