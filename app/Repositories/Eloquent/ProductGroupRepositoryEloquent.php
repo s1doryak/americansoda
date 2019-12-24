@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\ProductGroupRepository;
+use App\Transformers\Api\V1\ProductGroupTransformer;
 
 class ProductGroupRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductGroupRepository
 {
@@ -26,6 +27,10 @@ class ProductGroupRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositori
             return $query->where('customer_pricing_policies.customer_id', $shopId);
         });
 
-        return ($ids) ? $query->findWhereIn('id', $ids) : $query->get();
+        $result = ($ids) ? $query->findWhereIn('id', $ids) : $query->get();
+
+        return $result->map(function ($productGroup) {
+            return ProductGroupTransformer::toArray($productGroup);
+        });
     }
 }

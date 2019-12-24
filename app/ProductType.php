@@ -14,12 +14,14 @@ namespace App;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Collection|\App\ProductGroup[] $productGroups
  * @method \Illuminate\Database\Eloquent\Relations\HasMany productGroups()
+ * @property \Crmplease\MaterialAdmin\Database\Eloquent\Traits\Image\ImageField $image
  * @package App
  */
 class ProductType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
 	protected $fillable = [
 		'name',
+		'image',
 	];
 
 	protected $appends = [
@@ -35,8 +37,8 @@ class ProductType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 	];
 
     protected $images = [
-
-    ];
+		'image',
+	];
 
     protected $files = [
 

@@ -35,6 +35,7 @@ class ProductGroupDataTable extends DataTable
             'productType.name' => [
                 'data' => 'productType.name'
             ],
+			'image',
         ];
     }
 

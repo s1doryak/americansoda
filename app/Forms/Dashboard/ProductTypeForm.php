@@ -20,6 +20,7 @@ class ProductTypeForm extends Form
 	{
         return [
 			'name' => 'text',
+			'image' => 'image',
         ];
 	}
 
@@ -31,6 +32,7 @@ class ProductTypeForm extends Form
 	{
         return [
 			'name' => 'text',
+			'image' => 'image',
         ];
 	}
 
@@ -41,6 +43,7 @@ class ProductTypeForm extends Form
 	{
         return [
 			'name' => 'sometimes',
+			'image' => 'sometimes',
         ];
 	}
 
@@ -52,6 +55,7 @@ class ProductTypeForm extends Form
 	{
         return [
 			'name' => 'sometimes',
+			'image' => 'sometimes',
         ];
 	}
 }

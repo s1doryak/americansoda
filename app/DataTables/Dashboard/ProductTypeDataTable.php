@@ -19,6 +19,7 @@ class ProductTypeDataTable extends DataTable
 	{
 		return [
 			'name',
+			'image',
 		];
 	}
 
