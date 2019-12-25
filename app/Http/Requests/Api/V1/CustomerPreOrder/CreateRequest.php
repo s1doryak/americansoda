@@ -22,7 +22,7 @@ class CreateRequest extends FormRequest
             'comment' => 'sometimes|string',
             'pre_order_items' => 'required|array',
             'pre_order_items.*.product_id' => 'required|integer|exists:products,id',
-            'pre_order_items.*.quantity' => 'required|numeric',
+            'pre_order_items.*.quantity' => 'required|string',
         ];
     }
 }
