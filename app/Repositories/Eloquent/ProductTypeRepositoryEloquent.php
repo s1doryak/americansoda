@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\ProductTypeRepository;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Arr;
 
 class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductTypeRepository
 {
@@ -24,7 +25,7 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
     public function getByShopId($shopId, $withCount = [])
     {
         $products = $this->productRepository->getByShopId($shopId);
-        $productGroupIds = $products->pluck('product_group_id')->unique();
+        $productGroupIds = $products->pluck('productGroup')->unique();
 
         return $this
             ->has('productGroups')
