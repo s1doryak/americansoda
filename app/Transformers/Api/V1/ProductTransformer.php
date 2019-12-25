@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Transformers\Dashboard;
+namespace App\Transformers\Api\V1;
 
 use App\Product;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
@@ -10,7 +10,7 @@ use Crmplease\MaterialAdmin\Transformers\Traits\Collector;
 /**
  * Product transformer.
  *
- * @package App\Transformers\Dashboard
+ * @package App\Transformers\Api\V1
  */
 class ProductTransformer implements TransformerContract
 {
@@ -120,10 +120,10 @@ class ProductTransformer implements TransformerContract
             'deposit_vat' => (integer)$product->deposit_vat,
             'deposit_vat_price' => $product->deposit_vat_price,
             'comment' => $product->comment,
-            'brand' => $product->brand ? BrandTransformer::toArray($product->brand) : null,
-            'packageType' => $product->packageType ? PackageTypeTransformer::toArray($product->packageType) : null,
-            'productGroup' => $product->productGroup ? ProductGroupTransformer::toArray($product->productGroup) : null,
-            'productTags' => $product->productTags ? ProductTagTransformer::map($product->productTags) : [],
+            'brand_id' => $product->brand->id,
+            'packageType' => $product->packageType->id,
+            'productGroup' => $product->productGroup->id,
+            'productTags' => $product->productTags,
 
             'created_at' => (string)$product->created_at,
             'updated_at' => (string)$product->updated_at,
