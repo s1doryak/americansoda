@@ -61,7 +61,7 @@ class ProductGroupTransformer implements TransformerContract
             'created_at' => (string)$productGroup->created_at,
             'updated_at' => (string)$productGroup->updated_at,
             'deleted_at' => (string)$productGroup->deleted_at,
-            'image' => (string)$productGroup->image ? asset((string)$productGroup->image) : null,
+            'image' => (string)$productGroup->image ? asset($productGroup->image->getByDimension('image')) : null,
         ];
     }
 }

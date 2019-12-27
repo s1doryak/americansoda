@@ -91,11 +91,11 @@ class ProductTransformer implements TransformerContract
     public static function toArray($product)
     {
         if (is_null($product->product_image)) {
-            $productImage = ($product->productGroup->image)
-                ? $product->productGroup->image
-                : $product->productGroup->productType->image;
+            $productImage = ($product->productGroup->image->getByDimension('image'))
+                ? $product->productGroup->image->getByDimension('image')
+                : $product->productGroup->productType->image->getByDimension('image');
         } else {
-            $productImage = $product->product_image;
+            $productImage = $product->product_image->getByDimension('product_image');
         }
 
         return [

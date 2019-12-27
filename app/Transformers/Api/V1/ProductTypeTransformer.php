@@ -50,7 +50,7 @@ class ProductTypeTransformer implements TransformerContract
             'created_at' => (string)$productType->created_at,
             'updated_at' => (string)$productType->updated_at,
             'deleted_at' => (string)$productType->deleted_at,
-            'image' => (string)$productType->image ? asset((string)$productType->image) : null,
+            'image' => (string)$productType->image ? asset($productType->image->getByDimension('image')) : null,
         ];
     }
 }
