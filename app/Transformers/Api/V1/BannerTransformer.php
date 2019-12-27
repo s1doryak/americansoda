@@ -53,7 +53,7 @@ class BannerTransformer implements TransformerContract
         return [
             'id' => (int)$banner->getKey(),
             'name' => $banner->name,
-            'image' => (string)$banner->image ? asset((string)$banner->image) : null,
+            'image' => (string)$banner->image ? asset($banner->image->getByDimension('image')) : null,
             'url' => $banner->url,
 
             'created_at' => (string)$banner->created_at,

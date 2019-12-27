@@ -56,8 +56,9 @@ return [
     'columns' => [
 		'name' => 'Название',
 		'productGroups' => [
-
+            'count' => '{1}:count Группа|[2,4]:count Группы|[5,*]:count Групп|{0}:count Групп'
 		],
+        'image' => 'Фото',
         'created_at' => 'Создана',
         'updated_at' => 'Изменена',
         'deleted_at' => 'Удалена',
