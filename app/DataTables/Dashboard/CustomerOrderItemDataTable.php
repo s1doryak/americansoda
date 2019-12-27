@@ -3,8 +3,10 @@
 namespace App\DataTables\Dashboard;
 
 use DB;
+use Crmplease\MaterialAdmin\DataTables\DataTables;
 use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 use App\CustomerOrderItem;
+use Illuminate\Support\Arr;
 
 /**
  * CustomerOrderItem datatable.
@@ -14,14 +16,16 @@ use App\CustomerOrderItem;
 class CustomerOrderItemDataTable extends DataTable
 {
     /**
-     * DataTables using Eloquent Builder.
+     * Get engine {@see DataTable::ajax()}.
      *
-     * @param \Illuminate\Database\Eloquent\Builder|mixed $builder
+     * @param \Crmplease\MaterialAdmin\DataTables\DataTables $dataTables
+     * @param \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query
      * @return \Crmplease\MaterialAdmin\DataTables\EloquentDataTable
      */
-    public function eloquent($builder)
+    public function dataTable(DataTables $dataTables, $query)
     {
-        return parent::eloquent($builder)->orderColumn('customerOrder.number', 'SOUNDEX(customer_orders.number) $1, LENGTH(customer_orders.number) $1, customer_orders.number $1')
+        return parent::dataTable($dataTables, $query)
+            ->orderColumn('customerOrder.number', 'SOUNDEX(customer_orders.number) $1, LENGTH(customer_orders.number) $1, customer_orders.number $1')
             ->orderColumn('customerOrder.batch_number', 'SOUNDEX(customer_orders.batch_number) $1, LENGTH(customer_orders.batch_number) $1, customer_orders.batch_number $1');
     }
 
@@ -145,14 +149,34 @@ class CustomerOrderItemDataTable extends DataTable
     public function getRawColumns()
     {
         return [
-            'name',
-            'number',
+            'customerOrder.number',
+            'customerOrder.batch_number',
+            'customer.name',
+            'product.productGroup.name',
+            'product.name',
             'status',
             'bypass',
             'back_order',
             'cancelled',
+            'sales_unit_quantity',
+            'packages_quantity',
+            'products_quantity',
+            'product_price',
+            'product_vat_price',
+            'total_price',
+            'total_vat_price',
+            'deposit_price',
+            'deposit_vat_price',
+            'deposit_total_price',
+            'deposit_total_vat_price',
+            'customerOrder.customer.payment_conditions',
+            'customerOrder.customer.user.name',
+            'customerShipment.number',
             'customerShipment.assembly_number',
-            'action'
+            'customerShipment.delivery_month',
+            'customerShipment.delivery_date',
+            'customerShipment.invoice_number',
+            'action',
         ];
     }
 
@@ -231,13 +255,10 @@ class CustomerOrderItemDataTable extends DataTable
                 'type' => 'daterangepicker',
                 'name' => 'customerOrder.number',
                 'lists' => 'customerOrder.number',
-                'filter' => function ($query, $filterColumn, $request) {
-
-                    /** @var \Crmplease\MaterialAdmin\DataTables\Utilities\Request $request */
-                    $range = $request->filterValueByName('customerOrder.number');
+                'query' => function ($query, $filterColumn, $value) {
 
                     /** @var \Illuminate\Support\Collection $dates */
-                    $dates = collect(explode(' - ', $range));
+                    $dates = collect(explode(' - ', $value));
 
                     /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
                     $query->whereRaw(
@@ -352,10 +373,9 @@ class CustomerOrderItemDataTable extends DataTable
                         'value' => 'December',
                     ],
                 ],
-                'filter' => function ($query, $filterColumn, $request) {
+                'query' => function ($query, $filterColumn, $value) {
 
-                    /** @var \Crmplease\MaterialAdmin\DataTables\Utilities\Request $request */
-                    $filter = $request->filterValueByName('customerShipmentAdvanced');
+                    $value = Arr::wrap($value);
 
                     $typePatterns = [
                         'trs' => '[0-9]{4}-TRS-[0-9]{4}',
@@ -366,12 +386,12 @@ class CustomerOrderItemDataTable extends DataTable
 
                     $monthPattern = '%02d[0-9]{2}';
 
-                    $types = (array)array_get($filter, 'types');
-                    $months = (array)array_get($filter, 'months');
+                    $types = (array)Arr::get($value, 'types');
+                    $months = (array)Arr::get($value, 'months');
 
                     $typeRegExp = collect($types)->map(
                         function ($type) use ($typePatterns) {
-                            return array_get($typePatterns, $type);
+                            return Arr::get($typePatterns, $type);
                         }
                     )->filter()->implode('|');
 
@@ -483,5 +503,44 @@ class CustomerOrderItemDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderCustomerShipment__DeliveryMonthColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->customerShipment ? $customerOrderItem->customerShipment->delivery_month : $this->renderDefaultView();
+        }
+
+        return optional($customerOrderItem->customerShipment)->delivery_month;
+    }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderCustomerShipment__DeliveryDateColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->customerShipment ? $customerOrderItem->customerShipment->delivery_date : $this->renderDefaultView();
+        }
+
+        return optional($customerOrderItem->customerShipment)->delivery_date;
+    }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderCustomerShipment__InvoiceNumberColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->customerShipment ? $customerOrderItem->customerShipment->invoice_number : $this->renderDefaultView();
+        }
+
+        return optional($customerOrderItem->customerShipment)->invoice_number;
     }
 }

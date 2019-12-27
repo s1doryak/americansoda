@@ -86,9 +86,9 @@ class CustomerOrderItemsController extends ResourceController
     protected $editActionFormData = [
         'products' => 'name',
         'customers' => 'name',
-        'customerOrders' => 'name',
-        'customerShipments' => 'name',
-        'customerInvoices' => 'name',
+        'customerOrders' => 'number',
+        'customerShipments' => 'number',
+        'customerInvoices' => 'invoice_nr',
     ];
 
     /**
