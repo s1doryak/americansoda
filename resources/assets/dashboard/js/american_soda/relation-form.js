@@ -17,15 +17,15 @@ jQuery(function ($) {
                     _name = $input.attr('name');
 
                 if (_id) {
-                    $input.attr('name', _id.replace(/[\d]+/, row_index));
+                    $input.attr('name', _id.replace(/\[(%%idx%%|idx|0)]/gm, '[' + row_index + ']'));
                 }
 
                 if (_for) {
-                    $input.attr('name', _for.replace(/[\d]+/, row_index));
+                    $input.attr('name', _for.replace(/\[(%%idx%%|idx|0)]/gm, '[' + row_index + ']'));
                 }
 
                 if (_name) {
-                    $input.attr('name', _name.replace(/[\d]+/, row_index));
+                    $input.attr('name', _name.replace(/\[(%%idx%%|idx|0)]/gm, '[' + row_index + ']'));
                 }
             });
 
@@ -72,7 +72,7 @@ jQuery(function ($) {
         $idx = $lastRow.index() + 1;
         $row = $(
             templates[resource]()
-                .replace(/\[(%%idx%%|idx|\d*)]/gm, '[' + $idx + ']')
+                .replace(/\[(%%idx%%|idx|0)]/gm, '[' + $idx + ']')
         );
 
         $row.addClass('new');

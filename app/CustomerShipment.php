@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 /**
  * CustomerShipment
@@ -12,6 +13,8 @@ use Carbon\Carbon;
  * @property string $invoice_number
  * @property string $status
  * @property string $delivery_type
+ * @property string $delivery_date
+ * @property string $delivery_month
  * @property integer $packages_quantity
  * @property string $comment
  * @property string $order_numbers
@@ -220,7 +223,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         $status = $this->attributes['status'];
 
         if ($status === null) {
-            return array_first(array_keys(config('stock.status')));
+            return Arr::first(array_keys(config('stock.status')));
         }
 
         return strtolower($status);

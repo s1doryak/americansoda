@@ -64,7 +64,7 @@ class CustomerOrderItemPolicy implements DatatablePolicyContract
     public function action(Authenticatable $authenticatable)
     {
 
-        return true;
+        return false;
     }
 
     /**
@@ -91,7 +91,7 @@ class CustomerOrderItemPolicy implements DatatablePolicyContract
     public function create(Authenticatable $authenticatable)
     {
 
-        return true;
+        return false;
     }
 
     /**
@@ -105,7 +105,7 @@ class CustomerOrderItemPolicy implements DatatablePolicyContract
     public function update(Authenticatable $authenticatable, CustomerOrderItem $customerOrderItem)
     {
 
-        return true;
+        return false;
     }
 
     /**
@@ -119,7 +119,7 @@ class CustomerOrderItemPolicy implements DatatablePolicyContract
     public function trash(Authenticatable $authenticatable, CustomerOrderItem $customerOrderItem)
     {
 
-        return true;
+        return false;
     }
 
     /**
@@ -133,7 +133,7 @@ class CustomerOrderItemPolicy implements DatatablePolicyContract
     public function restore(Authenticatable $authenticatable, CustomerOrderItem $customerOrderItem)
     {
 
-        return true;
+        return false;
     }
 
     /**
@@ -147,6 +147,6 @@ class CustomerOrderItemPolicy implements DatatablePolicyContract
     public function destroy(Authenticatable $authenticatable, CustomerOrderItem $customerOrderItem)
     {
 
-        return true;
+        return false;
     }
 }

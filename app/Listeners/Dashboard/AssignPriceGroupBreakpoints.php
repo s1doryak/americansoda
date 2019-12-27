@@ -99,8 +99,6 @@ class AssignPriceGroupBreakpoints
 
         $priceGroupBreakpoints = new Collection();
 
-        dd($items);
-
         foreach ($items as $idx => $item) {
 
             $id = $item['id'] ?? false;
@@ -109,7 +107,7 @@ class AssignPriceGroupBreakpoints
             if ($removing) {
 
                 if ($id) {
-                    $this->priceGroupBreakpoints->destroy($item['id']);
+                    $this->priceGroupBreakpoints->destroy($id);
                 }
 
                 continue;
@@ -124,7 +122,7 @@ class AssignPriceGroupBreakpoints
 
             if ($id) {
                 /** @var PriceGroupBreakpoint $priceGroupBreakpoint */
-                $priceGroupBreakpoint = $this->priceGroupBreakpoints->update($data, $item['id']);
+                $priceGroupBreakpoint = $this->priceGroupBreakpoints->update($data, $id);
             } else {
                 /** @var PriceGroupBreakpoint $priceGroupBreakpoint */
                 $priceGroupBreakpoint = $this->priceGroupBreakpoints->create($data);

@@ -12,10 +12,6 @@
                     @foreach($options['groups'] as $group)
                         <tr>
                             <td>
-                                @php($name = sprintf('priceGroupBreakpoints[idx][productGroups][%s][id]', optional($group)->id))
-                                @php($value = optional($group)->id)
-                                {!! Form::hidden($name, old($name, $value)) !!}
-
                                 @php($name = sprintf('priceGroupBreakpoints[idx][productGroups][%s][name]', optional($group)->id))
                                 @php($value = optional($group)->name)
                                 {!! Form::input('text', $name, old($name, $value), ['class' => 'form-control', 'disabled' => true]) !!}

@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 /**
  * CustomerOrderItem
@@ -178,7 +179,7 @@ class CustomerOrderItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         $status = $this->attributes['status'];
 
         if ($status === null) {
-            return array_first(array_keys(config('stock.status')));
+            return Arr::first(array_keys(config('stock.status')));
         }
 
         return strtolower($status);
