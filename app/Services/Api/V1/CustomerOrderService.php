@@ -6,14 +6,19 @@ use App\CustomerOrderItem;
 use App\Repositories\Eloquent\CompanyRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerOrderItemRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerOrderRepositoryEloquent;
+use App\Transformers\Api\V1\CustomerOrderTransformer;
+use App\Transformers\Api\V1\CustomerPreOrderTransformer;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use PDF;
 
 class CustomerOrderService extends ResourceService
 {
+    protected $customerPreOrderService;
+
     public function __construct()
     {
         $this->setRepository(CustomerOrderRepositoryEloquent::class);
+
     }
 
     public function getPdfFile($orderId, $inline = false)
@@ -93,5 +98,20 @@ class CustomerOrderService extends ResourceService
             'totalVatPrice',
             'hasNegativeItems'
         );
+    }
+
+    public function getByShopId($shopId)
+    {
+        $this->customerPreOrderService = app(CustomerPreOrderService::class);
+        $customerOrders = $this->repository->getByShopId($shopId);
+        $customerPreOrders = $this->customerPreOrderService->getByShopId($shopId);
+        $customerOrders = $customerOrders->map(function ($customerOrder) {
+            return CustomerOrderTransformer::toArray($customerOrder);
+        });
+        $customerPreOrders = $customerPreOrders->map(function ($customerPreOrder) {
+            return CustomerPreOrderTransformer::toArray($customerPreOrder);
+        });
+
+        return $customerOrders->merge($customerPreOrders);
     }
 }
