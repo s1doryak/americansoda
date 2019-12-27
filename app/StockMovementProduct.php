@@ -107,6 +107,10 @@ class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
      */
     public function getFormattedProductsQuantityAttribute()
     {
+        if (is_null($this->stockMovement)) {
+            return '<span class="">—</span>';
+        }
+
         if ($this->stockMovement->movement_type === 'receipt') {
             $class = 'green';
             $value = '+' . $this->attributes['products_quantity'];

@@ -22,7 +22,8 @@ class BannerDataTable extends DataTable
 			'image',
 			'url',
 			'customerTypes.name' => [
-				'data' => 'customerTypes.name'
+				'data' => 'customerTypes.name',
+                'orderable' =>false
 			],
 		];
 	}
@@ -57,13 +58,13 @@ class BannerDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-			'customerTypes.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'operator' => 'in',
-				'data' => 'customerTypes.id',
-				'lists' => 'customerTypes.name',
-			],
+//			'customerTypes.name' => [
+//				'type' => 'choice',
+//				'multiple' => true,
+//				'operator' => 'in',
+//				'data' => 'customerTypes.id',
+//				'lists' => 'customerTypes.name',
+//			],
         ];
     }
 
@@ -82,5 +83,18 @@ class BannerDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param Banner $banner
+     * @return string
+     */
+    public function renderCustomerTypes__NameColumn($banner)
+    {
+        if ($this->isDataTableRequest()) {
+            return $banner->customerTypes ? $banner->customerTypes->pluck('name') : $this->renderDefaultView();
+        }
+
+        return $banner->customerTypes->pluck('name');
     }
 }

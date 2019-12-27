@@ -20,11 +20,11 @@ class PriceGroupBreakpointDataTable extends DataTable
 		return [
 			'breakpoint',
 			'priceGroup.name' => [
-				'data' => 'priceGroup.name'
+				'data' => 'priceGroup.name',
 			],
 			'productGroups.name' => [
-				'data' => 'productGroups.name'
-			],
+				'data' => 'productGroups.name',
+            ],
 		];
 	}
 
@@ -47,7 +47,7 @@ class PriceGroupBreakpointDataTable extends DataTable
     protected function getAggregateColumns()
     {
         return [
-			'breakpoint',
+//			'breakpoint',
         ];
     }
 
@@ -57,18 +57,18 @@ class PriceGroupBreakpointDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-			'priceGroup.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'priceGroup.id',
-				'lists' => 'priceGroup.name',
-			],
-			'productGroups.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'productGroups.id',
-				'lists' => 'productGroups.name',
-			],
+//			'priceGroup.name' => [
+//				'type' => 'choice',
+//				'multiple' => true,
+//				'data' => 'priceGroup.id',
+//				'lists' => 'priceGroup.name',
+//			],
+//			'productGroups.name' => [
+//				'type' => 'choice',
+//				'multiple' => true,
+//				'data' => 'productGroups.id',
+//				'lists' => 'productGroups.name',
+//			],
         ];
     }
 
@@ -87,5 +87,31 @@ class PriceGroupBreakpointDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param PriceGroupBreakpoint $priceGroupBreakpoint
+     * @return string
+     */
+    public function renderPriceGroup__NameColumn($priceGroupBreakpoint)
+    {
+        if ($this->isDataTableRequest()) {
+            return $priceGroupBreakpoint->priceGroup->name ?? $this->renderDefaultView();
+        }
+
+        return $priceGroupBreakpoint->priceGroup->name;
+    }
+
+    /**
+     * @param PriceGroupBreakpoint $priceGroupBreakpoint
+     * @return string
+     */
+    public function renderProductGroups__NameColumn($priceGroupBreakpoint)
+    {
+        if ($this->isDataTableRequest()) {
+            return $priceGroupBreakpoint->productGroups->pluck('name') ?? $this->renderDefaultView();
+        }
+
+        return $priceGroupBreakpoint->productGroups->pluck('name');
     }
 }

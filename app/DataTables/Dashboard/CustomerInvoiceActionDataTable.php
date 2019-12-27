@@ -20,8 +20,9 @@ class CustomerInvoiceActionDataTable extends DataTable
 		return [
 			'action',
 			'timestamp',
-			'customerInvoice.name' => [
-				'data' => 'customerInvoice.name'
+			'customerInvoice.order_nr' => [
+				'data' => 'customerInvoice.order_nr',
+                'orderable' => false
 			],
 		];
 	}
@@ -34,7 +35,7 @@ class CustomerInvoiceActionDataTable extends DataTable
 		return [
 			'action',
 			'timestamp',
-			'customerInvoice.name',
+			'customerInvoice.order_nr',
 			'action',
 		];
 	}
@@ -59,7 +60,7 @@ class CustomerInvoiceActionDataTable extends DataTable
 				'type' => 'choice',
 				'multiple' => true,
 				'data' => 'customerInvoice.id',
-				'lists' => 'customerInvoice.name',
+				'lists' => 'customerInvoice.order_nr',
 			],
         ];
     }
@@ -79,5 +80,18 @@ class CustomerInvoiceActionDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param CustomerInvoiceAction $customerInvoiceAction
+     * @return string
+     */
+    public function renderCustomerInvoice__OrderNrColumn($customerInvoiceAction)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerInvoiceAction->customerInvoice ? $customerInvoiceAction->customerInvoice->order_nr : $this->renderDefaultView();
+        }
+
+        return $customerInvoiceAction->customerInvoice->order_nr;
     }
 }

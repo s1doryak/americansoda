@@ -74,4 +74,17 @@ class CompanyDataTable extends DataTable
     {
         return parent::getButtons();
     }
+
+    /**
+     * @param Company $company
+     * @return string
+     */
+    public function renderRegion__NameColumn($company)
+    {
+        if ($this->isDataTableRequest()) {
+            return $company->region ? $company->region->name : $this->renderDefaultView();
+        }
+
+        return $company->region->name;
+    }
 }

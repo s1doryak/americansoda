@@ -97,11 +97,11 @@ return [
         'deleted_at' => 'Удалена',
     ],
     'filters' => [
-		'invoice' => [
-			'name' => 'Счёт',
+		'customerInvoice' => [
+			'order_nr' => 'Счёт',
 		],
-		'orderItem' => [
-			'name' => 'Позиция заказа',
+		'CustomerOrderItem' => [
+			'product_name' => 'Позиция заказа',
 		],
         'product' => [
             'name' => 'Товар',

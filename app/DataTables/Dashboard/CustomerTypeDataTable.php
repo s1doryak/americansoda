@@ -90,5 +90,4 @@ class CustomerTypeDataTable extends DataTable
             return $this->renderDefaultView();
         }
     }
-
 }

@@ -543,4 +543,98 @@ class CustomerOrderItemDataTable extends DataTable
 
         return optional($customerOrderItem->customerShipment)->invoice_number;
     }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderCustomerOrder__NumberColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->customerOrder->number ?? $this->renderDefaultView();
+        }
+
+        return optional($customerOrderItem->customerOrder)->number;
+    }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderCustomerOrder__BatchNumberColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->customerOrder->batch_number ?? $this->renderDefaultView();
+        }
+
+        return optional($customerOrderItem->customerOrder)->batch_number;
+    }
+
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderCustomer__NameColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->customer->name ?? $this->renderDefaultView();
+        }
+
+        return $customerOrderItem->customer->name;
+    }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderProduct__ProductGroup__NameColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->product->productGroup
+                ? $customerOrderItem->product->productGroup->name
+                : $this->renderDefaultView();
+        }
+
+        return $customerOrderItem->product->productGroup->name;
+    }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderProduct__NameColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->product->name ?? $this->renderDefaultView();
+        }
+
+        return $customerOrderItem->product->name;
+    }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderCustomerOrder__Customer__PaymentConditionsColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->customerOrder->customer ?? $this->renderDefaultView();
+        }
+
+        return $customerOrderItem->customerOrder->customer->payment_conditions;
+    }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderCustomerOrder__Customer__User__NameColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->customerOrder->customer->payment_conditions ?? $this->renderDefaultView();
+        }
+
+        return $customerOrderItem->customerOrder->customer->payment_conditions;
+    }
 }

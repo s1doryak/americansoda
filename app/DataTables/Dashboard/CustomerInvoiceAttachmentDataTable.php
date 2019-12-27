@@ -21,8 +21,8 @@ class CustomerInvoiceAttachmentDataTable extends DataTable
 			'attachment_type',
 			'filename',
 			'file',
-			'customerInvoice.name' => [
-				'data' => 'customerInvoice.name'
+			'customerInvoice.order_nr' => [
+				'data' => 'customerInvoice.order_nr'
 			],
 		];
 	}
@@ -36,7 +36,7 @@ class CustomerInvoiceAttachmentDataTable extends DataTable
 			'attachment_type',
 			'filename',
 			'file',
-			'customerInvoice.name',
+			'customerInvoice.order_nr',
 			'action',
 		];
 	}
@@ -57,11 +57,11 @@ class CustomerInvoiceAttachmentDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-			'customerInvoice.name' => [
+			'customerInvoice.order_nr' => [
 				'type' => 'choice',
 				'multiple' => true,
 				'data' => 'customerInvoice.id',
-				'lists' => 'customerInvoice.name',
+				'lists' => 'customerInvoice.order_nr',
 			],
         ];
     }
@@ -81,5 +81,18 @@ class CustomerInvoiceAttachmentDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param CustomerInvoiceAttachment $customerInvoiceAttachment
+     * @return string
+     */
+    public function renderCustomerInvoice__OrderNrColumn($customerInvoiceAttachment)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerInvoiceAttachment->customerInvoice ? $customerInvoiceAttachment->customerInvoice->order_nr : $this->renderDefaultView();
+        }
+
+        return $customerInvoiceAttachment->customerInvoice->order_nr;
     }
 }

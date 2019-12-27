@@ -70,4 +70,17 @@ class StockMovementDataTable extends DataTable
     {
         return parent::getButtons();
     }
+
+    /**
+     * @param StockMovement $stockMovement
+     * @return string
+     */
+    public function renderStock__NameColumn($stockMovement)
+    {
+        if ($this->isDataTableRequest()) {
+            return $stockMovement->stock->name ?? $this->renderDefaultView();
+        }
+
+        return $stockMovement->stock->name;
+    }
 }
