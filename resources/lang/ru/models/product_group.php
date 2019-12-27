@@ -57,6 +57,7 @@ return [
 		'name' => 'Название',
 		'vat' => 'НДС',
 		'sales_unit_volume' => 'Размер лоты',
+        'image' => 'Фото',
 
         'created_at' => 'Создана',
         'updated_at' => 'Изменена',

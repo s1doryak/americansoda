@@ -35,7 +35,7 @@ class ProductGroupDataTable extends DataTable
             'productType.name' => [
                 'data' => 'productType.name'
             ],
-			'image',
+//            'image',
         ];
     }
 
@@ -97,6 +97,19 @@ class ProductGroupDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param ProductGroup $productGroup
+     * @return string
+     */
+    public function renderNameColumn($productGroup)
+    {
+        if ($this->isDataTableRequest()) {
+            return $this->renderMediaView($productGroup->name, $this->renderDefaultView(), $productGroup->image, 'image');
+        }
+
+        return $productGroup->name;
     }
 
     /**
