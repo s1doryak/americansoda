@@ -18,7 +18,6 @@ class CustomerOrderService extends ResourceService
     public function __construct()
     {
         $this->setRepository(CustomerOrderRepositoryEloquent::class);
-
     }
 
     public function getPdfFile($orderId, $inline = false)
