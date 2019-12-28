@@ -143,6 +143,6 @@ class AdministratorDataTable extends DataTable
             return $administrator->company->name ?? $this->renderDefaultView();
         }
 
-        return $administrator->company->name;
+        return $administrator->company->name ?? null;
     }
 }
