@@ -130,7 +130,7 @@ class CustomerInvoiceItemDataTable extends DataTable
     public function renderCustomerInvoice__OrderNrColumn($customerInvoiceItem)
     {
         if ($this->isDataTableRequest()) {
-            return $customerInvoiceItem->customerInvoice ? $customerInvoiceItem->customerInvoice->order_nr : $this->renderDefaultView();
+            return $customerInvoiceItem->customerInvoice->order_nr ?? $this->renderDefaultView();
         }
 
         return $customerInvoiceItem->customerInvoice->order_nr;
@@ -143,7 +143,7 @@ class CustomerInvoiceItemDataTable extends DataTable
     public function renderCustomerOrderItem__ProductNameColumn($customerInvoiceItem)
     {
         if ($this->isDataTableRequest()) {
-            return $customerInvoiceItem->customerOrderItem ? $customerInvoiceItem->customerOrderItem->product_name : $this->renderDefaultView();
+            return $customerInvoiceItem->customerOrderItem->product_name ?? $this->renderDefaultView();
         }
 
         return $customerInvoiceItem->customerOrderItem->product_name;
@@ -156,7 +156,7 @@ class CustomerInvoiceItemDataTable extends DataTable
     public function renderProduct__NameColumn($customerInvoiceItem)
     {
         if ($this->isDataTableRequest()) {
-            return $customerInvoiceItem->product ? $customerInvoiceItem->product->name : $this->renderDefaultView();
+            return $customerInvoiceItem->product->name ?? $this->renderDefaultView();
         }
 
         return $customerInvoiceItem->product->name;

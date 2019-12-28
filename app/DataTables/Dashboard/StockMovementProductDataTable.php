@@ -168,7 +168,7 @@ class StockMovementProductDataTable extends DataTable
             return $stockMovementProduct->stockMovement->stock->name ?? $this->renderDefaultView();
         }
 
-        return $stockMovementProduct->stockMovement->stock->name;
+        return $stockMovementProduct->stockMovement->stock->name ?? null;
     }
 
     /**
@@ -181,6 +181,6 @@ class StockMovementProductDataTable extends DataTable
             return $stockMovementProduct->product->name ?? $this->renderDefaultView();
         }
 
-        return $stockMovementProduct->product->name;
+        return $stockMovementProduct->product->name ?? null;
     }
 }

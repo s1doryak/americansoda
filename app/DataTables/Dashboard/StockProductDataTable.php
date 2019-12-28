@@ -150,7 +150,7 @@ class StockProductDataTable extends DataTable
             return $stockProduct->product->name ?? $this->renderDefaultView();
         }
 
-        return $stockProduct->product->name;
+        return $stockProduct->product->name ?? null;
     }
 
     /**
@@ -163,7 +163,7 @@ class StockProductDataTable extends DataTable
             return $stockProduct->stock->name ?? $this->renderDefaultView();
         }
 
-        return $stockProduct->stock->name;
+        return $stockProduct->stock->name ?? null;
     }
 
     /**
@@ -176,6 +176,6 @@ class StockProductDataTable extends DataTable
             return $stockProduct->product->productGroup->name ?? $this->renderDefaultView();
         }
 
-        return $stockProduct->product->productGroup->name;
+        return $stockProduct->product->productGroup->name ?? null;
     }
 }

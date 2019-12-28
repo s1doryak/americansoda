@@ -113,7 +113,7 @@ class UserDataTable extends DataTable
             return $user->role->name ?? $this->renderDefaultView();
         }
 
-        return $user->role->name;
+        return $user->role->name ?? null;
     }
 
     /**
@@ -126,6 +126,6 @@ class UserDataTable extends DataTable
             return $user->company->name ?? $this->renderDefaultView();
         }
 
-        return $user->company->name;
+        return $user->company->name ?? null;
     }
 }

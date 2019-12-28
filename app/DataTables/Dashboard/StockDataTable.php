@@ -105,6 +105,6 @@ class StockDataTable extends DataTable
            return $stock->region->name ?? $this->renderDefaultView();
         }
 
-        return $stock->region->name;
+        return $stock->region->name ?? null;
     }
 }

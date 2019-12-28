@@ -512,10 +512,10 @@ class CustomerOrderItemDataTable extends DataTable
     protected function renderCustomerShipment__DeliveryMonthColumn($customerOrderItem)
     {
         if ($this->isDataTableRequest()) {
-            return $customerOrderItem->customerShipment ? $customerOrderItem->customerShipment->delivery_month : $this->renderDefaultView();
+            return $customerOrderItem->customerShipment->delivery_month ?? $this->renderDefaultView();
         }
 
-        return optional($customerOrderItem->customerShipment)->delivery_month;
+        return $customerOrderItem->customerShipment->delivery_month ?? null;
     }
 
     /**
@@ -525,10 +525,10 @@ class CustomerOrderItemDataTable extends DataTable
     protected function renderCustomerShipment__DeliveryDateColumn($customerOrderItem)
     {
         if ($this->isDataTableRequest()) {
-            return $customerOrderItem->customerShipment ? $customerOrderItem->customerShipment->delivery_date : $this->renderDefaultView();
+            return $customerOrderItem->customerShipment->delivery_date ?? $this->renderDefaultView();
         }
 
-        return optional($customerOrderItem->customerShipment)->delivery_date;
+        return $customerOrderItem->customerShipment->delivery_date ?? null;
     }
 
     /**
@@ -538,10 +538,10 @@ class CustomerOrderItemDataTable extends DataTable
     protected function renderCustomerShipment__InvoiceNumberColumn($customerOrderItem)
     {
         if ($this->isDataTableRequest()) {
-            return $customerOrderItem->customerShipment ? $customerOrderItem->customerShipment->invoice_number : $this->renderDefaultView();
+            return $customerOrderItem->customerShipment->invoice_number ?? $this->renderDefaultView();
         }
 
-        return optional($customerOrderItem->customerShipment)->invoice_number;
+        return $customerOrderItem->customerShipment->invoice_number ?? null;
     }
 
     /**
@@ -554,7 +554,7 @@ class CustomerOrderItemDataTable extends DataTable
             return $customerOrderItem->customerOrder->number ?? $this->renderDefaultView();
         }
 
-        return optional($customerOrderItem->customerOrder)->number;
+        return $customerOrderItem->customerOrder->number ?? null;
     }
 
     /**
@@ -567,7 +567,7 @@ class CustomerOrderItemDataTable extends DataTable
             return $customerOrderItem->customerOrder->batch_number ?? $this->renderDefaultView();
         }
 
-        return optional($customerOrderItem->customerOrder)->batch_number;
+        return $customerOrderItem->customerOrder->batch_number ?? null;
     }
 
 
@@ -581,7 +581,7 @@ class CustomerOrderItemDataTable extends DataTable
             return $customerOrderItem->customer->name ?? $this->renderDefaultView();
         }
 
-        return $customerOrderItem->customer->name;
+        return $customerOrderItem->customer->name ?? null;
     }
 
     /**
@@ -591,12 +591,10 @@ class CustomerOrderItemDataTable extends DataTable
     protected function renderProduct__ProductGroup__NameColumn($customerOrderItem)
     {
         if ($this->isDataTableRequest()) {
-            return $customerOrderItem->product->productGroup
-                ? $customerOrderItem->product->productGroup->name
-                : $this->renderDefaultView();
+            return $customerOrderItem->product->productGroup->name ?? $this->renderDefaultView();
         }
 
-        return $customerOrderItem->product->productGroup->name;
+        return $customerOrderItem->product->productGroup->name ?? null;
     }
 
     /**
@@ -609,7 +607,7 @@ class CustomerOrderItemDataTable extends DataTable
             return $customerOrderItem->product->name ?? $this->renderDefaultView();
         }
 
-        return $customerOrderItem->product->name;
+        return $customerOrderItem->product->name ?? null;
     }
 
     /**
@@ -622,7 +620,7 @@ class CustomerOrderItemDataTable extends DataTable
             return $customerOrderItem->customerOrder->customer ?? $this->renderDefaultView();
         }
 
-        return $customerOrderItem->customerOrder->customer->payment_conditions;
+        return $customerOrderItem->customerOrder->customer->payment_conditions ?? null;
     }
 
     /**
@@ -635,6 +633,6 @@ class CustomerOrderItemDataTable extends DataTable
             return $customerOrderItem->customerOrder->customer->payment_conditions ?? $this->renderDefaultView();
         }
 
-        return $customerOrderItem->customerOrder->customer->payment_conditions;
+        return $customerOrderItem->customerOrder->customer->payment_conditions ?? null;
     }
 }

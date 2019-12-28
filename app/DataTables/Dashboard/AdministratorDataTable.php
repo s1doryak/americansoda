@@ -127,7 +127,7 @@ class AdministratorDataTable extends DataTable
     public function renderRole__NameColumn($administrator)
     {
         if ($this->isDataTableRequest()) {
-            return $administrator->role ? $administrator->role->name : $this->renderDefaultView();
+            return $administrator->role->name ?? $this->renderDefaultView();
         }
 
         return $administrator->role->name;
@@ -140,7 +140,7 @@ class AdministratorDataTable extends DataTable
     public function renderCompany__NameColumn($administrator)
     {
         if ($this->isDataTableRequest()) {
-            return $administrator->company ? $administrator->company->name : $this->renderDefaultView();
+            return $administrator->company->name ?? $this->renderDefaultView();
         }
 
         return $administrator->company->name;

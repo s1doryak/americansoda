@@ -95,7 +95,7 @@ class CompanyBankAccountDataTable extends DataTable
     public function renderCustomerTypes__NameColumn($companyBankAccount)
     {
         if ($this->isDataTableRequest()) {
-            return $companyBankAccount->company ? $companyBankAccount->company->name : $this->renderDefaultView();
+            return $companyBankAccount->company->name ?? $this->renderDefaultView();
         }
 
         return $companyBankAccount->company->name;

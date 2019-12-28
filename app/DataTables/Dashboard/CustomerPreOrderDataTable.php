@@ -119,7 +119,7 @@ class CustomerPreOrderDataTable extends DataTable
             return $customerPreOrder->customerUser->name ?? $this->renderDefaultView();
         }
 
-        return $customerPreOrder->customerUser->name;
+        return $customerPreOrder->customerUser->name ?? null;
     }
 
     /**
@@ -132,7 +132,7 @@ class CustomerPreOrderDataTable extends DataTable
             return $customerPreOrder->customerOrder->number ?? $this->renderDefaultView();
         }
 
-        return $customerPreOrder->customerOrder->number;
+        return $customerPreOrder->customerOrder->number ?? null;
     }
 
     /**
@@ -145,6 +145,6 @@ class CustomerPreOrderDataTable extends DataTable
             return $customerPreOrder->customer->name ?? $this->renderDefaultView();
         }
 
-        return $customerPreOrder->customer->name;
+        return $customerPreOrder->customer->name ?? null;
     }
 }

@@ -81,6 +81,6 @@ class StockMovementDataTable extends DataTable
             return $stockMovement->stock->name ?? $this->renderDefaultView();
         }
 
-        return $stockMovement->stock->name;
+        return $stockMovement->stock->name ?? null;
     }
 }

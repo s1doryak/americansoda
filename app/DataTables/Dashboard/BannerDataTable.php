@@ -92,9 +92,9 @@ class BannerDataTable extends DataTable
     public function renderCustomerTypes__NameColumn($banner)
     {
         if ($this->isDataTableRequest()) {
-            return $banner->customerTypes ? $banner->customerTypes->pluck('name') : $this->renderDefaultView();
+            return $banner->customerTypes->pluck('name')->implode('<br>') ?? $this->renderDefaultView();
         }
 
-        return $banner->customerTypes->pluck('name');
+        return $banner->customerTypes->pluck('name')->implode(', ');
     }
 }

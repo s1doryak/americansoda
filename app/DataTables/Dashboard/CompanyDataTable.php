@@ -82,7 +82,7 @@ class CompanyDataTable extends DataTable
     public function renderRegion__NameColumn($company)
     {
         if ($this->isDataTableRequest()) {
-            return $company->region ? $company->region->name : $this->renderDefaultView();
+            return $company->region->name ?? $this->renderDefaultView();
         }
 
         return $company->region->name;

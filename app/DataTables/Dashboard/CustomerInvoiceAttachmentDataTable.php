@@ -90,7 +90,7 @@ class CustomerInvoiceAttachmentDataTable extends DataTable
     public function renderCustomerInvoice__OrderNrColumn($customerInvoiceAttachment)
     {
         if ($this->isDataTableRequest()) {
-            return $customerInvoiceAttachment->customerInvoice ? $customerInvoiceAttachment->customerInvoice->order_nr : $this->renderDefaultView();
+            return $customerInvoiceAttachment->customerInvoice->order_nr ?? $this->renderDefaultView();
         }
 
         return $customerInvoiceAttachment->customerInvoice->order_nr;

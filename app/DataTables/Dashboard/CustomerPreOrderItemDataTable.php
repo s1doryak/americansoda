@@ -137,7 +137,7 @@ class CustomerPreOrderItemDataTable extends DataTable
             return $customerPreOrderItem->customerUser->name ?? $this->renderDefaultView();
         }
 
-        return $customerPreOrderItem->customerUser->name;
+        return $customerPreOrderItem->customerUser->name ?? null;
     }
 
     /**
@@ -150,7 +150,7 @@ class CustomerPreOrderItemDataTable extends DataTable
             return $customerPreOrderItem->customer->name ?? $this->renderDefaultView();
         }
 
-        return $customerPreOrderItem->customer->name;
+        return $customerPreOrderItem->customer->name ?? null;
     }
 
     /**
@@ -163,7 +163,7 @@ class CustomerPreOrderItemDataTable extends DataTable
             return $customerPreOrderItem->customerPreOrder->number ?? $this->renderDefaultView();
         }
 
-        return $customerPreOrderItem->customerPreOrder->number;
+        return $customerPreOrderItem->customerPreOrder->number ?? null;
     }
 
     /**
@@ -176,6 +176,6 @@ class CustomerPreOrderItemDataTable extends DataTable
             return $customerPreOrderItem->product->name ?? $this->renderDefaultView();
         }
 
-        return $customerPreOrderItem->product->name;
+        return $customerPreOrderItem->product->name ?? null;
     }
 }

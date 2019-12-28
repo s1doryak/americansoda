@@ -101,9 +101,9 @@ class CustomerUserDataTable extends DataTable
     protected function renderCustomers__NameColumn($customerUser)
     {
         if ($this->isDataTableRequest()) {
-            return $customerUser->customers->pluck('name')->implode('<br>');
+            return $customerUser->customers->pluck('name')->implode('<br>') ?? $this->renderDefaultView();
         }
 
-        return $customerUser->customers->pluck('name')->implode(', ');
+        return $customerUser->customers->pluck('name')->implode(', ') ?? null;
     }
 }

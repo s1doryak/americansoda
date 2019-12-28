@@ -89,7 +89,7 @@ class CustomerInvoiceActionDataTable extends DataTable
     public function renderCustomerInvoice__OrderNrColumn($customerInvoiceAction)
     {
         if ($this->isDataTableRequest()) {
-            return $customerInvoiceAction->customerInvoice ? $customerInvoiceAction->customerInvoice->order_nr : $this->renderDefaultView();
+            return $customerInvoiceAction->customerInvoice->order_nr ?? $this->renderDefaultView();
         }
 
         return $customerInvoiceAction->customerInvoice->order_nr;
