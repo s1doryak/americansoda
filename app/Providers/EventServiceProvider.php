@@ -76,7 +76,7 @@ class EventServiceProvider extends ServiceProvider
             /**
              * Генерирует JWT токен для созданного юзера
              */
-            // \App\Listeners\Api\GenerateUserAuthToken::class,
+            \App\Listeners\Api\GenerateUserAuthToken::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceUpdated::class => [
