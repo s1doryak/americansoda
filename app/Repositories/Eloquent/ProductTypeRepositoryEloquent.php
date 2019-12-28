@@ -29,13 +29,16 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
 
         return $this
             ->has('productGroups')
+            ->has('productGroups.pricingPolicies')
             ->has('productGroups.products')
             ->with([
                 'productGroups.products' => function ($query) use ($productGroupIds) {
                     return $query->select('id', 'product_group_id')->whereIn('product_group_id', $productGroupIds);
                 },
                 'productGroups.pricingPolicies' => function ($query) use ($shopId) {
-                    return $query->select('id', 'product_group_id')->where('customer_id', $shopId);
+                    return $query->select('id', 'product_group_id')
+                        ->where('customer_id', $shopId)
+                        ->where('price', '>', '0.00');
                 },
                 'productGroups' => function ($query) use ($withCount) {
                     return $query->select('id', 'product_type_id')->withCount($withCount);
