@@ -29,11 +29,12 @@ class CustomerInvoiceItemDataTable extends DataTable
             'tax',
             'sum_tax',
             'discount',
-            'invoice.name' => [
-                'data' => 'invoice.name'
+            'customerInvoice.order_nr' => [
+                'data' => 'customerInvoice.order_nr',
+                'orderable' => false
             ],
-            'orderItem.name' => [
-                'data' => 'orderItem.name'
+            'customerOrderItem.product_name' => [
+                'data' => 'customerOrderItem.product_name'
             ],
             'product.name' => [
                 'data' => 'product.name'
@@ -120,5 +121,44 @@ class CustomerInvoiceItemDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param CustomerInvoiceItem $customerInvoiceItem
+     * @return string
+     */
+    public function renderCustomerInvoice__OrderNrColumn($customerInvoiceItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerInvoiceItem->customerInvoice->order_nr ?? $this->renderDefaultView();
+        }
+
+        return $customerInvoiceItem->customerInvoice->order_nr ?? null;
+    }
+
+    /**
+     * @param CustomerInvoiceItem $customerInvoiceItem
+     * @return string
+     */
+    public function renderCustomerOrderItem__ProductNameColumn($customerInvoiceItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerInvoiceItem->customerOrderItem->product_name ?? $this->renderDefaultView();
+        }
+
+        return $customerInvoiceItem->customerOrderItem->product_name ?? null;
+    }
+
+    /**
+     * @param CustomerInvoiceItem $customerInvoiceItem
+     * @return string
+     */
+    public function renderProduct__NameColumn($customerInvoiceItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerInvoiceItem->product->name ?? $this->renderDefaultView();
+        }
+
+        return $customerInvoiceItem->product->name ?? null;
     }
 }

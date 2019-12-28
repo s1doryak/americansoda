@@ -85,6 +85,7 @@ class ProductTypeDataTable extends DataTable
         if ($this->isDataTableRequest()) {
             $transCount = $productType->productGroups()->count();
             $productGroupCount = trans_choice('models/product_type.columns.productGroups.count', $transCount, ['count' => $transCount]);
+
             return $this->renderMediaView($productType->name, $productGroupCount, $productType->image, 'image');
         }
 

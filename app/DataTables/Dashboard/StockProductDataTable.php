@@ -51,7 +51,8 @@ class StockProductDataTable extends DataTable
             'stock.name' => [
                 'name' => 'stock.name',
                 'data' => 'stock.name',
-                'searchable' => true
+                'searchable' => true,
+                'orderable' => false
             ],
             'product.name' => [
                 'name' => 'product.name',
@@ -137,5 +138,44 @@ class StockProductDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param StockProduct $stockProduct
+     * @return string
+     */
+    public function renderProduct__NameColumn($stockProduct)
+    {
+        if ($this->isDataTableRequest()) {
+            return $stockProduct->product->name ?? $this->renderDefaultView();
+        }
+
+        return $stockProduct->product->name ?? null;
+    }
+
+    /**
+     * @param StockProduct $stockProduct
+     * @return string
+     */
+    public function renderStock__NameColumn($stockProduct)
+    {
+        if ($this->isDataTableRequest()) {
+            return $stockProduct->stock->name ?? $this->renderDefaultView();
+        }
+
+        return $stockProduct->stock->name ?? null;
+    }
+
+    /**
+     * @param StockProduct $stockProduct
+     * @return string
+     */
+    public function renderProduct__ProductGroup__NameColumn($stockProduct)
+    {
+        if ($this->isDataTableRequest()) {
+            return $stockProduct->product->productGroup->name ?? $this->renderDefaultView();
+        }
+
+        return $stockProduct->product->productGroup->name ?? null;
     }
 }

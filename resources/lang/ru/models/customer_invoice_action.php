@@ -58,7 +58,7 @@ return [
 		'action' => 'Действие',
 		'timestamp' => 'Время',
 		'customerInvoice' => [
-			'name' => 'Счёт',
+			'order_nr' => 'Счёт',
 		],
         'created_at' => 'Создано',
         'updated_at' => 'Изменено',
@@ -66,7 +66,7 @@ return [
     ],
     'filters' => [
 		'customerInvoice' => [
-			'name' => 'Счёт',
+			'order_nr' => 'Счёт',
 		],
     ],
 ];

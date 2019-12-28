@@ -146,7 +146,7 @@ class ProductDataTable extends DataTable
             return $product->productGroup ? $product->productGroup->name : $this->renderDefaultView();
         }
 
-        return optional($product->productGroup)->name;
+        return $product->productGroup->name ?? null;
     }
 
     /**
@@ -156,10 +156,10 @@ class ProductDataTable extends DataTable
     public function renderPackageType__NameColumn($product)
     {
         if ($this->isDataTableRequest()) {
-            return $product->packageType ? $product->packageType->name : $this->renderDefaultView();
+            return $product->packageType->name ?? $this->renderDefaultView();
         }
 
-        return optional($product->packageType)->name;
+        return $product->packageType->name ?? null;
     }
 
     /**
@@ -177,6 +177,6 @@ class ProductDataTable extends DataTable
             return $this->renderView('dashboard::resources.product.columns.productTags', compact('product'));
         }
 
-        return $fallback;
+        return $fallback ?? null;
     }
 }

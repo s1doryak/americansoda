@@ -86,4 +86,18 @@ class CompanyBankAccountDataTable extends DataTable
     {
         return parent::getButtons();
     }
+
+
+    /**
+     * @param CompanyBankAccount $companyBankAccount
+     * @return string
+     */
+    public function renderCustomerTypes__NameColumn($companyBankAccount)
+    {
+        if ($this->isDataTableRequest()) {
+            return $companyBankAccount->company->name ?? $this->renderDefaultView();
+        }
+
+        return $companyBankAccount->company->name ?? null;
+    }
 }

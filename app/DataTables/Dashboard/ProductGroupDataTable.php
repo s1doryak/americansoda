@@ -119,9 +119,9 @@ class ProductGroupDataTable extends DataTable
     public function renderProductType__NameColumn($productGroup)
     {
         if ($this->isDataTableRequest()) {
-            return $productGroup->productType ? $productGroup->productType->name : $this->renderDefaultView();
+            return $productGroup->productType->name ?? $this->renderDefaultView();
         }
 
-        return optional($productGroup->productType)->name;
+        return $productGroup->productType->name ?? null;
     }
 }
