@@ -34,7 +34,8 @@ class CustomerPreOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 	];
 
 	protected $appends = [
-
+        'amount',
+        'amount_vat',
 	];
 
 	protected $casts = [
@@ -98,4 +99,24 @@ class CustomerPreOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+    public function getAmountAttribute($value)
+    {
+        return number_format(
+            $this->items->sum('total_price'),
+            2,
+            '.',
+            ''
+        );
+    }
+
+    public function getAmountVatAttribute($value)
+    {
+        return number_format(
+            $this->items->sum('total_vat_price'),
+            2,
+            '.',
+            ''
+        );
+    }
 }
