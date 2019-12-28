@@ -22,7 +22,8 @@ class StockMovementProductDataTable extends DataTable
             'stockMovement.stock.name' => [
                 'name' => 'stockMovement.stock.name',
                 'data' => 'stockMovement.stock.name',
-                'searchable' => true
+                'searchable' => true,
+                'orderable' => false,
             ],
             'product.name' => [
                 'name' => 'product.name',
@@ -55,7 +56,8 @@ class StockMovementProductDataTable extends DataTable
             'number',
             'comment',
             'formatted_products_quantity',
-            'action'
+            'action',
+            'stockMovement.stock.name'
         ];
     }
 
@@ -154,5 +156,31 @@ class StockMovementProductDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param StockMovementProduct $stockMovementProduct
+     * @return string
+     */
+    public function renderStockMovement__Stock__NameColumn($stockMovementProduct)
+    {
+        if ($this->isDataTableRequest()) {
+            return $stockMovementProduct->stockMovement->stock->name ?? $this->renderDefaultView();
+        }
+
+        return $stockMovementProduct->stockMovement->stock->name ?? null;
+    }
+
+    /**
+     * @param StockMovementProduct $stockMovementProduct
+     * @return string
+     */
+    public function renderProduct__NameColumn($stockMovementProduct)
+    {
+        if ($this->isDataTableRequest()) {
+            return $stockMovementProduct->product->name ?? $this->renderDefaultView();
+        }
+
+        return $stockMovementProduct->product->name ?? null;
     }
 }

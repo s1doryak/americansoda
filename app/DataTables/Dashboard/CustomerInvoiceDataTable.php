@@ -224,14 +224,10 @@ class CustomerInvoiceDataTable extends DataTable
     public function renderCustomer__NameColumn($customerInvoice)
     {
         if ($this->isDataTableRequest()) {
-            if ($customerInvoice->customer) {
-                return $customerInvoice->customer->name;
-            }
-
-            return $this->renderDefaultView();
+            return $customerInvoice->customer->name ?? $this->renderDefaultView();
         }
 
-        return $customerInvoice->customer ? $customerInvoice->customer->name : '';
+        return $customerInvoice->customer->name ?? null;
     }
 
     /**
@@ -241,14 +237,10 @@ class CustomerInvoiceDataTable extends DataTable
     public function renderCustomerShipment__NumberColumn($customerInvoice)
     {
         if ($this->isDataTableRequest()) {
-            if ($customerInvoice->customerShipment) {
-                return $customerInvoice->customerShipment->number;
-            }
-
-            return $this->renderDefaultView();
+            return $customerInvoice->customerShipment->number ?? $this->renderDefaultView();
         }
 
-        return $customerInvoice->customerShipment ? $customerInvoice->customerShipment->number : '';
+        return $customerInvoice->customerShipment->number ?? null;
     }
 
     /**

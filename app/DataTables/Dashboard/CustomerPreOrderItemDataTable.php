@@ -126,4 +126,56 @@ class CustomerPreOrderItemDataTable extends DataTable
     {
         return parent::getButtons();
     }
+
+    /**
+     * @param CustomerPreOrderItem $customerPreOrderItem
+     * @return string
+     */
+    public function renderCustomerUser__NameColumn($customerPreOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerPreOrderItem->customerUser->name ?? $this->renderDefaultView();
+        }
+
+        return $customerPreOrderItem->customerUser->name ?? null;
+    }
+
+    /**
+     * @param CustomerPreOrderItem $customerPreOrderItem
+     * @return string
+     */
+    public function renderCustomer__NameColumn($customerPreOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerPreOrderItem->customer->name ?? $this->renderDefaultView();
+        }
+
+        return $customerPreOrderItem->customer->name ?? null;
+    }
+
+    /**
+     * @param CustomerPreOrderItem $customerPreOrderItem
+     * @return string
+     */
+    public function renderCustomerPreOrder__NumberColumn($customerPreOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerPreOrderItem->customerPreOrder->number ?? $this->renderDefaultView();
+        }
+
+        return $customerPreOrderItem->customerPreOrder->number ?? null;
+    }
+
+    /**
+     * @param CustomerPreOrderItem $customerPreOrderItem
+     * @return string
+     */
+    public function renderProduct__NameColumn($customerPreOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerPreOrderItem->product->name ?? $this->renderDefaultView();
+        }
+
+        return $customerPreOrderItem->product->name ?? null;
+    }
 }
