@@ -30,6 +30,7 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
                 )
                 ->where('customer_user_customer.customer_user_id', '=', $customerUserId)
                 ->where('customer_pricing_policies.customer_id', '=', $shopId)
+                ->where('customer_pricing_policies.price', '>', '0.00')
                 ->whereNull('customer_pricing_policies.deleted_at');
         });
 
