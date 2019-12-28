@@ -31,7 +31,7 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
                 ->where('customer_user_customer.customer_user_id', '=', $customerUserId)
                 ->where('customer_pricing_policies.customer_id', '=', $shopId)
                 ->where('customer_pricing_policies.price', '>', '0.00')
-                ->where('customer_pricing_policies.product_range', '>', 0)
+                ->where('customer_pricing_policies.products_range', '>', 0)
                 ->whereNull('customer_pricing_policies.deleted_at');
         });
 
