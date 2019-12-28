@@ -177,6 +177,6 @@ class ProductDataTable extends DataTable
             return $this->renderView('dashboard::resources.product.columns.productTags', compact('product'));
         }
 
-        return $fallback;
+        return $fallback ?? null;
     }
 }

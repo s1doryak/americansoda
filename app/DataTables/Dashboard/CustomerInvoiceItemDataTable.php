@@ -133,7 +133,7 @@ class CustomerInvoiceItemDataTable extends DataTable
             return $customerInvoiceItem->customerInvoice->order_nr ?? $this->renderDefaultView();
         }
 
-        return $customerInvoiceItem->customerInvoice->order_nr;
+        return $customerInvoiceItem->customerInvoice->order_nr ?? null;
     }
 
     /**
@@ -146,7 +146,7 @@ class CustomerInvoiceItemDataTable extends DataTable
             return $customerInvoiceItem->customerOrderItem->product_name ?? $this->renderDefaultView();
         }
 
-        return $customerInvoiceItem->customerOrderItem->product_name;
+        return $customerInvoiceItem->customerOrderItem->product_name ?? null;
     }
 
     /**
@@ -159,6 +159,6 @@ class CustomerInvoiceItemDataTable extends DataTable
             return $customerInvoiceItem->product->name ?? $this->renderDefaultView();
         }
 
-        return $customerInvoiceItem->product->name;
+        return $customerInvoiceItem->product->name ?? null;
     }
 }

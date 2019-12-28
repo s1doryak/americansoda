@@ -130,7 +130,7 @@ class AdministratorDataTable extends DataTable
             return $administrator->role->name ?? $this->renderDefaultView();
         }
 
-        return $administrator->role->name;
+        return $administrator->role->name ?? null;
     }
 
     /**

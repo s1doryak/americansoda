@@ -85,6 +85,6 @@ class CompanyDataTable extends DataTable
             return $company->region->name ?? $this->renderDefaultView();
         }
 
-        return $company->region->name;
+        return $company->region->name ?? null;
     }
 }

@@ -98,6 +98,6 @@ class CompanyBankAccountDataTable extends DataTable
             return $companyBankAccount->company->name ?? $this->renderDefaultView();
         }
 
-        return $companyBankAccount->company->name;
+        return $companyBankAccount->company->name ?? null;
     }
 }

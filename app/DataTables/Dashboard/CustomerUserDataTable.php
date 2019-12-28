@@ -100,10 +100,13 @@ class CustomerUserDataTable extends DataTable
      */
     protected function renderCustomers__NameColumn($customerUser)
     {
+        $customers = $customerUser->customers ?? null;
+        $customerNames = $customers ? $customers->pluck('name') : null;
+
         if ($this->isDataTableRequest()) {
-            return $customerUser->customers->pluck('name')->implode('<br>') ?? $this->renderDefaultView();
+            return $customerNames ? $customerNames->implode('<br>') : $this->renderDefaultView();
         }
 
-        return $customerUser->customers->pluck('name')->implode(', ') ?? null;
+        return $customerNames ? $customerNames->implode(', ') : null;
     }
 }

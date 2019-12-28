@@ -108,10 +108,13 @@ class PriceGroupBreakpointDataTable extends DataTable
      */
     public function renderProductGroups__NameColumn($priceGroupBreakpoint)
     {
+        $productGroups =  $priceGroupBreakpoint->productGroups ?? null;
+        $productGroupNames = $productGroups ? $productGroups->pluck('name') : null;
+
         if ($this->isDataTableRequest()) {
-            return $priceGroupBreakpoint->productGroups->pluck('name')->implode('<br>') ?? $this->renderDefaultView();
+            return $productGroupNames ? $productGroupNames->implode('<br>') : $this->renderDefaultView();
         }
 
-        return $priceGroupBreakpoint->productGroups->pluck('name')->implode(', ') ?? null;
+        return $productGroupNames ? $productGroupNames->implode(', ') : null;
     }
 }

@@ -12,35 +12,35 @@ use App\Banner;
  */
 class BannerDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-			'name',
-			'image',
-			'url',
-			'customerTypes.name' => [
-				'data' => 'customerTypes.name',
-                'orderable' =>false
-			],
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name',
+            'image',
+            'url',
+            'customerTypes.name' => [
+                'data' => 'customerTypes.name',
+                'orderable' => false
+            ],
+        ];
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function getRawColumns()
-	{
-		return [
-			'name',
-			'image',
-			'url',
-			'customerTypes.name',
-			'action',
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'image',
+            'url',
+            'customerTypes.name',
+            'action',
+        ];
+    }
 
     /**
      * @return array
@@ -68,14 +68,14 @@ class BannerDataTable extends DataTable
         ];
     }
 
-	/**
-	 * @param Banner $banner
-	 * @return array
-	 */
-	protected function getActions($banner)
-	{
-		return parent::getActions($banner);
-	}
+    /**
+     * @param Banner $banner
+     * @return array
+     */
+    protected function getActions($banner)
+    {
+        return parent::getActions($banner);
+    }
 
     /**
      * @return array
@@ -91,10 +91,13 @@ class BannerDataTable extends DataTable
      */
     public function renderCustomerTypes__NameColumn($banner)
     {
+        $customerTypes = $banner->customerTypes ?? null;
+        $customerTypeNames = $customerTypes ? $customerTypes->pluck('name') : null;
+
         if ($this->isDataTableRequest()) {
-            return $banner->customerTypes->pluck('name')->implode('<br>') ?? $this->renderDefaultView();
+            return $customerTypeNames ? $customerTypeNames->implode('<br>') : $this->renderDefaultView();
         }
 
-        return $banner->customerTypes->pluck('name')->implode(', ');
+        return $customerTypeNames ? $customerTypeNames->implode(', ') : null;
     }
 }

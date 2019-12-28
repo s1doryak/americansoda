@@ -92,6 +92,6 @@ class CustomerInvoiceActionDataTable extends DataTable
             return $customerInvoiceAction->customerInvoice->order_nr ?? $this->renderDefaultView();
         }
 
-        return $customerInvoiceAction->customerInvoice->order_nr;
+        return $customerInvoiceAction->customerInvoice->order_nr ?? null;
     }
 }

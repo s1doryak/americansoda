@@ -93,6 +93,6 @@ class CustomerInvoiceAttachmentDataTable extends DataTable
             return $customerInvoiceAttachment->customerInvoice->order_nr ?? $this->renderDefaultView();
         }
 
-        return $customerInvoiceAttachment->customerInvoice->order_nr;
+        return $customerInvoiceAttachment->customerInvoice->order_nr ?? null;
     }
 }
