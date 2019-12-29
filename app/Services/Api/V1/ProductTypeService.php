@@ -17,27 +17,25 @@ class ProductTypeService extends ResourceService
     {
         $nomenclature = $this->repository->getByShopId($shopId, $withCount);
 
-        return $this->getOnlyIdsFromNomenclature($nomenclature);
+        return $this->getOnlyIdsFromNomenclature($nomenclature)->values();
     }
 
     protected function getOnlyIdsFromNomenclature(Collection $nomenclature)
     {
         return $nomenclature->map(function ($item) {
-            return [
-                'id' => $item->id,
-                'productGroups' => $this->getOnlyIdsFromProductGroups($item->productGroups)
-            ];
+            $item->productGroups = $this->getOnlyIdsFromProductGroups($item->productGroups);
+
+            return $item;
         });
     }
 
     protected function getOnlyIdsFromProductGroups(Collection $productGroups)
     {
         return $productGroups->map(function ($productGroup) {
-            return [
-                'id' => $productGroup->id,
-                'products' => $productGroup->products->pluck('id'),
-                'pricingPolicies' => $productGroup->pricingPolicies->pluck('id'),
-            ];
+            $productGroup->products = $productGroup->products->pluck('id');
+            $productGroup->pricingPolicies = $productGroup->pricingPolicies->pluck('id');
+
+            return $productGroup;
         });
     }
 }
