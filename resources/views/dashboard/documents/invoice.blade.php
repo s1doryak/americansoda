@@ -3,9 +3,9 @@
 @section('content')
     <table class="table-33p">
         <tr>
-            <td class="logo">
-                <img src="{{ asset('assets/dashboard/img/american_soda/logo_document.png') }}" alt="">
-            </td>
+{{--            <td class="logo">--}}
+{{--                <img src="{{ asset('assets/dashboard/img/american_soda/logo_document.png') }}" alt="">--}}
+{{--            </td>--}}
             <td class="caption text-center">
                 Laskufaktura
             </td>

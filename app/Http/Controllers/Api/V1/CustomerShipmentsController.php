@@ -19,7 +19,7 @@ class CustomerShipmentsController extends Controller
         return response()->json($data, Response::HTTP_OK);
     }
 
-    public function downloadPdf(DownloadPdfRequest $request, CustomerShipmentService $service)
+    public function downloadWaybill(DownloadPdfRequest $request, CustomerShipmentService $service)
     {
         return $service->downloadPdfFile($request->route('shipment_id'));
     }
