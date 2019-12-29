@@ -12,7 +12,7 @@ class DownloadPdfRequest extends FormRequest
 {
     public function authorize()
     {
-        $customerWithShipments = Auth::user()
+        $customerWithInvoices = Auth::user()
             ->customers()
             ->where('customer_id', $this->route('id'))
             ->with(['customerInvoices' => function ($query) {
@@ -20,7 +20,7 @@ class DownloadPdfRequest extends FormRequest
             }])
             ->first();
 
-        return $customerWithShipments->customerInvoices->count() > 0;
+        return $customerWithInvoices->customerInvoices->count() > 0;
     }
 
     public function rules()
