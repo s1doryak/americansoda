@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\ProductTypeRepository;
+use DB;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Arr;
 
@@ -38,13 +39,28 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
                 'productGroups.pricingPolicies' => function ($query) use ($shopId) {
                     return $query->select('id', 'product_group_id')
                         ->where('customer_id', $shopId)
-                        ->where('price', '>', '0.00');
+                        ->where('price', '>', '0.00')
+                        ->where('products_range', '>', 0)
+                        ->whereNull('deleted_at');
                 },
                 'productGroups' => function ($query) use ($withCount) {
                     return $query->select('id', 'product_type_id')->withCount($withCount);
                 }
             ])
-            ->get(['id']);
+            ->get(['id'])
+            ->map(function ($productType) {
+                $productGroups = $productType->productGroups->filter(function ($productGroup) {
+                    return $productGroup->products->isNotEmpty()
+                        && $productGroup->pricingPolicies->isNotEmpty();
+                });
+                $productType->productGroups = $productGroups;
+
+                return $productType;
+            })
+            ->filter(function ($productType) {
+                return $productType->productGroups->isNotEmpty() ?? false;
+            });
+
     }
 
     public function getCleanByShopId($shopId, $ids = [])

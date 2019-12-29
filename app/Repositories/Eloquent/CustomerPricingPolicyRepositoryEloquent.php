@@ -92,7 +92,9 @@ class CustomerPricingPolicyRepositoryEloquent extends \Crmplease\MaterialAdmin\R
         $query = $this->model
             ->getQuery()
             ->where('customer_id', $shopId)
-            ->where('price', '>', '0.00');;
+            ->where('price', '>', '0.00')
+            ->where('products_range', '>', 0)
+            ->whereNull('deleted_at');
 
         if ($ids) {
             $query->whereIn('id', $ids);
