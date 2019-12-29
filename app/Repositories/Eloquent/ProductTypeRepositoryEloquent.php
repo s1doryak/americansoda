@@ -3,9 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\ProductTypeRepository;
-use DB;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Arr;
 
 class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductTypeRepository
 {
