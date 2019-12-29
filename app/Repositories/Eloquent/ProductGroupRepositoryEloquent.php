@@ -27,7 +27,13 @@ class ProductGroupRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositori
             return $query->where('customer_pricing_policies.customer_id', $shopId);
         });
 
-        $result = ($ids) ? $query->findWhereIn('id', $ids) : $query->get();
+        $where = ['deleted_at' => null];
+
+        if ($ids) {
+            $where['ids'] = $ids;
+        }
+
+        $result = $query->findWhere($where);
 
         return $result->map(function ($productGroup) {
             return ProductGroupTransformer::toArray($productGroup);

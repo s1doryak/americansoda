@@ -23,19 +23,21 @@ class ProductTypeService extends ResourceService
     protected function getOnlyIdsFromNomenclature(Collection $nomenclature)
     {
         return $nomenclature->map(function ($item) {
-            $item->productGroups = $this->getOnlyIdsFromProductGroups($item->productGroups);
-
-            return $item;
+            return [
+                'id' => $item->id,
+                'productGroups' => $this->getOnlyIdsFromProductGroups($item->productGroups)->values()
+            ];
         });
     }
 
     protected function getOnlyIdsFromProductGroups(Collection $productGroups)
     {
         return $productGroups->map(function ($productGroup) {
-            $productGroup->products = $productGroup->products->pluck('id');
-            $productGroup->pricingPolicies = $productGroup->pricingPolicies->pluck('id');
-
-            return $productGroup;
+            return [
+                'id' => $productGroup->id,
+                'products' => $productGroup->products->pluck('id')->values(),
+                'pricingPolicies' => $productGroup->pricingPolicies->pluck('id')->values(),
+            ];
         });
     }
 }

@@ -32,7 +32,9 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
             ->has('productGroups.products')
             ->with([
                 'productGroups.products' => function ($query) use ($productGroupIds) {
-                    return $query->select('id', 'product_group_id')->whereIn('product_group_id', $productGroupIds);
+                    return $query->select('id', 'product_group_id')
+                        ->whereIn('product_group_id', $productGroupIds)
+                        ->whereNull('deleted_at');
                 },
                 'productGroups.pricingPolicies' => function ($query) use ($shopId) {
                     return $query->select('id', 'product_group_id')
