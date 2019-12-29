@@ -8,11 +8,17 @@ use Illuminate\Support\Str;
 
 class CustomerPreOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerPreOrderRepository
 {
-    public function getByShopId($shopId)
+    public function getByShopId($shopId, $withoutOrders = false)
     {
+        $where = ['customer_id' => $shopId];
+
+        if ($withoutOrders) {
+            $where['customer_order_id'] = null;
+        }
+
         return $this
             ->orderBy(DB::raw('number', 'SOUNDEX(number) $1, LENGTH(number) $1, number $1'))
-            ->findWhere(['customer_id' => $shopId]);
+            ->findWhere($where);
     }
 
     /**
