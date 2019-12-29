@@ -17,7 +17,7 @@ class ProductTypeService extends ResourceService
     {
         $nomenclature = $this->repository->getByShopId($shopId, $withCount);
 
-        return $this->getOnlyIdsFromNomenclature($nomenclature);
+        return $this->getOnlyIdsFromNomenclature($nomenclature)->values();
     }
 
     protected function getOnlyIdsFromNomenclature(Collection $nomenclature)
@@ -25,7 +25,7 @@ class ProductTypeService extends ResourceService
         return $nomenclature->map(function ($item) {
             return [
                 'id' => $item->id,
-                'productGroups' => $this->getOnlyIdsFromProductGroups($item->productGroups)
+                'productGroups' => $this->getOnlyIdsFromProductGroups($item->productGroups)->values()
             ];
         });
     }
@@ -35,8 +35,8 @@ class ProductTypeService extends ResourceService
         return $productGroups->map(function ($productGroup) {
             return [
                 'id' => $productGroup->id,
-                'products' => $productGroup->products->pluck('id'),
-                'pricingPolicies' => $productGroup->pricingPolicies->pluck('id'),
+                'products' => $productGroup->products->pluck('id')->values(),
+                'pricingPolicies' => $productGroup->pricingPolicies->pluck('id')->values(),
             ];
         });
     }
