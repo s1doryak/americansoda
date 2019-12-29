@@ -8,6 +8,7 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BannersController;
+use App\Http\Controllers\Api\V1\CustomerInvoiceController;
 use App\Http\Controllers\Api\V1\CustomerOrdersController;
 use App\Http\Controllers\Api\V1\CustomerPreOrderController;
 use App\Http\Controllers\Api\V1\CustomerShipmentsController;
@@ -38,7 +39,8 @@ Route::group(['middleware' => 'api'], function () {
                 Route::post('/orders/{order_id}/copy', [CustomerPreOrderController::class, 'copy']);
 
                 Route::get('/documents', [CustomerShipmentsController::class, 'get']);
-                Route::get('/documents/{shipment_id}/pdf', [CustomerShipmentsController::class, 'downloadPdf']);
+                Route::get('/documents/{shipment_id}/waybill/pdf', [CustomerShipmentsController::class, 'downloadWaybill']);
+                Route::get('/documents/{shipment_id}/invoice/pdf', [CustomerInvoiceController::class, 'downloadInvoice']);
             });
         });
 
