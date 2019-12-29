@@ -19,7 +19,6 @@ class CustomerPreOrderDataTable extends DataTable
 	{
 		return [
 			'number',
-			'reference_number',
 			'comment',
 			'customerUser.name' => [
 				'data' => 'customerUser.name'
@@ -40,7 +39,6 @@ class CustomerPreOrderDataTable extends DataTable
 	{
 		return [
 			'number',
-			'reference_number',
 			'comment',
 			'customerUser.name',
 			'customerOrder.number',

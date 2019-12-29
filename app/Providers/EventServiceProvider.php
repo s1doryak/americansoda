@@ -34,6 +34,11 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Dashboard\FixCustomerOrderNumber::class,
 
             /**
+             * Исправляем номер предзаказа
+             */
+            \App\Listeners\Dashboard\FixCustomerPreOrderNumber::class,
+
+            /**
              * Устанавливаем атрибуты счёта
              */
             \App\Listeners\Dashboard\SetupCustomerInvoiceAttributes::class,
