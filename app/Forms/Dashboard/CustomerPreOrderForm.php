@@ -3,6 +3,7 @@
 namespace App\Forms\Dashboard;
 
 use App\CustomerPreOrder;
+use App\Repositories\Contracts\CustomerPreOrderRepository;
 use Crmplease\MaterialAdmin\Forms\Form;
 use Illuminate\Validation\Rule;
 
@@ -19,11 +20,13 @@ class CustomerPreOrderForm extends Form
 	public static function getCreateFormFields()
 	{
         return [
-			'number' => 'text',
+			'number' => [
+                'type' => 'text',
+                'value' => app(CustomerPreOrderRepository::class)->getFirstAvailableNumber()
+            ],
 			'reference_number' => 'text',
 			'comment' => 'textarea',
 			'customerUser' => 'choice',
-			'customerOrder' => 'choice',
 			'customer' => 'choice',
         ];
 	}
@@ -39,7 +42,6 @@ class CustomerPreOrderForm extends Form
 			'reference_number' => 'text',
 			'comment' => 'textarea',
 			'customerUser' => 'choice',
-			'customerOrder' => 'choice',
 			'customer' => 'choice',
         ];
 	}

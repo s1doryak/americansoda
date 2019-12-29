@@ -27,7 +27,6 @@ class CustomerPreOrderTransformer implements TransformerContract
 			'reference_number' => $request->get('reference_number'),
 			'comment' => $request->get('comment'),
 			'customerUser' => (integer)$request->get('customerUser'),
-			'customerOrder' => (integer)$request->get('customerOrder'),
 			'customer' => (integer)$request->get('customer'),
 
 		];
@@ -44,7 +43,6 @@ class CustomerPreOrderTransformer implements TransformerContract
 			'reference_number' => $request->get('reference_number'),
 			'comment' => $request->get('comment'),
 			'customerUser' => (integer)$request->get('customerUser'),
-			'customerOrder' => (integer)$request->get('customerOrder'),
 			'customer' => (integer)$request->get('customer'),
 
 		];
