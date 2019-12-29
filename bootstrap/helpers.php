@@ -25,7 +25,7 @@ function is_dashboard()
  */
 function is_api()
 {
-    return strpos(prefix_name(), 'api/') !== false;
+    return strpos(prefix_name(), 'api') !== false;
 }
 
 /**

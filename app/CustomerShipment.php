@@ -123,9 +123,10 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         $this->appends = [
             'delivery_date',
             'delivery_month',
+            'amount'
         ];
 
-        $condition = is_resource_page(['customer_shipment']) || is_datatable(['customer_shipment']);
+        $condition = is_resource_page(['customer_shipment']) || is_datatable(['customer_shipment']) || is_api();
 
         if ($condition) {
             $this->appends = array_merge(
@@ -143,6 +144,20 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
         return $this->getArrayableItems(
             array_combine($this->appends, $this->appends)
+        );
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getAmountAttribute($value)
+    {
+        return number_format(
+            $this->customerOrderItems->sum('total_price'),
+            2,
+            '.',
+            ''
         );
     }
 
