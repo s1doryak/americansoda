@@ -103,7 +103,7 @@ class CustomerOrderService extends ResourceService
     {
         $this->customerPreOrderService = app(CustomerPreOrderService::class);
         $customerOrders = $this->repository->getByShopId($shopId);
-        $customerPreOrders = $this->customerPreOrderService->getByShopId($shopId);
+        $customerPreOrders = $this->customerPreOrderService->getByShopId($shopId, true);
         $customerOrders = $customerOrders->map(function ($customerOrder) {
             return CustomerOrderTransformer::toArray($customerOrder);
         });
@@ -111,6 +111,6 @@ class CustomerOrderService extends ResourceService
             return CustomerPreOrderTransformer::toArray($customerPreOrder);
         });
 
-        return $customerOrders->merge($customerPreOrders);
+        return $customerPreOrders->merge($customerOrders);
     }
 }
