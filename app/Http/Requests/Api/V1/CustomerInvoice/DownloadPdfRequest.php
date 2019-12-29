@@ -20,7 +20,7 @@ class DownloadPdfRequest extends FormRequest
             }])
             ->first();
 
-        return $customerWithShipments->customerShipments->count() > 0;
+        return $customerWithShipments->customerInvoices->count() > 0;
     }
 
     public function rules()
