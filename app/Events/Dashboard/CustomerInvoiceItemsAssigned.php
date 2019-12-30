@@ -76,6 +76,14 @@ class CustomerInvoiceItemsAssigned implements ResourceEventInterface
     }
 
     /**
+     * @return string
+     */
+    public function getAction()
+    {
+        return 'customerInvoiceItemsAssigned';
+    }
+
+    /**
      * @return array
      */
     public function getAttributes()

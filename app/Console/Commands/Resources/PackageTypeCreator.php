@@ -51,6 +51,14 @@ class PackageTypeCreator extends ResourceCreator
 		return 'package_type';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param PackageType $package_type
 	 * @return array

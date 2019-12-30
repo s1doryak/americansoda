@@ -2,15 +2,21 @@
 
 namespace App\Services\Api\V1;
 
+use App\Repositories\Contracts\ProductTypeRepository;
 use App\Repositories\Eloquent\ProductTypeRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Database\Eloquent\Collection;
 
 class ProductTypeService extends ResourceService
 {
+    /**
+     * @var ProductTypeRepositoryEloquent
+     */
+    protected $repository;
+
     public function __construct()
     {
-        $this->setRepository(ProductTypeRepositoryEloquent::class);
+        $this->setRepository(ProductTypeRepository::class);
     }
 
     public function getByShopId($shopId, $withCount = [])

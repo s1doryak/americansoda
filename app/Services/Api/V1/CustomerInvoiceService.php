@@ -7,7 +7,6 @@ use App\Customer;
 use App\CustomerInvoice;
 use App\Repositories\Eloquent\CompanyRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerInvoiceRepositoryEloquent;
-use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use PDF;
 
@@ -23,6 +22,10 @@ class CustomerInvoiceService extends ResourceService
      */
     protected $companyRepository;
 
+    /**
+     * @param CustomerInvoiceRepositoryEloquent $customerInvoiceRepository
+     * @param CompanyRepositoryEloquent $companyRepository
+     */
     public function __construct(
         CustomerInvoiceRepositoryEloquent $customerInvoiceRepository,
         CompanyRepositoryEloquent $companyRepository
@@ -45,9 +48,9 @@ class CustomerInvoiceService extends ResourceService
                 'customer.stock',
                 'customer.stock.region'
             ])
-            ->firstWhere(
-            ['customer_shipment_id' => $shipmentId]
-        );
+            ->firstWhere([
+                'customer_shipment_id' => $shipmentId
+            ]);
 
         $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $customerInvoice->id, $customerInvoice->invoice_nr, $customerInvoice->customer->name, mb_strtoupper('Laskufaktura')));
 

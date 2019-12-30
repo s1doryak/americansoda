@@ -58,6 +58,14 @@ class CustomerInvoiceAttachmentCreator extends ResourceCreator
 		return 'customer_invoice_attachment';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param CustomerInvoiceAttachment $customer_invoice_attachment
 	 * @return array

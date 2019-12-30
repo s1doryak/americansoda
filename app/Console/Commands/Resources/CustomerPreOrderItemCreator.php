@@ -85,6 +85,14 @@ class CustomerPreOrderItemCreator extends ResourceCreator
 		return 'customer_pre_order_item';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param CustomerPreOrderItem $customerPreOrderItem
 	 * @return array

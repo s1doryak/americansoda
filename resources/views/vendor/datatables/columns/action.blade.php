@@ -27,6 +27,7 @@
                                data-url="{{ $attributes['url'] ?? '#' . $action }}"
                                data-ajax="{{ $attributes['ajax'] ?? false ? 'true' : 'false' }}"
                                data-method="{{ $attributes['method'] ?? 'get' }}"
+                               data-params="{{ json_encode($attributes['params'] ?? []) }}"
                                data-token="{{ csrf_token() }}">
                                 {{ $attributes['title'] ?? $action }}
                             </a>
@@ -44,6 +45,7 @@
                    data-url="{{ $attributes['url'] ?? '#' . $action }}"
                    data-ajax="{{ $attributes['ajax'] ?? false ? 'true' : 'false' }}"
                    data-method="{{ $attributes['method'] ?? 'get' }}"
+                   data-params="{{ json_encode($attributes['params'] ?? []) }}"
                    data-token="{{ csrf_token() }}"
                    data-icon-class="zmdi-{{ $attributes['icon'] ?? 'edit' }}"
                    data-color-class="c-{{ $attributes['color'] ?? 'primary' }}"

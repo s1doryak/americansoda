@@ -93,6 +93,14 @@ class CustomerOrderItemCreator extends ResourceCreator
 		return 'customer_order_item';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param CustomerOrderItem $customer_order_item
 	 * @return array

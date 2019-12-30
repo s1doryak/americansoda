@@ -115,6 +115,14 @@ class CustomerRevisionCreator extends ResourceCreator
 		return 'customer_revision';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param CustomerRevision $customer_revision
 	 * @return array

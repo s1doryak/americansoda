@@ -58,6 +58,14 @@ class ProductTagCreator extends ResourceCreator
 		return 'product_tag';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param ProductTag $product_tag
 	 * @return array

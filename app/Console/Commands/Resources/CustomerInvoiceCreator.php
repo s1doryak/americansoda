@@ -112,6 +112,14 @@ class CustomerInvoiceCreator extends ResourceCreator
     }
 
     /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
+    /**
      * @param CustomerInvoice $customerInvoice
      * @return array
      */

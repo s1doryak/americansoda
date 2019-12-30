@@ -58,6 +58,14 @@ class CompanyBankAccountCreator extends ResourceCreator
 		return 'company_bank_account';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param CompanyBankAccount $company_bank_account
 	 * @return array

@@ -56,6 +56,14 @@ class CustomerTypeCreator extends ResourceCreator
 		return 'customer_type';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param CustomerType $customer_type
 	 * @return array

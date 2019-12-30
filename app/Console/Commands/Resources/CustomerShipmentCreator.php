@@ -76,6 +76,14 @@ class CustomerShipmentCreator extends ResourceCreator
 		return 'customer_shipment';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param CustomerShipment $customer_shipment
 	 * @return array

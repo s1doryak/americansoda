@@ -51,6 +51,14 @@ class RegionCreator extends ResourceCreator
 		return 'region';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param Region $region
 	 * @return array

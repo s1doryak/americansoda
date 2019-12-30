@@ -76,6 +76,14 @@ class StockProductCreator extends ResourceCreator
 		return 'stock_product';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param StockProduct $stock_product
 	 * @return array

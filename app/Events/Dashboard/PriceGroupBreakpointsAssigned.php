@@ -76,6 +76,14 @@ class PriceGroupBreakpointsAssigned implements ResourceEventInterface
     }
 
     /**
+     * @return string
+     */
+    public function getAction()
+    {
+        return 'priceGroupBreakpointsAssigned';
+    }
+
+    /**
      * @return array
      */
     public function getAttributes()

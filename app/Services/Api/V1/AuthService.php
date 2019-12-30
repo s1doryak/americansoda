@@ -4,16 +4,29 @@ namespace App\Services\Api\V1;
 
 use App\CustomerUser;
 use App\Notifications\Api\V1\AuthAttempt;
+use App\Repositories\Contracts\CustomerUserRepository;
 use Crmplease\MaterialAdmin\Services\ResourceService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthService extends ResourceService
 {
+    /**
+     * @var CustomerUserRepository
+     */
+    protected $repository;
+    /**
+     * @var CustomerUserService
+     */
     protected $customerUserService;
 
-    public function __construct()
+    public function __construct(
+        CustomerUserRepository $customerUserRepository,
+        CustomerUserService $customerUserService
+    )
     {
-        $this->customerUserService = app(CustomerUserService::class);
+        $this->repository = $customerUserRepository;
+        $this->customerUserService = $customerUserService;
     }
 
     /**
@@ -22,11 +35,15 @@ class AuthService extends ResourceService
     public function sendAuthAttemptNotification($email)
     {
         /** @var CustomerUser $user */
-        $user = CustomerUser::where(['email' => $email])->firstOrFail();
+        $user = $this->repository->firstWhere(['email' => $email]);
 
-        $user->notify(
-            new AuthAttempt($this->getOrCreateToken($user))
-        );
+        if ($user) {
+            $user->notify(
+                new AuthAttempt($this->getOrCreateToken($user))
+            );
+        }
+
+        throw (new ModelNotFoundException)->setModel(CustomerUser::class);
     }
 
     /**

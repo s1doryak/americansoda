@@ -5,6 +5,9 @@ namespace App\Services\Api\V1;
 use App\Company;
 use App\Customer;
 use App\CustomerOrderItem;
+use App\Repositories\Contracts\CompanyRepository;
+use App\Repositories\Contracts\CustomerOrderItemRepository;
+use App\Repositories\Contracts\CustomerShipmentRepository;
 use App\Repositories\Eloquent\CompanyRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerOrderItemRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerShipmentRepositoryEloquent;
@@ -13,15 +16,27 @@ use PDF;
 
 class CustomerShipmentService extends ResourceService
 {
+    /**
+     * @var CustomerShipmentRepositoryEloquent
+     */
+    protected $repository;
+
+    /**
+     * @var CompanyRepositoryEloquent
+     */
     protected $companyRepository;
+
+    /**
+     * @var CustomerOrderItemRepositoryEloquent
+     */
     protected $customerOrderItemRepository;
 
     public function __construct()
     {
-        $this->setRepository(CustomerShipmentRepositoryEloquent::class);
+        $this->setRepository(CustomerShipmentRepository::class);
 
-        $this->companyRepository = app(CompanyRepositoryEloquent::class);
-        $this->customerOrderItemRepository = app(CustomerOrderItemRepositoryEloquent::class);
+        $this->companyRepository = app(CompanyRepository::class);
+        $this->customerOrderItemRepository = app(CustomerOrderItemRepository::class);
     }
 
     public function downloadPdfFile($shipmentId, $inline = false)

@@ -2,18 +2,31 @@
 
 namespace App\Services\Api\V1;
 
+use App\Repositories\Contracts\CustomerPreOrderItemRepository;
 use App\Repositories\Eloquent\CustomerPreOrderItemRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerPreOrderItemService extends ResourceService
 {
+    /**
+     * @var CustomerPreOrderItemRepositoryEloquent
+     */
+    protected $repository;
+
+    /**
+     * @var CustomerPricingPolicyService
+     */
     protected $customerPricingPolicyService;
+
+    /**
+     * @var ProductService
+     */
     protected $productService;
 
     public function __construct()
     {
-        $this->setRepository(CustomerPreOrderItemRepositoryEloquent::class);
+        $this->setRepository(CustomerPreOrderItemRepository::class);
 
         $this->productService = app(ProductService::class);
         $this->customerPricingPolicyService = app(CustomerPricingPolicyService::class);

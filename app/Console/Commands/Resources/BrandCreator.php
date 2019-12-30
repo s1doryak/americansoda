@@ -51,6 +51,14 @@ class BrandCreator extends ResourceCreator
 		return 'brand';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param Brand $brand
 	 * @return array

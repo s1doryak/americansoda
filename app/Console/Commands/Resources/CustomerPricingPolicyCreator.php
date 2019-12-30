@@ -67,6 +67,14 @@ class CustomerPricingPolicyCreator extends ResourceCreator
 		return 'customer_pricing_policy';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param CustomerPricingPolicy $customer_pricing_policy
 	 * @return array

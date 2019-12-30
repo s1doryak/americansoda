@@ -92,6 +92,14 @@ class CustomerPricingPolicyRevisionCreator extends ResourceCreator
 		return 'customer_pricing_policy_revision';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param CustomerPricingPolicyRevision $customer_pricing_policy_revision
 	 * @return array

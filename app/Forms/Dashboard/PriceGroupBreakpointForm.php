@@ -38,7 +38,11 @@ class PriceGroupBreakpointForm extends Form
         return [
             'breakpoint' => 'text',
             'priceGroup' => 'choice',
-            'productGroups' => 'choice',
+            'productGroups' => [
+                'type' => 'choice',
+                'groups' => app(ProductGroupRepository::class)->all(),
+                'template' => 'dashboard::resources.price_group_breakpoint.fields.productGroups',
+            ],
         ];
     }
 

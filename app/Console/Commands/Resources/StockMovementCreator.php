@@ -58,6 +58,14 @@ class StockMovementCreator extends ResourceCreator
 		return 'stock_movement';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param StockMovement $stock_movement
 	 * @return array

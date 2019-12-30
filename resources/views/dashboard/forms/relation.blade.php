@@ -1,11 +1,11 @@
 @php($exclude = (array)$options['exclude'])
 @php($fields = (array)$options['children'])
-@php($can_add = isset($options['can_add']) ? $options['can_add'] : true)
+@php($can_add = isset($options['can_add']) ? is_callable($options['can_add']) ? $options['can_add']() : (boolean)$options['can_add'] : true)
 @php($actions = isset($options['actions']) ? $options['actions'] : true)
 
 @section('scripts')
     @parent
-    @if(isset($options['can_add']) ? $options['can_add'] : true)
+    @if($can_add)
         <script class="js-relation-form-row" data-resource="{{ $options['resource'] }}" type="text/x-handlebars-template">
             @include('dashboard::forms._relation-form-row', [
                 'is_template' => true,

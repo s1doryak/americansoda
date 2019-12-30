@@ -51,6 +51,14 @@ class PriceGroupCreator extends ResourceCreator
 		return 'price_group';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param PriceGroup $priceGroup
 	 * @return array

@@ -2,9 +2,10 @@
 
 namespace App\Services\Api\V1;
 
+use App\CustomerOrder;
 use App\CustomerOrderItem;
-use App\Repositories\Eloquent\CompanyRepositoryEloquent;
-use App\Repositories\Eloquent\CustomerOrderItemRepositoryEloquent;
+use App\CustomerPreOrder;
+use App\Repositories\Contracts\CustomerOrderRepository;
 use App\Repositories\Eloquent\CustomerOrderRepositoryEloquent;
 use App\Transformers\Api\V1\CustomerOrderTransformer;
 use App\Transformers\Api\V1\CustomerPreOrderTransformer;
@@ -13,11 +14,41 @@ use PDF;
 
 class CustomerOrderService extends ResourceService
 {
+    /**
+     * @var CustomerOrderRepositoryEloquent
+     */
+    protected $repository;
+
+    /**
+     * @var CustomerOrderItemService
+     */
+    protected $customerOrderItemService;
+
+    /**
+     * @var CompanyService;
+     */
+    protected $companyService;
+
+    /**
+     * @var CustomerPreOrderService
+     */
     protected $customerPreOrderService;
 
-    public function __construct()
+    /**
+     * @param CustomerOrderRepository $repository
+     * @param CompanyService $companyService
+     */
+    public function __construct(
+        CustomerOrderRepository $repository,
+        CustomerOrderItemService $customerOrderItemService,
+        CustomerPreOrderItemService $customerPreOrderService,
+        CompanyService $companyService
+    )
     {
-        $this->setRepository(CustomerOrderRepositoryEloquent::class);
+        $this->repository = $repository;
+        $this->customerOrderItemService = $customerOrderItemService;
+        $this->customerPreOrderService = $customerPreOrderService;
+        $this->companyService = $companyService;
     }
 
     public function getPdfFile($orderId, $inline = false)
@@ -31,6 +62,7 @@ class CustomerOrderService extends ResourceService
             'customer.stock',
             'customer.stock.region'
         ])->find($orderId);
+
         $pdf = PDF::loadView('dashboard::documents.order-review', $this->prepareOrderReview($order));
 
         if ($inline) {
@@ -51,11 +83,18 @@ class CustomerOrderService extends ResourceService
         }
     }
 
+    /**
+     * @param CustomerOrder$order
+     * @param boolean $hideBackOrder
+     * @param boolean $hideCancelled
+     * @return array
+     */
     protected function prepareOrderReview($order, $hideBackOrder = true, $hideCancelled = true)
     {
         $customer = $order->customer;
-        $companyRepository = app(CompanyRepositoryEloquent::class);
-        $company = $companyRepository->with('region')->first();
+
+        $company = $this->companyService->with('region')->first();
+
         $orderItemsConditions = [
             'customer_order_id' => $order->getKey(),
         ];
@@ -68,15 +107,20 @@ class CustomerOrderService extends ResourceService
             $orderItemsConditions['cancelled'] = 0;
         }
 
-        $customerOrderItemRepository = app(CustomerOrderItemRepositoryEloquent::class);
-        $orderItems = $customerOrderItemRepository->with(['product', 'product.productGroup', 'product.packageType'])->findWhere($orderItemsConditions);
+        /** @var \Illuminate\Support\Collection|CustomerOrderItem[] $orderItems */
+        $orderItems = $this->customerOrderItemService
+            ->with([
+                'product',
+                'product.productGroup',
+                'product.packageType'
+            ])
+            ->findWhere($orderItemsConditions);
 
         /** @var boolean $hasNegativeItems */
         $hasNegativeItems = $orderItems->filter(function (CustomerOrderItem $orderItem) {
             return $orderItem->total_price < 0;
         })->isNotEmpty();
 
-        /** @var \Illuminate\Database\Eloquent\Collection $orderDepositItems */
         $orderDepositItems = $orderItems->filter(function (CustomerOrderItem $orderItem) {
             return $orderItem->deposit_enabled;
         });
@@ -99,18 +143,28 @@ class CustomerOrderService extends ResourceService
         );
     }
 
+    /**
+     * @param $shopId
+     * @return mixed
+     */
     public function getByShopId($shopId)
     {
-        $this->customerPreOrderService = app(CustomerPreOrderService::class);
-        $customerOrders = $this->repository->getByShopId($shopId);
+        /** @var \Illuminate\Support\Collection|CustomerPreOrder[] $customerPreOrders */
         $customerPreOrders = $this->customerPreOrderService->getByShopId($shopId, true);
-        $customerOrders = $customerOrders->map(function ($customerOrder) {
-            return CustomerOrderTransformer::toArray($customerOrder);
-        });
+
+        /** @var \Illuminate\Support\Collection|CustomerOrder[] $customerOrders */
+        $customerOrders = $this->repository->getByShopId($shopId);
+
         $customerPreOrders = $customerPreOrders->map(function ($customerPreOrder) {
             return CustomerPreOrderTransformer::toArray($customerPreOrder);
         });
 
-        return $customerPreOrders->merge($customerOrders);
+        $customerOrders = $customerOrders->map(function ($customerOrder) {
+            return CustomerOrderTransformer::toArray($customerOrder);
+        });
+
+        return collect()
+            ->concat($customerPreOrders)
+            ->concat($customerOrders);
     }
 }

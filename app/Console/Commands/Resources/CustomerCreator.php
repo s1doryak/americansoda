@@ -111,6 +111,14 @@ class CustomerCreator extends ResourceCreator
 		return 'customer';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param Customer $customer
 	 * @return array
