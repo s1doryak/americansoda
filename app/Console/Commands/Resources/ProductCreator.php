@@ -76,6 +76,14 @@ class ProductCreator extends ResourceCreator
 		return 'product';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param Product $product
 	 * @return array

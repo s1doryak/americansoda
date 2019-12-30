@@ -51,6 +51,14 @@ class PaymentTypeCreator extends ResourceCreator
 		return 'payment_type';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param PaymentType $payment_type
 	 * @return array

@@ -14,7 +14,7 @@ use App\Repositories\Contracts\ProductTypeRepository;
  */
 class ProductGroupCreator extends ResourceCreator
 {
-	
+
 	/**
 	 * @var ProductTypeRepository
 	 */
@@ -58,6 +58,14 @@ class ProductGroupCreator extends ResourceCreator
 	{
 		return 'product_group';
 	}
+
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
 
 	/**
 	 * @param ProductGroup $product_group

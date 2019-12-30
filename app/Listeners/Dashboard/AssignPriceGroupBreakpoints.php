@@ -7,10 +7,7 @@ use App\PriceGroupBreakpoint;
 use App\Events\Dashboard\PriceGroupBreakpointsAssigned;
 use App\Repositories\Contracts\PriceGroupBreakpointRepository;
 use App\Repositories\Contracts\PriceGroupRepository;
-use Crmplease\MaterialAdmin\Events\ResourceDestroyed;
-use Crmplease\MaterialAdmin\Events\ResourceRestored;
-use Crmplease\MaterialAdmin\Events\ResourceStored;
-use Crmplease\MaterialAdmin\Events\ResourceTrashed;
+use Crmplease\MaterialAdmin\Events\Traits\ValidatesAction;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
 use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
@@ -24,7 +21,7 @@ use Illuminate\Support\Collection;
  */
 class AssignPriceGroupBreakpoints
 {
-    use ValidatesResource, ValidatesNamespace;
+    use ValidatesAction, ValidatesResource, ValidatesNamespace;
 
     /**
      * @var PriceGroupRepository
@@ -64,6 +61,10 @@ class AssignPriceGroupBreakpoints
             return;
         }
 
+        if (!$this->isValidAction($e->getAction())) {
+            return;
+        }
+
         $attributes = $e->getAttributes();
         $params = $e->getParams();
 
@@ -74,26 +75,6 @@ class AssignPriceGroupBreakpoints
                 return $query->withTrashed();
             }
         )->find($attributes['id']);
-
-        if ($e instanceof ResourceTrashed) {
-
-            // ...
-        }
-
-        if ($e instanceof ResourceDestroyed) {
-
-            // ...
-        }
-
-        if ($e instanceof ResourceRestored) {
-
-            // ...
-        }
-
-        if ($e instanceof ResourceStored) {
-
-            // ...
-        }
 
         $items = Arr::get($params, 'priceGroupBreakpoints', []);
 
@@ -133,7 +114,14 @@ class AssignPriceGroupBreakpoints
             $priceGroupBreakpoints->push($priceGroupBreakpoint);
         }
 
-        event(new PriceGroupBreakpointsAssigned($priceGroup, $priceGroupBreakpoints, $attributes, $params));
+        event(
+            new PriceGroupBreakpointsAssigned(
+                $priceGroup,
+                $priceGroupBreakpoints,
+                $attributes,
+                $params
+            )
+        );
 
         return;
     }
@@ -155,6 +143,17 @@ class AssignPriceGroupBreakpoints
     {
         return [
             'price_group',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getValidActions()
+    {
+        return [
+            'store',
+            'update',
         ];
     }
 }

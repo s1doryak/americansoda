@@ -51,6 +51,14 @@ class ProductTypeCreator extends ResourceCreator
 		return 'product_type';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param ProductType $productType
 	 * @return array

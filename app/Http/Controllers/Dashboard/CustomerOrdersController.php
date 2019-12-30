@@ -56,7 +56,7 @@ class CustomerOrdersController extends ResourceController
     /**
      * @var CompanyRepository
      */
-    private $companies;
+    protected $companies;
 
     /**
      * @var CustomerRepository

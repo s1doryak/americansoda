@@ -176,7 +176,16 @@ class CustomerOrderItemsController extends ResourceController
 
                 $customerShipment->touch();
 
-                event(new ResourceUpdated(resource_name(), $customerShipment->getAttributes(), [], []));
+                event(
+                    new ResourceUpdated(
+                        $this->getPrefix(),
+                        $this->getResource(),
+                        'shipmentAssign',
+                        $customerShipment->getAttributes(),
+                        [],
+                        []
+                    )
+                );
             }
 
         } else {
@@ -207,7 +216,16 @@ class CustomerOrderItemsController extends ResourceController
 
                 }
 
-                event(new ResourceUpdated(resource_name(), $customerShipment->getAttributes(), [], []));
+                event(
+                    new ResourceUpdated(
+                        $this->getPrefix(),
+                        $this->getResource(),
+                        'shipmentAssign',
+                        $customerShipment->getAttributes(),
+                        [],
+                        []
+                    )
+                );
 
             }
         }

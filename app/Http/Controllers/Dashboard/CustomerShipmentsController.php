@@ -216,7 +216,7 @@ class CustomerShipmentsController extends ResourceController
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function invoice(Request $request)
     {
@@ -269,10 +269,10 @@ class CustomerShipmentsController extends ResourceController
                 'customerInvoiceItems' => $customerInvoiceItems->concat($customerInvoicePalpaItems)->toArray()
             ];
 
-            event(new ResourceStored($this->getPrefix(), 'customer_invoice', $attributes, $params));
+            event(new ResourceStored($this->getPrefix(), 'customer_invoice', 'invoice', $attributes, $params));
         }
 
-        return redirect(route(sprintf('%s.customer_invoice.edit', $this->getPrefix()), $customerInvoice->getKey()));
+        return redirect(route("{$this->getPrefix()}.customer_invoice.edit", $customerInvoice->getKey()));
     }
 
     /**

@@ -67,6 +67,14 @@ class PriceGroupBreakpointCreator extends ResourceCreator
 		return 'price_group_breakpoint';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param PriceGroupBreakpoint $priceGroupBreakpoint
 	 * @return array

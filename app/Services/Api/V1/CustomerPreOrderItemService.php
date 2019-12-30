@@ -2,23 +2,53 @@
 
 namespace App\Services\Api\V1;
 
+use App\Repositories\Contracts\CustomerPreOrderItemRepository;
 use App\Repositories\Eloquent\CustomerPreOrderItemRepositoryEloquent;
+use App\Repositories\Eloquent\CustomerPricingPolicyRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class CustomerPreOrderItemService extends ResourceService
 {
+    /**
+     * @var CustomerPreOrderItemRepositoryEloquent
+     */
+    protected $repository;
+
+    /**
+     * @var CustomerPricingPolicyService
+     */
     protected $customerPricingPolicyService;
+
+    /**
+     * @var ProductService
+     */
     protected $productService;
 
-    public function __construct()
+    /**
+     * CustomerPreOrderItemService constructor.
+     * @param CustomerPreOrderItemRepositoryEloquent $repository
+     * @param ProductService $productService
+     * @param CustomerPricingPolicyService $customerPricingPolicyService
+     */
+    public function __construct(
+        CustomerPreOrderItemRepositoryEloquent $repository,
+        ProductService $productService,
+        CustomerPricingPolicyService $customerPricingPolicyService
+    )
     {
-        $this->setRepository(CustomerPreOrderItemRepositoryEloquent::class);
-
-        $this->productService = app(ProductService::class);
-        $this->customerPricingPolicyService = app(CustomerPricingPolicyService::class);
+        $this->repository = $repository;
+        $this->productService = $productService;
+        $this->customerPricingPolicyService = $customerPricingPolicyService;
     }
 
+    /**
+     * @param $preOrderItems array|Collection
+     * @param $customerPreOrder array|Collection
+     * @throws ValidatorException
+     */
     public function create($preOrderItems, $customerPreOrder)
     {
         $customerPreOrderItems = $this->makeCustomerOrderItemsData($preOrderItems, $customerPreOrder);
@@ -29,6 +59,11 @@ class CustomerPreOrderItemService extends ResourceService
 
     }
 
+    /**
+     * @param array|Collection $preOrderItems
+     * @param array|Collection $customerPreOrder
+     * @return array
+     */
     public function makeCustomerOrderItemsData($preOrderItems, $customerPreOrder)
     {
         $customerPreOrderItems = [];
@@ -49,6 +84,11 @@ class CustomerPreOrderItemService extends ResourceService
         return $customerPreOrderItems;
     }
 
+    /**
+     * @param array $preOrderItem
+     * @param integer $customerId
+     * @return array
+     */
     protected function getCalculatedFields($preOrderItem, $customerId)
     {
         $product = $this->productService->with('productGroup')->find($preOrderItem['product_id']);

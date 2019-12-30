@@ -51,6 +51,14 @@ class AssemblyCreator extends ResourceCreator
 		return 'assembly';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param Assembly $assembly
 	 * @return array

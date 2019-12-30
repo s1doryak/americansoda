@@ -68,6 +68,14 @@ class UserCreator extends ResourceCreator
 		return 'user';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param User $user
 	 * @return array

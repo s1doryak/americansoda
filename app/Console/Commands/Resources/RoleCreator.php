@@ -51,6 +51,14 @@ class RoleCreator extends ResourceCreator
 		return 'role';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param Role $role
 	 * @return array

@@ -2,13 +2,24 @@
 
 namespace App\Services\Api\V1;
 
+use App\Repositories\Contracts\CustomerOrderItemRepository;
 use App\Repositories\Eloquent\CustomerOrderItemRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 
 class CustomerOrderItemService extends ResourceService
 {
-    public function __construct()
+    /**
+     * @var CustomerOrderItemRepositoryEloquent
+     */
+    protected $repository;
+
+    /**
+     * @param CustomerOrderItemRepository $customerOrderItemRepository
+     */
+    public function __construct(
+        CustomerOrderItemRepository $customerOrderItemRepository
+    )
     {
-        $this->setRepository(CustomerOrderItemRepositoryEloquent::class);
+        $this->repository = $customerOrderItemRepository;
     }
 }

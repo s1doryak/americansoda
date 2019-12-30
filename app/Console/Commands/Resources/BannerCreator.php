@@ -16,7 +16,7 @@ class BannerCreator extends ResourceCreator
 {
     protected $name = 'resource:create:banner';
 
-	
+
 	/**
 	 * @var CustomerTypeRepository
 	 */
@@ -57,6 +57,14 @@ class BannerCreator extends ResourceCreator
 	{
 		return 'banner';
 	}
+
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
 
 	/**
 	 * @param Banner $banner

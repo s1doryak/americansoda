@@ -58,6 +58,14 @@ class CompanyCreator extends ResourceCreator
 		return 'company';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param Company $company
 	 * @return array

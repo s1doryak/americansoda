@@ -30,7 +30,7 @@
 
                 @if(isset($item))
                     @if(is_object($item))
-                        @if(is_object($item->{$name}))
+                        @if($item->{$name} instanceof \Illuminate\Database\Eloquent\Model)
                             @php($value = $item->{$name}->getKey())
                         @else
                             @php($value = $item->{$name})

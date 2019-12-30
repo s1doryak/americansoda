@@ -58,6 +58,14 @@ class CustomerUserTokenCreator extends ResourceCreator
 		return 'customer_user_token';
 	}
 
+    /**
+     * @return string
+     */
+    public function getEventAction()
+    {
+        return 'store';
+    }
+
 	/**
 	 * @param CustomerUserToken $customerUserToken
 	 * @return array
