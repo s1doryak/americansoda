@@ -49,8 +49,8 @@
         ],
         \App\Banner::class => [
             'image' => [
-                'width' => 512,
-                'height' => 512,
+                'width' => 397,
+                'height' => 240,
                 'crop' => true,
                 'quality' => 90,
             ],
