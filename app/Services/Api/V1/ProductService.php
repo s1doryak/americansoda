@@ -13,8 +13,14 @@ class ProductService extends ResourceService
      */
     protected $repository;
 
-    public function __construct()
+    /**
+     * ProductService constructor.
+     * @param ProductRepository $repository
+     */
+    public function __construct(
+        ProductRepository $repository
+    )
     {
-        $this->setRepository(ProductRepository::class);
+        $this->repository = $repository;
     }
 }

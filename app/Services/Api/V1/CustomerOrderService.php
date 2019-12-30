@@ -2,6 +2,8 @@
 
 namespace App\Services\Api\V1;
 
+use App\Company;
+use App\Customer;
 use App\CustomerOrder;
 use App\CustomerOrderItem;
 use App\CustomerPreOrder;
@@ -10,6 +12,7 @@ use App\Repositories\Eloquent\CustomerOrderRepositoryEloquent;
 use App\Transformers\Api\V1\CustomerOrderTransformer;
 use App\Transformers\Api\V1\CustomerPreOrderTransformer;
 use Crmplease\MaterialAdmin\Services\ResourceService;
+use Illuminate\Http\Response;
 use PDF;
 
 class CustomerOrderService extends ResourceService
@@ -36,6 +39,8 @@ class CustomerOrderService extends ResourceService
 
     /**
      * @param CustomerOrderRepository $repository
+     * @param CustomerOrderItemService $customerOrderItemService
+     * @param CustomerPreOrderItemService $customerPreOrderService
      * @param CompanyService $companyService
      */
     public function __construct(
@@ -51,6 +56,11 @@ class CustomerOrderService extends ResourceService
         $this->companyService = $companyService;
     }
 
+    /**
+     * @param $orderId
+     * @param boolean $inline
+     * @return Response|string
+     */
     public function getPdfFile($orderId, $inline = false)
     {
         $order = $this->repository->with([
@@ -84,15 +94,16 @@ class CustomerOrderService extends ResourceService
     }
 
     /**
-     * @param CustomerOrder$order
+     * @param CustomerOrder $order
      * @param boolean $hideBackOrder
      * @param boolean $hideCancelled
      * @return array
      */
     protected function prepareOrderReview($order, $hideBackOrder = true, $hideCancelled = true)
     {
+        /** @var Customer $customer */
         $customer = $order->customer;
-
+        /** @var Company $company */
         $company = $this->companyService->with('region')->first();
 
         $orderItemsConditions = [

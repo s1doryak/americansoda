@@ -13,8 +13,14 @@ class CustomerPricingPolicyService extends ResourceService
      */
     protected $repository;
 
-    public function __construct()
+    /**
+     * CustomerPricingPolicyService constructor.
+     * @param CustomerPricingPolicyRepository $repository
+     */
+    public function __construct(
+        CustomerPricingPolicyRepository $repository
+    )
     {
-        $this->setRepository(CustomerPricingPolicyRepository::class);
+        $this->repository = $repository;
     }
 }

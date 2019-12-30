@@ -13,8 +13,14 @@ class ProductGroupService extends ResourceService
      */
     protected $repository;
 
-    public function __construct()
+    /**
+     * ProductGroupService constructor.
+     * @param ProductGroupRepository $repository
+     */
+    public function __construct(
+        ProductGroupRepository $repository
+    )
     {
-        $this->setRepository(ProductGroupRepository::class);
+        $this->repository = $repository;
     }
 }

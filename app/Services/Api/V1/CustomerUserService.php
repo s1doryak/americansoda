@@ -2,10 +2,17 @@
 
 namespace App\Services\Api\V1;
 
-use App\Repositories\Contracts\CustomerUserRepository;
+use App\CustomerUser;
+use App\Notifications\Api\V1\AuthAttempt;
 use App\Repositories\Eloquent\CustomerUserRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
+use Prettus\Repository\Exceptions\RepositoryException;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class CustomerUserService extends ResourceService
 {
@@ -14,13 +21,15 @@ class CustomerUserService extends ResourceService
      */
     protected $repository;
 
-    public function __construct()
+    public function __construct(
+        CustomerUserRepositoryEloquent $repository
+    )
     {
-        $this->setRepository(CustomerUserRepository::class);
+        $this->repository = $repository;
     }
 
     /**
-     * @return \Illuminate\Contracts\Auth\Authenticatable
+     * @return Authenticatable
      */
     public function getProfile()
     {
@@ -28,9 +37,43 @@ class CustomerUserService extends ResourceService
             ->has('customers')
             ->has('customers.user')
             ->with(['customers' => function ($query) {
-                /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                /** @var QueryBuilder|EloquentBuilder $query */
                 return $query->whereNull('deleted_at');
             }, 'customers.user'])
             ->first();
+    }
+
+    /**
+     * @param string $email
+     * @throws RepositoryException
+     */
+    public function sendAuthAttemptNotification($email)
+    {
+        /** @var CustomerUser $user */
+        $user = $this->repository->firstWhere(['email' => $email]);
+
+        if ($user) {
+            $user->notify(
+                new AuthAttempt($this->getOrCreateToken($user))
+            );
+        }
+
+        throw (new ModelNotFoundException)->setModel(CustomerUser::class);
+    }
+
+    /**
+     * @param CustomerUser $user
+     * @return string
+     */
+    protected function getOrCreateToken(CustomerUser $user)
+    {
+        $token = $user->token;
+
+        if (empty($token)) {
+            $token = JWTAuth::fromUser($user);
+            $this->update(['token' => $token], $user->id);
+        }
+
+        return $token;
     }
 }

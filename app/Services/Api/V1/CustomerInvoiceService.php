@@ -8,7 +8,9 @@ use App\CustomerInvoice;
 use App\Repositories\Eloquent\CompanyRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerInvoiceRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
+use Illuminate\Http\Response;
 use PDF;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 class CustomerInvoiceService extends ResourceService
 {
@@ -20,21 +22,27 @@ class CustomerInvoiceService extends ResourceService
     /**
      * @var CompanyRepositoryEloquent
      */
-    protected $companyRepository;
+    protected $companyService;
 
     /**
      * @param CustomerInvoiceRepositoryEloquent $customerInvoiceRepository
-     * @param CompanyRepositoryEloquent $companyRepository
+     * @param CompanyRepositoryEloquent $companyService
      */
     public function __construct(
         CustomerInvoiceRepositoryEloquent $customerInvoiceRepository,
-        CompanyRepositoryEloquent $companyRepository
+        CompanyService $companyService
     )
     {
         $this->repository = $customerInvoiceRepository;
-        $this->companyRepository = $companyRepository;
+        $this->companyService = $companyService;
     }
 
+    /**
+     * @param integer $shipmentId
+     * @param boolean $inline
+     * @return Response
+     * @throws RepositoryException
+     */
     public function downloadPdfFile($shipmentId, $inline = false)
     {
         /** @var CustomerInvoice $customerInvoice */
@@ -66,7 +74,7 @@ class CustomerInvoiceService extends ResourceService
     protected function getDocumentData($invoice)
     {
         /** @var Company $company */
-        $company = $this->companyRepository->with('region')->first();
+        $company = $this->companyService->with('region')->first();
 
         /** @var Customer $customer */
         $customer = $invoice->customer;

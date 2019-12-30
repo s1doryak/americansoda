@@ -5,6 +5,7 @@ namespace App\Services\Api\V1;
 use App\Company;
 use App\Customer;
 use App\CustomerOrderItem;
+use App\CustomerShipment;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\CustomerOrderItemRepository;
 use App\Repositories\Contracts\CustomerShipmentRepository;
@@ -12,6 +13,7 @@ use App\Repositories\Eloquent\CompanyRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerOrderItemRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerShipmentRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
+use Illuminate\Http\Response;
 use PDF;
 
 class CustomerShipmentService extends ResourceService
@@ -24,23 +26,40 @@ class CustomerShipmentService extends ResourceService
     /**
      * @var CompanyRepositoryEloquent
      */
-    protected $companyRepository;
+    protected $companyService;
 
     /**
      * @var CustomerOrderItemRepositoryEloquent
      */
-    protected $customerOrderItemRepository;
+    protected $customerOrderItemService;
 
-    public function __construct()
+    /**
+     * CustomerShipmentService constructor.
+     * @param CustomerShipmentRepository $repository
+     * @param CompanyService $companyService
+     * @param CustomerOrderItemService $customerOrderItemService
+     */
+    public function __construct(
+        CustomerShipmentRepository $repository,
+        CompanyService $companyService,
+        CustomerOrderItemService $customerOrderItemService
+    )
     {
-        $this->setRepository(CustomerShipmentRepository::class);
-
-        $this->companyRepository = app(CompanyRepository::class);
-        $this->customerOrderItemRepository = app(CustomerOrderItemRepository::class);
+        $this->repository = $repository;
+        $this->companyService = $companyService;
+        $this->customerOrderItemService = $customerOrderItemService;
     }
 
+    /**
+     * @param integer $shipmentId
+     * @param boolean $inline
+     * @return Response
+     */
     public function downloadPdfFile($shipmentId, $inline = false)
     {
+        /**
+         * @var CustomerShipment $shipment
+         */
         $shipment = $this->repository->with([
             'packageType',
             'customer',
@@ -57,12 +76,18 @@ class CustomerShipmentService extends ResourceService
     }
 
 
+    /**
+     * @param CustomerShipment $shipment
+     * @param boolean $hideBackOrder
+     * @param boolean $hideCancelled
+     * @return array
+     */
     protected function prepareShipmentData($shipment, $hideBackOrder = true, $hideCancelled = true)
     {
         $customerOrderItemIds = $shipment->customerOrderItems->pluck('id')->toArray();
 
         /** @var Company $company */
-        $company = $this->companyRepository->with('region')->first();
+        $company = $this->companyService->with('region')->first();
 
         /** @var Customer $customer */
         $customer = $shipment->customer;
@@ -87,7 +112,7 @@ class CustomerShipmentService extends ResourceService
         }
 
         /** @var \Illuminate\Database\Eloquent\Collection $shipmentItems */
-        $shipmentItems = $this->customerOrderItemRepository->with([
+        $shipmentItems = $this->customerOrderItemService->with([
             'product',
             'product.productGroup',
             'product.packageType',

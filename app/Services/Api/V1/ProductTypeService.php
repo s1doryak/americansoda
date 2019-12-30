@@ -14,11 +14,22 @@ class ProductTypeService extends ResourceService
      */
     protected $repository;
 
-    public function __construct()
+    /**
+     * ProductTypeService constructor.
+     * @param ProductTypeRepository $repository
+     */
+    public function __construct(
+        ProductTypeRepository $repository
+    )
     {
-        $this->setRepository(ProductTypeRepository::class);
+        $this->repository = $repository;
     }
 
+    /**
+     * @param integer $shopId
+     * @param array $withCount
+     * @return Collection|\Illuminate\Support\Collection
+     */
     public function getByShopId($shopId, $withCount = [])
     {
         $nomenclature = $this->repository->getByShopId($shopId, $withCount);
@@ -26,6 +37,10 @@ class ProductTypeService extends ResourceService
         return $this->getOnlyIdsFromNomenclature($nomenclature)->values();
     }
 
+    /**
+     * @param Collection $nomenclature
+     * @return Collection|\Illuminate\Support\Collection
+     */
     protected function getOnlyIdsFromNomenclature(Collection $nomenclature)
     {
         return $nomenclature->map(function ($item) {
@@ -36,6 +51,10 @@ class ProductTypeService extends ResourceService
         });
     }
 
+    /**
+     * @param Collection $productGroups
+     * @return Collection|\Illuminate\Support\Collection
+     */
     protected function getOnlyIdsFromProductGroups(Collection $productGroups)
     {
         return $productGroups->map(function ($productGroup) {
