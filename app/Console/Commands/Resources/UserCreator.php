@@ -16,82 +16,75 @@ use Illuminate\Support\Carbon;
  */
 class UserCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:user';
 
-	/**
-	 * @var RoleRepository
-	 */
-	protected $roles;
-
-	/**
-	 * @var CompanyRepository
-	 */
-	protected $companies;
-
-
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'roles' => 'name',
-		'companies' => 'name',
-	];
-
-	public function __construct(
-	    User $user,
-		UserRepository $userRepository,
-		RoleRepository $roleRepository,
-		CompanyRepository $companyRepository
-	)
-	{
-	    $this->resource = $user;
-		$this->repository = $userRepository;
-		$this->roles = $roleRepository;
-		$this->companies = $companyRepository;
-
-        parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'user';
-	}
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
     /**
-     * @return string
+     * @var string
      */
-    public function getEventAction()
+    protected $resource = 'user';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
+
+    /**
+     * @var RoleRepository
+     */
+    protected $roles;
+
+    /**
+     * @var CompanyRepository
+     */
+    protected $companies;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'roles' => 'name',
+        'companies' => 'name',
+    ];
+
+    public function __construct(
+        User $user,
+        UserRepository $userRepository,
+        RoleRepository $roleRepository,
+        CompanyRepository $companyRepository
+    )
     {
-        return 'store';
+        $this->model = $user;
+        $this->repository = $userRepository;
+        $this->roles = $roleRepository;
+        $this->companies = $companyRepository;
+
+        parent::__construct();
     }
 
-	/**
-	 * @param User $user
-	 * @return array
-	 */
-	public function getEventAttributes($user)
-	{
-		return $user->getAttributes();
-	}
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function getEventAttributes($user)
+    {
+        return $user->getAttributes();
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 
     /**
      * @param string $value

@@ -14,72 +14,65 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class ProductTagCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:product_tag';
 
-	/**
-	 * @var ProductRepository
-	 */
-	protected $products;
-
-
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'products' => 'name',
-	];
-
-	public function __construct(
-	    ProductTag $productTag,
-		ProductTagRepository $productTagRepository,
-		ProductRepository $productRepository
-	)
-	{
-	    $this->resource = $productTag;
-		$this->repository = $productTagRepository;
-		$this->products = $productRepository;
-
-        parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'product_tag';
-	}
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
     /**
-     * @return string
+     * @var string
      */
-    public function getEventAction()
+    protected $resource = 'product_tag';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
+
+    /**
+     * @var ProductRepository
+     */
+    protected $products;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'products' => 'name',
+    ];
+
+    public function __construct(
+        ProductTag $productTag,
+        ProductTagRepository $productTagRepository,
+        ProductRepository $productRepository
+    )
     {
-        return 'store';
+        $this->model = $productTag;
+        $this->repository = $productTagRepository;
+        $this->products = $productRepository;
+
+        parent::__construct();
     }
 
-	/**
-	 * @param ProductTag $product_tag
-	 * @return array
-	 */
-	public function getEventAttributes($product_tag)
-	{
-		return $product_tag->getAttributes();
-	}
+    /**
+     * @param ProductTag $product_tag
+     * @return array
+     */
+    public function getEventAttributes($product_tag)
+    {
+        return $product_tag->getAttributes();
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

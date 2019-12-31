@@ -16,88 +16,81 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerPreOrderCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:customer_pre_order';
 
-
-	/**
-	 * @var CustomerUserRepository
-	 */
-	protected $customerUsers;
-
-	/**
-	 * @var CustomerOrderRepository
-	 */
-	protected $customerOrders;
-
-	/**
-	 * @var CustomerRepository
-	 */
-	protected $customers;
-
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'customerUsers' => 'name',
-		'customerOrders' => 'number',
-		'customers' => 'name',
-	];
-
-	public function __construct(
-	    CustomerPreOrder $customerPreOrder,
-		CustomerPreOrderRepository $customerPreOrderRepository,
-		CustomerUserRepository $customerUserRepository,
-		CustomerOrderRepository $customerOrderRepository,
-		CustomerRepository $customerRepository
-	)
-	{
-	    $this->resource = $customerPreOrder;
-		$this->repository = $customerPreOrderRepository;
-		$this->customerUsers = $customerUserRepository;
-		$this->customerOrders = $customerOrderRepository;
-		$this->customers = $customerRepository;
-
-        parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'customer_pre_order';
-	}
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
     /**
-     * @return string
+     * @var string
      */
-    public function getEventAction()
+    protected $resource = 'customer_pre_order';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
+
+    /**
+     * @var CustomerUserRepository
+     */
+    protected $customerUsers;
+
+    /**
+     * @var CustomerOrderRepository
+     */
+    protected $customerOrders;
+
+    /**
+     * @var CustomerRepository
+     */
+    protected $customers;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'customerUsers' => 'name',
+        'customerOrders' => 'number',
+        'customers' => 'name',
+    ];
+
+    public function __construct(
+        CustomerPreOrder $customerPreOrder,
+        CustomerPreOrderRepository $customerPreOrderRepository,
+        CustomerUserRepository $customerUserRepository,
+        CustomerOrderRepository $customerOrderRepository,
+        CustomerRepository $customerRepository
+    )
     {
-        return 'store';
+        $this->model = $customerPreOrder;
+        $this->repository = $customerPreOrderRepository;
+        $this->customerUsers = $customerUserRepository;
+        $this->customerOrders = $customerOrderRepository;
+        $this->customers = $customerRepository;
+
+        parent::__construct();
     }
 
-	/**
-	 * @param CustomerPreOrder $customerPreOrder
-	 * @return array
-	 */
-	public function getEventAttributes($customerPreOrder)
-	{
-		return $customerPreOrder->getAttributes();
-	}
+    /**
+     * @param CustomerPreOrder $customerPreOrder
+     * @return array
+     */
+    public function getEventAttributes($customerPreOrder)
+    {
+        return $customerPreOrder->getAttributes();
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

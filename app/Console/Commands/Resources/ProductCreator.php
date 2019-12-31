@@ -16,7 +16,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class ProductCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:product';
+
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'product';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var BrandRepository
@@ -32,7 +50,6 @@ class ProductCreator extends ResourceCreator
 	 * @var ProductGroupRepository
 	 */
 	protected $productGroups;
-
 
 	/**
 	 * @var array
@@ -51,7 +68,7 @@ class ProductCreator extends ResourceCreator
 		ProductGroupRepository $productGroupRepository
 	)
 	{
-	    $this->resource = $product;
+	    $this->model = $product;
 		$this->repository = $productRepository;
 		$this->brands = $brandRepository;
 		$this->packageTypes = $packageTypeRepository;
@@ -59,30 +76,6 @@ class ProductCreator extends ResourceCreator
 
         parent::__construct();
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'product';
-	}
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
-    }
 
 	/**
 	 * @param Product $product

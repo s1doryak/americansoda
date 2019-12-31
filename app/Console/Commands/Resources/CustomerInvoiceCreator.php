@@ -20,7 +20,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerInvoiceCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:customer_invoice';
+
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'customer_invoice';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
     /**
      * @var CustomerRepository
@@ -82,7 +100,7 @@ class CustomerInvoiceCreator extends ResourceCreator
         CustomerOrderItemRepository $customerOrderItemRepository
     )
     {
-        $this->resource = $customerInvoice;
+        $this->model = $customerInvoice;
         $this->repository = $customerInvoiceRepository;
         $this->customers = $customerRepository;
         $this->customerShipments = $customerShipmentRepository;
@@ -93,30 +111,6 @@ class CustomerInvoiceCreator extends ResourceCreator
         $this->customerOrderItems = $customerOrderItemRepository;
 
         parent::__construct();
-    }
-
-    /**
-     * @return string
-     */
-    public function getEventNamespace()
-    {
-        return 'cli';
-    }
-
-    /**
-     * @return string
-     */
-    public function getEventResource()
-    {
-        return 'customer_invoice';
-    }
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
     }
 
     /**

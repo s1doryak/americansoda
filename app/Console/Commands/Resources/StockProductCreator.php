@@ -16,88 +16,81 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class StockProductCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:stock_product';
 
-	/**
-	 * @var StockRepository
-	 */
-	protected $stocks;
-
-	/**
-	 * @var ProductRepository
-	 */
-	protected $products;
-
-	/**
-	 * @var CustomerOrderItemRepository
-	 */
-	protected $customerOrderItems;
-
-
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'stocks' => 'name',
-		'products' => 'name',
-		'customerOrderItems' => 'name',
-	];
-
-	public function __construct(
-	    StockProduct $stockProduct,
-		StockProductRepository $stockProductRepository,
-		StockRepository $stockRepository,
-		ProductRepository $productRepository,
-		CustomerOrderItemRepository $customerOrderItemRepository
-	)
-	{
-	    $this->resource = $stockProduct;
-		$this->repository = $stockProductRepository;
-		$this->stocks = $stockRepository;
-		$this->products = $productRepository;
-		$this->customerOrderItems = $customerOrderItemRepository;
-
-        parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'stock_product';
-	}
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
     /**
-     * @return string
+     * @var string
      */
-    public function getEventAction()
+    protected $resource = 'stock_product';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
+
+    /**
+     * @var StockRepository
+     */
+    protected $stocks;
+
+    /**
+     * @var ProductRepository
+     */
+    protected $products;
+
+    /**
+     * @var CustomerOrderItemRepository
+     */
+    protected $customerOrderItems;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'stocks' => 'name',
+        'products' => 'name',
+        'customerOrderItems' => 'name',
+    ];
+
+    public function __construct(
+        StockProduct $stockProduct,
+        StockProductRepository $stockProductRepository,
+        StockRepository $stockRepository,
+        ProductRepository $productRepository,
+        CustomerOrderItemRepository $customerOrderItemRepository
+    )
     {
-        return 'store';
+        $this->model = $stockProduct;
+        $this->repository = $stockProductRepository;
+        $this->stocks = $stockRepository;
+        $this->products = $productRepository;
+        $this->customerOrderItems = $customerOrderItemRepository;
+
+        parent::__construct();
     }
 
-	/**
-	 * @param StockProduct $stock_product
-	 * @return array
-	 */
-	public function getEventAttributes($stock_product)
-	{
-		return $stock_product->getAttributes();
-	}
+    /**
+     * @param StockProduct $stock_product
+     * @return array
+     */
+    public function getEventAttributes($stock_product)
+    {
+        return $stock_product->getAttributes();
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

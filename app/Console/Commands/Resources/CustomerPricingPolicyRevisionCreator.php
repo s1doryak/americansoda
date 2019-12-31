@@ -17,7 +17,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerPricingPolicyRevisionCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:customer_pricing_policy_revision';
+
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'customer_pricing_policy_revision';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var CustomerPricingPolicyRevisionRepository
@@ -44,7 +62,6 @@ class CustomerPricingPolicyRevisionCreator extends ResourceCreator
 	 */
 	protected $customers;
 
-
 	/**
 	 * @var array
 	 */
@@ -65,7 +82,7 @@ class CustomerPricingPolicyRevisionCreator extends ResourceCreator
 		CustomerRepository $customerRepository
 	)
 	{
-	    $this->resource = $customerPricingPolicyRevision;
+	    $this->model = $customerPricingPolicyRevision;
 		$this->repository = $customerPricingPolicyRevisionRepository;
 		$this->revisions = $customerPricingPolicyRevisionRepository;
 		$this->customerPricingPolicies = $customerPricingPolicyRepository;
@@ -75,30 +92,6 @@ class CustomerPricingPolicyRevisionCreator extends ResourceCreator
 
         parent::__construct();
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'customer_pricing_policy_revision';
-	}
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
-    }
 
 	/**
 	 * @param CustomerPricingPolicyRevision $customer_pricing_policy_revision
