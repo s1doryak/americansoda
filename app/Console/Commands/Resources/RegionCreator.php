@@ -13,9 +13,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class RegionCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:region';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
+    /**
+     * @var string
+     */
+    protected $resource = 'region';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var array
@@ -29,35 +45,11 @@ class RegionCreator extends ResourceCreator
 		RegionRepository $regionRepository
 	)
 	{
-	    $this->resource = $region;
+	    $this->model = $region;
 		$this->repository = $regionRepository;
 
         parent::__construct();
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'region';
-	}
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
-    }
 
 	/**
 	 * @param Region $region

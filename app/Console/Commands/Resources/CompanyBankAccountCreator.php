@@ -14,8 +14,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CompanyBankAccountCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:company_bank_account';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'company_bank_account';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var CompanyRepository
@@ -35,36 +52,12 @@ class CompanyBankAccountCreator extends ResourceCreator
 		CompanyRepository $companyRepository
 	)
 	{
-	    $this->resource = $companyBankAccount;
+	    $this->model = $companyBankAccount;
 		$this->repository = $companyBankAccountRepository;
 		$this->companies = $companyRepository;
 
         parent::__construct();
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'company_bank_account';
-	}
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
-    }
 
 	/**
 	 * @param CompanyBankAccount $company_bank_account

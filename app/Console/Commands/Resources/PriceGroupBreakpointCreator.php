@@ -15,80 +15,73 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class PriceGroupBreakpointCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:price_group_breakpoint';
 
-
-	/**
-	 * @var PriceGroupRepository
-	 */
-	protected $priceGroups;
-
-	/**
-	 * @var ProductGroupRepository
-	 */
-	protected $productGroups;
-
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'priceGroups' => 'name',
-		'productGroups' => 'name',
-	];
-
-	public function __construct(
-	    PriceGroupBreakpoint $priceGroupBreakpoint,
-		PriceGroupBreakpointRepository $priceGroupBreakpointRepository,
-		PriceGroupRepository $priceGroupRepository,
-		ProductGroupRepository $productGroupRepository
-	)
-	{
-	    $this->resource = $priceGroupBreakpoint;
-		$this->repository = $priceGroupBreakpointRepository;
-		$this->priceGroups = $priceGroupRepository;
-		$this->productGroups = $productGroupRepository;
-
-        parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'price_group_breakpoint';
-	}
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
     /**
-     * @return string
+     * @var string
      */
-    public function getEventAction()
+    protected $resource = 'price_group_breakpoint';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
+
+    /**
+     * @var PriceGroupRepository
+     */
+    protected $priceGroups;
+
+    /**
+     * @var ProductGroupRepository
+     */
+    protected $productGroups;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'priceGroups' => 'name',
+        'productGroups' => 'name',
+    ];
+
+    public function __construct(
+        PriceGroupBreakpoint $priceGroupBreakpoint,
+        PriceGroupBreakpointRepository $priceGroupBreakpointRepository,
+        PriceGroupRepository $priceGroupRepository,
+        ProductGroupRepository $productGroupRepository
+    )
     {
-        return 'store';
+        $this->model = $priceGroupBreakpoint;
+        $this->repository = $priceGroupBreakpointRepository;
+        $this->priceGroups = $priceGroupRepository;
+        $this->productGroups = $productGroupRepository;
+
+        parent::__construct();
     }
 
-	/**
-	 * @param PriceGroupBreakpoint $priceGroupBreakpoint
-	 * @return array
-	 */
-	public function getEventAttributes($priceGroupBreakpoint)
-	{
-		return $priceGroupBreakpoint->getAttributes();
-	}
+    /**
+     * @param PriceGroupBreakpoint $priceGroupBreakpoint
+     * @return array
+     */
+    public function getEventAttributes($priceGroupBreakpoint)
+    {
+        return $priceGroupBreakpoint->getAttributes();
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

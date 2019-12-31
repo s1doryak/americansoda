@@ -14,8 +14,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class BannerCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:banner';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'banner';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var CustomerTypeRepository
@@ -35,36 +52,12 @@ class BannerCreator extends ResourceCreator
 		CustomerTypeRepository $customerTypeRepository
 	)
 	{
-	    $this->resource = $banner;
+	    $this->model = $banner;
 		$this->repository = $bannerRepository;
 		$this->customerTypes = $customerTypeRepository;
 
         parent::__construct();
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'banner';
-	}
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
-    }
 
 	/**
 	 * @param Banner $banner

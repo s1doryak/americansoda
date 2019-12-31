@@ -17,8 +17,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerPreOrderItemCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:customer_pre_order_item';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'customer_pre_order_item';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var CustomerPreOrderRepository
@@ -59,7 +76,7 @@ class CustomerPreOrderItemCreator extends ResourceCreator
 		ProductRepository $productRepository
 	)
 	{
-	    $this->resource = $customerPreOrderItem;
+	    $this->model = $customerPreOrderItem;
 		$this->repository = $customerPreOrderItemRepository;
 		$this->customerPreOrders = $customerPreOrderRepository;
 		$this->customerUsers = $customerUserRepository;
@@ -68,30 +85,6 @@ class CustomerPreOrderItemCreator extends ResourceCreator
 
         parent::__construct();
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'customer_pre_order_item';
-	}
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
-    }
 
 	/**
 	 * @param CustomerPreOrderItem $customerPreOrderItem

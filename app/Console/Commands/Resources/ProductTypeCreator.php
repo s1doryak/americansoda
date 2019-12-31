@@ -13,66 +13,58 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class ProductTypeCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:product_type';
 
-
-
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-
-	];
-
-	public function __construct(
-	    ProductType $productType,
-		ProductTypeRepository $productTypeRepository
-	)
-	{
-	    $this->resource = $productType;
-		$this->repository = $productTypeRepository;
-
-        parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'product_type';
-	}
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
     /**
-     * @return string
+     * @var string
      */
-    public function getEventAction()
+    protected $resource = 'product_type';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+
+    ];
+
+    public function __construct(
+        ProductType $productType,
+        ProductTypeRepository $productTypeRepository
+    )
     {
-        return 'store';
+        $this->model = $productType;
+        $this->repository = $productTypeRepository;
+
+        parent::__construct();
     }
 
-	/**
-	 * @param ProductType $productType
-	 * @return array
-	 */
-	public function getEventAttributes($productType)
-	{
-		return $productType->getAttributes();
-	}
+    /**
+     * @param ProductType $productType
+     * @return array
+     */
+    public function getEventAttributes($productType)
+    {
+        return $productType->getAttributes();
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

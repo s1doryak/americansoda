@@ -13,9 +13,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class AssemblyCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:assembly';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
+    /**
+     * @var string
+     */
+    protected $resource = 'assembly';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var array
@@ -29,35 +45,11 @@ class AssemblyCreator extends ResourceCreator
 		AssemblyRepository $assemblyRepository
 	)
 	{
-	    $this->resource = $assembly;
+	    $this->model = $assembly;
 		$this->repository = $assemblyRepository;
 
         parent::__construct();
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'assembly';
-	}
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
-    }
 
 	/**
 	 * @param Assembly $assembly

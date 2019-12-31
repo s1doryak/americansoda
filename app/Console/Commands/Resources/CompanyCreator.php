@@ -14,13 +14,30 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CompanyCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:company';
+
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'company';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var RegionRepository
 	 */
 	protected $regions;
-
 
 	/**
 	 * @var array
@@ -35,36 +52,12 @@ class CompanyCreator extends ResourceCreator
 		RegionRepository $regionRepository
 	)
 	{
-	    $this->resource = $company;
+	    $this->model = $company;
 		$this->repository = $companyRepository;
 		$this->regions = $regionRepository;
 
         parent::__construct();
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'company';
-	}
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
-    }
 
 	/**
 	 * @param Company $company

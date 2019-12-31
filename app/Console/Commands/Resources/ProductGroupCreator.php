@@ -14,73 +14,65 @@ use App\Repositories\Contracts\ProductTypeRepository;
  */
 class ProductGroupCreator extends ResourceCreator
 {
-
-	/**
-	 * @var ProductTypeRepository
-	 */
-	protected $productTypes;
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:product_group';
 
-
-
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'productTypes' => 'name',
-	];
-
-	public function __construct(
-	    ProductGroup $productGroup,
-		ProductGroupRepository $productGroupRepository,
-		ProductTypeRepository $productTypeRepository
-	)
-	{
-	    $this->productTypes = $productTypeRepository;
-		$this->resource = $productGroup;
-		$this->repository = $productGroupRepository;
-
-        parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'product_group';
-	}
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
     /**
-     * @return string
+     * @var string
      */
-    public function getEventAction()
+    protected $resource = 'product_group';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
+
+    /**
+     * @var ProductTypeRepository
+     */
+    protected $productTypes;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'productTypes' => 'name',
+    ];
+
+    public function __construct(
+        ProductGroup $productGroup,
+        ProductGroupRepository $productGroupRepository,
+        ProductTypeRepository $productTypeRepository
+    )
     {
-        return 'store';
+        $this->model = $productGroup;
+        $this->repository = $productGroupRepository;
+        $this->productTypes = $productTypeRepository;
+
+        parent::__construct();
     }
 
-	/**
-	 * @param ProductGroup $product_group
-	 * @return array
-	 */
-	public function getEventAttributes($product_group)
-	{
-		return $product_group->getAttributes();
-	}
+    /**
+     * @param ProductGroup $product_group
+     * @return array
+     */
+    public function getEventAttributes($product_group)
+    {
+        return $product_group->getAttributes();
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

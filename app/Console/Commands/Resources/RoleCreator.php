@@ -13,66 +13,58 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class RoleCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:role';
 
-
-
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-
-	];
-
-	public function __construct(
-	    Role $role,
-		RoleRepository $roleRepository
-	)
-	{
-	    $this->resource = $role;
-		$this->repository = $roleRepository;
-
-        parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'role';
-	}
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
     /**
-     * @return string
+     * @var string
      */
-    public function getEventAction()
+    protected $resource = 'role';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+
+    ];
+
+    public function __construct(
+        Role $role,
+        RoleRepository $roleRepository
+    )
     {
-        return 'store';
+        $this->model = $role;
+        $this->repository = $roleRepository;
+
+        parent::__construct();
     }
 
-	/**
-	 * @param Role $role
-	 * @return array
-	 */
-	public function getEventAttributes($role)
-	{
-		return $role->getAttributes();
-	}
+    /**
+     * @param Role $role
+     * @return array
+     */
+    public function getEventAttributes($role)
+    {
+        return $role->getAttributes();
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

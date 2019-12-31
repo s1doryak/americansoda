@@ -14,13 +14,30 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class StockCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:stock';
+
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'stock';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var RegionRepository
 	 */
 	protected $regions;
-
 
 	/**
 	 * @var array
@@ -35,36 +52,12 @@ class StockCreator extends ResourceCreator
 		RegionRepository $regionRepository
 	)
 	{
-	    $this->resource = $stock;
+	    $this->model = $stock;
 		$this->repository = $stockRepository;
 		$this->regions = $regionRepository;
 
         parent::__construct();
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'stock';
-	}
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
-    }
 
 	/**
 	 * @param Stock $stock

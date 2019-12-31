@@ -18,7 +18,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerRevisionCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:customer_revision';
+
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'customer_revision';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var CustomerRevisionRepository
@@ -60,7 +78,6 @@ class CustomerRevisionCreator extends ResourceCreator
 	 */
 	protected $shippingRegions;
 
-
 	/**
 	 * @var array
 	 */
@@ -85,7 +102,7 @@ class CustomerRevisionCreator extends ResourceCreator
 		RegionRepository $regionRepository
 	)
 	{
-	    $this->resource = $customerRevision;
+	    $this->model = $customerRevision;
 		$this->repository = $customerRevisionRepository;
 		$this->revisions = $customerRevisionRepository;
 		$this->editors = $userRepository;
@@ -98,30 +115,6 @@ class CustomerRevisionCreator extends ResourceCreator
 
         parent::__construct();
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'customer_revision';
-	}
-
-    /**
-     * @return string
-     */
-    public function getEventAction()
-    {
-        return 'store';
-    }
 
 	/**
 	 * @param CustomerRevision $customer_revision
