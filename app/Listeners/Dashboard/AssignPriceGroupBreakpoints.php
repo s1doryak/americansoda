@@ -109,7 +109,9 @@ class AssignPriceGroupBreakpoints
                 $priceGroupBreakpoint = $this->priceGroupBreakpoints->create($data);
             }
 
+            $priceGroupBreakpoint->priceGroup()->associate($priceGroup);
             $priceGroupBreakpoint->productGroups()->sync($productGroups);
+            $priceGroupBreakpoint->save();
 
             $priceGroupBreakpoints->push($priceGroupBreakpoint);
         }

@@ -51,7 +51,7 @@ jQuery(function ($) {
 
     $(document).on('click', '.js-add-row', function () {
         var $this = $(this),
-            $template, $table, $parentTable, resource, $lastRow, $row, template, idx;
+            $template, $table, $parentTable, resource, $lastRow, $row, template, lastRowIdx, idx;
 
         if ($this.closest('.js-relation-form').length) {
             $table = $this.closest('.js-relation-form');
@@ -63,7 +63,8 @@ jQuery(function ($) {
 
         resource = $table.data('resource');
         $lastRow = $table.find('.js-row').last();
-        idx = $lastRow.index() + 1;
+        lastRowIdx = $lastRow.index() + 1;
+        idx = lastRowIdx + 1;
         $template = $('[data-role="template"][data-resource="' + resource + '"]');
         template = $template.html().replace(/\[(%%idx%%|idx|0)]/gm, '[' + idx + ']');
         $row = $(template);
@@ -71,7 +72,6 @@ jQuery(function ($) {
         $row.addClass('new');
 
         if ($lastRow.length) {
-            $lastRow.removeClass('new');
             $row.insertAfter($lastRow);
         } else {
             $table.find('tbody').append($row);
