@@ -6,7 +6,7 @@
 @section('scripts')
     @parent
     @if($can_add)
-        <script class="js-relation-form-row" data-resource="{{ $options['resource'] }}" type="text/x-handlebars-template">
+        <script data-role="template" data-resource="{{ $options['resource'] }}" type="text/html">
             @include('dashboard::forms._relation-form-row', [
                 'is_template' => true,
                 'exclude' => ['id'],

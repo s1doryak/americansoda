@@ -109,23 +109,13 @@
                         $modal.find('[data-calendar="update"]').show();
                     }
 
-                    $form.find('textarea[name="event-comment"]').destroy();
-                    $form.find('textarea[name="event-comment"]').summernote({
-                        lang: 'ru-RU',
-                        focus: true,
-                        toolbar: [
-                            ['style', ['bold', 'italic', 'underline', 'clear']],
-                            ['fontsize', ['fontsize']],
-                            ['color', ['color']],
-                            ['para', ['ul', 'ol']]
-                        ]
-                    });
-
                     $form.find('[data-name="event-description"]').html(
                         Handlebars.compile(
                             $('[data-template="event-description"]').html()
                         )(event)
                     );
+
+                    $form.trigger('reanimate');
 
                     $modal.modal('show');
                 },
@@ -196,25 +186,6 @@
                         complete: function () {
                         }
                     });
-
-                    /*swal({
-                        title: 'Are you sure to move event to ' + event.start.format() + '?',
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes!'
-                    }).then(
-                        function () {
-
-                        },
-                        function (dismiss) {
-                            if (dismiss === 'cancel') {
-                                revertFunc();
-                            }
-                        }
-                    );*/
-
                 }
             });
 

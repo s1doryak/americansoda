@@ -26,3 +26,7 @@
         <button class="btn btn-link" data-dismiss="modal">{{ trans('material-admin::forms.buttons.close') }}</button>
     @endif
 </div>
+
+@hasSection('scripts')
+    @yield('scripts')
+@endif

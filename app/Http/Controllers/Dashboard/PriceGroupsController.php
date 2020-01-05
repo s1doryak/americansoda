@@ -47,6 +47,14 @@ class PriceGroupsController extends ResourceController
 	];
 
     /**
+     * @var array
+     */
+    protected $popupActions = [
+        'create' => 'large',
+        'edit' => 'large'
+    ];
+
+    /**
      * PriceGroupsController constructor.
      * @param Gate $gate
 	 * @param PriceGroupRepository $priceGroupRepository

@@ -29,7 +29,7 @@
 
 @section('scripts')
     @foreach($groups as $group)
-        <script class="js-relation-form-row" data-resource="{{ $options['resource'] }}[{{ $group->id }}]" type="text/x-handlebars-template">
+        <script data-role="template" data-resource="{{ $options['resource'] }}[{{ $group->id }}]">
         @include('dashboard::resources.customer.policies.policies', [
             'group' => $group,
             'is_template' => true,
