@@ -101,7 +101,7 @@ class ManageShipmentsAndAssemblies
 
 			$_remove = $items->filter(
 				function ($item) {
-					return isset($item['_remove']) && (boolean)$item['_remove'] == true;
+					return booleanize($item['_remove'] ?? false);
 				}
 			);
 

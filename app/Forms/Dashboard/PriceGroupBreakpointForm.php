@@ -20,6 +20,8 @@ class PriceGroupBreakpointForm extends Form
     public static function getCreateFormFields()
     {
         return [
+            '_remove' => 'hidden',
+            'id' => 'hidden',
             'breakpoint' => 'text',
             'productGroups' => [
                 'type' => 'choice',
@@ -36,6 +38,7 @@ class PriceGroupBreakpointForm extends Form
     public static function getEditFormFields($priceGroupBreakpoint)
     {
         return [
+            'id' => 'hidden',
             'breakpoint' => 'text',
             'priceGroup' => 'choice',
             'productGroups' => [

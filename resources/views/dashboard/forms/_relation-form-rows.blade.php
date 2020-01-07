@@ -1,17 +1,23 @@
-@php($old = old(Str::camel(Str::plural(str_replace('.', '_', $options['resource'])))))
-@php($items = ($old !== null ? $old : (isset($options['items']) ? $options['items'] : [])))
+@php($relation = preg_replace('/\[(%%idx%%|idx|0)]/', '', $options['real_name']))
+@php($items = old($relation) ?? $options['items'] ?? [])
+@php($can_add = isset($options['can_add']) ? is_callable($options['can_add']) ? call_user_func($options['can_add']) : (boolean)$options['can_add'] : true)
+@php($can_select = isset($options['can_select']) ? is_callable($options['can_select']) ? call_user_func($options['can_select'], $item) : (boolean)$options['can_select'] : true)
+@php($can_edit = isset($options['can_edit']) ? is_callable($options['can_edit']) ? call_user_func($options['can_edit'], $item) : (boolean)$options['can_edit'] : true)
+@php($can_remove = isset($options['can_remove']) ? is_callable($options['can_remove']) ? call_user_func($options['can_remove'], $item) : (boolean)$options['can_remove'] : true)
+@php($actions = isset($options['actions']) ? is_callable($options['actions']) ? call_user_func($options['actions']) : (boolean)$options['actions'] : true)
+
 @if ($items)
     @foreach($items as $idx => $item)
         @include('dashboard::forms._relation-form-row', [
-            'idx' => $idx,
+            'idx' => $idx + 1,
             'item' => $item,
             'is_template' => false,
             'multiple_rows' => true,
-            'can_add' => (isset($options['can_add']) ? is_callable($options['can_add']) ? $options['can_add']() : (boolean)$options['can_add'] : true),
-            'can_select' => (isset($options['can_select']) ? is_callable($options['can_select']) ? $options['can_select']($item) : (boolean)$options['can_select'] : true),
-            'can_edit' => (isset($options['can_edit']) ? is_callable($options['can_edit']) ? $options['can_edit']($item) : (boolean)$options['can_edit'] : true),
-            'can_remove' => (isset($options['can_remove']) ? is_callable($options['can_remove']) ? $options['can_remove']($item) : (boolean)$options['can_remove'] : true),
-            'actions' => (isset($options['actions']) ? is_callable($options['actions']) ? $options['actions']() : (boolean)$options['actions'] : true)
+            'can_add' => $can_add,
+            'can_select' => $can_select,
+            'can_edit' => $can_edit,
+            'can_remove' => $can_remove,
+            'actions' => $actions
         ])
     @endforeach
 @endif

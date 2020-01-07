@@ -4,6 +4,8 @@
     @foreach($fields as $field)
         @php($type = $field->getType())
         @php($name = $field->getRealName())
+        @php($value = $field->getValue())
+
         @if ($type === 'hidden')
             @continue
         @endif
@@ -13,10 +15,10 @@
         @endif
 
         @if($multiple_rows && $is_template === false)
-            @if(preg_match('/\[(%%idx%%|idx|\d*)]/', $field->getName()))
-                @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d*)]/', "[{$idx}]", $field->getName())))
+            @if(preg_match('/\[(%%idx%%|idx|\d)]/', $field->getName()))
+                @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d)]/', "[{$idx}]", $field->getName())))
             @else
-                @php($field->setName(sprintf("%s[%d]", $field->getName(), $idx)))
+                @php($field->setName(sprintf("%s[{$idx}]", $field->getName())))
             @endif
         @endif
 
@@ -26,53 +28,39 @@
                 @php($containerClass .= ' has-error')
             @endif
             <div class="{{ $containerClass }}">
-                @php($attrs = $field->getOptions())
 
                 @if(isset($item))
                     @if(is_object($item))
                         @if($item->{$name} instanceof \Illuminate\Database\Eloquent\Model)
                             @php($value = $item->{$name}->getKey())
+                        @elseif($item->{$name} instanceof \Illuminate\Contracts\Support\Arrayable)
+                            @php($value = $item->{$name}->toArray())
                         @else
                             @php($value = $item->{$name})
                         @endif
                     @else
-                        @php($value = array_get($item, $name))
+                        @php($value = Arr::get($item, $name))
                     @endif
-                @else
-                    @php($value = '')
                 @endif
 
-                @if($can_edit)
-                    @if(in_array($type, ['select', 'choice']))
-                        @if ($can_select)
-                            @php($field->enable())
-                        @else
-                            @php($field->disable())
-                            @php($field->setOption('attr.disabled', 'disabled'))
-                            {!! Form::hidden($field->getName(), $value) !!}
-                        @endif
-                    @endif
-                @else
-                    @if(in_array($type, ['select', 'choice']))
-                        @if ($can_select)
-                            @php($field->enable())
-                        @else
-                            @php($field->disable())
-                            @php($field->setOption('attr.disabled', 'disabled'))
-                            {!! Form::hidden($field->getName(), $value) !!}
-                        @endif
+                @if(in_array($type, ['select', 'choice']))
+                    @if ($can_select || $can_edit)
+                        @php($field->enable())
                     @else
                         @php($field->disable())
+                        @php($field->setOption('attr.disabled', 'disabled'))
                         {!! Form::hidden($field->getName(), $value) !!}
                     @endif
                 @endif
 
-                @if (isset($item) && $is_template === false)
-                    @php($key = in_array($type, ['select', 'choice']) ? 'selected' : 'value')
-                    @php($attrs[$key] = $value)
+                @php($field->setOption('parent_name', $field->getName()))
+                @if(in_array($type, ['select', 'choice']))
+                    @php($field->setOption('selected', $value))
+                @else
+                    @php($field->setValue($value))
                 @endif
 
-                {!! $field->render($attrs, false, true, false) !!}
+                {!! $field->render([], false, true, false) !!}
             </div>
         </td>
     @endforeach
@@ -81,27 +69,38 @@
             @include('dashboard::forms.buttons.remove')
 
             @foreach($fields as $field)
+                @php($type = $field->getType())
                 @php($name = $field->getRealName())
-                @if ($field->getOption('type') === 'hidden' && !in_array($name, $exclude))
-                    @if(isset($multiple_rows) && $multiple_rows === true)
-                        @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d*)]/', "[{$idx}]", $field->getName())))
+                @php($value = $field->getValue())
+
+                @if ($type === 'hidden' && !in_array($name, $exclude))
+
+                    @if($multiple_rows && $is_template === false)
+                        @if(preg_match('/\[(%%idx%%|idx|\d)]/', $field->getName()))
+                            @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d)]/', "[{$idx}]", $field->getName())))
+                        @else
+                            @php($field->setName(sprintf("%s[{$idx}]", $field->getName())))
+                        @endif
                     @endif
 
-                    @php($attrs = [])
                     @if (isset($item))
                         @if(is_object($item))
-                            @if(is_object($item->{$name}))
+                            @if($item->{$name} instanceof \Illuminate\Database\Eloquent\Model)
                                 @php($value = $item->{$name}->getKey())
+                            @elseif($item->{$name} instanceof \Illuminate\Contracts\Support\Arrayable)
+                                @php($value = $item->{$name}->toArray())
                             @else
                                 @php($value = $item->{$name})
                             @endif
                         @else
-                            @php($value = array_get($item, $name))
+                            @php($value = Arr::get($item, $name))
                         @endif
-                        @php($attrs['value'] = $value)
                     @endif
 
-                    {!! $field->render($attrs) !!}
+                    @php($field->setOption('parent_name', $field->getName()))
+                    @php($field->setValue($value))
+
+                    {!! $field->render([], false, true, false) !!}
                 @endif
             @endforeach
         </td>

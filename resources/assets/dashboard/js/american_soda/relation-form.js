@@ -89,24 +89,26 @@ jQuery(function ($) {
     $(document).on('click', '.js-remove-row', function () {
         var $this = $(this),
             $row = $this.closest('.js-row'),
-            $mainForm = $row.closest('form');
+            $table = $row.closest('.js-relation-form'),
+            colspan = $row.find('>td').length - 1;
 
-        if ($mainForm.data('create') === 1 || $row.hasClass('new')) {
+        if ($row.hasClass('new')) {
+
             $row.remove();
 
-            toggleRelationForm($this);
+            toggleRelationForm($table);
 
             return false;
         }
 
-        var oldText = $this.text();
+        // var oldText = $this.text();
+        //
+        // $this.text($this.data('text'));
+        // $this.data('text', oldText);
 
-        $this.text($this.data('text'));
-        $this.data('text', oldText);
+        $row.data('removed', !$row.data('removed'));
 
-        $row.data('removed', $row.data('removed') !== 1 ? 1 : 0);
-
-        $row.find('[data-remove]')
+        $row.find('[name$="[_remove]"]')
             .val($row.data('removed'));
 
         $row.find('td:not(.js-td-removed)')
@@ -114,9 +116,9 @@ jQuery(function ($) {
 
         $row.find('.js-td-removed')
             .toggleClass('hidden')
-            .attr('colspan', $row.find('td:not(.js-td-removed)').length);
+            .attr('colspan', colspan);
 
-        toggleRelationForm($this);
+        toggleRelationForm($table);
 
         return false;
     });
@@ -130,13 +132,13 @@ jQuery(function ($) {
         return false;
     });
 
-    $(document).on('input change', '.js-row .form-control', function () {
-        var $this = $(this),
-            $row = $this.closest('.js-row'),
-            val = $this.val() || $this.text(),
-            changed = (val !== $this.data('initial') ? 1 : 0);
-
-        $row.find('[data-changed]').val(changed);
-    });
+    // $(document).on('input change', '.js-row .form-control', function () {
+    //     var $this = $(this),
+    //         $row = $this.closest('.js-row'),
+    //         val = $this.val() || $this.text(),
+    //         changed = (val !== $this.data('initial') ? 1 : 0);
+    //
+    //     $row.find('[data-changed]').val(changed);
+    // });
 
 });

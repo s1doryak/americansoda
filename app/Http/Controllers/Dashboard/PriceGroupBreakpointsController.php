@@ -56,7 +56,10 @@ class PriceGroupBreakpointsController extends ResourceController
      */
     protected $editActionFormData = [
         'priceGroups' => 'name',
-        'productGroups' => 'name',
+        'productGroups' => [
+            'lists' => 'name',
+            'selected' => 'productGroups',
+        ],
     ];
 
     /**

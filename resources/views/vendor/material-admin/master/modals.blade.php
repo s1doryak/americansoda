@@ -6,7 +6,7 @@
             </div>
         </div>
     </div>
-    <script data-role="template" data-action="{{ $action }}" data-resource="{{ $params['resource'] }}" type="text/html">
+    <script data-role="template" data-resource="{{ $params['resource'] }}" data-action="{{ $action }}" type="text/html">
         <div class="modal-header">
             <button class="close" data-dismiss="modal"><i class="zmdi zmdi-close zmdi-hc-lg"></i></button>
             <h4 class="modal-title">{{ $params['title'] }}</h4>

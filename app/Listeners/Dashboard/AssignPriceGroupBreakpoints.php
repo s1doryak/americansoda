@@ -82,8 +82,8 @@ class AssignPriceGroupBreakpoints
 
         foreach ($items as $idx => $item) {
 
-            $id = $item['id'] ?? false;
-            $removing = $item['_remove'] ?? false;
+            $id = numerize($item['id'] ?? false);
+            $removing = booleanize($item['_remove'] ?? false);
 
             if ($removing) {
 

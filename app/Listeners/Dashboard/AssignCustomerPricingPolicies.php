@@ -56,7 +56,7 @@ class AssignCustomerPricingPolicies
 
             $_changed = array_pull($policy, '_changed');
 
-            if (isset($policy['_remove']) && (boolean)$policy['_remove'] === true) {
+            if (booleanize($policy['_remove'] ?? false)) {
 
                 try {
                     $deleted = $this->pricingPolicies->findWhere(['id' => $policy['id']]);
