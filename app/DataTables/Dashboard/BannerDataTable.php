@@ -19,8 +19,6 @@ class BannerDataTable extends DataTable
     {
         return [
             'name',
-            'image',
-            'url',
             'customerTypes.name' => [
                 'data' => 'customerTypes.name',
                 'orderable' => false
@@ -35,8 +33,6 @@ class BannerDataTable extends DataTable
     {
         return [
             'name',
-            'image',
-            'url',
             'customerTypes.name',
             'action',
         ];
@@ -83,6 +79,19 @@ class BannerDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param Banner $banner
+     * @return string
+     */
+    public function renderNameColumn($banner)
+    {
+        if ($this->isDataTableRequest()) {
+            return $this->renderMediaView($banner->name, $banner->url, $banner->image);
+        }
+
+        return $banner->name;
     }
 
     /**
