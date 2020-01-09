@@ -12,6 +12,7 @@ trait DashboardSidebar
 			'title' => 'sidebar.sales',
 			'resources' => [
 				'assembly',
+                'banner',
 				'customer',
                 'customer_user',
                 'customer_pre_order',
