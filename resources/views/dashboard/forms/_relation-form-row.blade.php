@@ -64,7 +64,7 @@
             </div>
         </td>
     @endforeach
-    @if(!isset($actions) || $actions)
+    @if($actions ?? true)
         <td class="td-actions">
             @include('dashboard::forms.buttons.remove')
 

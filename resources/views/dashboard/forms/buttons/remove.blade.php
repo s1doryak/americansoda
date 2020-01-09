@@ -3,6 +3,6 @@
     [
         'class' => 'btn btn-danger js-remove-row',
         'data-text' => trans('forms.buttons.undo'),
-        'disabled' => $can_remove ?? false
+        'disabled' => !$can_remove
     ]
 ) !!}
