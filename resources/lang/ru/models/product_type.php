@@ -46,12 +46,13 @@ return [
     ],
 	'fields' => [
 		'name' => 'Название',
+        'image' => 'Фото',
 		'productGroups' => [
-
+            'name' => 'Товарные группы',
 		],
 	],
     'placeholders' => [
-		'productGroups' => 'Выберите %s',
+		'productGroups' => 'Выберите товарные группы',
     ],
     'columns' => [
 		'name' => 'Название',

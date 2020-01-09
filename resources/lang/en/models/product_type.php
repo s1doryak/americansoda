@@ -45,26 +45,28 @@ return [
         'error' => 'Product Type destroyed unsuccessfully!'
     ],
 	'fields' => [
-		'name' => '',
+		'name' => 'Name',
+        'image' => 'Image',
 		'productGroups' => [
-
+            'name' => 'Product Groups'
 		],
 	],
     'placeholders' => [
-		'productGroups' => 'Select %s',
+		'productGroups' => 'Select Product Group',
     ],
     'columns' => [
-		'name' => '',
-		'productGroups' => [
-
-		],
+        'name' => 'Product Group',
+        'productGroups' => [
+            'count' => ':count group|:count groups'
+        ],
+        'image' => 'Image',
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',
     ],
     'filters' => [
 		'productGroups' => [
-
+            'name' => 'Product Groups'
 		],
     ],
 ];
