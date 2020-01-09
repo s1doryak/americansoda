@@ -40,13 +40,13 @@ class CustomerOrderService extends ResourceService
     /**
      * @param CustomerOrderRepository $repository
      * @param CustomerOrderItemService $customerOrderItemService
-     * @param CustomerPreOrderItemService $customerPreOrderService
+     * @param CustomerPreOrderService $customerPreOrderService
      * @param CompanyService $companyService
      */
     public function __construct(
         CustomerOrderRepository $repository,
         CustomerOrderItemService $customerOrderItemService,
-        CustomerPreOrderItemService $customerPreOrderService,
+        CustomerPreOrderService $customerPreOrderService,
         CompanyService $companyService
     )
     {

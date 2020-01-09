@@ -17,7 +17,11 @@ class BannerRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Rep
         $result = collect();
         $customer = Auth::user()
             ->customers()
-            ->with('customerType.banners')
+            ->with([
+                'customerType.banners' => function ($query) {
+                    return $query->whereNull('deleted_at');
+                }
+            ])
             ->where('customer_id', $shopId)
             ->first();
 
