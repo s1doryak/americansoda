@@ -101,11 +101,6 @@ jQuery(function ($) {
             return false;
         }
 
-        // var oldText = $this.text();
-        //
-        // $this.text($this.data('text'));
-        // $this.data('text', oldText);
-
         $row.data('removed', !$row.data('removed'));
 
         $row.find('[name$="[_remove]"]')
@@ -131,14 +126,5 @@ jQuery(function ($) {
 
         return false;
     });
-
-    // $(document).on('input change', '.js-row .form-control', function () {
-    //     var $this = $(this),
-    //         $row = $this.closest('.js-row'),
-    //         val = $this.val() || $this.text(),
-    //         changed = (val !== $this.data('initial') ? 1 : 0);
-    //
-    //     $row.find('[data-changed]').val(changed);
-    // });
 
 });
