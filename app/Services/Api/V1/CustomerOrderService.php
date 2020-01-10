@@ -33,26 +33,18 @@ class CustomerOrderService extends ResourceService
     protected $companyService;
 
     /**
-     * @var CustomerPreOrderService
-     */
-    protected $customerPreOrderService;
-
-    /**
      * @param CustomerOrderRepository $repository
      * @param CustomerOrderItemService $customerOrderItemService
-     * @param CustomerPreOrderService $customerPreOrderService
      * @param CompanyService $companyService
      */
     public function __construct(
         CustomerOrderRepository $repository,
         CustomerOrderItemService $customerOrderItemService,
-        CustomerPreOrderService $customerPreOrderService,
         CompanyService $companyService
     )
     {
         $this->repository = $repository;
         $this->customerOrderItemService = $customerOrderItemService;
-        $this->customerPreOrderService = $customerPreOrderService;
         $this->companyService = $companyService;
     }
 
@@ -160,22 +152,11 @@ class CustomerOrderService extends ResourceService
      */
     public function getByShopId($shopId)
     {
-        /** @var \Illuminate\Support\Collection|CustomerPreOrder[] $customerPreOrders */
-        $customerPreOrders = $this->customerPreOrderService->getByShopId($shopId, true);
-
         /** @var \Illuminate\Support\Collection|CustomerOrder[] $customerOrders */
         $customerOrders = $this->repository->getByShopId($shopId);
 
-        $customerPreOrders = $customerPreOrders->map(function ($customerPreOrder) {
-            return CustomerPreOrderTransformer::toArray($customerPreOrder);
-        });
-
-        $customerOrders = $customerOrders->map(function ($customerOrder) {
+        return $customerOrders->map(function ($customerOrder) {
             return CustomerOrderTransformer::toArray($customerOrder);
         });
-
-        return collect()
-            ->concat($customerPreOrders)
-            ->concat($customerOrders);
     }
 }
