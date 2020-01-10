@@ -8,6 +8,7 @@ use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
 use App\Repositories\Contracts\CustomerPricingPolicyRepository;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
+use Illuminate\Support\Arr;
 
 class AssignCustomerPricingPolicies
 {
@@ -44,7 +45,7 @@ class AssignCustomerPricingPolicies
 
         $attributes = $event->getAttributes();
         $params = $event->getParams();
-        $policies = array_get($params, 'customerPricingPolicies');
+        $policies = Arr::get($params, 'customerPricingPolicies');
 
         if (!is_array($policies) || !count($policies)) {
             return;
@@ -54,20 +55,17 @@ class AssignCustomerPricingPolicies
 
         foreach ($policies as $policy) {
 
-            $_changed = array_pull($policy, '_changed');
+            $_changed = Arr::pull($policy, '_changed');
 
             if (booleanize($policy['_remove'] ?? false)) {
 
-                try {
-                    $deleted = $this->pricingPolicies->findWhere(['id' => $policy['id']]);
+                $deleted = $this->pricingPolicies->findWhere(['id' => $policy['id']]);
 
-                    if ($deleted) {
+                if ($deleted) {
 
-                        $this->pricingPolicies->trash($policy['id']);
+                    $this->pricingPolicies->trash($policy['id']);
 
-                        $updated[] = array_merge($policy, $deleted->toArray(), compact('_changed'));
-                    }
-                } catch (\Exception $e) {
+                    $updated[] = array_merge($policy, $deleted->toArray(), compact('_changed'));
                 }
 
                 continue;

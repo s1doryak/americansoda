@@ -1,5 +1,5 @@
-@php($is_template = isset($is_template) && $is_template === true)
-@php($multiple_rows = isset($multiple_rows) && $multiple_rows === true)
+@php($is_template = $is_template ?? false)
+@php($multiple_rows = $multiple_rows ?? false)
 <tr class="js-row">
     @foreach($fields as $field)
         @php($type = $field->getType())
@@ -15,8 +15,8 @@
         @endif
 
         @if($multiple_rows && $is_template === false)
-            @if(preg_match('/\[(%%idx%%|idx|\d)]/', $field->getName()))
-                @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d)]/', "[{$idx}]", $field->getName())))
+            @if(preg_match('/\[(%%idx%%|idx|\d+)]/', $field->getName()))
+                @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d+)]/', "[{$idx}]", $field->getName())))
             @else
                 @php($field->setName(sprintf("%s[{$idx}]", $field->getName())))
             @endif
@@ -76,8 +76,8 @@
                 @if ($type === 'hidden' && !in_array($name, $exclude))
 
                     @if($multiple_rows && $is_template === false)
-                        @if(preg_match('/\[(%%idx%%|idx|\d)]/', $field->getName()))
-                            @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d)]/', "[{$idx}]", $field->getName())))
+                        @if(preg_match('/\[(%%idx%%|idx|\d+)]/', $field->getName()))
+                            @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d+)]/', "[{$idx}]", $field->getName())))
                         @else
                             @php($field->setName(sprintf("%s[{$idx}]", $field->getName())))
                         @endif

@@ -1,6 +1,6 @@
 @php($exclude = (array)$options['exclude'])
 @php($fields = (array)$options['children'])
-@php($groups = (isset($options['groups']) ? $options['groups'] : collection()))
+@php($groups = $options['groups'] ?? collect())
 @if ($showLabel && $showField)
     @if ($options['wrapper'] !== false)
         <div {!! $options['wrapperAttrs'] !!}>
@@ -9,7 +9,7 @@
 
             <h4>{{ $options['form_title'] }}</h4>
             @foreach($groups as $group)
-                <table class="{{ str_plural(str_replace('.', '-', $options['resource'])) }}-table relation-form-table table js-relation-form"
+                <table class="{{ Str::plural(str_replace('.', '-', $options['resource'])) }}-table relation-form-table table js-relation-form"
                        data-resource="{{ $options['resource'] }}[{{ $group->id }}]">
                     <tbody>
                     @include('dashboard::resources.customer.policies._group-header', [

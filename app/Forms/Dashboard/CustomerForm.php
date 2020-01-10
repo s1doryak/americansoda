@@ -115,10 +115,10 @@ class CustomerForm extends Form
             'template' => 'dashboard::resources.customer.policies.form',
             'groups' => app(ProductGroupRepository::class)->all(),
             'fields' => CustomerPricingPolicyForm::getCreateFormFields(),
-            'items' => collect([]),
+            'items' => collect(),
         ];
 
-        $fields['customerPricingPolicies[0]'] = $policies;
+        $fields['customerPricingPolicies[idx]'] = $policies;
 
         return $fields;
     }
@@ -224,7 +224,7 @@ class CustomerForm extends Form
             'items' => $customer->customerPricingPolicies,
         ];
 
-        $fields['customerPricingPolicies[0]'] = $policies;
+        $fields['customerPricingPolicies[idx]'] = $policies;
 
         return $fields;
     }
