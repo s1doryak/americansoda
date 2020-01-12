@@ -10,11 +10,15 @@
             <h4>{{ $options['form_title'] }}</h4>
             @foreach($groups as $group)
                 <table class="{{ Str::plural(str_replace('.', '-', $options['resource'])) }}-table relation-form-table table js-relation-form"
-                       data-resource="{{ $options['resource'] }}[{{ $group->id }}]">
+                       data-resource="{{ $options['resource'] }}[{{ $group->getKey() }}]">
                     <tbody>
                     @include('dashboard::resources.customer.policies._group-header', [
                         'group' => $group,
-                        'can_add' => true
+                        'is_template' => false,
+                        'can_add' => true,
+                        'can_select' => true,
+                        'can_edit' => true,
+                        'can_remove' => true
                     ])
                     @include('dashboard::resources.customer.policies.policies', compact('fields', 'group'))
                     </tbody>
@@ -29,7 +33,7 @@
 
 @section('scripts')
     @foreach($groups as $group)
-        <script data-role="template" data-resource="{{ $options['resource'] }}[{{ $group->id }}]" type="text/html">
+        <script data-role="template" data-resource="{{ $options['resource'] }}[{{ $group->getKey() }}]" type="text/html">
         @include('dashboard::resources.customer.policies.policies', [
             'group' => $group,
             'is_template' => true,

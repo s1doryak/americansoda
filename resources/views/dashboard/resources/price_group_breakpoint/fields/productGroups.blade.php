@@ -12,13 +12,13 @@
                 <table class="table">
                     <tbody>
                     @foreach($options['groups'] as $group)
-                        @php($selectedGroup = (object)$selectedGroups->get($group->id))
+                        @php($selectedGroup = (object)$selectedGroups->get($group->getKey()))
                         <tr>
                             <td>
-                                {!! Form::input('text', sprintf('%s[%s][name]', $name, $group->id), $group->name, ['class' => 'form-control', 'disabled' => true]) !!}
+                                {!! Form::input('text', sprintf('%s[%s][name]', $name, $group->getKey()), $group->name, ['class' => 'form-control', 'disabled' => true]) !!}
                             </td>
                             <td>
-                                {!! Form::input('text', sprintf('%s[%s][price]', $name, $group->id), optional($selectedGroup)->price, ['class' => 'form-control']) !!}
+                                {!! Form::input('text', sprintf('%s[%s][price]', $name, $group->getKey()), optional($selectedGroup)->price, ['class' => 'form-control']) !!}
                             </td>
                         </tr>
                     @endforeach

@@ -272,3 +272,15 @@ function generateApiAuthLink($token)
 {
     return config('app.shop_url') . '?token=' . $token;
 }
+
+/**
+ * @param bool $reset
+ */
+function static_idx($reset = false)
+{
+    static $idx = 0;
+
+    $idx = $reset ? 1 : $idx + 1;
+
+    return $idx;
+}

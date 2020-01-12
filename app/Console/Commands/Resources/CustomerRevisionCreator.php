@@ -10,6 +10,7 @@ use App\Repositories\Contracts\CustomerTypeRepository;
 use App\Repositories\Contracts\PaymentTypeRepository;
 use App\Repositories\Contracts\RegionRepository;
 use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
+use App\Repositories\Contracts\PriceGroupRepository;
 
 /**
  * CustomerRevision resource creator.
@@ -78,6 +79,11 @@ class CustomerRevisionCreator extends ResourceCreator
 	 */
 	protected $shippingRegions;
 
+    /**
+     * @var PriceGroupRepository
+     */
+    protected $priceGroups;
+
 	/**
 	 * @var array
 	 */
@@ -90,6 +96,7 @@ class CustomerRevisionCreator extends ResourceCreator
 		'users' => 'name',
 		'billingRegions' => 'name',
 		'shippingRegions' => 'name',
+		'priceGroups' => 'name',
 	];
 
 	public function __construct(
@@ -99,10 +106,11 @@ class CustomerRevisionCreator extends ResourceCreator
 		StockRepository $stockRepository,
 		CustomerTypeRepository $customerTypeRepository,
 		PaymentTypeRepository $paymentTypeRepository,
-		RegionRepository $regionRepository
+		RegionRepository $regionRepository,
+		PriceGroupRepository $priceGroupRepository
 	)
 	{
-	    $this->model = $customerRevision;
+		$this->model = $customerRevision;
 		$this->repository = $customerRevisionRepository;
 		$this->revisions = $customerRevisionRepository;
 		$this->editors = $userRepository;
@@ -112,6 +120,7 @@ class CustomerRevisionCreator extends ResourceCreator
 		$this->users = $userRepository;
 		$this->billingRegions = $regionRepository;
 		$this->shippingRegions = $regionRepository;
+        $this->priceGroups = $priceGroupRepository;
 
         parent::__construct();
 	}

@@ -94,7 +94,7 @@ class CustomerDataTable extends DataTable
             'name',
             'comment',
             'priceGroup.name',
-            'action'
+            'action',
         ];
     }
 

@@ -53,7 +53,18 @@ class CustomerRevisionTransformer implements TransformerContract
 			'user' => (integer)$request->get('user'),
 			'billingRegion' => (integer)$request->get('billingRegion'),
 			'shippingRegion' => (integer)$request->get('shippingRegion'),
-
+			'priceGroup' => (integer)$request->get('priceGroup'),
+			'archived' => (boolean)$request->get('archived'),
+			'nr' => $request->get('nr'),
+			'country' => $request->get('country'),
+			'state' => $request->get('state'),
+			'post_code' => $request->get('post_code'),
+			'post_office' => $request->get('post_office'),
+			'address1' => $request->get('address1'),
+			'address2' => $request->get('address2'),
+			'contact_p' => $request->get('contact_p'),
+			'ovt' => $request->get('ovt'),
+			'y_tunnus' => $request->get('y_tunnus'),
 		];
 	}
 
@@ -94,7 +105,18 @@ class CustomerRevisionTransformer implements TransformerContract
 			'user' => (integer)$request->get('user'),
 			'billingRegion' => (integer)$request->get('billingRegion'),
 			'shippingRegion' => (integer)$request->get('shippingRegion'),
-
+			'priceGroup' => (integer)$request->get('priceGroup'),
+			'archived' => (boolean)$request->get('archived'),
+			'nr' => $request->get('nr'),
+			'country' => $request->get('country'),
+			'state' => $request->get('state'),
+			'post_code' => $request->get('post_code'),
+			'post_office' => $request->get('post_office'),
+			'address1' => $request->get('address1'),
+			'address2' => $request->get('address2'),
+			'contact_p' => $request->get('contact_p'),
+			'ovt' => $request->get('ovt'),
+			'y_tunnus' => $request->get('y_tunnus'),
 		];
 	}
 
@@ -136,6 +158,18 @@ class CustomerRevisionTransformer implements TransformerContract
 			'user' => $customerRevision->user ? UserTransformer::toArray($customerRevision->user) : null,
 			'billingRegion' => $customerRevision->billingRegion ? RegionTransformer::toArray($customerRevision->billingRegion) : null,
 			'shippingRegion' => $customerRevision->shippingRegion ? RegionTransformer::toArray($customerRevision->shippingRegion) : null,
+            'priceGroup' => $customerRevision->priceGroup ? PriceGroupTransformer::toArray($customerRevision->priceGroup) : null,
+            'archived' => (boolean)$customerRevision->archived,
+            'nr' => $customerRevision->nr,
+            'country' => $customerRevision->country,
+            'state' => $customerRevision->state,
+            'post_code' => $customerRevision->post_code,
+            'post_office' => $customerRevision->post_office,
+            'address1' => $customerRevision->address1,
+            'address2' => $customerRevision->address2,
+            'contact_p' => $customerRevision->contact_p,
+            'ovt' => $customerRevision->ovt,
+            'y_tunnus' => $customerRevision->y_tunnus,
 
 			'created_at' => (string)$customerRevision->created_at,
 			'updated_at' => (string)$customerRevision->updated_at,

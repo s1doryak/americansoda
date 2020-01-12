@@ -17,18 +17,18 @@ class AssignCustomerPricingPolicies
     /**
      * @var CustomerPricingPolicyRepository
      */
-    protected $pricingPolicies;
+    protected $customerPricingPolicies;
 
     /**
      * Create the event listener.
      *
-     * @param CustomerPricingPolicyRepository $pricingPolicies
+     * @param CustomerPricingPolicyRepository $customerPricingPolicies
      */
     public function __construct(
-        CustomerPricingPolicyRepository $pricingPolicies
+        CustomerPricingPolicyRepository $customerPricingPolicyRepository
     )
     {
-        $this->pricingPolicies = $pricingPolicies;
+        $this->customerPricingPolicies = $customerPricingPolicyRepository;
     }
 
     /**
@@ -45,13 +45,10 @@ class AssignCustomerPricingPolicies
 
         $attributes = $event->getAttributes();
         $params = $event->getParams();
-        $policies = Arr::get($params, 'customerPricingPolicies');
-
-        if (!is_array($policies) || !count($policies)) {
-            return;
-        }
 
         $updated = [];
+
+        $policies = Arr::get($params, 'customerPricingPolicies', []);
 
         foreach ($policies as $policy) {
 
@@ -59,11 +56,11 @@ class AssignCustomerPricingPolicies
 
             if (booleanize($policy['_remove'] ?? false)) {
 
-                $deleted = $this->pricingPolicies->findWhere(['id' => $policy['id']]);
+                $deleted = $this->customerPricingPolicies->findWhere(['id' => $policy['id']]);
 
                 if ($deleted) {
 
-                    $this->pricingPolicies->trash($policy['id']);
+                    $this->customerPricingPolicies->trash($policy['id']);
 
                     $updated[] = array_merge($policy, $deleted->toArray(), compact('_changed'));
                 }
@@ -81,10 +78,10 @@ class AssignCustomerPricingPolicies
             if ($event instanceof ResourceStored) {
                 $policy['customer_id'] = $attributes['id'];
 
-                $saved = $this->pricingPolicies->create($_policy);
+                $saved = $this->customerPricingPolicies->create($_policy);
             } else {
-                $id = array_pull($policy, 'id');
-                $saved = $this->pricingPolicies->updateOrCreate(compact('id'), $_policy);
+                $id = Arr::pull($policy, 'id');
+                $saved = $this->customerPricingPolicies->updateOrCreate(compact('id'), $_policy);
             }
 
             $updated[] = array_merge($_policy, $saved->toArray(), compact('_changed'));

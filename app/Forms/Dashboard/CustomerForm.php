@@ -3,6 +3,7 @@
 namespace App\Forms\Dashboard;
 
 use App\Customer;
+use App\CustomerPricingPolicy;
 use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Contracts\ProductGroupRepository;
 use Crmplease\MaterialAdmin\Forms\Form;
@@ -214,17 +215,21 @@ class CustomerForm extends Form
             'terms_of_equipment' => 'editor',
         ];
 
-        $policies = [
+        $fields['customerPricingPolicies[idx]'] = [
             'type' => 'relation_form',
             'resource' => 'customer_pricing_policy',
             'form_title' => trans('models/customer_pricing_policy.labels.plural'),
             'template' => 'dashboard::resources.customer.policies.form',
             'groups' => app(ProductGroupRepository::class)->all(),
             'fields' => CustomerPricingPolicyForm::getCreateFormFields(),
-            'items' => $customer->customerPricingPolicies,
+            'items' => $customer->customerPricingPolicies
+                ->filter(function (CustomerPricingPolicy $customerPricingPolicy) {
+                    return false === $customerPricingPolicy->trashed();
+                })
+                ->groupBy(function (CustomerPricingPolicy $customerPricingPolicy) {
+                    return $customerPricingPolicy->productGroup->getKey();
+                }),
         ];
-
-        $fields['customerPricingPolicies[idx]'] = $policies;
 
         return $fields;
     }

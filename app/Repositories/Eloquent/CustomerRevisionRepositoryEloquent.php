@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use Auth;
 use App\Repositories\Contracts\CustomerPricingPolicyRevisionRepository;
 use App\Repositories\Contracts\CustomerRevisionRepository;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class CustomerRevisionRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerRevisionRepository {
@@ -93,13 +94,13 @@ class CustomerRevisionRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
 	 */
 	public function addRevision($type, array $attributes)
 	{
-		$id = array_pull($attributes, 'id');
+		$id = Arr::pull($attributes, 'id');
 		$attributes = array_merge($attributes, [
 			'editor_id' => $this->obtainEditorId($attributes),
 			'customer_id' => $id
 		]);
 
-		$where = array_except($attributes, ['created_at', 'updated_at', 'deleted_at']);
+		$where = Arr::except($attributes, ['created_at', 'updated_at', 'deleted_at']);
 
 		if (!$this->firstWhere($where)) {
 			$latest = $this->lastWhere(['customer_id' => $id]);

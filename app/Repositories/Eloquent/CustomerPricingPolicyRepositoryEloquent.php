@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\CustomerPricingPolicyRepository;
+use Illuminate\Support\Arr;
 
 class CustomerPricingPolicyRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerPricingPolicyRepository
 {
@@ -17,11 +18,11 @@ class CustomerPricingPolicyRepositoryEloquent extends \Crmplease\MaterialAdmin\R
         $models = [];
 
         foreach ($policies as $idx => $attributes) {
-            $isUpdated = (boolean)array_pull($attributes, 'updated');
-            $isTrashed = (boolean)array_pull($attributes, 'trashed');
+            $isUpdated = (boolean)Arr::pull($attributes, 'updated');
+            $isTrashed = (boolean)Arr::pull($attributes, 'trashed');
 
             if (!isset($attributes['id']) || empty($attributes['id'])) {
-                array_pull($attributes, 'id');
+                Arr::pull($attributes, 'id');
                 $attributes['customer_id'] = $customerId;
 
                 $model = $this->model->create($attributes);

@@ -129,6 +129,82 @@ insert into migrations values
 ('2016_08_02_094119_create_stock_products_table', 1);
 ```
 
+### Обновить CustomerCustomerRevision
+```bash
+docker-compose run artisan modify:resource CustomerRevision \
+    --namespace=Dashboard \
+    \
+    --field=y_tunnus \
+    \
+    --translate=ru \
+    \
+    --translate-field=y_tunnus:ru:"Y-tunnus" \
+    \
+    --skip-dump-composer \
+    --force
+```
+
+### Обновить CustomerRevision
+```bash
+docker-compose run artisan modify:resource CustomerRevision \
+    --namespace=Dashboard \
+    \
+    --field=nr \
+    --field=country \
+    --field=state \
+    --field=post_code \
+    --field=post_office \
+    --field=address1 \
+    --field=address2 \
+    --field=contact_p \
+    --field=ovt \
+    \
+    --translate=ru \
+    \
+    --translate-field=nr:ru:"Номер клиента" \
+    --translate-field=country:ru:"Страна клиента" \
+    --translate-field=state:ru:"Штат, округ, облась клиента" \
+    --translate-field=post_code:ru:"Почтовый индекс клиента" \
+    --translate-field=post_office:ru:"Почтовый адрес клиента" \
+    --translate-field=address1:ru:"Адрес клиента" \
+    --translate-field=address2:ru:"Адрес клиента (доп.)" \
+    --translate-field=contact_p:ru:"Контактное лицо" \
+    --translate-field=ovt:ru:"OVT" \
+    \
+    --skip-dump-composer \
+    --force
+```
+
+### Обновить CustomerRevision
+```bash
+docker-compose run artisan modify:resource CustomerRevision \
+    --namespace=Dashboard \
+    \
+    --field=archived:boolean \
+    \
+    --translate=ru \
+    \
+    --translate-field=archived:ru:"Неактивный" \
+    \
+    --skip-dump-composer \
+    --force
+```
+
+### Обновить CustomerRevision
+```bash
+docker-compose run artisan modify:resource CustomerRevision \
+    --namespace=Dashboard \
+    \
+    --belongs-to=PriceGroup \
+    \
+    --translate=ru \
+    \
+    --translate-belongs-to=PriceGroup:ru:"Ценовая категория клиента":"Ценовую категорию клиента" \
+    \
+    --skip-dump-composer \
+    --force
+```
+
 ### Обновить Administrator
 ```bash
 docker-compose run artisan modify:resource Administrator \

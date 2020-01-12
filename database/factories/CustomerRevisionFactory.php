@@ -25,5 +25,16 @@ $factory->define(App\CustomerRevision::class, function (Faker\Generator $faker) 
 		'delivery_payer' => null,
 		'payment_conditions' => null,
 		'pays_vat' => $faker->boolean,
+		'archived' => $faker->boolean,
+		'nr' => null,
+		'country' => null,
+		'state' => null,
+		'post_code' => null,
+		'post_office' => null,
+		'address1' => null,
+		'address2' => null,
+		'contact_p' => null,
+		'ovt' => null,
+		'y_tunnus' => null,
     ];
 });
