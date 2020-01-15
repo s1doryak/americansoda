@@ -239,7 +239,8 @@ class CustomerForm extends Form
      */
     public static function getStoreValidationRules()
     {
-        return ['name' => 'sometimes',
+        return [
+            'name' => 'sometimes',
             'legal_name' => 'sometimes',
 
             'billingRegion' => 'sometimes|exists:regions,id',
@@ -251,7 +252,7 @@ class CustomerForm extends Form
             'shipping_address' => 'sometimes',
 
             'bid' => 'sometimes', // Business ID
-            'email' => 'sometimes|email',
+            'email' => 'sometimes',
             'stock' => 'sometimes|exists:stocks,id',
             'customerType' => 'sometimes|exists:customer_types,id',
             'paymentType' => 'sometimes|exists:payment_types,id',
@@ -277,7 +278,8 @@ class CustomerForm extends Form
      */
     public static function getUpdateValidationRules($customer)
     {
-        return ['name' => 'sometimes',
+        return [
+            'name' => 'sometimes',
             'legal_name' => 'sometimes',
 
             'billingRegion' => 'sometimes|exists:regions,id',
@@ -289,7 +291,7 @@ class CustomerForm extends Form
             'shipping_address' => 'sometimes',
 
             'bid' => 'sometimes', // Business ID
-            'email' => 'sometimes|email',
+            'email' => 'sometimes',
             'stock' => 'sometimes|exists:stocks,id',
             'customerType' => 'sometimes|exists:customer_types,id',
             'paymentType' => 'sometimes|exists:payment_types,id',
