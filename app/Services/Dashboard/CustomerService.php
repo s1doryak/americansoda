@@ -4,8 +4,11 @@ namespace App\Services\Dashboard;
 
 use App\Customer;
 use App\PriceGroup;
+use App\PriceGroupBreakpoint;
+use App\ProductGroup;
 use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Eloquent\CustomerRepositoryEloquent;
+use App\Services\Api\V1\CustomerPricingPolicyService;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 
 class CustomerService extends ResourceService
@@ -16,13 +19,21 @@ class CustomerService extends ResourceService
     protected $repository;
 
     /**
-     * @param CustomerRepository $companyRepository
+     * @var CustomerPricingPolicyService
+     */
+    protected $customerPricingPolicyService;
+
+    /**
+     * @param CustomerRepository $customerRepository
+     * @param CustomerPricingPolicyService $customerPricingPolicyService
      */
     public function __construct(
-        CustomerRepository $companyRepository
+        CustomerRepository $customerRepository,
+        CustomerPricingPolicyService $customerPricingPolicyService
     )
     {
-        $this->repository = $companyRepository;
+        $this->repository = $customerRepository;
+        $this->customerPricingPolicyService = $customerPricingPolicyService;
     }
 
     /**
@@ -31,6 +42,25 @@ class CustomerService extends ResourceService
      */
     public function applyPriceGroupToCustomer(Customer $customer, PriceGroup $priceGroup)
     {
+        /** @var PriceGroupBreakpoint[] $priceGroupBreakpoints * */
+        $priceGroupBreakpoints = $priceGroup->priceGroupBreakpoints;
+
+        foreach ($priceGroupBreakpoints as $priceGroupBreakpoint) {
+            /** @var ProductGroup[] $productGroups */
+            $productGroups = $priceGroupBreakpoint->productGroups;
+
+            foreach ($productGroups as $productGroup) {
+                if ($productGroup->pivot && $productGroup->pivot->price) {
+                    $this->customerPricingPolicyService->deleteWhere(['customer_id' => $customer->id]);
+                    $this->customerPricingPolicyService->create([
+                        'customer_id' => $customer->id,
+                        'products_range' => $priceGroupBreakpoint->breakpoint,
+                        'price' => $productGroup->pivot->price,
+                        'product_group_id' => $productGroup->id,
+                    ]);
+                }
+            }
+        }
 
     }
 }

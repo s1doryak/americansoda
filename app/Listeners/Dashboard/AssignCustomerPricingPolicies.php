@@ -22,7 +22,7 @@ class AssignCustomerPricingPolicies
     /**
      * Create the event listener.
      *
-     * @param CustomerPricingPolicyRepository $customerPricingPolicies
+     * @param CustomerPricingPolicyRepository $customerPricingPolicyRepository
      */
     public function __construct(
         CustomerPricingPolicyRepository $customerPricingPolicyRepository
