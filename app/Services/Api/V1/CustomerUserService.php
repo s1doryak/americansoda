@@ -30,6 +30,7 @@ class CustomerUserService extends ResourceService
 
     /**
      * @return Authenticatable
+     * @throws RepositoryException
      */
     public function getProfile()
     {
