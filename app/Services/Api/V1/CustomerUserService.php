@@ -33,14 +33,14 @@ class CustomerUserService extends ResourceService
      */
     public function getProfile()
     {
-        return Auth::user()
+        return $this->repository
             ->has('customers')
             ->has('customers.user')
             ->with(['customers' => function ($query) {
                 /** @var QueryBuilder|EloquentBuilder $query */
                 return $query->whereNull('deleted_at');
             }, 'customers.user'])
-            ->first();
+            ->firstWhere(['id' => Auth::id()]);
     }
 
     /**
