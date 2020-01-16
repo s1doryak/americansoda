@@ -69,6 +69,11 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Dashboard\AssignPriceGroupBreakpoints::class,
 
             /**
+             * Применяет новую ценовую политику для кастомера
+             */
+            \App\Listeners\Dashboard\AssignCustomerPriceGroup::class,
+
+            /**
              * Создает ревизию информации о клиенте
              */
             \App\Listeners\Dashboard\CreateCustomerRevision::class,
@@ -110,6 +115,11 @@ class EventServiceProvider extends ServiceProvider
              * Создает градации цен по каждой товарной группе (делает синхронизацию 1-М сущностей)
              */
             \App\Listeners\Dashboard\AssignPriceGroupBreakpoints::class,
+
+            /**
+             * Применяет новую ценовую политику для кастомера
+             */
+            \App\Listeners\Dashboard\AssignCustomerPriceGroup::class,
 
             /**
              * Удаляет позиции заказ из отгрузки (если была нажата кнопка Remove)
@@ -239,6 +249,17 @@ class EventServiceProvider extends ServiceProvider
              * Управляет резервами и бекордерами на складе
              */
             \App\Listeners\Dashboard\ManageStockProducts::class,
+        ],
+
+        /**
+         * События, выполняемые при создании ценовый групп
+         */
+        \App\Events\Dashboard\PriceGroupBreakpointsAssigned::class => [
+
+            /**
+             * Управляет ценами клиентов, которые входят в данную ценовую группу
+             */
+            \App\Listeners\Dashboard\ManageCustomerPricingPolicies::class,
         ],
 
         /**
