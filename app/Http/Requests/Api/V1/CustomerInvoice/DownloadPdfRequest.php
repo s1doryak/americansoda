@@ -14,9 +14,10 @@ class DownloadPdfRequest extends FormRequest
     {
         $customerWithInvoices = Auth::user()
             ->customers()
-            ->where('customer_id', $this->route('id'))
             ->with(['customerInvoices' => function ($query) {
-                return $query->where('customer_shipment_id', $this->route('shipment_id'));
+                return $query
+                    ->where('customer_id', $this->route('id'))
+                    ->where('customer_shipment_id', $this->route('shipment_id'));
             }])
             ->first();
 
