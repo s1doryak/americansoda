@@ -63,6 +63,7 @@ class FixCustomerPreOrderNumber
     {
         return [
             'dashboard',
+            'api'
         ];
     }
 }
