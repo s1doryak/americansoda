@@ -5,6 +5,7 @@ namespace App\Services\Api\V1;
 use App\CustomerOrderItem;
 use App\Repositories\Contracts\CustomerPreOrderRepository;
 use App\Repositories\Eloquent\CustomerPreOrderRepositoryEloquent;
+use Crmplease\MaterialAdmin\Events\ResourceStored;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -61,6 +62,10 @@ class CustomerPreOrderService extends ResourceService
         );
         $customerPreOrder = $this->repository->create($customerPreOrderData);
         $this->customerPreOrderItemsService->create(Arr::get($data, 'pre_order_items'), $customerPreOrder);
+
+        $attributes = ['id' => $customerPreOrder->id];
+        event(new ResourceStored('api', 'customer_pre_order', 'store', $attributes, []));
+
     }
 
     /**
