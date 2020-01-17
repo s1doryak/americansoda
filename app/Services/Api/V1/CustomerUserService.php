@@ -57,9 +57,10 @@ class CustomerUserService extends ResourceService
             $user->notify(
                 new AuthAttempt($this->getOrCreateToken($user))
             );
+        } else {
+            throw (new ModelNotFoundException)->setModel(CustomerUser::class);
         }
 
-        throw (new ModelNotFoundException)->setModel(CustomerUser::class);
     }
 
     /**
