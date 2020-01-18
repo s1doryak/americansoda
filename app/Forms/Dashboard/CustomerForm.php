@@ -227,7 +227,7 @@ class CustomerForm extends Form
                     return false === $customerPricingPolicy->trashed();
                 })
                 ->groupBy(function (CustomerPricingPolicy $customerPricingPolicy) {
-                    return $customerPricingPolicy->productGroup->getKey() ?? null;
+                    return $customerPricingPolicy->productGroup ? $customerPricingPolicy->productGroup->getKey() : null;
                 }),
         ];
 
