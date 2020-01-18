@@ -72,9 +72,10 @@ class CustomerShipmentService extends ResourceService
         $pdf = PDF::loadView('dashboard::documents.waybill', $this->prepareShipmentData($shipment));
         $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Rahtikirja')));
 
-        return $pdf->inline($filename)->header('Access-Control-Allow-Origin', config('app.url'))->send();
+        return $pdf->inline($filename)
+            ->header('Access-Control-Allow-Origin', config('app.url') . "/documents/{$shipmentId}/waybill/pdf")
+            ->send();
     }
-
 
     /**
      * @param CustomerShipment $shipment
