@@ -74,7 +74,6 @@ class CustomerShipmentService extends ResourceService
 
         return $pdf->inline($filename)
             ->header('Access-Control-Allow-Origin', config('app.shop_url'))
-            ->header('Origin', config('app.url'))
             ->send();
     }
 
