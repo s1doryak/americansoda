@@ -51,6 +51,7 @@ return [
         'productType' => [
             'name' => 'Product Type',
         ],
+        'image' => 'Image'
     ],
     'placeholders' => [
 
@@ -67,6 +68,8 @@ return [
         'deleted_at' => 'Trashed',
     ],
     'filters' => [
-
+        'productType' => [
+            'name' => 'Product Type'
+        ],
     ],
 ];
