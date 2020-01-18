@@ -73,7 +73,7 @@ class CustomerShipmentService extends ResourceService
         $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Rahtikirja')));
 
         return $pdf->inline($filename)
-            ->header('Access-Control-Allow-Origin', config('app.url'))
+            ->header('Access-Control-Allow-Origin', config('app.shop_url'))
             ->header('Origin', config('app.url'))
             ->send();
     }
