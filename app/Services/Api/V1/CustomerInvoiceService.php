@@ -64,6 +64,7 @@ class CustomerInvoiceService extends ResourceService
 
         return PDF::loadView('dashboard::documents.invoice', $this->getDocumentData($customerInvoice))
             ->inline($filename)
+            ->header('Access-Control-Allow-Origin', config('app.shop_url'))
             ->send();
     }
 
