@@ -64,6 +64,6 @@ return [
         'deleted_at' => 'Удалена',
     ],
     'filters' => [
-
+        'number' => 'Номер сборки'
     ],
 ];

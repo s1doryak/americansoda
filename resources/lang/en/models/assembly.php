@@ -64,6 +64,6 @@ return [
         'deleted_at' => 'Trashed',
     ],
     'filters' => [
-
+        'number' => 'Number'
     ],
 ];
