@@ -54,9 +54,9 @@ class CustomerPreOrderForm extends Form
             'customer' => 'choice',
             'customerPreOrderItems[idx]' => [
                 'type' => 'relation_form',
-                'fields' => CustomerOrderItemForm::getCreateFormFields(),
+                'fields' => CustomerPreOrderItemForm::getCreateFormFields(),
                 'form_title' => trans('models/customer_pre_order_item.labels.plural'),
-                'resource' => 'customer_order_item',
+                'resource' => 'customer_pre_order_item',
                 'items' => $customerPreOrder->items,
                 'can_add' => false,
                 'can_edit' => false,
