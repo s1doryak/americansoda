@@ -58,8 +58,8 @@ class CustomerShipmentsController extends ResourceController
         'user',
         'packageType',
         'customerInvoice',
-        'customerOrder',
         'customerOrderItems',
+        'customerOrderItems.customerOrder',
         'customerOrderItems.customerOrder',
         'customerOrderItems.product',
     ];
