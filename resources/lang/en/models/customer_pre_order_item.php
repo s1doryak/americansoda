@@ -56,7 +56,7 @@ return [
 		'total_deposit_price' => 'Total Deposit Price',
 		'total_deposit_vat_price' => 'Total Deposit Vat Price',
 		'customerPreOrder' => [
-			'number' => 'Number',
+			'name' => 'Number',
 		],
 		'customerUser' => [
 			'name' => 'Customer User',

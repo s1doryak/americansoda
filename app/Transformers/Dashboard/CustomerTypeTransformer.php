@@ -22,9 +22,11 @@ class CustomerTypeTransformer implements TransformerContract
 	 */
 	public static function transformStoreRequest(Request $request)
 	{
-		return [
+        $customerType = $request->get('customerType');
+
+        return [
 			'name' => $request->get('name'),
-			'customerType' => (integer)$request->get('customerType'),
+            'customerType' => is_null($customerType) ? $customerType : (integer)$customerType,
 
 		];
 	}
@@ -35,9 +37,11 @@ class CustomerTypeTransformer implements TransformerContract
 	 */
 	public static function transformUpdateRequest(Request $request)
 	{
+	    $customerType = $request->get('customerType');
+
 		return [
 			'name' => $request->get('name'),
-			'customerType' => (integer)$request->get('customerType'),
+			'customerType' => is_null($customerType) ? $customerType : (integer)$customerType,
 
 		];
 	}

@@ -16,46 +16,52 @@ class CustomerTypeForm extends Form
     /**
      * @return array
      */
-	public static function getCreateFormFields()
-	{
+    public static function getCreateFormFields()
+    {
         return [
-				'name' => 'text',
-				'customerType' => 'choice',
+            'name' => 'text',
+            'customerType' => [
+                'type' => 'choice',
+                'empty_value' => trans('models/customer_type.placeholders.customerType')
+            ],
         ];
-	}
+    }
 
     /**
      * @param CustomerType $customerType
      * @return array
      */
-	public static function getEditFormFields($customerType)
-	{
+    public static function getEditFormFields($customerType)
+    {
         return [
-				'name' => 'text',
-				'customerType' => 'choice',
+            'name' => 'text',
+            'customerType' => [
+                'type' => 'choice',
+                'empty_value' => trans('models/customer_type.placeholders.customerType')
+            ],
         ];
-	}
+    }
 
     /**
      * @return array
      */
-	public static function getStoreValidationRules()
-	{
+    public static function getStoreValidationRules()
+    {
         return [
-			'name' => 'sometimes',
-			'customerType' => 'sometimes|exists:customer_types,id',
+            'name' => 'sometimes',
+            'customerType' => 'sometimes|nullable|exists:customer_types,id',
         ];
-	}
+    }
 
     /**
      * @param CustomerType $customerType
      * @return array
      */
-	public static function getUpdateValidationRules($customerType)
-	{
+    public static function getUpdateValidationRules($customerType)
+    {
         return [
-			'name' => 'sometimes',
-			'customerType' => 'sometimes|exists:customer_types,id',
+            'name' => 'sometimes',
+            'customerType' => 'sometimes|nullable|exists:customer_types,id',
         ];
-	}
+    }
 }
