@@ -56,7 +56,7 @@ return [
 		'total_deposit_price' => 'Итого депозит',
 		'total_deposit_vat_price' => 'Итого депозит с НДС',
 		'customerPreOrder' => [
-			'number' => 'Предзаказ клиента',
+			'name' => 'Предзаказ клиента',
 		],
 		'customerUser' => [
 			'name' => 'Сотрудник клиента',

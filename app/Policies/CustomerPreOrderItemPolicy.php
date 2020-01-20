@@ -91,7 +91,7 @@ class CustomerPreOrderItemPolicy implements DatatablePolicyContract
     public function create(Authenticatable $authenticatable)
     {
 
-        return true;
+        return false;
     }
 
     /**
@@ -105,7 +105,7 @@ class CustomerPreOrderItemPolicy implements DatatablePolicyContract
     public function update(Authenticatable $authenticatable, CustomerPreOrderItem $customerPreOrderItem)
     {
 
-        return true;
+        return false;
     }
 
     /**
