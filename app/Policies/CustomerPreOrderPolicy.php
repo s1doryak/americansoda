@@ -91,7 +91,7 @@ class CustomerPreOrderPolicy implements DatatablePolicyContract
     public function create(Authenticatable $authenticatable)
     {
 
-        return true;
+        return false;
     }
 
     /**

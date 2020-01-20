@@ -68,6 +68,14 @@ class CustomerPreOrdersController extends ResourceController
 	];
 
     /**
+     * @var array
+     */
+    protected $popupActions = [
+        'create' => 'fullscreen',
+        'edit' => 'fullscreen'
+    ];
+
+    /**
      * CustomerPreOrdersController constructor.
      * @param Gate $gate
 	 * @param CustomerPreOrderRepository $customerPreOrderRepository

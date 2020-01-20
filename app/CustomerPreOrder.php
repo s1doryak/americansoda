@@ -12,6 +12,7 @@ namespace App;
  * @property \App\CustomerUser $customerUser
  * @property \App\CustomerOrder $customerOrder
  * @property \App\Customer $customer
+ * @property \Illuminate\Support\Collection|\App\CustomerPreOrderItem[] $items
 
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
