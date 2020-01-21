@@ -3,6 +3,7 @@
 namespace App\Services\Api\V1;
 
 use App\Customer;
+use App\Notifications\Api\V1\PreOrderCreate;
 use App\Repositories\Eloquent\CustomerPreOrderRepositoryEloquent;
 use Crmplease\MaterialAdmin\Events\ResourceStored;
 use Crmplease\MaterialAdmin\Services\ResourceService;
@@ -78,7 +79,7 @@ class CustomerPreOrderService extends ResourceService
         $administrators = $this->administratorService->all();
         $administrators->each(function ($administrator) use ($shopId, $customerPreOrder) {
             $customer = Customer::find($shopId);
-            $administrator->notify($customer, $customerPreOrder);
+            $administrator->notify(new PreOrderCreate($customer, $customerPreOrder));
         });
     }
 
