@@ -21,7 +21,7 @@ class DownloadPdfRequest extends FormRequest
             }])
             ->first();
 
-        return $customerWithInvoices->customerInvoices->count() > 0;
+        return $customerWithInvoices->customerInvoices->isNotEmpty();
     }
 
     public function rules()

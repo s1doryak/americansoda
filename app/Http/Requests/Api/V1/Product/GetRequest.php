@@ -10,7 +10,7 @@ class GetRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+        return Auth::user()->customers()->where('customer_id', $this->route('id'))->exists();
     }
 
     public function rules()
