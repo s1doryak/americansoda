@@ -60,7 +60,6 @@ class CustomerShipmentsController extends ResourceController
         'customerInvoice',
         'customerOrderItems',
         'customerOrderItems.customerOrder',
-        'customerOrderItems.customerOrder',
         'customerOrderItems.product',
     ];
 
