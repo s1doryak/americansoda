@@ -274,7 +274,17 @@ function generateApiAuthLink($token)
 }
 
 /**
+ * @param integer $preOrderId
+ * @return string
+ */
+function generatePreOrderLink($preOrderId)
+{
+    return config('app.url') . "/dashboard/customer_pre_order/{$preOrderId}/edit";
+}
+
+/**
  * @param bool $reset
+ * @return int
  */
 function static_idx($reset = false)
 {
