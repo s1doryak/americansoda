@@ -78,7 +78,7 @@ return [
             'delivery_month' => 'Delivery Month',
             'delivery_date' => 'Delivery Date',
             'delivery_type' => 'Delivery Type',
-            'number' => 'Order Number',
+            'name' => 'Order Number',
             'invoice_number' => 'Invoice Number',
             'batch_number' => 'Batch number',
             'customer' => [
