@@ -7,7 +7,7 @@ use App\CustomerPreOrder;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Notification;
+use Illuminate\Notifications\Notification;
 
 /**
  * PreOrderCreate notification.
@@ -62,7 +62,7 @@ class PreOrderCreate extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(trans('notifications/auth_attempt.subject'))
+            ->subject(trans('notifications/pre_order_create.subject'))
             ->line(trans('notifications/pre_order_create.message', [
                 'customer' => $this->customer->name,
                 'pre_order' => $this->customerPreOrder->number
