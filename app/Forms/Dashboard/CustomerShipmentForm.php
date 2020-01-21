@@ -59,8 +59,8 @@ class CustomerShipmentForm extends Form
 		$item = [
 			'type' => 'relation_form',
 			'fields' => CustomerOrderItemForm::getCreateFormFields(),
-			'form_title' => trans('models/customer.order.item.labels.plural'),
-			'resource' => 'customer.order.item',
+			'form_title' => trans('models/customer_order_item.labels.plural'),
+			'resource' => 'customer_order_item',
 			'items' => [],
 			'can_add' => false,
 			'can_edit' => function ($item = null) {
