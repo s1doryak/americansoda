@@ -82,7 +82,7 @@ class PreOrderCreate extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'message' => trans('notifications/auth_attempt.message')
+            'message' => trans('notifications/pre_order_create.message')
         ];
     }
 }
