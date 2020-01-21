@@ -2,12 +2,13 @@
 
 namespace App\Services\Api\V1;
 
-use App\CustomerOrderItem;
-use App\Repositories\Contracts\CustomerPreOrderRepository;
+use App\Customer;
+use App\Notifications\Api\V1\PreOrderCreate;
 use App\Repositories\Eloquent\CustomerPreOrderRepositoryEloquent;
 use Crmplease\MaterialAdmin\Events\ResourceStored;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -29,21 +30,29 @@ class CustomerPreOrderService extends ResourceService
     protected $customerOrderService;
 
     /**
+     * @var AdministratorService
+     */
+    protected $administratorService;
+
+    /**
      * CustomerPreOrderService constructor.
      * @param CustomerPreOrderRepositoryEloquent $repository
      * @param CustomerPreOrderItemService $customerPreOrderItemService
      * @param CustomerOrderService $customerOrderService
+     * @param AdministratorService $administratorService
      */
     public function __construct(
         CustomerPreOrderRepositoryEloquent $repository,
         CustomerPreOrderItemService $customerPreOrderItemService,
-        CustomerOrderService $customerOrderService
+        CustomerOrderService $customerOrderService,
+        AdministratorService $administratorService
     )
     {
         $this->repository = $repository;
 
         $this->customerPreOrderItemsService = $customerPreOrderItemService;
         $this->customerOrderService = $customerOrderService;
+        $this->administratorService = $administratorService;
     }
 
     /**
@@ -66,6 +75,12 @@ class CustomerPreOrderService extends ResourceService
         $attributes = ['id' => $customerPreOrder->id];
         event(new ResourceStored('api', 'customer_pre_order', 'store', $attributes, []));
 
+        /** @var Collection $administrators */
+        $administrators = $this->administratorService->all();
+        $administrators->each(function ($administrator) use ($shopId, $customerPreOrder) {
+            $customer = Customer::find($shopId);
+            $administrator->notify(new PreOrderCreate($customer, $customerPreOrder));
+        });
     }
 
     /**

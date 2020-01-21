@@ -11,6 +11,6 @@ class AdministratorRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositor
      */
     public function notifiable()
     {
-        return $this->findWhere(['allow_notifications' => true]);
+        return $this->all();
     }
 }
