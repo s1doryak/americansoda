@@ -9,9 +9,7 @@ class CreateRequest extends FormRequest
 {
     public function authorize()
     {
-        $customers = Auth::user()->customers()->where('customer_id', $this->route('id'))->get();
-
-        return $customers->isNotEmpty();
+        return Auth::user()->customers()->where('customer_id', $this->route('id'))->exists();
     }
 
     public function rules()
