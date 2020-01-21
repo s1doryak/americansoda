@@ -34,7 +34,7 @@ class CustomerShipmentForm extends Form
 				'value' => resource_id('customer'),
 			];
 		} else {
-			$fields['customer'] = 'reference';
+			$fields['customer'] = 'choice';
 		}
 
 		$fields['number'] = [
@@ -42,7 +42,7 @@ class CustomerShipmentForm extends Form
 			'value' => CustomerShipment::getDefaultNumber(),
 		];
 
-		$fields['packageType'] = 'reference';
+		$fields['packageType'] = 'choice';
 		$fields['packages_quantity'] = [
 			'type' => 'number',
 			'attr' => [
