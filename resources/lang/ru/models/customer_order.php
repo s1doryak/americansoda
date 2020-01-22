@@ -116,4 +116,7 @@ return [
         'package_list' => 'Упаковочный лист',
         'waybill' => 'Накладная',
     ],
+    'calendar' => [
+        'title' => 'Календарь'
+    ]
 ];

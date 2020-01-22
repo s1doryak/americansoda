@@ -33,14 +33,15 @@ jQuery(document).ready(function () {
             }
         });
 
-        calendar.on('eventClick', function (event) {
+        calendar.on('eventClick', function (info) {
             var $modal = $('#modal-edit-event'),
+                event = info.event,
                 $form = $modal.find('.form-event');
 
             $modal.find('[data-name="event-title"]').text(event.title);
 
             $form.find('input[name="event-id"]').val(event._id);
-            $form.find('input[name="event-start"]').val(event.start.toISOString());
+            $form.find('input[name="event-start"]').val(moment(event.start).toISOString());
 
             if (event.type === 'order') {
                 $form.find('textarea[name="event-comment"]').val(event.comment);
@@ -61,8 +62,9 @@ jQuery(document).ready(function () {
             $modal.modal('show');
         });
 
-        calendar.on('eventDrop', function (event) {
-            $.ajax({
+        calendar.on('eventDrop', function (info) {
+            var event = info.event;
+                $.ajax({
                 url: $('meta[name="calendar-update"]').attr('content'),
                 method: 'post',
                 data: {
@@ -70,7 +72,7 @@ jQuery(document).ready(function () {
                     event: {
                         type: event.type,
                         order: event.order,
-                        start: event.start.format('DD-MM-YYYY'),
+                        start: moment(event.start).format('DD-MM-YYYY'),
                         comment: event.comment,
                         future_comment: event.future_comment
                     }
@@ -84,7 +86,7 @@ jQuery(document).ready(function () {
 
                         event.overdue = overdue;
 
-                        $calendar.fullCalendar('updateEvent', event);
+                        calendar.FullCalendar('updateEvent', event);
 
                     } else {
 
@@ -94,177 +96,67 @@ jQuery(document).ready(function () {
                     }
                 },
                 error: function (response) {
-                    notify('Fail to move to ' + event.start.format('DD/MM/YYYY') + '!', 'danger');
+                    notify('Fail to move to ' + moment(event.start).format('DD/MM/YYYY') + '!', 'danger');
                 },
                 complete: function () {
                 }
             });
         });
 
-        calendar.on('viewRender', function (event, element) {
-            var calendarDate = $("#calendar").fullCalendar('getDate');
-            var calendarMonth = calendarDate.month();
+        calendar.on('datesRender', function (info) {
+            var view = info.view,
+                calendarDate = calendar.getDate();
 
-            //Set data attribute for header. This is used to switch header images using css
-            $('#calendar .fc-toolbar').attr('data-calendar-month', calendarMonth);
+            $calendar.find('.fc-toolbar')
+                .attr('data-calendar-month', calendarDate.getMonth());
 
-            //Set title in page header
             $('.block-header-calendar > h2 > span').html(view.title);
         });
 
-        calendar.on('eventRender', function (event, element) {
-            if (event.type === 'future' && event.overdue) {
-                element.append(
+        calendar.on('eventRender', function (info) {
+            var event = info.event,
+                $element = $(info.el);
+            console.log(event.overdue, event);
+            if (event.extendedProps.type === 'future' && event.extendedProps.overdue) {
+                $element.append(
                     $('<div/>')
                         .attr('data-toggle', 'tooltip')
                         .attr('data-placement', 'top')
-                        .attr('title', event.overdue + 'd overdue')
+                        .attr('title', event.extendedProps.overdue + 'd overdue')
                         .addClass('fc-badge')
-                        .text(event.overdue)
+                        .text(event.extendedProps.overdue)
                 );
 
-                element.find('[data-toggle=tooltip]').tooltip();
+                $element.find('[data-toggle=tooltip]').tooltip();
             }
         });
 
         calendar.render();
     }
-    // $calendar.fullCalendar({
-    //     header: {
-    //         right: '',
-    //         center: '',
-    //         left: ''
-    //     },
-    //     firstDay: 1,
-    //     weekNumbers: true,
-    //     theme: false,
-    //     selectable: true,
-    //     selectHelper: true,
-    //     editable: true,
-    //     events: '/dashboard/calendar.json',
-    //
-    //     eventClick: function (event, element) {
-    //
-    //         var $modal = $('#modal-edit-event'),
-    //             $form = $modal.find('.form-event');
-    //
-    //         $modal.find('[data-name="event-title"]').text(event.title);
-    //
-    //         $form.find('input[name="event-id"]').val(event._id);
-    //         $form.find('input[name="event-start"]').val(event.start.toISOString());
-    //
-    //         if (event.type === 'order') {
-    //             $form.find('textarea[name="event-comment"]').val(event.comment);
-    //             $modal.find('[data-calendar="update"]').hide();
-    //         } else {
-    //             $form.find('textarea[name="event-comment"]').val(event.future_comment);
-    //             $modal.find('[data-calendar="update"]').show();
-    //         }
-    //
-    //         $form.find('[data-name="event-description"]').html(
-    //             Handlebars.compile(
-    //                 $('[data-template="event-description"]').html()
-    //             )(event)
-    //         );
-    //
-    //         $form.trigger('reanimate');
-    //
-    //         $modal.modal('show');
-    //     },
-    //
-    //     viewRender: function (view) {
-    //         var calendarDate = $("#calendar").fullCalendar('getDate');
-    //         var calendarMonth = calendarDate.month();
-    //
-    //         //Set data attribute for header. This is used to switch header images using css
-    //         $('#calendar .fc-toolbar').attr('data-calendar-month', calendarMonth);
-    //
-    //         //Set title in page header
-    //         $('.block-header-calendar > h2 > span').html(view.title);
-    //     },
-    //
-    //     eventRender: function (event, element, view) {
-    //
-    //         if (event.type === 'future' && event.overdue) {
-    //             element.append(
-    //                 $('<div/>')
-    //                     .attr('data-toggle', 'tooltip')
-    //                     .attr('data-placement', 'top')
-    //                     .attr('title', event.overdue + 'd overdue')
-    //                     .addClass('fc-badge')
-    //                     .text(event.overdue)
-    //             );
-    //
-    //             element.find('[data-toggle=tooltip]').tooltip();
-    //         }
-    //     },
-    //
-    //     eventDrop: function (event, delta, revertFunc) {
-    //
-    //         $.ajax({
-    //             url: $('meta[name="calendar-update"]').attr('content'),
-    //             method: 'post',
-    //             data: {
-    //                 _token: $('meta[name="csrf-token"]').attr('content'),
-    //                 event: {
-    //                     type: event.type,
-    //                     order: event.order,
-    //                     start: event.start.format('DD-MM-YYYY'),
-    //                     comment: event.comment,
-    //                     future_comment: event.future_comment
-    //                 }
-    //             },
-    //             dataType: 'json',
-    //             success: function (response) {
-    //
-    //                 var overdue = response.overdue;
-    //
-    //                 if (overdue >= 0) {
-    //
-    //                     event.overdue = overdue;
-    //
-    //                     $calendar.fullCalendar('updateEvent', event);
-    //
-    //                 } else {
-    //
-    //                     revertFunc();
-    //
-    //                     notify('You cannot move event rather then created!', 'danger');
-    //                 }
-    //             },
-    //             error: function (response) {
-    //                 notify('Fail to move to ' + event.start.format('DD/MM/YYYY') + '!', 'danger');
-    //             },
-    //             complete: function () {
-    //             }
-    //         });
-    //     }
-    // });
-
     //Calendar views switch
     $('[data-calendar-view]').on('click', function (e) {
         e.preventDefault();
 
         var calendarView = $(this).attr('data-calendar-view');
-        $calendar.fullCalendar('changeView', calendarView);
+        calendar.changeView(calendarView);
     });
 
     //Calendar Reload
     $(document).on('click', '.calendar-reload', function (e) {
         e.preventDefault();
-        $calendar.fullCalendar('refetchEvents');
+        calendar.refetchEvents();
     });
 
     //Calendar Next
     $(document).on('click', '.calendar-next', function (e) {
         e.preventDefault();
-        $calendar.fullCalendar('next');
+        calendar.next();
     });
 
     //Calendar Prev
     $(document).on('click', '.calendar-prev', function (e) {
         e.preventDefault();
-        $calendar.fullCalendar('prev');
+        calendar.prev();
     });
 
     //Update an Event
@@ -296,7 +188,7 @@ jQuery(document).ready(function () {
                     event: {
                         type: event.type,
                         order: event.order,
-                        start: event.start.format('DD-MM-YYYY'),
+                        start: moment(event.start).format('DD-MM-YYYY'),
                         comment: event.comment,
                         future_comment: event.future_comment
                     }
@@ -326,7 +218,7 @@ jQuery(document).ready(function () {
                         }
                     }
 
-                    $calendar.fullCalendar('updateEvent', event);
+                    $calendar.refetchEvents();
 
                 },
                 error: function (response) {

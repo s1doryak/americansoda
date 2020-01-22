@@ -7,30 +7,37 @@
     @section('page-title')
     {{ config('app.name') }} &ndash; {{ trans('calendar.index.title') }}
 @stop
-@section('block-header-title')
-    <h2>
-        <span>{{ $title }}</span>
-    </h2>
-@stop
-@section('actions')
-    <ul class="actions actions-calendar">
-        <li><a class="calendar-reload" href=""><i class="zmdi zmdi-refresh"></i></a></li>
-        <li><a class="calendar-prev" href=""><i class="zmdi zmdi-chevron-left"></i></a></li>
-        <li><a class="calendar-next" href=""><i class="zmdi zmdi-chevron-right"></i></a></li>
-        <li class="dropdown">
-            <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
-            <ul class="dropdown-menu dm-icon pull-right">
-                <li><a href="" data-calendar-view="month"><i
-                                class="zmdi zmdi-view-comfy active"></i> {{ trans('calendar.view.month') }}</a></li>
-                <li><a href="" data-calendar-view="basicWeek"><i
-                                class="zmdi zmdi-view-week"></i> {{ trans('calendar.view.week') }}</a></li>
-                <li><a href="" data-calendar-view="basicDay"><i
-                                class="zmdi zmdi-view-day"></i> {{ trans('calendar.view.day') }}</a></li>
-            </ul>
-        </li>
-    </ul>
-@stop
 @section('content')
+    <div class="block-header block-header-calendar">
+        <h2>
+            <span>{{ trans('models/customer_order.calendar.title') }}</span>
+        </h2>
+        <ul class="actions actions-calendar">
+            <li><a class="calendar-reload" href=""><i class="zmdi zmdi-refresh"></i></a></li>
+            <li><a class="calendar-prev" href=""><i class="zmdi zmdi-chevron-left"></i></a></li>
+            <li><a class="calendar-next" href=""><i class="zmdi zmdi-chevron-right"></i></a></li>
+            <li class="dropdown">
+                <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
+                <ul class="dropdown-menu dm-icon pull-right">
+
+                    <li>
+                        <a data-calendar-view="listWeek">
+                            <i class="zmdi zmdi-view-day"></i> {{ trans('calendar.view.list') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a data-calendar-view="dayGridMonth">
+                            <i class="zmdi zmdi-view-comfy active"></i> {{ trans('calendar.view.month') }}
+                        </a>
+                    </li>
+                    <li><a href="" data-calendar-view="basicWeek"><i
+                                    class="zmdi zmdi-view-week"></i> {{ trans('calendar.view.week') }}</a></li>
+                    <li><a href="" data-calendar-view="basicDay"><i
+                                    class="zmdi zmdi-view-day"></i> {{ trans('calendar.view.day') }}</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
     <div id="calendar" class="card"></div>
 
     <!-- Edit event -->
