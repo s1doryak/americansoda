@@ -2,7 +2,8 @@
 @section('head')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="calendar-update" content="{{ route('dashboard.calendar.update') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/material-admin/css/fullcalendar.css') }}?ver={{ config('app.version') }}">
+    <link rel="stylesheet"
+          href="{{ asset('vendor/material-admin/css/fullcalendar.css') }}?ver={{ config('app.version') }}">
     @parent
     @stop
     @section('page-title')
@@ -31,10 +32,16 @@
                             <i class="zmdi zmdi-view-comfy active"></i> {{ trans('calendar.view.month') }}
                         </a>
                     </li>
-                    <li><a href="" data-calendar-view="basicWeek"><i
-                                    class="zmdi zmdi-view-week"></i> {{ trans('calendar.view.week') }}</a></li>
-                    <li><a href="" data-calendar-view="basicDay"><i
-                                    class="zmdi zmdi-view-day"></i> {{ trans('calendar.view.day') }}</a></li>
+                    <li>
+                        <a href="" data-calendar-view="dayGridWeek">
+                            <i class="zmdi zmdi-view-week"></i> {{ trans('calendar.view.week') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" data-calendar-view="dayGridDay">
+                            <i class="zmdi zmdi-view-day"></i> {{ trans('calendar.view.day') }}
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -81,7 +88,7 @@
 @section('scripts')
 
     @parent
-{{--    @include('dashboard::calendar.templates.event_description')--}}
+    {{--    @include('dashboard::calendar.templates.event_description')--}}
 
     <!-- Calendar Script -->
     <script src="{{ asset('vendor/material-admin/js/fullcalendar.js') }}?ver={{ config('app.version') }}"></script>
