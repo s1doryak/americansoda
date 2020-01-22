@@ -167,7 +167,7 @@ jQuery(document).ready(function () {
             eventId = $form.find('input[name="event-id"]').val(),
             eventComment = $form.find('textarea[name="event-comment"]').val(),
             eventStart = $form.find('input[name="event-start"]').val(),
-            event = $calendar.fullCalendar('clientEvents', eventId)[0],
+            event = calendar.getEventById(eventId)[0],
             action = $this.data('calendar');
 
         if (action === 'update') {
