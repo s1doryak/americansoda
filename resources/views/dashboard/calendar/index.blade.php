@@ -3,6 +3,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="calendar-update" content="{{ route('dashboard.calendar.update') }}">
     <link rel="stylesheet" href="{{ asset('vendor/material-admin/css/fullcalendar.css') }}?ver={{ config('app.version') }}">
+    @parent
     @stop
     @section('page-title')
     {{ config('app.name') }} &ndash; {{ trans('calendar.index.title') }}
@@ -80,6 +81,7 @@
 @section('scripts')
 
     @parent
+{{--    @include('dashboard::calendar.templates.event_description')--}}
 
     <!-- Calendar Script -->
     <script src="{{ asset('vendor/material-admin/js/fullcalendar.js') }}?ver={{ config('app.version') }}"></script>

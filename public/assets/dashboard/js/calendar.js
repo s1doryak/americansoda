@@ -116,7 +116,7 @@ jQuery(document).ready(function () {
         calendar.on('eventRender', function (info) {
             var event = info.event,
                 $element = $(info.el);
-            console.log(event.overdue, event);
+
             if (event.extendedProps.type === 'future' && event.extendedProps.overdue) {
                 $element.append(
                     $('<div/>')

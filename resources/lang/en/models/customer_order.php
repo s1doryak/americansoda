@@ -116,4 +116,7 @@ return [
         'package_list' => 'Package List',
         'waybill' => 'Waybill',
     ],
+    'calendar' => [
+        'title' => 'Calendar'
+    ]
 ];
