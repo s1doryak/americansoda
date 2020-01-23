@@ -150,7 +150,7 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public function renderCalendarModal()
     {
         return $this->renderView(
-            'dashboard::calendar.templates.event_description',
+            'dashboard.calendar.templates.event_description',
             [
                 'customerOrder' => $this
             ]
