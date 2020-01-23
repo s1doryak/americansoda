@@ -39,7 +39,7 @@
                     </li>
                     <li>
                         <a href="" data-calendar-view="dayGridDay">
-                            <i class="zmdi zmdi-view-day"></i> {{ trans('calendar.view.day') }}
+                            <i class="zmdi zmdi-view-day"></i> {{ trans('calendar.event.view.day') }}
                         </a>
                     </li>
                 </ul>
@@ -61,28 +61,12 @@
 
             <div class="modal-body">
                 <form class="form-event">
-                    <div class="form-group">
-                        <div class="fg-line">
-                            <div data-name="event-description"></div>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="fg-line">
-                                <textarea class="form-control auto-size html-editor" name="event-comment"
-                                          placeholder="{{ trans('calendar.placeholder.comment') }}" rows="6"></textarea>
-                        </div>
-                    </div>
-
-                    <input type="hidden" name="event-id">
-                    <input type="hidden" name="event-type">
-                    <input type="hidden" name="event-start">
                 </form>
             </div>
-
             <div class="modal-footer">
-                <button class="btn btn-link" data-calendar="update">{{ trans('calendar.button.update') }}</button>
-                <button class="btn btn-link" data-dismiss="modal">{{ trans('calendar.button.close') }}</button>
+                <button class="btn btn-link" data-calendar="update">{{ trans('calendar.event.button.update') }}</button>
+                <button class="btn btn-link" data-dismiss="modal">{{ trans('calendar.event.button.close') }}</button>
             </div>
         </div>
     </div>
