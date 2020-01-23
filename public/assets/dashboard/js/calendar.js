@@ -38,6 +38,10 @@ jQuery(document).ready(function () {
                 event = info.event,
                 $form = $modal.find('.form-event');
 
+            $form.html(
+                event.extendedProps.calendarModal
+            );
+
             $modal.find('[data-name="event-title"]').text(event.title);
 
             $form.find('input[name="event-id"]').val(event._id);
@@ -50,9 +54,6 @@ jQuery(document).ready(function () {
                 $form.find('textarea[name="event-comment"]').val(event.extendedProps.future_comment);
                 $modal.find('[data-calendar="update"]').show();
             }
-            $form.html(
-                event.extendedProps.calendarModal
-            );
 
             $form.trigger('reanimate');
 
