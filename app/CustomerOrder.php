@@ -147,6 +147,16 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         );
     }
 
+    public function renderCalendarModal()
+    {
+        return $this->renderView(
+            'dashboard::calendar.templates.event_description',
+            [
+                'customerOrder' => $this
+            ]
+        );
+    }
+
     /**
      * @return string
      */
@@ -339,6 +349,7 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
             'overdue' => $this->getFcOverdue(),
             'allDay' => $this->getFcAllDay(),
             'className' => $this->getFcClassName(),
+            'calendarModal' => $this->renderCalendarModal($this)
         ];
     }
 
