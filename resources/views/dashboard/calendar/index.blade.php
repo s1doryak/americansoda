@@ -46,50 +46,50 @@
             </li>
         </ul>
     </div>
-    <div id="calendar" class="card"></div>
+    <div class="card">
+        <div id="calendar"></div>
+    </div>
+@stop
 
-    <!-- Edit event -->
-    <div class="modal fade" id="modal-edit-event">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" data-name="event-title"></h4>
-                </div>
+<!-- Edit event -->
+<div class="modal fade" id="modal-edit-event">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" data-name="event-title"></h4>
+            </div>
 
-                <div class="modal-body">
-                    <form class="form-event">
-                        <div class="form-group">
-                            <div class="fg-line">
-                                <div data-name="event-description"></div>
-                            </div>
+            <div class="modal-body">
+                <form class="form-event">
+                    <div class="form-group">
+                        <div class="fg-line">
+                            <div data-name="event-description"></div>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="fg-line">
+                    <div class="form-group">
+                        <div class="fg-line">
                                 <textarea class="form-control auto-size html-editor" name="event-comment"
                                           placeholder="{{ trans('calendar.placeholder.comment') }}" rows="6"></textarea>
-                            </div>
                         </div>
+                    </div>
 
-                        <input type="hidden" name="event-id">
-                        <input type="hidden" name="event-type">
-                        <input type="hidden" name="event-start">
-                    </form>
-                </div>
+                    <input type="hidden" name="event-id">
+                    <input type="hidden" name="event-type">
+                    <input type="hidden" name="event-start">
+                </form>
+            </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-link" data-calendar="update">{{ trans('calendar.button.update') }}</button>
-                    <button class="btn btn-link" data-dismiss="modal">{{ trans('calendar.button.close') }}</button>
-                </div>
+            <div class="modal-footer">
+                <button class="btn btn-link" data-calendar="update">{{ trans('calendar.button.update') }}</button>
+                <button class="btn btn-link" data-dismiss="modal">{{ trans('calendar.button.close') }}</button>
             </div>
         </div>
     </div>
-@stop
+</div>
 @section('scripts')
 
     @parent
-    {{--    @include('dashboard::calendar.templates.event_description')--}}
-
     <!-- Calendar Script -->
     <script src="{{ asset('vendor/material-admin/js/fullcalendar.js') }}?ver={{ config('app.version') }}"></script>
     <script src="{{ asset('assets/dashboard/js/calendar.js') }}?ver={{ config('app.version') }}"></script>

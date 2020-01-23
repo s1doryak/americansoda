@@ -43,18 +43,15 @@ jQuery(document).ready(function () {
             $form.find('input[name="event-id"]').val(event._id);
             $form.find('input[name="event-start"]').val(moment(event.start).toISOString());
 
-            if (event.type === 'order') {
-                $form.find('textarea[name="event-comment"]').val(event.comment);
+            if (event.extendedProps.type === 'order') {
+                $form.find('textarea[name="event-comment"]').val(event.extendedProps.comment);
                 $modal.find('[data-calendar="update"]').hide();
             } else {
-                $form.find('textarea[name="event-comment"]').val(event.future_comment);
+                $form.find('textarea[name="event-comment"]').val(event.extendedProps.future_comment);
                 $modal.find('[data-calendar="update"]').show();
             }
-
-            $form.find('[data-name="event-description"]').html(
-                Handlebars.compile(
-                    $('[data-template="event-description"]').html()
-                )(event)
+            $form.html(
+                event.extendedProps.calendarModal
             );
 
             $form.trigger('reanimate');

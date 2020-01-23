@@ -1,19 +1,15 @@
-<script data-template="event-description" type="text/x-handlebars-template">
-    {{#if editable}}
-    {{#with description}}
-    <p><u>Previous</u> order: <a href="{{ order_url }}" target="_blank">{{ order_number }}</a></p>
-    {{/with}}
-    {{else}}
-    {{#with description}}
-    <p>Order: <a href="{{ order_url }}" target="_blank">{{ order_number }}</a></p>
-    <p>Status: {{ order_status }}</p>
-    {{/with}}
-    {{/if}}
-    <hr>
-    {{#with description}}
-    <p>Customer: <a href="{{ customer_url }}" target="_blank">{{ customer_name }}</a></p>
-    <p>Address: {{ customer_address }}</p>
-    <p>Phone: {{ customer_phone }}</p>
-    <p>E-mail: <a href="mailto:{{ customer_email }}" target="_blank">{{ customer_email }}</a></p>
-    {{/with}}
-</script>
+@if (isset($editable))
+    <p><u>Previous</u> order: <a href="{{ generateResourceLink($customerOrder->id, 'customer_order') }}"
+                                 target="_blank">{{ $customerOrder->number }}</a></p>
+@else
+    <p>Order: <a href="{{ generateResourceLink($customerOrder->id, 'customer_order') }}"
+                 target="_blank">{{ $customerOrder->number }}</a></p>
+    <p>Status: {{ $customerOrder->status }}</p>
+@endif
+<hr>
+<p>Customer: <a href="{{ generateResourceLink($customerOrder->customer->id, 'customer') }}"
+                target="_blank">{{ $customerOrder->customer->name }}</a></p>
+<p>Address: {{ $customerOrder->customer->address1 }}</p>
+<p>Phone: {{ $customerOrder->customer->phone }}</p>
+<p>E-mail: <a href="mailto:{{ $customerOrder->customer->email }}"
+              target="_blank">{{ $customerOrder->customer->email }}</a></p>
