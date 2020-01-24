@@ -67,11 +67,11 @@ jQuery(document).ready(function () {
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     event: {
-                        type: event.type,
-                        order: event.order,
+                        type: event.extendedProps.type,
+                        order: event.extendedProps.order,
                         start: moment(event.start).format('DD-MM-YYYY'),
-                        comment: event.comment,
-                        future_comment: event.future_comment
+                        comment: event.extendedProps.comment,
+                        future_comment: event.extendedProps.future_comment
                     }
                 },
                 dataType: 'json',
@@ -82,13 +82,11 @@ jQuery(document).ready(function () {
                     if (overdue >= 0) {
 
                         event.extendedProps.overdue = overdue;
-
-                        calendar.FullCalendar('updateEvent', event);
+                        calendar.refetchEvents();
+                        // calendar.FullCalendar('updateEvent', event);
 
                     } else {
-
-                        revertFunc();
-
+                        info.revert();
                         notify('You cannot move event rather then created!', 'danger');
                     }
                 },
