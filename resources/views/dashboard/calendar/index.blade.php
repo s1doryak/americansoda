@@ -39,7 +39,7 @@
                     </li>
                     <li>
                         <a href="" data-calendar-view="dayGridDay">
-                            <i class="zmdi zmdi-view-day"></i> {{ trans('calendar.event.view.day') }}
+                            <i class="zmdi zmdi-view-day"></i> {{ trans('calendar.view.day') }}
                         </a>
                     </li>
                 </ul>
