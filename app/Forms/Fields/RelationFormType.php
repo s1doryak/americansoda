@@ -37,7 +37,7 @@ class RelationFormType extends ChildFormType
 
     protected function getFormData()
     {
-        return $this->getOption('data');
+        return array_merge($this->getOption('data'), $this->parent->getData());
     }
 
     /**

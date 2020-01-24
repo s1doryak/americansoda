@@ -125,6 +125,14 @@ class CustomerShipmentsController extends ResourceController
     ];
 
     /**
+     * @var array
+     */
+    protected $popupActions = [
+        'create' => 'fullscreen',
+        'edit' => 'fullscreen'
+    ];
+
+    /**
      * CustomerShipmentsController constructor.
      * @param Gate $gate
      * @param CustomerShipmentRepository $customerShipmentRepository
