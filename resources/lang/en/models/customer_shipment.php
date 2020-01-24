@@ -64,7 +64,7 @@ return [
         'packageType' => [
             'name' => 'Package Type',
         ],
-        'customer' => [
+        'customer_id' => [
             'name' => 'Customer',
         ],
         'user' => [
