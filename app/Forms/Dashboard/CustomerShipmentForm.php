@@ -98,7 +98,7 @@ class CustomerShipmentForm extends Form
 				'value' => resource_id('customer'),
 			];
 		} else {
-			$fields['customer_id'] = [
+			$fields['customer'] = [
 				'type' => 'choice',
 				'multiple' => false,
 				'attr' => [
@@ -107,10 +107,10 @@ class CustomerShipmentForm extends Form
 				'value' => $customerShipment->customer->id,
 			];
 
-			$fields['customer'] = [
-				'type' => 'hidden',
-				'value' => $customerShipment->customer->id,
-			];
+//			$fields['customer'] = [
+//				'type' => 'hidden',
+//				'value' => $customerShipment->customer->id,
+//			];
 		}
 
 		$fields['number'] = [
