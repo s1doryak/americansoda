@@ -274,12 +274,14 @@ function generateApiAuthLink($token)
 }
 
 /**
- * @param integer $preOrderId
+ * @param integer $id
+ * @param string $resource
+ * @param string $action
  * @return string
  */
-function generatePreOrderLink($preOrderId)
+function generateResourceLink($id, $resource, $action = 'edit')
 {
-    return config('app.url') . "/dashboard/customer_pre_order/{$preOrderId}/edit";
+    return config('app.url') . "/dashboard/{$resource}/{$id}/$action";
 }
 
 /**

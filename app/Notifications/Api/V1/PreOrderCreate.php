@@ -69,7 +69,7 @@ class PreOrderCreate extends Notification implements ShouldQueue
             ]))
             ->action(
                 trans('notifications/pre_order_create.show'),
-                generatePreOrderLink($this->customerPreOrder->getKey())
+                generateResourceLink($this->customerPreOrder->id, 'customer_pre_order')
             );
     }
 

@@ -7,7 +7,8 @@ return [
 	'view' => [
 		'day' => 'День',
 		'week' => 'Неделя',
-		'month' => 'Месяц'
+		'month' => 'Месяц',
+        'list' => 'Лист'
 	],
 	'event' => [
 		'placeholder' => [
