@@ -74,14 +74,13 @@ class HomeController extends Controller
     {
         /** @var CustomerOrderRepositoryEloquent $repository */
         $repository = app(CustomerOrderRepository::class);
-
+        $start = substr($request->input('start'), 0, strpos($request->input('start'), 'T'));
+        $end = substr($request->input('end'), 0, strpos($request->input('end'), 'T'));
         /** @var Collection|CustomerOrder[] $orders */
         $orders = $repository->with(['customer', 'customerOrderItems'])->getValidOrders(
-            $request->get('start'),
-            $request->get('end')
+            $start,
+            $end
         );
-//        dd($request->get('start'),
-//            $request->get('end'));
         /** @var Collection|CustomerOrder[] $last */
         $last = $repository->with(['customer', 'customerOrderItems'])->getLastOrders();
 

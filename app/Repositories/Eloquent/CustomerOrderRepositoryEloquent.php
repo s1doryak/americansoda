@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use Carbon\Carbon;
 use DB;
 use App\Repositories\Contracts\CustomerOrderRepository;
 use Illuminate\Support\Str;
