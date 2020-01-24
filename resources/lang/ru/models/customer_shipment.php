@@ -87,7 +87,7 @@ return [
 		'packageType' => [
 			'name' => 'Тип упаковки',
 		],
-		'customer' => [
+		'customer_id' => [
 			'name' => 'Клиент',
 		],
 		'user' => [
