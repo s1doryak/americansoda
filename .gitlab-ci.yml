@@ -1,0 +1,10 @@
+stages:
+    - production
+Deploy to Production:
+  stage: production
+  tags:
+    - node
+  script:
+    - bash ./.gitlab-deploy.prod.sh
+  only:
+    - dev
