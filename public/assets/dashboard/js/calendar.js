@@ -1,4 +1,3 @@
-
 jQuery(document).ready(function () {
     var $calendar = $('#calendar'),
         $calendarNode = $calendar.get(0),
@@ -44,8 +43,8 @@ jQuery(document).ready(function () {
 
             $modal.find('[data-name="event-title"]').text(event.title);
 
-            $form.find('input[name="event-id"]').val(event._id);
-            $form.find('input[name="event-start"]').val(moment(event.start).toISOString());
+            $form.find('input[name="event-id"]').val(event.id);
+            $form.find('input[name="event-start"]').val(moment(event.start).format('DD-MM-YYYY'));
 
             if (event.extendedProps.type === 'order') {
                 $form.find('textarea[name="event-comment"]').val(event.extendedProps.comment);
@@ -62,7 +61,7 @@ jQuery(document).ready(function () {
 
         calendar.on('eventDrop', function (info) {
             var event = info.event;
-                $.ajax({
+            $.ajax({
                 url: $('meta[name="calendar-update"]').attr('content'),
                 method: 'post',
                 data: {
@@ -82,7 +81,7 @@ jQuery(document).ready(function () {
 
                     if (overdue >= 0) {
 
-                        event.overdue = overdue;
+                        event.extendedProps.overdue = overdue;
 
                         calendar.FullCalendar('updateEvent', event);
 
@@ -165,12 +164,12 @@ jQuery(document).ready(function () {
             eventId = $form.find('input[name="event-id"]').val(),
             eventComment = $form.find('textarea[name="event-comment"]').val(),
             eventStart = $form.find('input[name="event-start"]').val(),
-            event = calendar.getEventById(eventId)[0],
+            event = calendar.getEventById(eventId),
             action = $this.data('calendar');
 
         if (action === 'update') {
 
-            if (event.type === 'future') {
+            if (event.extendedProps.type === 'future') {
                 event.future_comment = eventComment;
             } else {
                 event.comment = eventComment;
@@ -184,11 +183,11 @@ jQuery(document).ready(function () {
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     event: {
-                        type: event.type,
-                        order: event.order,
+                        type: event.extendedProps.type,
+                        order: event.extendedProps.order,
                         start: moment(event.start).format('DD-MM-YYYY'),
                         comment: event.comment,
-                        future_comment: event.future_comment
+                        future_comment: event.future_comment,
                     }
                 },
                 dataType: 'json',
@@ -198,25 +197,29 @@ jQuery(document).ready(function () {
 
                     if (event.type === 'future') {
                         if (response.has_comment) {
-                            event.className.push('fc-order-has-future-comment');
+                            event.classNames.push('fc-order-has-future-comment');
                         } else {
-                            index = event.className.indexOf('fc-order-has-future-comment');
+                            index = event.classNames.indexOf('fc-order-has-future-comment');
                             if (index > -1) {
-                                event.className.splice(index, 1);
+                                event.classNames.splice(index, 1);
                             }
                         }
                     } else {
                         if (response.has_comment) {
-                            event.className.push('fc-order-has-comment');
+                            if (!event.classNames.indexOf('fc-order-has-comment')) {
+                                event.classNames.push('fc-order-has-comment');
+                            }
                         } else {
-                            index = event.className.indexOf('fc-order-has-comment');
-                            if (index > -1) {
-                                event.className.splice(index, 1);
+                            index = event.classNames.indexOf('fc-order-has-comment');
+                            var classNames = event.classNames;
+
+                            if (index !== -1) {
+                                event.classNames = [classNames.slice(0, index), classNames.slice(classNames.length)];
                             }
                         }
                     }
 
-                    $calendar.refetchEvents();
+                    calendar.refetchEvents();
 
                 },
                 error: function (response) {

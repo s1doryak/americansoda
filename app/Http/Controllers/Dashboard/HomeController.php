@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Routing\Controller;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 /**
@@ -19,164 +20,166 @@ use Illuminate\Support\Collection;
  */
 class HomeController extends Controller
 {
-	use DashboardSidebar;
+    use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
-	/**
-	 * @var string
-	 */
-	protected $prefix = 'dashboard';
+    /**
+     * @var string
+     */
+    protected $prefix = 'dashboard';
 
-	/**
-	 * JobsController constructor.
-	 * @param Gate $gate
-	 */
-	public function __construct(Gate $gate)
-	{
-		$this->gate = $gate;
+    /**
+     * JobsController constructor.
+     * @param Gate $gate
+     */
+    public function __construct(Gate $gate)
+    {
+        $this->gate = $gate;
 
-		$this->middleware('auth:dashboard');
-		$this->shareSidebar();
-	}
+        $this->middleware('auth:dashboard');
+        $this->shareSidebar();
+    }
 
-	/**
-	 * Show the application dashboard.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function home()
-	{
-		return redirect(route('dashboard.customer_order_item.index'));
-	}
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function home()
+    {
+        return redirect(route('dashboard.customer_order_item.index'));
+    }
 
-	/**
-	 * @return \Illuminate\Http\Response
-	 */
-	public function calendar()
-	{
-		return view(
-			'dashboard::calendar.index',
-			[
-				'title' => trans('calendar.index.title'),
-			]
-		);
-	}
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function calendar()
+    {
+        return view(
+            'dashboard::calendar.index',
+            [
+                'title' => trans('calendar.index.title'),
+            ]
+        );
+    }
 
-	/**
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function calendarJson(Request $request)
-	{
-		/** @var CustomerOrderRepositoryEloquent $repository */
-		$repository = app(CustomerOrderRepository::class);
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function calendarJson(Request $request)
+    {
+        /** @var CustomerOrderRepositoryEloquent $repository */
+        $repository = app(CustomerOrderRepository::class);
 
-		/** @var Collection|CustomerOrder[] $orders */
-		$orders = $repository->with(['customer', 'customerOrderItems'])->getValidOrders(
-			$request->get('start'),
-			$request->get('end')
-		);
+        /** @var Collection|CustomerOrder[] $orders */
+        $orders = $repository->with(['customer', 'customerOrderItems'])->getValidOrders(
+            $request->get('start'),
+            $request->get('end')
+        );
+//        dd($request->get('start'),
+//            $request->get('end'));
+        /** @var Collection|CustomerOrder[] $last */
+        $last = $repository->with(['customer', 'customerOrderItems'])->getLastOrders();
 
-		/** @var Collection|CustomerOrder[] $last */
-		$last = $repository->with(['customer', 'customerOrderItems'])->getLastOrders();
+        /** @var Collection $events */
+        $events = $orders->map(
+            function ($order) {
+                /** @var CustomerOrder $order */
+                return $order->toFcEvent();
+            }
+        );
 
-		/** @var Collection $events */
-		$events = $orders->map(
-			function ($order) {
-				/** @var CustomerOrder $order */
-				return $order->toFcEvent();
-			}
-		);
+        if ($last->count()) {
 
-		if ($last->count()) {
+            $last->map(
+                function ($order) use ($events) {
+                    /** @var CustomerOrder $order */
+                    $event = $order->toFcEvent();
 
-			$last->map(
-				function ($order) use ($events) {
-					/** @var CustomerOrder $order */
-					$event = $order->toFcEvent();
+                    /** @var Carbon $date */
+                    $date = Carbon::createFromFormat('Y-m-d', $order->future_date);
 
-					/** @var Carbon $date */
-					$date = Carbon::createFromFormat('Y-m-d', $order->future_date);
+                    $event['type'] = 'future';
+                    $event['id'] = $event['id'] . '_' . $event['type'];
+                    $event['editable'] = true;
+                    $event['start'] = $date->addDays($order->fc_overdue)->toIso8601String();
+                    $event['className'] = $event['className'] . ' bgm-pink';
 
-					unset($event['id']);
+                    if (!empty(trim(strip_tags($order->fc_future_comment)))) {
+                        $event['className'] = $event['className'] . ' fc-order-has-future-comment';
+                    }
 
-					$event['type'] = 'future';
-					$event['editable'] = true;
-					$event['start'] = $date->addDays($order->fc_overdue)->toIso8601String();
-					$event['className'] = $event['className'] . ' bgm-pink';
+                    $events->push($event);
+                }
+            );
+        }
 
-					if (!empty(trim(strip_tags($order->fc_future_comment)))) {
-						$event['className'] = $event['className'] . ' fc-order-has-future-comment';
-					}
+        return json($events->toArray());
+    }
 
-					$events->push($event);
-				}
-			);
-		}
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function calendarUpdate(Request $request)
+    {
+        $response = [];
 
-		return json($events->toArray());
-	}
+        /** @var CustomerOrderRepositoryEloquent $repository */
+        $repository = app(CustomerOrderRepository::class);
 
-	/**
-	 * @param Request $request
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function calendarUpdate(Request $request)
-	{
-		$response = [];
+        $event = $request->get('event');
 
-		/** @var CustomerOrderRepositoryEloquent $repository */
-		$repository = app(CustomerOrderRepository::class);
+        $order_id = Arr::get($event, 'order');
 
-		$event = $request->get('event');
+        /** @var Carbon $date */
+        $date = Carbon::createFromFormat('d-m-Y', Arr::get($event, 'start'));
 
-		$order_id = array_get($event, 'order');
+        /** @var \App\CustomerOrder $order */
+        $order = $repository->with(['customer'])->find($order_id);
 
-		/** @var Carbon $date */
-		$date = Carbon::createFromFormat('d-m-Y', array_get($event, 'start'));
+        /** @var \App\Customer $customer */
+        $customer = $order->customer;
 
-		/** @var \App\CustomerOrder $order */
-		$order = $repository->with(['customer'])->find($order_id);
+        $interval = (int)$customer->order_interval;
 
-		/** @var \App\Customer $customer */
-		$customer = $order->customer;
+        $overdue = $date->diffInDays($order->getDate()) - $interval;
 
-		$interval = (int)$customer->order_interval;
+        if ($overdue >= 0) {
 
-		$overdue = $date->diffInDays($order->getDate()) - $interval;
+            $order->update([
+                'fc_overdue' => $overdue
+            ]);
 
-		if ($overdue >= 0) {
+        }
 
-			$order->update([
-				'fc_overdue' => $overdue
-			]);
+        $response['overdue'] = $overdue;
 
-		}
+        $type = Arr::get($event, 'type');
 
-		$response['overdue'] = $overdue;
+        if ($type == 'future') {
 
-		$type = array_get($event, 'type');
+            $comment = Arr::get($event, 'future_comment');
 
-		if ($type == 'future') {
+        } else {
 
-			$comment = array_get($event, 'future_comment');
+            $comment = Arr::get($event, 'comment');
 
-		} else {
+        }
 
-			$comment = array_get($event, 'comment');
+        $customer->update([
+            'calendar_comment' => $comment
+        ]);
 
-		}
 
-		$customer->update([
-			'calendar_comment' => $comment
-		]);
+        $response['comment'] = $comment;
+        $response['has_comment'] = !empty(trim(strip_tags($comment)));
+        $response['className'] = Arr::get($event, 'className');
 
-		$response['comment'] = $comment;
-		$response['has_comment'] = !empty(trim(strip_tags($comment)));
-
-		return json($response);
-	}
+        return json($response);
+    }
 }

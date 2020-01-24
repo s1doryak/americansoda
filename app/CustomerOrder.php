@@ -349,7 +349,8 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
             'overdue' => $this->getFcOverdue(),
             'allDay' => $this->getFcAllDay(),
             'className' => $this->getFcClassName(),
-            'calendarModal' => $this->renderCalendarModal($this)
+            'calendarModal' => $this->renderCalendarModal(),
+            'id' => $this->getKey() . '_order',
         ];
     }
 
