@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 
-# Get servers list:
 set - f
-# Variables from GitLab server:
-# Note: They can't have spaces!!
-string=$DEPLOY_SERVER
-array=(${string//,/ })
 
-for i in "${!array[@]}"; do
-  echo "Deploy project on server ${array[i]}"
-  sudo -i -u demo bash << EOF
-    echo "Working On ${USER}"
-    cd $PROJECT_PATH && bash distribute.sh
+echo "Deploy project on server ${DEPLOY_SERVER}"
+sudo -i -u $PROJECT_USER bash << EOF
+	echo "Working On ${USER}"
+    cd $PROJECT_PATH &&
+	git pull &&
+	composer install &&
+	php artisan migrate &&
+	npm install &&
+	npm run production
 EOF
-  echo "Done"
-done
+echo "Yay, DONE!"
