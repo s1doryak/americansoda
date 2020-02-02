@@ -2,12 +2,21 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Banner;
 use App\Repositories\Contracts\BannerRepository;
 use App\Transformers\Api\V1\BannerTransformer;
 use Illuminate\Support\Facades\Auth;
 
 class BannerRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements BannerRepository
 {
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return Banner::class;
+    }
+
     /**
      * @param $shopId
      * @return mixed

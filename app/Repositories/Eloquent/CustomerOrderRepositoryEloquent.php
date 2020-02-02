@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\CustomerOrder;
 use Carbon\Carbon;
 use DB;
 use App\Repositories\Contracts\CustomerOrderRepository;
@@ -9,6 +10,14 @@ use Illuminate\Support\Str;
 
 class CustomerOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerOrderRepository
 {
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return CustomerOrder::class;
+    }
+
     /**
      * @param null $date
      * @param array $exclude

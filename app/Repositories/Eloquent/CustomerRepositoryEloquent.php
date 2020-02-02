@@ -2,10 +2,19 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Customer;
 use App\Repositories\Contracts\CustomerRepository;
 
 class CustomerRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerRepository
 {
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return Customer::class;
+    }
+
     /**
      * @param array $exclude
      * @return integer

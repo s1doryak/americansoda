@@ -2,12 +2,21 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Product;
 use App\Repositories\Contracts\ProductRepository;
 use App\Transformers\Api\V1\ProductTransformer;
 use Illuminate\Support\Facades\Auth;
 
 class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductRepository
 {
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return Product::class;
+    }
+
     public function getByShopId($shopId, $customerUserId = null, $productIds = [])
     {
         $customerUserId = (is_null($customerUserId)) ? Auth::id() : $customerUserId;
@@ -37,7 +46,7 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
 
         $result = ($productIds) ? $this->findWhereIn('id', $productIds) : $this->get();
 
-        return $result->map(function($product) {
+        return $result->map(function ($product) {
             return ProductTransformer::toArray($product);
         });
     }

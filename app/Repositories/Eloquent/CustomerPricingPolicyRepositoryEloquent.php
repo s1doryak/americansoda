@@ -2,11 +2,20 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\CustomerPricingPolicy;
 use App\Repositories\Contracts\CustomerPricingPolicyRepository;
 use Illuminate\Support\Arr;
 
 class CustomerPricingPolicyRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerPricingPolicyRepository
 {
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return CustomerPricingPolicy::class;
+    }
+
     /**
      * @param $customerId
      * @param array $policies

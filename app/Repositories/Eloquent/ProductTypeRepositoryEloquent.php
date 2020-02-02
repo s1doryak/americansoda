@@ -2,12 +2,21 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\ProductType;
 use App\Repositories\Contracts\ProductTypeRepository;
 use Illuminate\Foundation\Application;
 
 class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductTypeRepository
 {
     protected $productRepository;
+
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return ProductType::class;
+    }
 
     public function __construct(Application $app)
     {

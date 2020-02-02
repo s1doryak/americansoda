@@ -3,9 +3,18 @@
 namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\StockProductRepository;
+use App\StockProduct;
 
 class StockProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements StockProductRepository
 {
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return StockProduct::class;
+    }
+
 	/**
 	 * @param $stockId
 	 * @param $item

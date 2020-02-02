@@ -2,10 +2,19 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\CustomerOrderItem;
 use App\Repositories\Contracts\CustomerOrderItemRepository;
 
 class CustomerOrderItemRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerOrderItemRepository
 {
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return CustomerOrderItem::class;
+    }
+
 	/**
 	 * Find all order items (including trashed) by order id.
 	 *

@@ -2,11 +2,20 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\CustomerShipment;
 use DB;
 use App\Repositories\Contracts\CustomerShipmentRepository;
 
 class CustomerShipmentRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerShipmentRepository
 {
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return CustomerShipment::class;
+    }
+
     /**
      * @param \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|null $query
      * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder

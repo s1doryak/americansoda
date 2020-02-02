@@ -10,6 +10,14 @@ use Illuminate\Support\Arr;
 class CustomerPricingPolicyRevisionRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerPricingPolicyRevisionRepository
 {
     /**
+     * @return string
+     */
+    public function model()
+    {
+        return CustomerPricingPolicyRevision::class;
+    }
+
+    /**
      * @param $customerId
      * @return mixed
      */
