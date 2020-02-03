@@ -1,21 +1,9 @@
 <?php
 
 return [
-	'index' => [
-		'title' => 'Calendar'
+	'views' => [
+		'list' => 'List',
+		'week' => 'Week',
+		'month' => 'Month',
 	],
-	'view' => [
-		'day' => 'Day View',
-		'week' => 'Week View',
-		'month' => 'Month View'
-	],
-	'event' => [
-		'placeholder' => [
-			'comment' => 'Event Comments',
-		],
-		'button' => [
-			'update' => 'Save',
-			'close' => 'Cancel'
-		]
-	]
 ];

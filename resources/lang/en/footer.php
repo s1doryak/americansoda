@@ -1,5 +1,5 @@
 <?php
 
 return [
-  'copyright' => 'Made with 💙 by CRM.Please &copy; :year',
+  'copyright' => 'CRM.Please &copy; :year',
 ];
