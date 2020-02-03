@@ -100,7 +100,7 @@
                     @php($field->setOption('parent_name', $field->getName()))
                     @php($field->setValue($value))
 
-                    {!! $field->render([], false, true, false) !!}
+                    {!! $field->render(['value' => $value], false, true, false) !!}
                 @endif
             @endforeach
         </td>
