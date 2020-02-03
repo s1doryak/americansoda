@@ -91,7 +91,7 @@ return [
          * List of columns that are allowed to display html content.
          * Note: Adding columns to list will make us available to XSS attacks.
          */
-        'raw' => ['action'],
+        'raw' => ['name', 'action'],
 
         /*
          * List of columns are are forbidden from being searched/sorted.
@@ -110,7 +110,7 @@ return [
      */
     'json' => [
         'header'  => [],
-        'options' => 0,
+        'options' => JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_NUMERIC_CHECK | JSON_PRESERVE_ZERO_FRACTION,
     ],
 
 ];

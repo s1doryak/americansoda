@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'CustomerPricingPolicy',
-        'plural' => 'CustomerPricingPolicy',
-		'create' => 'Create CustomerPricingPolicy'
+        'singular' => 'Customer Pricing Policy',
+        'plural' => 'Customer Pricing Policy',
+		'create' => 'Create Customer Pricing Policy'
     ],
 	'index' => [
-		'title' => 'List of CustomerPricingPolicy',
+		'title' => 'List of Customer Pricing Policy',
 	],
     'trashed' => [
-        'title' => 'List of trashed CustomerPricingPolicy',
+        'title' => 'List of trashed Customer Pricing Policy',
     ],
 	'create' => [
-		'title' => 'Create CustomerPricingPolicy',
+		'title' => 'Create Customer Pricing Policy',
 	],
     'store' => [
-	    'success' => 'CustomerPricingPolicy created successfully!',
-	    'error' => 'CustomerPricingPolicy created unsuccessfully!'
+	    'success' => 'Customer Pricing Policy created successfully!',
+	    'error' => 'Customer Pricing Policy created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'CustomerPricingPolicy',
+        'title' => 'Customer Pricing Policy',
     ],
 	'edit' => [
-		'title' => 'Edit CustomerPricingPolicy',
+		'title' => 'Edit Customer Pricing Policy',
 	],
 	'update' => [
-		'success' => 'CustomerPricingPolicy updated successfully!',
-		'error' => 'CustomerPricingPolicy updated unsuccessfully!'
+		'success' => 'Customer Pricing Policy updated successfully!',
+		'error' => 'Customer Pricing Policy updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move CustomerPricingPolicy to trash',
-		'success' => 'CustomerPricingPolicy trashed successfully!',
-		'error' => 'CustomerPricingPolicy trashed unsuccessfully!'
+        'title' => 'Move Customer Pricing Policy to trash',
+		'success' => 'Customer Pricing Policy trashed successfully!',
+		'error' => 'Customer Pricing Policy trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore CustomerPricingPolicy',
-        'success' => 'CustomerPricingPolicy restored successfully!',
-        'error' => 'CustomerPricingPolicy restored unsuccessfully!'
+        'title' => 'Restore Customer Pricing Policy',
+        'success' => 'Customer Pricing Policy restored successfully!',
+        'error' => 'Customer Pricing Policy restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy CustomerPricingPolicy',
-        'success' => 'CustomerPricingPolicy destroyed successfully!',
-        'error' => 'CustomerPricingPolicy destroyed unsuccessfully!'
+        'title' => 'Destroy Customer Pricing Policy',
+        'success' => 'Customer Pricing Policy destroyed successfully!',
+        'error' => 'Customer Pricing Policy destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'products_range' => 'Products Range',

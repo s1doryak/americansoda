@@ -68,8 +68,6 @@ return [
 		'email' => 'Email',
 		'email_verified_at' => 'Email Verified At',
 		'password' => 'Password',
-		'email' => 'Email',
-		'password' => 'Password',
 		'name' => 'Name',
 		'phone' => 'Phone',
 		'avatar' => 'Avatar',

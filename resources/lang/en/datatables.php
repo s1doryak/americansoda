@@ -7,11 +7,11 @@ return [
 			'excel' => 'Excel',
 			'pdf' => 'PDF',
 			'print' => 'Print',
-            'create' => '<i class="zmdi zmdi-plus zmdi-hc-fw"></i><span class="hidden-xs">Create</span>',
-			'reload' => '<i class="zmdi zmdi-refresh-alt zmdi-hc-fw"></i><span class="hidden-xs">Reload</span>',
-            'trashed' => '<i class="zmdi zmdi-delete zmdi-hc-fw"></i><span class="hidden-xs">Trashed</span>',
-			'colvis' => '<i class="zmdi zmdi-more-vert zmdi-hc-fw"></i><span class="hidden-xs">Columns</span>',
-			'filter' => '<i class="zmdi zmdi-filter-list zmdi-hc-fw"></i><span class="hidden-xs">Filters</span>',
+            'create' => '<i class="zmdi zmdi-hc-fw zmdi-plus"></i><span class="hidden-xs">Create</span>',
+            'reload' => '<i class="zmdi zmdi-hc-fw zmdi-refresh-alt"></i><span class="hidden-xs">Reload</span>',
+            'trashed' => '<i class="zmdi zmdi-hc-fw zmdi-delete"></i><span class="hidden-xs">Trashed</span>',
+            'colvis' => '<i class="zmdi zmdi-hc-fw zmdi-more-vert"></i><span class="hidden-xs">Columns</span>',
+            'filter' => '<i class="zmdi zmdi-hc-fw zmdi-filter-list"></i><span class="hidden-xs">Filters</span>',
 		],
 	'columns' =>
 		[

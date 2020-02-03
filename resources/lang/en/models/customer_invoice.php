@@ -13,36 +13,36 @@ return [
         'title' => 'List of trashed Customer Invoices',
     ],
     'create' => [
-        'title' => 'Create CustomerInvoice',
+        'title' => 'Create Customer Invoice',
     ],
     'store' => [
-        'success' => 'CustomerInvoice created successfully!',
-        'error' => 'CustomerInvoice created unsuccessfully!'
+        'success' => 'Customer Invoice created successfully!',
+        'error' => 'Customer Invoice created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'CustomerInvoice',
+        'title' => 'Customer Invoice',
     ],
     'edit' => [
-        'title' => 'Edit CustomerInvoice',
+        'title' => 'Edit Customer Invoice',
     ],
     'update' => [
-        'success' => 'CustomerInvoice updated successfully!',
-        'error' => 'CustomerInvoice updated unsuccessfully!'
+        'success' => 'Customer Invoice updated successfully!',
+        'error' => 'Customer Invoice updated unsuccessfully!'
     ],
     'trash' => [
-        'title' => 'Move CustomerInvoice to trash',
-        'success' => 'CustomerInvoice trashed successfully!',
-        'error' => 'CustomerInvoice trashed unsuccessfully!'
+        'title' => 'Move Customer Invoice to trash',
+        'success' => 'Customer Invoice trashed successfully!',
+        'error' => 'Customer Invoice trashed unsuccessfully!'
     ],
     'restore' => [
-        'title' => 'Restore CustomerInvoice',
-        'success' => 'CustomerInvoice restored successfully!',
-        'error' => 'CustomerInvoice restored unsuccessfully!'
+        'title' => 'Restore Customer Invoice',
+        'success' => 'Customer Invoice restored successfully!',
+        'error' => 'Customer Invoice restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy CustomerInvoice',
-        'success' => 'CustomerInvoice destroyed successfully!',
-        'error' => 'CustomerInvoice destroyed unsuccessfully!'
+        'title' => 'Destroy Customer Invoice',
+        'success' => 'Customer Invoice destroyed successfully!',
+        'error' => 'Customer Invoice destroyed unsuccessfully!'
     ],
     'tiff' => [
         'title' => 'Download TIFF',

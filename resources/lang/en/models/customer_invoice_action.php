@@ -2,9 +2,9 @@
 
 return [
     'labels' => [
-        'singular' => 'CustomerInvoiceAction',
+        'singular' => 'Customer Invoice Action',
         'plural' => 'Customer Invoice Actions',
-		'create' => 'Create CustomerInvoiceAction'
+		'create' => 'Create Customer Invoice Action'
     ],
 	'index' => [
 		'title' => 'List of Customer Invoice Actions',
@@ -13,36 +13,36 @@ return [
         'title' => 'List of trashed Customer Invoice Actions',
     ],
 	'create' => [
-		'title' => 'Create CustomerInvoiceAction',
+		'title' => 'Create Customer Invoice Action',
 	],
     'store' => [
-	    'success' => 'CustomerInvoiceAction created successfully!',
-	    'error' => 'CustomerInvoiceAction created unsuccessfully!'
+	    'success' => 'Customer Invoice Action created successfully!',
+	    'error' => 'Customer Invoice Action created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'CustomerInvoiceAction',
+        'title' => 'Customer Invoice Action',
     ],
 	'edit' => [
-		'title' => 'Edit CustomerInvoiceAction',
+		'title' => 'Edit Customer Invoice Action',
 	],
 	'update' => [
-		'success' => 'CustomerInvoiceAction updated successfully!',
-		'error' => 'CustomerInvoiceAction updated unsuccessfully!'
+		'success' => 'Customer Invoice Action updated successfully!',
+		'error' => 'Customer Invoice Action updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move CustomerInvoiceAction to trash',
-		'success' => 'CustomerInvoiceAction trashed successfully!',
-		'error' => 'CustomerInvoiceAction trashed unsuccessfully!'
+        'title' => 'Move Customer Invoice Action to trash',
+		'success' => 'Customer Invoice Action trashed successfully!',
+		'error' => 'Customer Invoice Action trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore CustomerInvoiceAction',
-        'success' => 'CustomerInvoiceAction restored successfully!',
-        'error' => 'CustomerInvoiceAction restored unsuccessfully!'
+        'title' => 'Restore Customer Invoice Action',
+        'success' => 'Customer Invoice Action restored successfully!',
+        'error' => 'Customer Invoice Action restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy CustomerInvoiceAction',
-        'success' => 'CustomerInvoiceAction destroyed successfully!',
-        'error' => 'CustomerInvoiceAction destroyed unsuccessfully!'
+        'title' => 'Destroy Customer Invoice Action',
+        'success' => 'Customer Invoice Action destroyed successfully!',
+        'error' => 'Customer Invoice Action destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'action' => 'Action',

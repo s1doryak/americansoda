@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'FailedJob',
-        'plural' => 'FailedJob',
-        'create' => 'Create FailedJob'
+        'singular' => 'Failed Job',
+        'plural' => 'Failed Job',
+        'create' => 'Create Failed Job'
     ],
     'index' => [
-        'title' => 'List of FailedJob',
+        'title' => 'List of Failed Job',
     ],
     'trashed' => [
-        'title' => 'List of trashed FailedJob',
+        'title' => 'List of trashed Failed Job',
     ],
     'create' => [
-        'title' => 'Create FailedJob',
+        'title' => 'Create Failed Job',
     ],
     'store' => [
-        'success' => 'FailedJob created successfully!',
-        'error' => 'FailedJob created unsuccessfully!'
+        'success' => 'Failed Job created successfully!',
+        'error' => 'Failed Job created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'FailedJob',
+        'title' => 'Failed Job',
     ],
     'edit' => [
-        'title' => 'Edit FailedJob',
+        'title' => 'Edit Failed Job',
     ],
     'update' => [
-        'success' => 'FailedJob updated successfully!',
-        'error' => 'FailedJob updated unsuccessfully!'
+        'success' => 'Failed Job updated successfully!',
+        'error' => 'Failed Job updated unsuccessfully!'
     ],
     'trash' => [
-        'title' => 'Move FailedJob to trash',
-        'success' => 'FailedJob trashed successfully!',
-        'error' => 'FailedJob trashed unsuccessfully!'
+        'title' => 'Move Failed Job to trash',
+        'success' => 'Failed Job trashed successfully!',
+        'error' => 'Failed Job trashed unsuccessfully!'
     ],
     'restore' => [
-        'title' => 'Restore FailedJob',
-        'success' => 'FailedJob restored successfully!',
-        'error' => 'FailedJob restored unsuccessfully!'
+        'title' => 'Restore Failed Job',
+        'success' => 'Failed Job restored successfully!',
+        'error' => 'Failed Job restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy FailedJob',
-        'success' => 'FailedJob destroyed successfully!',
-        'error' => 'FailedJob destroyed unsuccessfully!'
+        'title' => 'Destroy Failed Job',
+        'success' => 'Failed Job destroyed successfully!',
+        'error' => 'Failed Job destroyed unsuccessfully!'
     ],
     'fields' => [
         'connection' => 'Connection',

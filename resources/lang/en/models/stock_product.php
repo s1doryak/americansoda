@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'StockProduct',
-        'plural' => 'StockProduct',
-		'create' => 'Create StockProduct'
+        'singular' => 'Stock',
+        'plural' => 'Stock',
+		'create' => 'Create Stock'
     ],
 	'index' => [
-		'title' => 'List of StockProduct',
+		'title' => 'List of Stock',
 	],
     'trashed' => [
-        'title' => 'List of trashed StockProduct',
+        'title' => 'List of trashed Stock',
     ],
 	'create' => [
-		'title' => 'Create StockProduct',
+		'title' => 'Create Stock',
 	],
     'store' => [
-	    'success' => 'StockProduct created successfully!',
-	    'error' => 'StockProduct created unsuccessfully!'
+	    'success' => 'Stock created successfully!',
+	    'error' => 'Stock created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'StockProduct',
+        'title' => 'Stock',
     ],
 	'edit' => [
-		'title' => 'Edit StockProduct',
+		'title' => 'Edit Stock',
 	],
 	'update' => [
-		'success' => 'StockProduct updated successfully!',
-		'error' => 'StockProduct updated unsuccessfully!'
+		'success' => 'Stock updated successfully!',
+		'error' => 'Stock updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move StockProduct to trash',
-		'success' => 'StockProduct trashed successfully!',
-		'error' => 'StockProduct trashed unsuccessfully!'
+        'title' => 'Move Stock to trash',
+		'success' => 'Stock trashed successfully!',
+		'error' => 'Stock trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore StockProduct',
-        'success' => 'StockProduct restored successfully!',
-        'error' => 'StockProduct restored unsuccessfully!'
+        'title' => 'Restore Stock',
+        'success' => 'Stock restored successfully!',
+        'error' => 'Stock restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy StockProduct',
-        'success' => 'StockProduct destroyed successfully!',
-        'error' => 'StockProduct destroyed unsuccessfully!'
+        'title' => 'Destroy Stock',
+        'success' => 'Stock destroyed successfully!',
+        'error' => 'Stock destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'delivery_number' => 'Delivery Number',

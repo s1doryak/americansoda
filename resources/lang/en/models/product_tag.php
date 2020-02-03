@@ -2,9 +2,9 @@
 
 return [
     'labels' => [
-        'singular' => 'ProductTag',
+        'singular' => 'Product Tag',
         'plural' => 'Product Tags',
-		'create' => 'Create ProductTag'
+		'create' => 'Create Product Tag'
     ],
 	'index' => [
 		'title' => 'List of Product Tags',
@@ -13,36 +13,36 @@ return [
         'title' => 'List of trashed Product Tags',
     ],
 	'create' => [
-		'title' => 'Create ProductTag',
+		'title' => 'Create Product Tag',
 	],
     'store' => [
-	    'success' => 'ProductTag created successfully!',
-	    'error' => 'ProductTag created unsuccessfully!'
+	    'success' => 'Product Tag created successfully!',
+	    'error' => 'Product Tag created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'ProductTag',
+        'title' => 'Product Tag',
     ],
 	'edit' => [
-		'title' => 'Edit ProductTag',
+		'title' => 'Edit Product Tag',
 	],
 	'update' => [
-		'success' => 'ProductTag updated successfully!',
-		'error' => 'ProductTag updated unsuccessfully!'
+		'success' => 'Product Tag updated successfully!',
+		'error' => 'Product Tag updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move ProductTag to trash',
-		'success' => 'ProductTag trashed successfully!',
-		'error' => 'ProductTag trashed unsuccessfully!'
+        'title' => 'Move Product Tag to trash',
+		'success' => 'Product Tag trashed successfully!',
+		'error' => 'Product Tag trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore ProductTag',
-        'success' => 'ProductTag restored successfully!',
-        'error' => 'ProductTag restored unsuccessfully!'
+        'title' => 'Restore Product Tag',
+        'success' => 'Product Tag restored successfully!',
+        'error' => 'Product Tag restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy ProductTag',
-        'success' => 'ProductTag destroyed successfully!',
-        'error' => 'ProductTag destroyed unsuccessfully!'
+        'title' => 'Destroy Product Tag',
+        'success' => 'Product Tag destroyed successfully!',
+        'error' => 'Product Tag destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'name' => 'Name',

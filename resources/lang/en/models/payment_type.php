@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'PaymentType',
-        'plural' => 'PaymentType',
-		'create' => 'Create PaymentType'
+        'singular' => 'Payment Type',
+        'plural' => 'Payment Type',
+		'create' => 'Create Payment Type'
     ],
 	'index' => [
-		'title' => 'List of PaymentType',
+		'title' => 'List of Payment Type',
 	],
     'trashed' => [
-        'title' => 'List of trashed PaymentType',
+        'title' => 'List of trashed Payment Type',
     ],
 	'create' => [
-		'title' => 'Create PaymentType',
+		'title' => 'Create Payment Type',
 	],
     'store' => [
-	    'success' => 'PaymentType created successfully!',
-	    'error' => 'PaymentType created unsuccessfully!'
+	    'success' => 'Payment Type created successfully!',
+	    'error' => 'Payment Type created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'PaymentType',
+        'title' => 'Payment Type',
     ],
 	'edit' => [
-		'title' => 'Edit PaymentType',
+		'title' => 'Edit Payment Type',
 	],
 	'update' => [
-		'success' => 'PaymentType updated successfully!',
-		'error' => 'PaymentType updated unsuccessfully!'
+		'success' => 'Payment Type updated successfully!',
+		'error' => 'Payment Type updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move PaymentType to trash',
-		'success' => 'PaymentType trashed successfully!',
-		'error' => 'PaymentType trashed unsuccessfully!'
+        'title' => 'Move Payment Type to trash',
+		'success' => 'Payment Type trashed successfully!',
+		'error' => 'Payment Type trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore PaymentType',
-        'success' => 'PaymentType restored successfully!',
-        'error' => 'PaymentType restored unsuccessfully!'
+        'title' => 'Restore Payment Type',
+        'success' => 'Payment Type restored successfully!',
+        'error' => 'Payment Type restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy PaymentType',
-        'success' => 'PaymentType destroyed successfully!',
-        'error' => 'PaymentType destroyed unsuccessfully!'
+        'title' => 'Destroy Payment Type',
+        'success' => 'Payment Type destroyed successfully!',
+        'error' => 'Payment Type destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'name' => 'Name',

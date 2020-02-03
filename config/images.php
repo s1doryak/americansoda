@@ -1,13 +1,6 @@
 <?php return [
     'path' => 'uploads/images/{model}/{attribute}',
     'library' => 'gd',
-    'quality' => 90,
-    'default_dimensions' => [
-        'width' => 512,
-        'height' => 512,
-        'crop' => true,
-        'quality' => 90,
-    ],
     'dimensions' => [
         \App\User::class => [
             'avatar' => [

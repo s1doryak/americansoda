@@ -4,45 +4,45 @@ return [
     'labels' => [
         'singular' => 'Item',
         'plural' => 'Items',
-        'create' => 'Create CustomerOrderItem'
+        'create' => 'Create OrderItem'
     ],
     'index' => [
-        'title' => 'List of CustomerOrderItem',
+        'title' => 'List of Customer Order Item',
     ],
     'trashed' => [
-        'title' => 'List of trashed CustomerOrderItem',
+        'title' => 'List of trashed Customer Order Item',
     ],
     'create' => [
-        'title' => 'Create CustomerOrderItem',
+        'title' => 'Create Customer Order Item',
     ],
     'store' => [
-        'success' => 'CustomerOrderItem created successfully!',
-        'error' => 'CustomerOrderItem created unsuccessfully!'
+        'success' => 'Customer Order Item created successfully!',
+        'error' => 'Customer Order Item created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'CustomerOrderItem',
+        'title' => 'Customer Order Item',
     ],
     'edit' => [
-        'title' => 'Edit CustomerOrderItem',
+        'title' => 'Edit Customer Order Item',
     ],
     'update' => [
-        'success' => 'CustomerOrderItem updated successfully!',
-        'error' => 'CustomerOrderItem updated unsuccessfully!'
+        'success' => 'Customer Order Item updated successfully!',
+        'error' => 'Customer Order Item updated unsuccessfully!'
     ],
     'trash' => [
-        'title' => 'Move CustomerOrderItem to trash',
-        'success' => 'CustomerOrderItem trashed successfully!',
-        'error' => 'CustomerOrderItem trashed unsuccessfully!'
+        'title' => 'Move Customer Order Item to trash',
+        'success' => 'Customer Order Item trashed successfully!',
+        'error' => 'Customer Order Item trashed unsuccessfully!'
     ],
     'restore' => [
-        'title' => 'Restore CustomerOrderItem',
-        'success' => 'CustomerOrderItem restored successfully!',
-        'error' => 'CustomerOrderItem restored unsuccessfully!'
+        'title' => 'Restore Customer Order Item',
+        'success' => 'Customer Order Item restored successfully!',
+        'error' => 'Customer Order Item restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy CustomerOrderItem',
-        'success' => 'CustomerOrderItem destroyed successfully!',
-        'error' => 'CustomerOrderItem destroyed unsuccessfully!'
+        'title' => 'Destroy Customer Order Item',
+        'success' => 'Customer Order Item destroyed successfully!',
+        'error' => 'Customer Order Item destroyed unsuccessfully!'
     ],
     'fields' => [
         'status' => 'Status',

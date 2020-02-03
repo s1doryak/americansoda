@@ -16,30 +16,6 @@ return [
 			'close' => 'Close',
 			'undo' => 'Undo',
 			'split' => 'Split',
-			'bulkCreate' => 'Create',
 			'apply' => 'Apply',
-		],
-	'labels' =>
-		[
-			'actions' => 'Actions',
-			'required' => 'This field is required',
-			'removed' => 'Removed',
-			'not_selected' => 'Not selected',
-			'empty_value' => 'empty value',
-			'filters' => 'Filters',
-		],
-	'file' =>
-		[
-			'select' => 'Select File',
-			'change' => 'Change',
-			'remove' => 'Remove',
-			'download' => 'Download',
-			'size' => '(%s bytes)',
-		],
-	'image' =>
-		[
-			'select' => 'Select Image',
-			'change' => 'Change',
-			'remove' => 'Remove',
 		],
 ];

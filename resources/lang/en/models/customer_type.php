@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'CustomerType',
-        'plural' => 'CustomerType',
-		'create' => 'Create CustomerType'
+        'singular' => 'Customer Type',
+        'plural' => 'Customer Type',
+		'create' => 'Create Customer Type'
     ],
 	'index' => [
-		'title' => 'List of CustomerType',
+		'title' => 'List of Customer Type',
 	],
     'trashed' => [
-        'title' => 'List of trashed CustomerType',
+        'title' => 'List of trashed Customer Type',
     ],
 	'create' => [
-		'title' => 'Create CustomerType',
+		'title' => 'Create Customer Type',
 	],
     'store' => [
-	    'success' => 'CustomerType created successfully!',
-	    'error' => 'CustomerType created unsuccessfully!'
+	    'success' => 'Customer Type created successfully!',
+	    'error' => 'Customer Type created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'CustomerType',
+        'title' => 'Customer Type',
     ],
 	'edit' => [
-		'title' => 'Edit CustomerType',
+		'title' => 'Edit Customer Type',
 	],
 	'update' => [
-		'success' => 'CustomerType updated successfully!',
-		'error' => 'CustomerType updated unsuccessfully!'
+		'success' => 'Customer Type updated successfully!',
+		'error' => 'Customer Type updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move CustomerType to trash',
-		'success' => 'CustomerType trashed successfully!',
-		'error' => 'CustomerType trashed unsuccessfully!'
+        'title' => 'Move Customer Type to trash',
+		'success' => 'Customer Type trashed successfully!',
+		'error' => 'Customer Type trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore CustomerType',
-        'success' => 'CustomerType restored successfully!',
-        'error' => 'CustomerType restored unsuccessfully!'
+        'title' => 'Restore Customer Type',
+        'success' => 'Customer Type restored successfully!',
+        'error' => 'Customer Type restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy CustomerType',
-        'success' => 'CustomerType destroyed successfully!',
-        'error' => 'CustomerType destroyed unsuccessfully!'
+        'title' => 'Destroy Customer Type',
+        'success' => 'Customer Type destroyed successfully!',
+        'error' => 'Customer Type destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'name' => 'Name',

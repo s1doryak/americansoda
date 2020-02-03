@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'ProductGroup',
-        'plural' => 'ProductGroup',
-        'create' => 'Create ProductGroup'
+        'singular' => 'Product Group',
+        'plural' => 'Product Group',
+        'create' => 'Create Product Group'
     ],
     'index' => [
-        'title' => 'List of ProductGroup',
+        'title' => 'List of Product Group',
     ],
     'trashed' => [
-        'title' => 'List of trashed ProductGroup',
+        'title' => 'List of trashed Product Group',
     ],
     'create' => [
-        'title' => 'Create ProductGroup',
+        'title' => 'Create Product Group',
     ],
     'store' => [
-        'success' => 'ProductGroup created successfully!',
-        'error' => 'ProductGroup created unsuccessfully!'
+        'success' => 'Product Group created successfully!',
+        'error' => 'Product Group created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'ProductGroup',
+        'title' => 'Product Group',
     ],
     'edit' => [
-        'title' => 'Edit ProductGroup',
+        'title' => 'Edit Product Group',
     ],
     'update' => [
-        'success' => 'ProductGroup updated successfully!',
-        'error' => 'ProductGroup updated unsuccessfully!'
+        'success' => 'Product Group updated successfully!',
+        'error' => 'Product Group updated unsuccessfully!'
     ],
     'trash' => [
-        'title' => 'Move ProductGroup to trash',
-        'success' => 'ProductGroup trashed successfully!',
-        'error' => 'ProductGroup trashed unsuccessfully!'
+        'title' => 'Move Product Group to trash',
+        'success' => 'Product Group trashed successfully!',
+        'error' => 'Product Group trashed unsuccessfully!'
     ],
     'restore' => [
-        'title' => 'Restore ProductGroup',
-        'success' => 'ProductGroup restored successfully!',
-        'error' => 'ProductGroup restored unsuccessfully!'
+        'title' => 'Restore Product Group',
+        'success' => 'Product Group restored successfully!',
+        'error' => 'Product Group restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy ProductGroup',
-        'success' => 'ProductGroup destroyed successfully!',
-        'error' => 'ProductGroup destroyed unsuccessfully!'
+        'title' => 'Destroy Product Group',
+        'success' => 'Product Group destroyed successfully!',
+        'error' => 'Product Group destroyed unsuccessfully!'
     ],
     'fields' => [
         'name' => 'Name',

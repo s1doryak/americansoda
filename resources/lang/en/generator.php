@@ -1,11 +1,11 @@
 <?php
 
 return [
-	'translation' =>
-		[
-			'placeholders' =>
-				[
-					'select' => 'Select %s',
-				],
-		],
+    'translation' =>
+        [
+            'placeholders' =>
+                [
+                    'select' => 'Select :relation',
+                ],
+        ],
 ];

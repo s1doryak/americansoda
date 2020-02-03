@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'CustomerPricingPolicyRevision',
-        'plural' => 'CustomerPricingPolicyRevision',
-		'create' => 'Create CustomerPricingPolicyRevision'
+        'singular' => 'Customer Pricing Policy Revision',
+        'plural' => 'Customer Pricing Policy Revision',
+		'create' => 'Create Customer Pricing Policy Revision'
     ],
 	'index' => [
-		'title' => 'List of CustomerPricingPolicyRevision',
+		'title' => 'List of Customer Pricing Policy Revision',
 	],
     'trashed' => [
-        'title' => 'List of trashed CustomerPricingPolicyRevision',
+        'title' => 'List of trashed Customer Pricing Policy Revision',
     ],
 	'create' => [
-		'title' => 'Create CustomerPricingPolicyRevision',
+		'title' => 'Create Customer Pricing Policy Revision',
 	],
     'store' => [
-	    'success' => 'CustomerPricingPolicyRevision created successfully!',
-	    'error' => 'CustomerPricingPolicyRevision created unsuccessfully!'
+	    'success' => 'Customer Pricing Policy Revision created successfully!',
+	    'error' => 'Customer Pricing Policy Revision created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'CustomerPricingPolicyRevision',
+        'title' => 'Customer Pricing Policy Revision',
     ],
 	'edit' => [
-		'title' => 'Edit CustomerPricingPolicyRevision',
+		'title' => 'Edit Customer Pricing Policy Revision',
 	],
 	'update' => [
-		'success' => 'CustomerPricingPolicyRevision updated successfully!',
-		'error' => 'CustomerPricingPolicyRevision updated unsuccessfully!'
+		'success' => 'Customer Pricing Policy Revision updated successfully!',
+		'error' => 'Customer Pricing Policy Revision updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move CustomerPricingPolicyRevision to trash',
-		'success' => 'CustomerPricingPolicyRevision trashed successfully!',
-		'error' => 'CustomerPricingPolicyRevision trashed unsuccessfully!'
+        'title' => 'Move Customer Pricing Policy Revision to trash',
+		'success' => 'Customer Pricing Policy Revision trashed successfully!',
+		'error' => 'Customer Pricing Policy Revision trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore CustomerPricingPolicyRevision',
-        'success' => 'CustomerPricingPolicyRevision restored successfully!',
-        'error' => 'CustomerPricingPolicyRevision restored unsuccessfully!'
+        'title' => 'Restore Customer Pricing Policy Revision',
+        'success' => 'Customer Pricing Policy Revision restored successfully!',
+        'error' => 'Customer Pricing Policy Revision restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy CustomerPricingPolicyRevision',
-        'success' => 'CustomerPricingPolicyRevision destroyed successfully!',
-        'error' => 'CustomerPricingPolicyRevision destroyed unsuccessfully!'
+        'title' => 'Destroy Customer Pricing Policy Revision',
+        'success' => 'Customer Pricing Policy Revision destroyed successfully!',
+        'error' => 'Customer Pricing Policy Revision destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'revision_type' => 'Revision Type',
