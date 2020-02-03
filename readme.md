@@ -19,18 +19,23 @@ docker-compose run npm install
 docker-compose run npm run production
 ```
 
-### Миграция БД
+### Миграция БД (не требуется)
 ```bash
 source .env
+
+# Удаление существующих таблиц
+docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/drop.sql
+
+# Импорт старой БД
+docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < legacy.sql
+
+# Применение миграций
 docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/diff.sql
+
+# Восстановление таблицы миграций
 docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/migrations.sql
-```
 
-### Счета
-```bash
-docker-compose run artisan resource:create:company \
-  --name="American Soda"
-
+# Создание банковского счета компании
 docker-compose run artisan resource:create:company_bank_account \
      --bank="Nordea" \
      --swift="NDEAFIHH" \
@@ -38,7 +43,10 @@ docker-compose run artisan resource:create:company_bank_account \
      --iban="FI72 1064 3000 240775" \
      --default="true" \
      --company="American Soda"
+```
 
+### Счета
+```bash
 docker-compose run artisan maventa:import:invoices 20200101000000 --tiff --force
 ```
 
