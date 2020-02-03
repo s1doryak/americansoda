@@ -44,6 +44,9 @@ return [
         'success' => 'Assembly destroyed successfully!',
         'error' => 'Assembly destroyed unsuccessfully!'
     ],
+    'assembly_list' => [
+        'title' => 'Assembly list'
+    ],
 	'fields' => [
 		'number' => 'Number',
 		'comment' => 'Comment',
@@ -61,6 +64,6 @@ return [
         'deleted_at' => 'Trashed',
     ],
     'filters' => [
-
+        'number' => 'Number'
     ],
 ];

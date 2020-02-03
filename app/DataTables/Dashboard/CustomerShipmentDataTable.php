@@ -183,9 +183,9 @@ class CustomerShipmentDataTable extends DataTable
     public function renderCustomer__NameColumn($customerShipment)
     {
         if ($this->isDataTableRequest()) {
-            return $customerShipment->customer ? $customerShipment->customer->renderName() : $this->renderDefaultView();
+            return $customerShipment->customer->renderName() ?? $this->renderDefaultView();
         }
-        return optional($customerShipment->customer)->name;
+        return $customerShipment->customer->name ?? null;
     }
 
     /**
@@ -204,5 +204,31 @@ class CustomerShipmentDataTable extends DataTable
     public function renderCustomerOrderItems__customerOrder__batchNumberColumn($customerShipment)
     {
         return $customerShipment->order_batch_numbers;
+    }
+
+    /**
+     * @param CustomerShipment $customerShipment
+     * @return string
+     */
+    public function renderPackageType__NameColumn($customerShipment)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerShipment->packageType->name ?? $this->renderDefaultView();
+        }
+
+        return $customerShipment->packageType->name ?? null;
+    }
+
+    /**
+     * @param CustomerShipment $customerShipment
+     * @return string
+     */
+    public function renderUser__NameColumn($customerShipment)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerShipment->user->name ?? $this->renderDefaultView();
+        }
+
+        return $customerShipment->user->name ?? null;
     }
 }

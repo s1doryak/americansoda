@@ -2,12 +2,22 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\CustomerOrder;
+use Carbon\Carbon;
 use DB;
 use App\Repositories\Contracts\CustomerOrderRepository;
 use Illuminate\Support\Str;
 
 class CustomerOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerOrderRepository
 {
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return CustomerOrder::class;
+    }
+
     /**
      * @param null $date
      * @param array $exclude
@@ -137,5 +147,12 @@ class CustomerOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositor
         $this->resetModel();
 
         return $this->parserResult($query->get());
+    }
+
+    public function getByShopId($shopId)
+    {
+        return $this
+            ->orderBy(DB::raw('number', 'SOUNDEX(number) $1, LENGTH(number) $1, number $1'))
+            ->findWhere(['customer_id' => $shopId]);
     }
 }

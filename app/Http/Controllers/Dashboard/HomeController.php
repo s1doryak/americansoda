@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Routing\Controller;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 /**
@@ -19,164 +20,165 @@ use Illuminate\Support\Collection;
  */
 class HomeController extends Controller
 {
-	use DashboardSidebar;
+    use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
-	/**
-	 * @var string
-	 */
-	protected $prefix = 'dashboard';
+    /**
+     * @var string
+     */
+    protected $prefix = 'dashboard';
 
-	/**
-	 * JobsController constructor.
-	 * @param Gate $gate
-	 */
-	public function __construct(Gate $gate)
-	{
-		$this->gate = $gate;
+    /**
+     * JobsController constructor.
+     * @param Gate $gate
+     */
+    public function __construct(Gate $gate)
+    {
+        $this->gate = $gate;
 
-		$this->middleware('auth:dashboard');
-		$this->shareSidebar();
-	}
+        $this->middleware('auth:dashboard');
+        $this->shareSidebar();
+    }
 
-	/**
-	 * Show the application dashboard.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function home()
-	{
-		return redirect(route('dashboard.customer_order_item.index'));
-	}
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function home()
+    {
+        return redirect(route('dashboard.customer_order_item.index'));
+    }
 
-	/**
-	 * @return \Illuminate\Http\Response
-	 */
-	public function calendar()
-	{
-		return view(
-			'dashboard::calendar.index',
-			[
-				'title' => trans('calendar.index.title'),
-			]
-		);
-	}
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function calendar()
+    {
+        return view(
+            'dashboard::calendar.index',
+            [
+                'title' => trans('calendar.index.title'),
+            ]
+        );
+    }
 
-	/**
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function calendarJson(Request $request)
-	{
-		/** @var CustomerOrderRepositoryEloquent $repository */
-		$repository = app(CustomerOrderRepository::class);
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function calendarJson(Request $request)
+    {
+        /** @var CustomerOrderRepositoryEloquent $repository */
+        $repository = app(CustomerOrderRepository::class);
+        $start = substr($request->input('start'), 0, strpos($request->input('start'), 'T'));
+        $end = substr($request->input('end'), 0, strpos($request->input('end'), 'T'));
+        /** @var Collection|CustomerOrder[] $orders */
+        $orders = $repository->with(['customer', 'customerOrderItems'])->getValidOrders(
+            $start,
+            $end
+        );
+        /** @var Collection|CustomerOrder[] $last */
+        $last = $repository->with(['customer', 'customerOrderItems'])->getLastOrders();
 
-		/** @var Collection|CustomerOrder[] $orders */
-		$orders = $repository->with(['customer', 'customerOrderItems'])->getValidOrders(
-			$request->get('start'),
-			$request->get('end')
-		);
+        /** @var Collection $events */
+        $events = $orders->map(
+            function ($order) {
+                /** @var CustomerOrder $order */
+                return $order->toFcEvent();
+            }
+        );
 
-		/** @var Collection|CustomerOrder[] $last */
-		$last = $repository->with(['customer', 'customerOrderItems'])->getLastOrders();
+        if ($last->count()) {
 
-		/** @var Collection $events */
-		$events = $orders->map(
-			function ($order) {
-				/** @var CustomerOrder $order */
-				return $order->toFcEvent();
-			}
-		);
+            $last->map(
+                function ($order) use ($events) {
+                    /** @var CustomerOrder $order */
+                    $event = $order->toFcEvent();
 
-		if ($last->count()) {
+                    /** @var Carbon $date */
+                    $date = Carbon::createFromFormat('Y-m-d', $order->future_date);
 
-			$last->map(
-				function ($order) use ($events) {
-					/** @var CustomerOrder $order */
-					$event = $order->toFcEvent();
+                    $event['type'] = 'future';
+                    $event['id'] = $event['id'] . '_' . $event['type'];
+                    $event['editable'] = true;
+                    $event['start'] = $date->addDays($order->fc_overdue)->toIso8601String();
+                    $event['className'] = $event['className'] . ' bgm-pink';
 
-					/** @var Carbon $date */
-					$date = Carbon::createFromFormat('Y-m-d', $order->future_date);
+                    if (!empty(trim(strip_tags($order->fc_future_comment)))) {
+                        $event['className'] = $event['className'] . ' fc-order-has-future-comment';
+                    }
 
-					unset($event['id']);
+                    $events->push($event);
+                }
+            );
+        }
 
-					$event['type'] = 'future';
-					$event['editable'] = true;
-					$event['start'] = $date->addDays($order->fc_overdue)->toIso8601String();
-					$event['className'] = $event['className'] . ' bgm-pink';
+        return json($events->toArray());
+    }
 
-					if (!empty(trim(strip_tags($order->fc_future_comment)))) {
-						$event['className'] = $event['className'] . ' fc-order-has-future-comment';
-					}
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function calendarUpdate(Request $request)
+    {
+        $response = [];
 
-					$events->push($event);
-				}
-			);
-		}
+        /** @var CustomerOrderRepositoryEloquent $repository */
+        $repository = app(CustomerOrderRepository::class);
 
-		return json($events->toArray());
-	}
+        $event = $request->get('event');
 
-	/**
-	 * @param Request $request
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function calendarUpdate(Request $request)
-	{
-		$response = [];
+        $order_id = Arr::get($event, 'order');
 
-		/** @var CustomerOrderRepositoryEloquent $repository */
-		$repository = app(CustomerOrderRepository::class);
+        /** @var Carbon $date */
+        $date = Carbon::createFromFormat('d-m-Y', Arr::get($event, 'start'));
 
-		$event = $request->get('event');
+        /** @var \App\CustomerOrder $order */
+        $order = $repository->with(['customer'])->find($order_id);
 
-		$order_id = array_get($event, 'order');
+        /** @var \App\Customer $customer */
+        $customer = $order->customer;
 
-		/** @var Carbon $date */
-		$date = Carbon::createFromFormat('d-m-Y', array_get($event, 'start'));
+        $interval = (int)$customer->order_interval;
 
-		/** @var \App\CustomerOrder $order */
-		$order = $repository->with(['customer'])->find($order_id);
+        $overdue = $date->diffInDays($order->getDate()) - $interval;
 
-		/** @var \App\Customer $customer */
-		$customer = $order->customer;
+        if ($overdue >= 0) {
 
-		$interval = (int)$customer->order_interval;
+            $order->update([
+                'fc_overdue' => $overdue
+            ]);
 
-		$overdue = $date->diffInDays($order->getDate()) - $interval;
+        }
 
-		if ($overdue >= 0) {
+        $response['overdue'] = $overdue;
 
-			$order->update([
-				'fc_overdue' => $overdue
-			]);
+        $type = Arr::get($event, 'type');
 
-		}
+        if ($type == 'future') {
 
-		$response['overdue'] = $overdue;
+            $comment = Arr::get($event, 'future_comment');
 
-		$type = array_get($event, 'type');
+        } else {
 
-		if ($type == 'future') {
+            $comment = Arr::get($event, 'comment');
 
-			$comment = array_get($event, 'future_comment');
+        }
 
-		} else {
+        $customer->update([
+            'calendar_comment' => $comment
+        ]);
 
-			$comment = array_get($event, 'comment');
 
-		}
+        $response['comment'] = $comment;
+        $response['has_comment'] = !empty(trim(strip_tags($comment)));
+        $response['className'] = Arr::get($event, 'className');
 
-		$customer->update([
-			'calendar_comment' => $comment
-		]);
-
-		$response['comment'] = $comment;
-		$response['has_comment'] = !empty(trim(strip_tags($comment)));
-
-		return json($response);
-	}
+        return json($response);
+    }
 }

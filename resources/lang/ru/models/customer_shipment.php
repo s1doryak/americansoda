@@ -90,6 +90,9 @@ return [
 		'customer' => [
 			'name' => 'Клиент',
 		],
+        'customer_id' => [
+            'name' => 'Клиент',
+        ],
 		'user' => [
 			'name' => 'Менеджер',
 		],

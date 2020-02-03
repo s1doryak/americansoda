@@ -22,7 +22,8 @@ class StockMovementProductDataTable extends DataTable
             'stockMovement.stock.name' => [
                 'name' => 'stockMovement.stock.name',
                 'data' => 'stockMovement.stock.name',
-                'searchable' => true
+                'searchable' => true,
+                'orderable' => false,
             ],
             'product.name' => [
                 'name' => 'product.name',
@@ -53,9 +54,10 @@ class StockMovementProductDataTable extends DataTable
         return [
             'name',
             'number',
-			'comment',
+            'comment',
             'formatted_products_quantity',
-            'action'
+            'action',
+            'stockMovement.stock.name'
         ];
     }
 
@@ -81,7 +83,7 @@ class StockMovementProductDataTable extends DataTable
                 'type' => 'select',
                 'multiple' => true,
             ],
-            'product.name'             => [
+            'product.name' => [
                 'name' => 'product.name',
                 'data' => 'product.name',
                 'type' => 'select',
@@ -90,13 +92,10 @@ class StockMovementProductDataTable extends DataTable
             'created_at' => [
                 'type' => 'daterangepicker',
                 'name' => 'created_at',
-                'filter' => function ($query, $filterColumn, $request) {
-
-                    /** @var \Crmplease\MaterialAdmin\DataTables\Utilities\Request $request */
-                    $range = $request->filterValueByName('created_at');
+                'query' => function ($query, $filterColumn, $value) {
 
                     /** @var \Illuminate\Support\Collection $dates */
-                    $dates = collect(explode(' - ', $range));
+                    $dates = collect(explode(' - ', $value));
 
                     /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
                     $query->whereRaw(
@@ -116,13 +115,10 @@ class StockMovementProductDataTable extends DataTable
             'comment' => [
                 'type' => 'daterangepicker',
                 'name' => 'comment',
-                'filter' => function ($query, $filterColumn, $request) {
-
-                    /** @var \Crmplease\MaterialAdmin\DataTables\Utilities\Request $request */
-                    $range = $request->filterValueByName('comment');
+                'query' => function ($query, $filterColumn, $value) {
 
                     /** @var \Illuminate\Support\Collection $dates */
-                    $dates = collect(explode(' - ', $range));
+                    $dates = collect(explode(' - ', $value));
 
                     /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
                     $query->whereRaw(
@@ -160,5 +156,31 @@ class StockMovementProductDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param StockMovementProduct $stockMovementProduct
+     * @return string
+     */
+    public function renderStockMovement__Stock__NameColumn($stockMovementProduct)
+    {
+        if ($this->isDataTableRequest()) {
+            return $stockMovementProduct->stockMovement->stock->name ?? $this->renderDefaultView();
+        }
+
+        return $stockMovementProduct->stockMovement->stock->name ?? null;
+    }
+
+    /**
+     * @param StockMovementProduct $stockMovementProduct
+     * @return string
+     */
+    public function renderProduct__NameColumn($stockMovementProduct)
+    {
+        if ($this->isDataTableRequest()) {
+            return $stockMovementProduct->product->name ?? $this->renderDefaultView();
+        }
+
+        return $stockMovementProduct->product->name ?? null;
     }
 }

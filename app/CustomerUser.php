@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * CustomerUser
@@ -14,41 +15,41 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
  * @property string $name
  * @property string $phone
  * @property string $comment
-
  * @property \Illuminate\Support\Collection|\App\Customer[] $customers
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
-
  * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany customers()
  * @package App
  */
-class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User
+class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User implements JWTSubject
 {
-	protected $fillable = [
-		'email',
-		'email_verified_at',
-		'password',
-		'name',
-		'phone',
-		'comment',
-	];
+    protected $fillable = [
+        'email',
+        'email_verified_at',
+        'password',
+        'name',
+        'phone',
+        'comment',
+        'token',
+    ];
 
-	protected $appends = [
+    protected $appends = [
 
-	];
+    ];
 
-	protected $casts = [
+    protected $casts = [
 
-	];
+    ];
 
-	protected $dates = [
-		'email_verified_at',
-	];
+    protected $dates = [
+        'email_verified_at',
+    ];
 
     protected $hidden = [
-		'password',
-		'remember_token',
+        'password',
+        'remember_token',
+        'token',
     ];
 
     protected $belongsTo = [
@@ -56,7 +57,7 @@ class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User
     ];
 
     protected $belongsToMany = [
-		'customers' => [\App\Customer::class, 'customer_user_customer'],
+        'customers' => [\App\Customer::class, 'customer_user_customer'],
     ];
 
     protected $belongsToManyPivot = [
@@ -68,11 +69,9 @@ class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User
     ];
 
     protected $hasOne = [
-
     ];
 
     protected $hasMany = [
-		'customerUserTokens' => \App\CustomerUserToken::class,
     ];
 
     protected $hasManyThrough = [
@@ -88,7 +87,7 @@ class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User
     ];
 
     protected $with = [
-		'customers',
+
     ];
 
     protected $images = [
@@ -98,4 +97,14 @@ class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User
     protected $files = [
 
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

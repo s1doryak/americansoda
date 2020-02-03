@@ -82,13 +82,10 @@ class CustomerTypeDataTable extends DataTable
      */
     public function renderCustomerType__NameColumn($customerType)
     {
-        $customerTypeName = $customerType->customerType ? $customerType->customerType->name : null;
-
-        if ($customerTypeName) {
-            return $customerTypeName;
-        } else {
-            return $this->renderView('datatables::columns.default');
+        if ($this->isDataTableRequest()) {
+            return $customerType->customerType->name ?? $this->renderDefaultView();
         }
-    }
 
+        return $customerType->customerType->name ?? null;
+    }
 }

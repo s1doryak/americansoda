@@ -12,7 +12,7 @@ const mix = require('laravel-mix');
  */
 
 const path = {
-        bower: '../../../bower_components',
+        node: 'node_modules',
         app: 'resources/assets/app',
         dashboard: 'resources/assets/dashboard'
     },
@@ -23,6 +23,11 @@ const path = {
     js = {
         app: [],
         dashboard: [
+
+            /**
+             * Vendor
+             */
+            path.node + '/handlebars/dist/handlebars.min.js',
 
             /**
              * American Soda

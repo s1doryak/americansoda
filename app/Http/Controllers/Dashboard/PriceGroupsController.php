@@ -34,9 +34,25 @@ class PriceGroupsController extends ResourceController
     /**
      * @var array
      */
+    protected $with = [
+        'priceGroupBreakpoints',
+        'priceGroupBreakpoints.productGroups'
+    ];
+
+    /**
+     * @var array
+     */
 	protected $editActionFormData = [
 
 	];
+
+    /**
+     * @var array
+     */
+    protected $popupActions = [
+        'create' => 'large',
+        'edit' => 'large'
+    ];
 
     /**
      * PriceGroupsController constructor.

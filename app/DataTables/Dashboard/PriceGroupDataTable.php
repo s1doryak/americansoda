@@ -93,6 +93,6 @@ class PriceGroupDataTable extends DataTable
 			return $this->renderView('dashboard::resources.price_group.columns.manual', compact('priceGroup'));
 		}
 
-		return $priceGroup->manual;
+		return $priceGroup->manual ?? null;
 	}
 }

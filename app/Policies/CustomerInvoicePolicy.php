@@ -18,7 +18,10 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can list of entities.
+     *
      * @param Authenticatable $authenticatable
+     *
      * @return boolean
      */
     public function index(Authenticatable $authenticatable)
@@ -39,7 +42,23 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
     }
 
     /**
+     * Determine whether the user can view action column.
+     *
      * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function export(Authenticatable $authenticatable)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
      * @return boolean
      */
     public function action(Authenticatable $authenticatable)
@@ -49,40 +68,24 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
     }
 
     /**
+     * Determine whether the user can view the entity.
+     *
      * @param Authenticatable $authenticatable
      * @param CustomerInvoice $customerInvoice
-     * @return boolean
-     */
-    public function tiff(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
-    {
-
-        return true;
-    }
-
-    /**
-     * @param Authenticatable $authenticatable
-     * @param CustomerInvoice $customerInvoice
-     * @return boolean
-     */
-    public function send(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
-    {
-
-        return true;
-    }
-
-    /**
-     * @param Authenticatable $authenticatable
-     * @param CustomerInvoice $customerInvoice
+     *
      * @return boolean
      */
     public function view(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
 
-        return true;
+        return false;
     }
 
     /**
+     * Determine whether the user can create entity.
+     *
      * @param Authenticatable $authenticatable
+     *
      * @return boolean
      */
     public function create(Authenticatable $authenticatable)
@@ -92,30 +95,39 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
     }
 
     /**
+     * Determine whether the user can update the entity.
+     *
      * @param Authenticatable $authenticatable
      * @param CustomerInvoice $customerInvoice
+     *
      * @return boolean
      */
     public function update(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
 
-        return $customerInvoice->maventa_initiated === false && $customerInvoice->maventa_paid === false;
+        return true;
     }
 
     /**
+     * Determine whether the user can trash the entity.
+     *
      * @param Authenticatable $authenticatable
      * @param CustomerInvoice $customerInvoice
+     *
      * @return boolean
      */
-    public function delete(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
+    public function trash(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
 
-        return $customerInvoice->maventa_initiated === false && $customerInvoice->maventa_paid === false;
+        return true;
     }
 
     /**
+     * Determine whether the user can restore the entity.
+     *
      * @param Authenticatable $authenticatable
      * @param CustomerInvoice $customerInvoice
+     *
      * @return boolean
      */
     public function restore(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
@@ -125,12 +137,16 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
     }
 
     /**
+     * Determine whether the user can destroy the entity.
+     *
      * @param Authenticatable $authenticatable
      * @param CustomerInvoice $customerInvoice
+     *
      * @return boolean
      */
-    public function invoice(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
+    public function destroy(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
+
         return true;
     }
 }

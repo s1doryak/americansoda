@@ -32,7 +32,13 @@ class CustomerInvoiceAttachmentsController extends ResourceController
      */
     protected $resource = 'customer_invoice_attachment';
 
-	
+    /**
+     * @var array
+     */
+    protected $with = [
+        'customerInvoice',
+    ];
+
 	/**
 	 * @var CustomerInvoiceRepository
 	 */

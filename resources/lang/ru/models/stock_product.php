@@ -2,8 +2,8 @@
 
 return [
     'labels' => [
-        'singular' => 'Товар на складе',
-        'plural' => 'Товары на складе',
+        'singular' => 'Склад',
+        'plural' => 'Склад',
 		'create' => 'Создать'
     ],
 	'index' => [

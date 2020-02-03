@@ -2,12 +2,13 @@
 
 return [
 	'index' => [
-		'title' => 'Календарь'
+		'title' => 'План'
 	],
 	'view' => [
 		'day' => 'День',
 		'week' => 'Неделя',
-		'month' => 'Месяц'
+		'month' => 'Месяц',
+        'list' => 'Лист'
 	],
 	'event' => [
 		'placeholder' => [

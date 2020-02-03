@@ -13,6 +13,13 @@ use App\ProductGroup;
 class ProductGroupDataTable extends DataTable
 {
     /**
+     * Enable or disable table pagination.
+     * @see https://datatables.net/reference/option/paging
+     * @var boolean
+     */
+    protected $paging = false;
+
+    /**
      * @return array
      */
     protected function getColumns()
@@ -25,6 +32,10 @@ class ProductGroupDataTable extends DataTable
             'sales_unit_volume',
             'created_at',
             'updated_at',
+            'productType.name' => [
+                'data' => 'productType.name'
+            ],
+//            'image',
         ];
     }
 
@@ -39,7 +50,8 @@ class ProductGroupDataTable extends DataTable
             'sales_unit_volume',
             'created_at',
             'updated_at',
-			'action',
+            'productType.name',
+            'action',
         ];
     }
 
@@ -60,7 +72,13 @@ class ProductGroupDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-
+            'productType.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'operator' => 'in',
+                'data' => 'productType.id',
+                'lists' => 'productType.name',
+            ],
         ];
     }
 
@@ -79,5 +97,31 @@ class ProductGroupDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param ProductGroup $productGroup
+     * @return string
+     */
+    public function renderNameColumn($productGroup)
+    {
+        if ($this->isDataTableRequest()) {
+            return $this->renderMediaView($productGroup->name, $this->renderDefaultView(), $productGroup->image, 'image');
+        }
+
+        return $productGroup->name;
+    }
+
+    /**
+     * @param ProductGroup $productGroup
+     * @return string
+     */
+    public function renderProductType__NameColumn($productGroup)
+    {
+        if ($this->isDataTableRequest()) {
+            return $productGroup->productType->name ?? $this->renderDefaultView();
+        }
+
+        return $productGroup->productType->name ?? null;
     }
 }

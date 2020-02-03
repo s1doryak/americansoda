@@ -6,6 +6,9 @@ return [
         'plural' => 'Customer Users',
 		'create' => 'Create Customer User'
     ],
+    'login' => [
+        'title' => 'Login as Customer User',
+    ],
 	'index' => [
 		'title' => 'List of Customer Users',
 	],

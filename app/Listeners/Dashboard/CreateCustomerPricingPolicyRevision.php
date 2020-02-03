@@ -51,8 +51,8 @@ class CreateCustomerPricingPolicyRevision
 		}
 
 		$policies = array_filter($event->getAttributes(), function ($policy) {
-			$_changed = isset($policy['_changed']) && (boolean)$policy['_changed'] === true;
-			$_remove = isset($policy['_remove']) && (boolean)$policy['_remove'] === true;
+			$_changed = booleanize($policy['_changed'] ?? false);
+			$_remove = booleanize($policy['_remove'] ?? false);
 
 			return $_changed || $_remove;
 		});
@@ -61,7 +61,7 @@ class CreateCustomerPricingPolicyRevision
 
 			unset($policy['_changed']);
 
-			if (!empty($policy['_remove'])) {
+			if (booleanize($policy['_remove'] ?? false)) {
 				$policy['trashed'] = true;
 				$policy['deleted_at'] = Carbon::now();
 			}

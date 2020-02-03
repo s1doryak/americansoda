@@ -19,7 +19,7 @@ class CreateCustomerInvoiceActionsTable extends Migration
 				'column' => 'customer_invoice_id',
 				'table' => 'customer_invoices',
 			], 'cascade', true);
-			$table->string('action')->nullable();
+			$table->text('action')->nullable();
 			$table->timestamp('timestamp')->nullable();
 
             $table->timestamps();

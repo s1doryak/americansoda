@@ -45,6 +45,7 @@ class AdministratorDataTable extends DataTable
             'avatar',
             'role.name',
             'company.name',
+            'action'
         ];
     }
 
@@ -117,5 +118,31 @@ class AdministratorDataTable extends DataTable
         }
 
         return $administrator->name;
+    }
+
+    /**
+     * @param Administrator $administrator
+     * @return string
+     */
+    public function renderRole__NameColumn($administrator)
+    {
+        if ($this->isDataTableRequest()) {
+            return $administrator->role->name ?? $this->renderDefaultView();
+        }
+
+        return $administrator->role->name ?? null;
+    }
+
+    /**
+     * @param Administrator $administrator
+     * @return string
+     */
+    public function renderCompany__NameColumn($administrator)
+    {
+        if ($this->isDataTableRequest()) {
+            return $administrator->company->name ?? $this->renderDefaultView();
+        }
+
+        return $administrator->company->name ?? null;
     }
 }

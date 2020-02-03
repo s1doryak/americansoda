@@ -127,10 +127,7 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 	];
 
 	protected $with = [
-		'brand',
-		'packageType',
-		'productGroup',
-		'productTags',
+
 	];
 
 	protected $images = [
@@ -141,20 +138,6 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 	protected $files = [
 
 	];
-
-	/**
-	 * @return array
-	 */
-	public function getWith()
-	{
-		$condition = is_resource_page(['product']) || is_datatable(['product']);
-
-		return [
-			$condition ? 'brand' : null,
-			$condition ? 'packageType' : null,
-			$condition ? 'productGroup' : null,
-		];
-	}
 
 	/**
 	 * @return string

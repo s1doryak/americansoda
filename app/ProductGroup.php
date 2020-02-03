@@ -12,6 +12,9 @@ namespace App;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  *
+ * @property \App\ProductType|null $productType
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo productType()
+ * @property \Crmplease\MaterialAdmin\Database\Eloquent\Traits\Image\ImageField $image
  * @package App
  */
 class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
@@ -20,6 +23,8 @@ class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'name',
 		'vat',
 		'sales_unit_volume',
+		'product_type_id',
+		'image',
 	];
 
 	protected $casts = [
@@ -36,8 +41,8 @@ class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $belongsTo = [
-
-    ];
+		'productType' => \App\ProductType::class,
+	];
 
     protected $belongsToMany = [
 
@@ -77,8 +82,8 @@ class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $images = [
-
-    ];
+		'image',
+	];
 
     protected $files = [
 

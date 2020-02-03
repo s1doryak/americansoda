@@ -2,125 +2,136 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\CustomerRevision;
 use Auth;
 use App\Repositories\Contracts\CustomerPricingPolicyRevisionRepository;
 use App\Repositories\Contracts\CustomerRevisionRepository;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
-class CustomerRevisionRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerRevisionRepository {
-	/**
-	 * Retrieve latest customer revisions.
-	 *
-	 * @param $customerId
-	 *
-	 * @return Collection
-	 */
-	public function getLatestRevisions($customerId)
-	{
-		$revisions = $this->getRevisionsByCustomerId($customerId);
-		$revisions = $this->groupRevisionsByEntityType($revisions)->all();
+class CustomerRevisionRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerRevisionRepository
+{
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return CustomerRevision::class;
+    }
 
-		krsort($revisions);
+    /**
+     * Retrieve latest customer revisions.
+     *
+     * @param $customerId
+     *
+     * @return Collection
+     */
+    public function getLatestRevisions($customerId)
+    {
+        $revisions = $this->getRevisionsByCustomerId($customerId);
+        $revisions = $this->groupRevisionsByEntityType($revisions)->all();
 
-		return new Collection($revisions);
-	}
+        krsort($revisions);
 
-	/**
-	 * Find revisions by customer ID and group them by creation date.
-	 *
-	 * @param int $customerId
-	 *
-	 * @return Collection
-	 */
-	private function getRevisionsByCustomerId($customerId)
-	{
-		/** @var Collection $policies */
-		$policies = app(CustomerPricingPolicyRevisionRepository::class)
-			->getLatestRevisions($customerId);
+        return new Collection($revisions);
+    }
 
-		/** @var Collection $customers */
-		$customers = $this->model
-			->withTrashed()
-			->where('customer_id', $customerId)
-			->orderBy('id')
-			->get();
+    /**
+     * Find revisions by customer ID and group them by creation date.
+     *
+     * @param int $customerId
+     *
+     * @return Collection
+     */
+    private function getRevisionsByCustomerId($customerId)
+    {
+        /** @var Collection $policies */
+        $policies = app(CustomerPricingPolicyRevisionRepository::class)
+            ->getLatestRevisions($customerId);
 
-		return $policies->add($customers)
-			->flatten()
-			->groupBy(function ($revision) {
-				return (string)$revision->created_at;
-			});
-	}
+        /** @var Collection $customers */
+        $customers = $this->model
+            ->withTrashed()
+            ->where('customer_id', $customerId)
+            ->orderBy('id')
+            ->get();
 
-	/**
-	 * Group all revisions by entity type.
-	 *
-	 * @param Collection $collection
-	 *
-	 * @return Collection
-	 */
-	private function groupRevisionsByEntityType(Collection $collection)
-	{
-		$all = new Collection;
+        return $policies->add($customers)
+            ->flatten()
+            ->groupBy(function ($revision) {
+                return (string)$revision->created_at;
+            });
+    }
 
-		$collection->each(function (Collection $revisions, $datetime) use ($all) {
-			$grouped = [
-				'policies' => [],
-				'customers' => []
-			];
+    /**
+     * Group all revisions by entity type.
+     *
+     * @param Collection $collection
+     *
+     * @return Collection
+     */
+    private function groupRevisionsByEntityType(Collection $collection)
+    {
+        $all = new Collection;
 
-			foreach ($revisions as $revision) {
-				$key = ($revision instanceof \App\CustomerRevision ? 'customers' : 'policies');
+        $collection->each(function (Collection $revisions, $datetime) use ($all) {
+            $grouped = [
+                'policies' => [],
+                'customers' => []
+            ];
 
-				$grouped[$key][] = $revision;
-			}
+            foreach ($revisions as $revision) {
+                $key = ($revision instanceof \App\CustomerRevision ? 'customers' : 'policies');
 
-			$all->put($datetime, $grouped);
-		});
+                $grouped[$key][] = $revision;
+            }
 
-		return $all;
-	}
+            $all->put($datetime, $grouped);
+        });
 
-	/**
-	 * Create new revision.
-	 *
-	 * @param string $type
-	 * @param array $attributes
-	 *
-	 * @return mixed
-	 * @throws \Prettus\Repository\Exceptions\RepositoryException
-	 * @throws \Prettus\Validator\Exceptions\ValidatorException
-	 */
-	public function addRevision($type, array $attributes)
-	{
-		$id = array_pull($attributes, 'id');
-		$attributes = array_merge($attributes, [
-			'editor_id' => $this->obtainEditorId($attributes),
-			'customer_id' => $id
-		]);
+        return $all;
+    }
 
-		$where = array_except($attributes, ['created_at', 'updated_at', 'deleted_at']);
+    /**
+     * Create new revision.
+     *
+     * @param string $type
+     * @param array $attributes
+     *
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
+    public function addRevision($type, array $attributes)
+    {
+        $id = Arr::pull($attributes, 'id');
+        $attributes = array_merge($attributes, [
+            'editor_id' => $this->obtainEditorId($attributes),
+            'customer_id' => $id
+        ]);
 
-		if (!$this->firstWhere($where)) {
-			$latest = $this->lastWhere(['customer_id' => $id]);
+        $where = Arr::except($attributes, ['created_at', 'updated_at', 'deleted_at']);
 
-			if ($latest) {
-				$attributes['revision_id'] = $latest->id;
-			}
+        if (!$this->firstWhere($where)) {
+            $latest = $this->lastWhere(['customer_id' => $id]);
 
-			$attributes['revision_type'] = $type;
+            if ($latest) {
+                $attributes['revision_id'] = $latest->id;
+            }
 
-			$this->create($attributes);
-		}
-	}
+            $attributes['revision_type'] = $type;
 
-	/**
-	 * @param array $attributes
-	 *
-	 * @return mixed
-	 */
-	private function obtainEditorId(array $attributes)
-	{
-		return Auth::user() ? Auth::user()->getAuthIdentifier() : $attributes['user_id'];
-	}
+            $this->create($attributes);
+        }
+    }
+
+    /**
+     * @param array $attributes
+     *
+     * @return mixed
+     */
+    private function obtainEditorId(array $attributes)
+    {
+        return Auth::user() ? Auth::user()->getAuthIdentifier() : $attributes['user_id'];
+    }
 }

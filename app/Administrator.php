@@ -90,8 +90,7 @@ class Administrator extends \Crmplease\MaterialAdmin\Foundation\Auth\User
     ];
 
     protected $with = [
-		'role',
-		'company',
+
     ];
 
     protected $images = [

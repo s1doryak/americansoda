@@ -110,9 +110,7 @@ class CustomerInvoiceItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Mod
     ];
 
     protected $with = [
-        'customerInvoice',
-        'customerOrderItem',
-        'product',
+
     ];
 
     protected $images = [

@@ -16,7 +16,25 @@ use Illuminate\Support\Carbon;
  */
 class AdministratorCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:administrator';
+
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'administrator';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
     /**
      * @var RoleRepository
@@ -27,7 +45,6 @@ class AdministratorCreator extends ResourceCreator
      * @var CompanyRepository
      */
     protected $companies;
-
 
     /**
      * @var array
@@ -44,28 +61,12 @@ class AdministratorCreator extends ResourceCreator
         CompanyRepository $companyRepository
     )
     {
-        $this->resource = $administrator;
+        $this->model = $administrator;
         $this->repository = $administratorRepository;
         $this->roles = $roleRepository;
         $this->companies = $companyRepository;
 
         parent::__construct();
-    }
-
-    /**
-     * @return string
-     */
-    public function getEventNamespace()
-    {
-        return 'cli';
-    }
-
-    /**
-     * @return string
-     */
-    public function getEventResource()
-    {
-        return 'administrator';
     }
 
     /**

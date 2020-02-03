@@ -166,13 +166,11 @@ class CustomerOrderDataTable extends DataTable
      */
     public function renderCustomer__OrderIntervalColumn($customerOrder)
     {
-        $customer = $customerOrder->customer;
-
         if ($this->isDataTableRequest()) {
-            return $customer ? $customer->order_interval : $this->renderView('datatables::columns.default');
+            return $customerOrder->customer->order_interval ?? $this->renderDefaultView();
         }
 
-        return $customer ? $customer->order_interval : 0;
+        return $customerOrder->customer->order_interval ?? null;
     }
 
     /**
@@ -181,12 +179,23 @@ class CustomerOrderDataTable extends DataTable
      */
     public function renderCustomer__NameColumn($customerOrder)
     {
-        $customer = $customerOrder->customer;
-
         if ($this->isDataTableRequest()) {
-            return $customer ? $customer->name : $this->renderView('datatables::columns.default');
+            return $customerOrder->customer->name ?? $this->renderDefaultView();
         }
 
-        return $customer ? $customer->name : null;
+        return $customerOrder->customer->name ?? null;
+    }
+
+    /**
+     * @param CustomerOrder $customerOrder
+     * @return string
+     */
+    public function renderUser__NameColumn($customerOrder)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrder->user->name ?? $this->renderDefaultView();
+        }
+
+        return $customerOrder->user->name ?? null;
     }
 }

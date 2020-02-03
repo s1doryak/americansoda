@@ -56,7 +56,7 @@ class Stock extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     protected $hasOne = [
 
-	];
+    ];
 
     protected $hasMany = [
 
@@ -75,7 +75,7 @@ class Stock extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-        'region',
+
     ];
 
     protected $images = [
@@ -85,16 +85,4 @@ class Stock extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
-
-    /**
-     * @return array
-     */
-    public function getWith()
-    {
-        $condition = is_resource_page(['stock']) || is_datatable(['stock']);
-
-        return [
-            $condition ? 'region' : null,
-        ];
-    }
 }

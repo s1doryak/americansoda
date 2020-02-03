@@ -55,7 +55,7 @@ return [
 			'number' => 'Заказ',
 		],
 		'customer' => [
-
+            'name' => 'Клиент'
 		],
 		'items' => [
 
@@ -78,7 +78,7 @@ return [
 			'number' => 'Заказ',
 		],
 		'customer' => [
-
+		    'name' => 'Клиент'
 		],
 		'items' => [
 

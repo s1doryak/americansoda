@@ -90,6 +90,12 @@ services:
       - database:database
     privileged: true
 
+  npm:
+    image: crmplease/laravel-npm
+    volumes_from:
+      - storage
+    privileged: true
+
 #  websocket:
 #    build: docker/websocket
 #    volumes_from:

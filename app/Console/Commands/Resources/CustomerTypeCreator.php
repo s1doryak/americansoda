@@ -13,63 +13,64 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerTypeCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:customer_type';
 
-	/**
-	 * @var CustomerTypeRepository
-	 */
-	protected $customerTypes;
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
+    /**
+     * @var string
+     */
+    protected $resource = 'customer_type';
 
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'customerTypes' => 'name',
-	];
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
-	public function __construct(
-	    CustomerType $customerType,
-		CustomerTypeRepository $customerTypeRepository
-	)
-	{
-	    $this->resource = $customerType;
-		$this->repository = $customerTypeRepository;
-		$this->customerTypes = $customerTypeRepository;
+    /**
+     * @var CustomerTypeRepository
+     */
+    protected $customerTypes;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'customerTypes' => 'name',
+    ];
+
+    public function __construct(
+        CustomerType $customerType,
+        CustomerTypeRepository $customerTypeRepository
+    )
+    {
+        $this->model = $customerType;
+        $this->repository = $customerTypeRepository;
+        $this->customerTypes = $customerTypeRepository;
 
         parent::__construct();
-	}
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
+    /**
+     * @param CustomerType $customer_type
+     * @return array
+     */
+    public function getEventAttributes($customer_type)
+    {
+        return $customer_type->getAttributes();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'customer_type';
-	}
-
-	/**
-	 * @param CustomerType $customer_type
-	 * @return array
-	 */
-	public function getEventAttributes($customer_type)
-	{
-		return $customer_type->getAttributes();
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

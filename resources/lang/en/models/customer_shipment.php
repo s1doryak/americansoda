@@ -67,6 +67,9 @@ return [
         'customer' => [
             'name' => 'Customer',
         ],
+        'customer_id' => [
+            'name' => 'Customer',
+        ],
         'user' => [
             'name' => 'User',
         ],

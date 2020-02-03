@@ -15,72 +15,73 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class StockMovementProductCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:stock_movement_product';
 
-	/**
-	 * @var StockMovementRepository
-	 */
-	protected $stockMovements;
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
-	/**
-	 * @var ProductRepository
-	 */
-	protected $products;
+    /**
+     * @var string
+     */
+    protected $resource = 'stock_movement_product';
 
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'stockMovements' => 'name',
-		'products' => 'name',
-	];
+    /**
+     * @var StockMovementRepository
+     */
+    protected $stockMovements;
 
-	public function __construct(
-	    StockMovementProduct $stockMovementProduct,
-		StockMovementProductRepository $stockMovementProductRepository,
-		StockMovementRepository $stockMovementRepository,
-		ProductRepository $productRepository
-	)
-	{
-	    $this->resource = $stockMovementProduct;
-		$this->repository = $stockMovementProductRepository;
-		$this->stockMovements = $stockMovementRepository;
-		$this->products = $productRepository;
+    /**
+     * @var ProductRepository
+     */
+    protected $products;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'stockMovements' => 'name',
+        'products' => 'name',
+    ];
+
+    public function __construct(
+        StockMovementProduct $stockMovementProduct,
+        StockMovementProductRepository $stockMovementProductRepository,
+        StockMovementRepository $stockMovementRepository,
+        ProductRepository $productRepository
+    )
+    {
+        $this->model = $stockMovementProduct;
+        $this->repository = $stockMovementProductRepository;
+        $this->stockMovements = $stockMovementRepository;
+        $this->products = $productRepository;
 
         parent::__construct();
-	}
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
+    /**
+     * @param StockMovementProduct $stock_movement_product
+     * @return array
+     */
+    public function getEventAttributes($stock_movement_product)
+    {
+        return $stock_movement_product->getAttributes();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'stock_movement_product';
-	}
-
-	/**
-	 * @param StockMovementProduct $stock_movement_product
-	 * @return array
-	 */
-	public function getEventAttributes($stock_movement_product)
-	{
-		return $stock_movement_product->getAttributes();
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

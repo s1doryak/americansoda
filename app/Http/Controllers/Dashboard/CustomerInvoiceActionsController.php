@@ -15,12 +15,12 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class CustomerInvoiceActionsController extends ResourceController
 {
-	use DashboardSidebar;
+    use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
     /**
      * @var string
@@ -32,36 +32,42 @@ class CustomerInvoiceActionsController extends ResourceController
      */
     protected $resource = 'customer_invoice_action';
 
-	
-	/**
-	 * @var CustomerInvoiceRepository
-	 */
-	protected $customerInvoices;
+    /**
+     * @var array
+     */
+    protected $with = [
+        'customerInvoice',
+    ];
+
+    /**
+     * @var CustomerInvoiceRepository
+     */
+    protected $customerInvoices;
 
     /**
      * @var array
      */
-	protected $editActionFormData = [
-		'customerInvoices' => 'name',
-	];
+    protected $editActionFormData = [
+        'customerInvoices' => 'name',
+    ];
 
     /**
      * CustomerInvoiceActionsController constructor.
      * @param Gate $gate
-	 * @param CustomerInvoiceActionRepository $customerInvoiceActionRepository
-	 * @param CustomerInvoiceRepository $customerInvoiceRepository
+     * @param CustomerInvoiceActionRepository $customerInvoiceActionRepository
+     * @param CustomerInvoiceRepository $customerInvoiceRepository
      */
-	public function __construct(
-	    Gate $gate,
-		CustomerInvoiceActionRepository $customerInvoiceActionRepository,
-		CustomerInvoiceRepository $customerInvoiceRepository
-	)
-	{
-	    $this->gate = $gate;
-		$this->repository = $customerInvoiceActionRepository;
-		$this->customerInvoices = $customerInvoiceRepository;
+    public function __construct(
+        Gate $gate,
+        CustomerInvoiceActionRepository $customerInvoiceActionRepository,
+        CustomerInvoiceRepository $customerInvoiceRepository
+    )
+    {
+        $this->gate = $gate;
+        $this->repository = $customerInvoiceActionRepository;
+        $this->customerInvoices = $customerInvoiceRepository;
 
-	    $this->middleware('auth:dashboard');
-	    $this->shareSidebar();
-	}
+        $this->middleware('auth:dashboard');
+        $this->shareSidebar();
+    }
 }

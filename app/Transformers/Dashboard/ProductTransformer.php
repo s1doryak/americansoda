@@ -90,6 +90,14 @@ class ProductTransformer implements TransformerContract
      */
     public static function toArray($product)
     {
+        if (is_null($product->product_image)) {
+            $productImage = ($product->productGroup->image)
+                ? $product->productGroup->image
+                : $product->productGroup->productType->image;
+        } else {
+            $productImage = $product->product_image;
+        }
+
         return [
             'id' => (int)$product->getKey(),
             'name' => $product->name,
@@ -97,7 +105,7 @@ class ProductTransformer implements TransformerContract
             'product_barcode_plaintext' => $product->product_barcode_plaintext,
             'package_barcode' => $product->package_barcode,
             'package_barcode_plaintext' => $product->package_barcode_plaintext,
-            'product_image' => (string)$product->product_image ? asset((string)$product->product_image) : null,
+            'product_image' => (string)$productImage ? asset((string)$productImage) : null,
             'package_image' => (string)$product->package_image ? asset((string)$product->package_image) : null,
             'description' => $product->description,
             'contents' => $product->contents,

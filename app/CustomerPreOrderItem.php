@@ -106,10 +106,7 @@ class CustomerPreOrderItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
     ];
 
     protected $with = [
-		'customerPreOrder',
-		'customerUser',
-		'customer',
-		'product',
+
     ];
 
     protected $images = [

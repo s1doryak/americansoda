@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 /**
  * CustomerShipment
@@ -12,6 +13,8 @@ use Carbon\Carbon;
  * @property string $invoice_number
  * @property string $status
  * @property string $delivery_type
+ * @property string $delivery_date
+ * @property string $delivery_month
  * @property integer $packages_quantity
  * @property string $comment
  * @property string $order_numbers
@@ -99,9 +102,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-        'packageType',
-        'customer',
-        'user',
+
     ];
 
     protected $images = [
@@ -111,21 +112,6 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
-
-    public function getWith()
-    {
-        $condition = is_resource_page(['customer_shipment']) || is_datatable(['customer_shipment']);
-
-        return [
-            $condition ? 'customer' : null,
-            $condition ? 'user' : null,
-            $condition ? 'packageType' : null,
-            $condition ? 'customerInvoice' : null,
-            $condition ? 'customerOrderItems' : null,
-            $condition ? 'customerOrderItems.customerOrder' : null,
-            $condition ? 'customerOrderItems.product' : null,
-        ];
-    }
 
     /**
      * Get all of the appendable values that are arrayable.
@@ -137,9 +123,10 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         $this->appends = [
             'delivery_date',
             'delivery_month',
+            'amount'
         ];
 
-        $condition = is_resource_page(['customer_shipment']) || is_datatable(['customer_shipment']);
+        $condition = is_resource_page(['customer_shipment']) || is_datatable(['customer_shipment']) || is_api();
 
         if ($condition) {
             $this->appends = array_merge(
@@ -157,6 +144,20 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
         return $this->getArrayableItems(
             array_combine($this->appends, $this->appends)
+        );
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getAmountAttribute($value)
+    {
+        return number_format(
+            $this->customerOrderItems->sum('total_price'),
+            2,
+            '.',
+            ''
         );
     }
 
@@ -237,7 +238,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         $status = $this->attributes['status'];
 
         if ($status === null) {
-            return array_first(array_keys(config('stock.status')));
+            return Arr::first(array_keys(config('stock.status')));
         }
 
         return strtolower($status);

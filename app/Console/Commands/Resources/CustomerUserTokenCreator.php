@@ -14,8 +14,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerUserTokenCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:customer_user_token';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'customer_user_token';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var CustomerUserRepository
@@ -35,27 +52,11 @@ class CustomerUserTokenCreator extends ResourceCreator
 		CustomerUserRepository $customerUserRepository
 	)
 	{
-	    $this->resource = $customerUserToken;
+	    $this->model = $customerUserToken;
 		$this->repository = $customerUserTokenRepository;
 		$this->customerUsers = $customerUserRepository;
 
         parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'customer_user_token';
 	}
 
 	/**

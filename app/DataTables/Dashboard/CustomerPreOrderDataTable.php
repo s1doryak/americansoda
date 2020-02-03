@@ -19,7 +19,6 @@ class CustomerPreOrderDataTable extends DataTable
 	{
 		return [
 			'number',
-			'reference_number',
 			'comment',
 			'customerUser.name' => [
 				'data' => 'customerUser.name'
@@ -40,7 +39,6 @@ class CustomerPreOrderDataTable extends DataTable
 	{
 		return [
 			'number',
-			'reference_number',
 			'comment',
 			'customerUser.name',
 			'customerOrder.number',
@@ -107,5 +105,44 @@ class CustomerPreOrderDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param CustomerPreOrder $customerPreOrder
+     * @return string
+     */
+    public function renderCustomerUser__NameColumn($customerPreOrder)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerPreOrder->customerUser->name ?? $this->renderDefaultView();
+        }
+
+        return $customerPreOrder->customerUser->name ?? null;
+    }
+
+    /**
+     * @param CustomerPreOrder $customerPreOrder
+     * @return string
+     */
+    public function renderCustomerOrder__NumberColumn($customerPreOrder)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerPreOrder->customerOrder->number ?? $this->renderDefaultView();
+        }
+
+        return $customerPreOrder->customerOrder->number ?? null;
+    }
+
+    /**
+     * @param CustomerPreOrder $customerPreOrder
+     * @return string
+     */
+    public function renderCustomer__NameColumn($customerPreOrder)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerPreOrder->customer->name ?? $this->renderDefaultView();
+        }
+
+        return $customerPreOrder->customer->name ?? null;
     }
 }

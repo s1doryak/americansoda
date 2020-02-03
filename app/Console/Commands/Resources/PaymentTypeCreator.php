@@ -13,58 +13,58 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class PaymentTypeCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:payment_type';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
+    /**
+     * @var string
+     */
+    protected $resource = 'payment_type';
 
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
-	];
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
 
-	public function __construct(
-	    PaymentType $paymentType,
-		PaymentTypeRepository $paymentTypeRepository
-	)
-	{
-	    $this->resource = $paymentType;
-		$this->repository = $paymentTypeRepository;
+    ];
+
+    public function __construct(
+        PaymentType $paymentType,
+        PaymentTypeRepository $paymentTypeRepository
+    )
+    {
+        $this->model = $paymentType;
+        $this->repository = $paymentTypeRepository;
 
         parent::__construct();
-	}
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
+    /**
+     * @param PaymentType $payment_type
+     * @return array
+     */
+    public function getEventAttributes($payment_type)
+    {
+        return $payment_type->getAttributes();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'payment_type';
-	}
-
-	/**
-	 * @param PaymentType $payment_type
-	 * @return array
-	 */
-	public function getEventAttributes($payment_type)
-	{
-		return $payment_type->getAttributes();
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

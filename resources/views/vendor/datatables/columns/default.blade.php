@@ -1,1 +1,1 @@
-<span class="text-muted">{{ trans('material-admin::datatables.attributes.defaultContent') }}</span>
+<span class="text-muted">{!! trans('material-admin::datatables.attributes.defaultContent') !!}</span>

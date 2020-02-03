@@ -8,33 +8,33 @@ namespace App;
  * @property integer $id
  * @property string $name
  * @property boolean $manual
-
-
+ * @property \Illuminate\Support\Collection|\App\Customer[] $customers
+ * @property \Illuminate\Support\Collection|\App\PriceGroupBreakpoint[] $priceGroupBreakpoints
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
-
-
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customers()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany priceGroupBreakpoints()
  * @package App
  */
 class PriceGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'name',
-		'manual',
-	];
+    protected $fillable = [
+        'name',
+        'manual',
+    ];
 
-	protected $appends = [
+    protected $appends = [
 
-	];
+    ];
 
-	protected $casts = [
-		'manual' => 'boolean',
-	];
+    protected $casts = [
+        'manual' => 'boolean',
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
@@ -61,8 +61,8 @@ class PriceGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $hasMany = [
-		'customers' => \App\Customer::class,
-		'priceGroupBreakpoints' => \App\PriceGroupBreakpoint::class,
+        'customers' => \App\Customer::class,
+        'priceGroupBreakpoints' => \App\PriceGroupBreakpoint::class,
     ];
 
     protected $hasManyThrough = [

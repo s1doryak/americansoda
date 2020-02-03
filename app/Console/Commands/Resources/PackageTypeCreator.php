@@ -13,58 +13,58 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class PackageTypeCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:package_type';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
+    /**
+     * @var string
+     */
+    protected $resource = 'package_type';
 
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
-	];
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
 
-	public function __construct(
-	    PackageType $packageType,
-		PackageTypeRepository $packageTypeRepository
-	)
-	{
-	    $this->resource = $packageType;
-		$this->repository = $packageTypeRepository;
+    ];
+
+    public function __construct(
+        PackageType $packageType,
+        PackageTypeRepository $packageTypeRepository
+    )
+    {
+        $this->model = $packageType;
+        $this->repository = $packageTypeRepository;
 
         parent::__construct();
-	}
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
+    /**
+     * @param PackageType $package_type
+     * @return array
+     */
+    public function getEventAttributes($package_type)
+    {
+        return $package_type->getAttributes();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'package_type';
-	}
-
-	/**
-	 * @param PackageType $package_type
-	 * @return array
-	 */
-	public function getEventAttributes($package_type)
-	{
-		return $package_type->getAttributes();
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

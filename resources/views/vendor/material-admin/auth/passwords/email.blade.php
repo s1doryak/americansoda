@@ -1,4 +1,4 @@
-@extends('material-admin::auth')
+@extends('material-admin::minimal')
 
 @section('content')
 
@@ -20,8 +20,7 @@
         <div class="lcb-form">
 
             <form class="form-horizontal" role="form" method="POST" action="{{ route(sprintf('%s.password.email', prefix_name())) }}">
-
-                {{ csrf_field() }}
+                @csrf
 
                 <div class="input-group m-b-10">
                     <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
@@ -33,15 +32,23 @@
                     @endif
                 </div>
 
-                <button type="submit" class="btn btn-login btn-success btn-float"><i class="zmdi zmdi-check"></i></button>
+                <button type="submit" class="btn btn-login btn-success btn-float">
+                    <i class="zmdi zmdi-check"></i>
+                </button>
 
             </form>
         </div>
 
         <div class="lcb-navigation">
-            <a href="{{ route(sprintf('%s.login', prefix_name())) }}" data-ma-no-action="login-switch" data-ma-block="#l-login"><i class="zmdi zmdi-long-arrow-right"></i> <span>{{ trans('material-admin::auth.buttons.login') }}</span></a>
-            @if(has_route(sprintf('%s.register', prefix_name())))
-            <a href="{{ route(sprintf('%s.register', prefix_name())) }}" data-ma-no-action="login-switch" data-ma-block="#l-register"><i class="zmdi zmdi-plus"></i> <span>{{ trans('material-admin::auth.buttons.register') }}</span></a>
+            @if(has_route(prefix_name() . '.login'))
+                <a href="{{ route(prefix_name() . '.login') }}">
+                    <i class="zmdi zmdi-long-arrow-right"></i> <span>{{ trans('material-admin::auth.buttons.login') }}</span>
+                </a>
+            @endif
+            @if(has_route(prefix_name() . '.register'))
+                <a href="{{ route(prefix_name() . '.register') }}">
+                    <i class="zmdi zmdi-plus"></i> <span>{{ trans('material-admin::auth.buttons.register') }}</span>
+                </a>
             @endif
         </div>
     </div>

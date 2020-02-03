@@ -11,5 +11,6 @@
 |
 */
 
-// Route::redirect('/', '/app');
-Route::redirect('/', '/dashboard');
+// Route::redirect('/', '/app')->name('app');
+Route::redirect('/', '/dashboard')->name('dashboard');
+Route::view('/redirect', 'redirect', ['to' => request('to')])->name('redirect');

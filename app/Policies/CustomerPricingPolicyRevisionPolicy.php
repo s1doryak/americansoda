@@ -15,19 +15,19 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class CustomerPricingPolicyRevisionPolicy implements DatatablePolicyContract
 {
-	use HandlesAuthorization;
+    use HandlesAuthorization;
 
-	/**
-	 * Determine whether the user can list of entities.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function index(Authenticatable $authenticatable)
-	{
-		return true;
-	}
+    /**
+     * Determine whether the user can list of entities.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function index(Authenticatable $authenticatable)
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can list of trashed entities.
@@ -41,73 +41,86 @@ class CustomerPricingPolicyRevisionPolicy implements DatatablePolicyContract
         return true;
     }
 
-	/**
-	 * Determine whether the user can view action column.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function action(Authenticatable $authenticatable)
-	{
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function export(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can view the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerPricingPolicyRevision $customerPricingPolicyRevision
-	 *
-	 * @return boolean
-	 */
-	public function view(Authenticatable $authenticatable, CustomerPricingPolicyRevision $customerPricingPolicyRevision)
-	{
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function action(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can create entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function create(Authenticatable $authenticatable)
-	{
+    /**
+     * Determine whether the user can view the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerPricingPolicyRevision $customerPricingPolicyRevision
+     *
+     * @return boolean
+     */
+    public function view(Authenticatable $authenticatable, CustomerPricingPolicyRevision $customerPricingPolicyRevision)
+    {
 
-		return true;
-	}
+        return false;
+    }
 
-	/**
-	 * Determine whether the user can update the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerPricingPolicyRevision $customerPricingPolicyRevision
-	 *
-	 * @return boolean
-	 */
-	public function update(Authenticatable $authenticatable, CustomerPricingPolicyRevision $customerPricingPolicyRevision)
-	{
+    /**
+     * Determine whether the user can create entity.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function create(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can delete the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param CustomerPricingPolicyRevision $customerPricingPolicyRevision
-	 *
-	 * @return boolean
-	 */
-	public function delete(Authenticatable $authenticatable, CustomerPricingPolicyRevision $customerPricingPolicyRevision)
-	{
+    /**
+     * Determine whether the user can update the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerPricingPolicyRevision $customerPricingPolicyRevision
+     *
+     * @return boolean
+     */
+    public function update(Authenticatable $authenticatable, CustomerPricingPolicyRevision $customerPricingPolicyRevision)
+    {
 
-		return true;
-	}
+        return true;
+    }
+
+    /**
+     * Determine whether the user can trash the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerPricingPolicyRevision $customerPricingPolicyRevision
+     *
+     * @return boolean
+     */
+    public function trash(Authenticatable $authenticatable, CustomerPricingPolicyRevision $customerPricingPolicyRevision)
+    {
+
+        return true;
+    }
 
     /**
      * Determine whether the user can restore the entity.
@@ -118,6 +131,20 @@ class CustomerPricingPolicyRevisionPolicy implements DatatablePolicyContract
      * @return boolean
      */
     public function restore(Authenticatable $authenticatable, CustomerPricingPolicyRevision $customerPricingPolicyRevision)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can destroy the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerPricingPolicyRevision $customerPricingPolicyRevision
+     *
+     * @return boolean
+     */
+    public function destroy(Authenticatable $authenticatable, CustomerPricingPolicyRevision $customerPricingPolicyRevision)
     {
 
         return true;

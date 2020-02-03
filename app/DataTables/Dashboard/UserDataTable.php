@@ -27,10 +27,10 @@ class UserDataTable extends DataTable
             'phone' => [
                 'searchable' => true
             ],
-            'role' => [
+            'role.name' => [
                 'data' => 'role.name',
             ],
-            'company' => [
+            'company.name' => [
                 'data' => 'company.name',
             ],
             'created_at',
@@ -47,8 +47,8 @@ class UserDataTable extends DataTable
             'name',
             'email',
             'phone',
-            'role',
-            'company',
+            'role.name',
+            'company.name',
             'created_at',
             'updated_at',
             'action'
@@ -101,5 +101,31 @@ class UserDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function renderRole__NameColumn($user)
+    {
+        if ($this->isDataTableRequest()) {
+            return $user->role->name ?? $this->renderDefaultView();
+        }
+
+        return $user->role->name ?? null;
+    }
+
+    /**
+     * @param User $user
+     * @return string
+     */
+    public function renderCompany__NameColumn($user)
+    {
+        if ($this->isDataTableRequest()) {
+            return $user->company->name ?? $this->renderDefaultView();
+        }
+
+        return $user->company->name ?? null;
     }
 }

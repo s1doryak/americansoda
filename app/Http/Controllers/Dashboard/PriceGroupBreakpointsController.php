@@ -16,12 +16,12 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class PriceGroupBreakpointsController extends ResourceController
 {
-	use DashboardSidebar;
+    use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
     /**
      * @var string
@@ -32,45 +32,56 @@ class PriceGroupBreakpointsController extends ResourceController
      * @var string
      */
     protected $resource = 'price_group_breakpoint';
-	
-	/**
-	 * @var PriceGroupRepository
-	 */
-	protected $priceGroups;
-	
-	/**
-	 * @var ProductGroupRepository
-	 */
-	protected $productGroups;
 
     /**
      * @var array
      */
-	protected $editActionFormData = [
-		'priceGroups' => 'name',
-		'productGroups' => 'name',
-	];
+    protected $with = [
+        'priceGroup',
+        'productGroups',
+    ];
+
+    /**
+     * @var PriceGroupRepository
+     */
+    protected $priceGroups;
+
+    /**
+     * @var ProductGroupRepository
+     */
+    protected $productGroups;
+
+    /**
+     * @var array
+     */
+    protected $editActionFormData = [
+        'priceGroups' => 'name',
+        'productGroups' => [
+            'lists' => 'name',
+            'selected' => 'productGroups',
+        ],
+    ];
 
     /**
      * PriceGroupBreakpointsController constructor.
      * @param Gate $gate
-	 * @param PriceGroupBreakpointRepository $priceGroupBreakpointRepository
-	 * @param PriceGroupRepository $priceGroupRepository
-	 * @param ProductGroupRepository $productGroupRepository
+     * @param PriceGroupBreakpointRepository $priceGroupBreakpointRepository
+     * @param PriceGroupRepository $priceGroupRepository
+     * @param ProductGroupRepository $productGroupRepository
      */
-	public function __construct(
-	    Gate $gate,
-		PriceGroupBreakpointRepository $priceGroupBreakpointRepository,
-		PriceGroupRepository $priceGroupRepository,
-		ProductGroupRepository $productGroupRepository
-	)
-	{
-	    $this->gate = $gate;
-		$this->repository = $priceGroupBreakpointRepository;
-		$this->priceGroups = $priceGroupRepository;
-		$this->productGroups = $productGroupRepository;
+    public function __construct(
+        Gate $gate,
+        PriceGroupBreakpointRepository $priceGroupBreakpointRepository,
+        PriceGroupRepository $priceGroupRepository,
+        ProductGroupRepository $productGroupRepository
+    )
+    {
+        $this->gate = $gate;
+        $this->repository = $priceGroupBreakpointRepository;
+        $this->priceGroups = $priceGroupRepository;
+        $this->productGroups = $productGroupRepository;
 
-	    $this->middleware('auth:dashboard');
-	    $this->shareSidebar();
-	}
+        $this->middleware('auth:dashboard');
+        $this->shareSidebar();
+    }
 }

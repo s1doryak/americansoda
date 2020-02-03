@@ -33,6 +33,14 @@ class AdministratorsController extends ResourceController
 	 */
 	protected $resource = 'administrator';
 
+    /**
+     * @var array
+     */
+    protected $with = [
+        'role',
+        'company',
+    ];
+
 	/**
 	 * @var RoleRepository
 	 */
@@ -42,7 +50,6 @@ class AdministratorsController extends ResourceController
 	 * @var CompanyRepository
 	 */
 	protected $companies;
-
 
 	/**
 	 * @var array

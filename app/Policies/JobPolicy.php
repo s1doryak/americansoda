@@ -38,7 +38,20 @@ class JobPolicy implements DatatablePolicyContract
      */
     public function trashed(Authenticatable $authenticatable)
     {
-        return false;
+        return true;
+    }
+
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function export(Authenticatable $authenticatable)
+    {
+
+        return true;
     }
 
     /**
@@ -50,6 +63,7 @@ class JobPolicy implements DatatablePolicyContract
      */
     public function action(Authenticatable $authenticatable)
     {
+
         return true;
     }
 
@@ -63,6 +77,7 @@ class JobPolicy implements DatatablePolicyContract
      */
     public function view(Authenticatable $authenticatable, Job $job)
     {
+
         return false;
     }
 
@@ -75,7 +90,8 @@ class JobPolicy implements DatatablePolicyContract
      */
     public function create(Authenticatable $authenticatable)
     {
-        return false;
+
+        return true;
     }
 
     /**
@@ -88,19 +104,21 @@ class JobPolicy implements DatatablePolicyContract
      */
     public function update(Authenticatable $authenticatable, Job $job)
     {
-        return false;
+
+        return true;
     }
 
     /**
-     * Determine whether the user can delete the entity.
+     * Determine whether the user can trash the entity.
      *
      * @param Authenticatable $authenticatable
      * @param Job $job
      *
      * @return boolean
      */
-    public function delete(Authenticatable $authenticatable, Job $job)
+    public function trash(Authenticatable $authenticatable, Job $job)
     {
+
         return true;
     }
 
@@ -114,6 +132,21 @@ class JobPolicy implements DatatablePolicyContract
      */
     public function restore(Authenticatable $authenticatable, Job $job)
     {
-        return false;
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can destroy the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param Job $job
+     *
+     * @return boolean
+     */
+    public function destroy(Authenticatable $authenticatable, Job $job)
+    {
+
+        return true;
     }
 }

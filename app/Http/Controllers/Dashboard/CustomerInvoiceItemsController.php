@@ -34,6 +34,14 @@ class CustomerInvoiceItemsController extends ResourceController
      */
     protected $resource = 'customer_invoice_item';
 
+    /**
+     * @var array
+     */
+    protected $with = [
+        'customerInvoice',
+        'customerOrderItem',
+        'product',
+    ];
 
     /**
      * @var CustomerInvoiceRepository
@@ -54,7 +62,7 @@ class CustomerInvoiceItemsController extends ResourceController
      * @var array
      */
     protected $editActionFormData = [
-        'invoices' => 'name',
+        'invoices' => 'number',
         'orderItems' => 'name',
         'products' => 'name',
     ];

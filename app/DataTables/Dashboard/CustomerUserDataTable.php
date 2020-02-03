@@ -12,36 +12,34 @@ use App\CustomerUser;
  */
 class CustomerUserDataTable extends DataTable
 {
-	/**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-			'email',
-			'name',
-			'phone',
-			'comment',
-			'customers.name' => [
-				'data' => 'customers.name'
-			],
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'name',
+            'email',
+            'phone',
+            'customers.name',
+            'comment',
+        ];
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function getRawColumns()
-	{
-		return [
-			'email',
-			'name',
-			'phone',
-			'comment',
-			'customers.name',
-			'action',
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'name',
+            'email',
+            'phone',
+            'customers.name',
+            'comment',
+            'action',
+        ];
+    }
 
     /**
      * @return array
@@ -59,29 +57,34 @@ class CustomerUserDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-			'customers.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'customers.id',
-				'lists' => 'customers.name',
-			],
-			'customerUserTokens.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'customerUserTokens.id',
-				'lists' => 'customerUserTokens.name',
-			],
+            /*'customers.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'customers.id',
+                'lists' => 'customers.name',
+            ],*/
         ];
     }
 
-	/**
-	 * @param CustomerUser $customerUser
-	 * @return array
-	 */
-	protected function getActions($customerUser)
-	{
-		return parent::getActions($customerUser);
-	}
+    /**
+     * @param CustomerUser $customerUser
+     * @return array
+     */
+    protected function getActions($customerUser)
+    {
+        return array_merge(
+            [
+                'login' => [
+                    'url' => route('redirect', ['to' => generateApiAuthLink($customerUser->token)]),
+                    'target' => '_blank',
+                    'icon' => 'account-circle',
+                    'color' => 'blue',
+                    'title' => trans('models/customer_user.login.title'),
+                ],
+            ],
+            parent::getActions($customerUser)
+        );
+    }
 
     /**
      * @return array
@@ -89,5 +92,21 @@ class CustomerUserDataTable extends DataTable
     protected function getButtons()
     {
         return parent::getButtons();
+    }
+
+    /**
+     * @param CustomerUser $customerUser
+     * @return string
+     */
+    protected function renderCustomers__NameColumn($customerUser)
+    {
+        $customers = $customerUser->customers ?? null;
+        $customerNames = $customers ? $customers->pluck('name') : null;
+
+        if ($this->isDataTableRequest()) {
+            return $customerNames ? $customerNames->implode('<br>') : $this->renderDefaultView();
+        }
+
+        return $customerNames ? $customerNames->implode(', ') : null;
     }
 }

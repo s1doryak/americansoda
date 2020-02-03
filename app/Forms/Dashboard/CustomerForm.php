@@ -3,6 +3,7 @@
 namespace App\Forms\Dashboard;
 
 use App\Customer;
+use App\CustomerPricingPolicy;
 use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Contracts\ProductGroupRepository;
 use Crmplease\MaterialAdmin\Forms\Form;
@@ -115,10 +116,10 @@ class CustomerForm extends Form
             'template' => 'dashboard::resources.customer.policies.form',
             'groups' => app(ProductGroupRepository::class)->all(),
             'fields' => CustomerPricingPolicyForm::getCreateFormFields(),
-            'items' => collect([]),
+            'items' => collect(),
         ];
 
-        $fields['customerPricingPolicies[0]'] = $policies;
+        $fields['customerPricingPolicies[idx]'] = $policies;
 
         return $fields;
     }
@@ -214,17 +215,21 @@ class CustomerForm extends Form
             'terms_of_equipment' => 'editor',
         ];
 
-        $policies = [
+        $fields['customerPricingPolicies[idx]'] = [
             'type' => 'relation_form',
             'resource' => 'customer_pricing_policy',
             'form_title' => trans('models/customer_pricing_policy.labels.plural'),
             'template' => 'dashboard::resources.customer.policies.form',
             'groups' => app(ProductGroupRepository::class)->all(),
             'fields' => CustomerPricingPolicyForm::getCreateFormFields(),
-            'items' => $customer->customerPricingPolicies,
+            'items' => $customer->customerPricingPolicies
+                ->filter(function (CustomerPricingPolicy $customerPricingPolicy) {
+                    return false === $customerPricingPolicy->trashed();
+                })
+                ->groupBy(function (CustomerPricingPolicy $customerPricingPolicy) {
+                    return $customerPricingPolicy->productGroup ? $customerPricingPolicy->productGroup->getKey() : null;
+                }),
         ];
-
-        $fields['customerPricingPolicies[0]'] = $policies;
 
         return $fields;
     }
@@ -234,7 +239,8 @@ class CustomerForm extends Form
      */
     public static function getStoreValidationRules()
     {
-        return ['name' => 'sometimes',
+        return [
+            'name' => 'sometimes',
             'legal_name' => 'sometimes',
 
             'billingRegion' => 'sometimes|exists:regions,id',
@@ -246,7 +252,7 @@ class CustomerForm extends Form
             'shipping_address' => 'sometimes',
 
             'bid' => 'sometimes', // Business ID
-            'email' => 'sometimes|email',
+            'email' => 'sometimes',
             'stock' => 'sometimes|exists:stocks,id',
             'customerType' => 'sometimes|exists:customer_types,id',
             'paymentType' => 'sometimes|exists:payment_types,id',
@@ -272,7 +278,8 @@ class CustomerForm extends Form
      */
     public static function getUpdateValidationRules($customer)
     {
-        return ['name' => 'sometimes',
+        return [
+            'name' => 'sometimes',
             'legal_name' => 'sometimes',
 
             'billingRegion' => 'sometimes|exists:regions,id',
@@ -284,7 +291,7 @@ class CustomerForm extends Form
             'shipping_address' => 'sometimes',
 
             'bid' => 'sometimes', // Business ID
-            'email' => 'sometimes|email',
+            'email' => 'sometimes',
             'stock' => 'sometimes|exists:stocks,id',
             'customerType' => 'sometimes|exists:customer_types,id',
             'paymentType' => 'sometimes|exists:payment_types,id',

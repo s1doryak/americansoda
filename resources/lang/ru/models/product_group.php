@@ -48,7 +48,7 @@ return [
 		'name' => 'Название',
 		'vat' => 'НДС',
 		'sales_unit_volume' => 'Размер лоты',
-
+        'image' => 'Фото'
 	],
     'placeholders' => [
 
@@ -57,12 +57,15 @@ return [
 		'name' => 'Название',
 		'vat' => 'НДС',
 		'sales_unit_volume' => 'Размер лоты',
+        'image' => 'Фото',
 
         'created_at' => 'Создана',
         'updated_at' => 'Изменена',
         'deleted_at' => 'Удалена',
     ],
     'filters' => [
-
+        'productType' => [
+            'name' => 'Товарная группа'
+        ],
     ],
 ];

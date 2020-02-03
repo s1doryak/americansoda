@@ -128,12 +128,38 @@ class ProductDataTable extends DataTable
     public function renderNameColumn($product)
     {
         if ($this->isDataTableRequest()) {
-            $brand = $product->brand ? $product->brand->name : $this->renderView('datatables::columns.default');
+            $brand = $product->brand ? $product->brand->name : $this->renderDefaultView();
 
             return $this->renderMediaView($product->name, $brand, $product->product_image);
         }
 
         return $product->name;
+    }
+
+    /**
+     * @param Product $product
+     * @return string
+     */
+    public function renderProductGroup__NameColumn($product)
+    {
+        if ($this->isDataTableRequest()) {
+            return $product->productGroup ? $product->productGroup->name : $this->renderDefaultView();
+        }
+
+        return $product->productGroup->name ?? null;
+    }
+
+    /**
+     * @param Product $product
+     * @return string
+     */
+    public function renderPackageType__NameColumn($product)
+    {
+        if ($this->isDataTableRequest()) {
+            return $product->packageType->name ?? $this->renderDefaultView();
+        }
+
+        return $product->packageType->name ?? null;
     }
 
     /**
@@ -151,6 +177,6 @@ class ProductDataTable extends DataTable
             return $this->renderView('dashboard::resources.product.columns.productTags', compact('product'));
         }
 
-        return $fallback;
+        return $fallback ?? null;
     }
 }

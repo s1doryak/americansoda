@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 /**
  * CustomerOrderItem
@@ -50,216 +51,189 @@ use Carbon\Carbon;
  */
 class CustomerOrderItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'status',
-		'product_name',
-		'sales_unit_quantity',
-		'product_manual_price',
-		'product_price',
-		'vat',
-		'product_vat_price',
-		'products_quantity',
-		'packages_quantity',
-		'total_price',
-		'total_vat_price',
-		'deposit_enabled',
-		'deposit_price',
-		'deposit_vat',
-		'deposit_vat_price',
-		'deposit_total_price',
-		'deposit_total_vat',
-		'deposit_total_vat_price',
-		'bypass',
-		'back_order',
-		'cancelled',
-		'expected_date',
-		'product_id',
-		'customer_id',
-		'customer_order_id',
-		'customer_shipment_id',
-		'customer_invoice_id',
-	];
+    protected $fillable = [
+        'status',
+        'product_name',
+        'sales_unit_quantity',
+        'product_manual_price',
+        'product_price',
+        'vat',
+        'product_vat_price',
+        'products_quantity',
+        'packages_quantity',
+        'total_price',
+        'total_vat_price',
+        'deposit_enabled',
+        'deposit_price',
+        'deposit_vat',
+        'deposit_vat_price',
+        'deposit_total_price',
+        'deposit_total_vat',
+        'deposit_total_vat_price',
+        'bypass',
+        'back_order',
+        'cancelled',
+        'expected_date',
+        'product_id',
+        'customer_id',
+        'customer_order_id',
+        'customer_shipment_id',
+        'customer_invoice_id',
+    ];
 
-	protected $casts = [
-		'sales_unit_quantity' => 'float',
-		'product_manual_price' => 'boolean',
-		'product_price' => 'float',
-		'vat' => 'integer',
-		'product_vat_price' => 'float',
-		'products_quantity' => 'integer',
-		'packages_quantity' => 'integer',
-		'total_price' => 'float',
-		'total_vat_price' => 'float',
-		'deposit_enabled' => 'boolean',
-		'deposit_price' => 'float',
-		'deposit_vat' => 'integer',
-		'deposit_vat_price' => 'float',
-		'deposit_total_price' => 'float',
-		'deposit_total_vat' => 'float',
-		'deposit_total_vat_price' => 'float',
-		'bypass' => 'boolean',
-		'back_order' => 'boolean',
-		'cancelled' => 'boolean',
-	];
+    protected $casts = [
+        'sales_unit_quantity' => 'float',
+        'product_manual_price' => 'boolean',
+        'product_price' => 'float',
+        'vat' => 'integer',
+        'product_vat_price' => 'float',
+        'products_quantity' => 'integer',
+        'packages_quantity' => 'integer',
+        'total_price' => 'float',
+        'total_vat_price' => 'float',
+        'deposit_enabled' => 'boolean',
+        'deposit_price' => 'float',
+        'deposit_vat' => 'integer',
+        'deposit_vat_price' => 'float',
+        'deposit_total_price' => 'float',
+        'deposit_total_vat' => 'float',
+        'deposit_total_vat_price' => 'float',
+        'bypass' => 'boolean',
+        'back_order' => 'boolean',
+        'cancelled' => 'boolean',
+    ];
 
-	protected $dates = [
-		'expected_date',
-	];
+    protected $dates = [
+        'expected_date',
+    ];
 
-	protected $hidden = [
+    protected $hidden = [
 
-	];
+    ];
 
-	protected $belongsTo = [
-		'product' => \App\Product::class,
-		'customer' => \App\Customer::class,
-		'customerOrder' => \App\CustomerOrder::class,
-		'customerShipment' => \App\CustomerShipment::class,
-		'customerInvoice' => \App\CustomerInvoice::class,
-	];
+    protected $belongsTo = [
+        'product' => \App\Product::class,
+        'customer' => \App\Customer::class,
+        'customerOrder' => \App\CustomerOrder::class,
+        'customerShipment' => \App\CustomerShipment::class,
+        'customerInvoice' => \App\CustomerInvoice::class,
+    ];
 
-	protected $belongsToMany = [
+    protected $belongsToMany = [
 
-	];
+    ];
 
-	protected $belongsToManyPivot = [
+    protected $belongsToManyPivot = [
 
-	];
+    ];
 
-	protected $belongsToManyPivotTimestamps = [
+    protected $belongsToManyPivotTimestamps = [
 
-	];
+    ];
 
-	protected $hasOne = [
+    protected $hasOne = [
 
-	];
+    ];
 
-	protected $hasMany = [
-		'stockProducts' => StockProduct::class,
-	];
+    protected $hasMany = [
+        'stockProducts' => StockProduct::class,
+    ];
 
-	protected $hasManyThrough = [
+    protected $hasManyThrough = [
 
-	];
+    ];
 
-	protected $morphTo = [
+    protected $morphTo = [
 
-	];
+    ];
 
-	protected $morphMany = [
+    protected $morphMany = [
 
-	];
+    ];
 
-	protected $with = [
-		'product',
-		'customer',
-		'customerOrder',
-		'customerShipment',
-		'customerInvoice',
-	];
+    protected $with = [
 
-	protected $images = [
+    ];
 
-	];
+    protected $images = [
 
-	protected $files = [
+    ];
 
-	];
+    protected $files = [
 
-	/**
-	 * @return array
-	 */
-	public function getWith()
-	{
-		$conditionA = is_resource_page(['customer_order_item', 'customer_shipment']) || is_datatable(
-				['customer_order_item', 'customer_shipment']
-			) || is_document_page(['customer_shipment']);
-		$conditionB = is_resource_page(['customer_order_item']) || is_datatable(['customer_order_item']);
+    ];
 
-		return [
-			$conditionA ? 'customerOrder' : null,
-			$conditionB ? 'customerOrder' : null,
-			$conditionB ? 'customerOrder.customer' : null,
-			$conditionB ? 'customerOrder.customer.user' : null,
-			$conditionB ? 'customerShipment' : null,
-			$conditionB ? 'product' : null,
-			$conditionB ? 'product.productGroup' : null,
-			$conditionB ? 'customer' : null,
-			$conditionB ? 'customer.user' : null,
-		];
-	}
+    /**
+     * @param $value
+     */
+    public function setSalesUnitQuantityAttribute($value)
+    {
+        $this->attributes['sales_unit_quantity'] = floatize($value);
+    }
 
-	/**
-	 * @param $value
-	 */
-	public function setSalesUnitQuantityAttribute($value)
-	{
-		$this->attributes['sales_unit_quantity'] = floatize($value);
-	}
+    /**
+     * @return string
+     */
+    public function getStatusAttribute()
+    {
+        $status = $this->attributes['status'];
 
-	/**
-	 * @return string
-	 */
-	public function getStatusAttribute()
-	{
-		$status = $this->attributes['status'];
+        if ($status === null) {
+            return Arr::first(array_keys(config('stock.status')));
+        }
 
-		if ($status === null) {
-			return array_first(array_keys(config('stock.status')));
-		}
+        return strtolower($status);
+    }
 
-		return strtolower($status);
-	}
+    /**
+     * @return string
+     */
+    public function getExpectedDateAttribute()
+    {
+        return ''; // $this->formatDateForForm('expected_date');
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getExpectedDateAttribute()
-	{
-		return $this->formatDateForForm('expected_date');
-	}
+    /**
+     * @return integer|null
+     */
+    public function getExpectedWeekAttribute()
+    {
+        if ($this->attributes['expected_date'] === null) {
+            return null;
+        }
 
-	/**
-	 * @return integer|null
-	 */
-	public function getExpectedWeekAttribute()
-	{
-		if ($this->attributes['expected_date'] === null) {
-			return null;
-		}
+        return Carbon::parse($this->attributes['expected_date'])->weekOfYear;
+    }
 
-		return Carbon::parse($this->attributes['expected_date'])->weekOfYear;
-	}
+    /**
+     * @return mixed
+     */
+    public function getDeliveryNumbersAttribute()
+    {
+        return get_delivery_numbers($this->getKey());
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getDeliveryNumbersAttribute()
-	{
-		return get_delivery_numbers($this->getKey());
-	}
+    /**
+     * @return boolean
+     */
+    public function hasValidAssemblyNumber()
+    {
+        return $this->customerShipment && $this->customerShipment->hasValidAssemblyNumber();
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function hasValidAssemblyNumber()
-	{
-		return $this->customerShipment && $this->customerShipment->hasValidAssemblyNumber();
-	}
+    /**
+     * @return boolean
+     */
+    public function hasDefaultAssemblyNumber()
+    {
+        return $this->customerShipment && $this->customerShipment->hasDefaultAssemblyNumber();
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function hasDefaultAssemblyNumber()
-	{
-		return $this->customerShipment && $this->customerShipment->hasDefaultAssemblyNumber();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getAssemblyNumber()
-	{
-		return $this->customerShipment ? $this->customerShipment->assembly_number : '';
-	}
+    /**
+     * @return string
+     */
+    public function getAssemblyNumber()
+    {
+        return $this->customerShipment ? $this->customerShipment->assembly_number : '';
+    }
 }

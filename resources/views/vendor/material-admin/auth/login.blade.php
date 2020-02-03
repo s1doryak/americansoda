@@ -1,4 +1,4 @@
-@extends('material-admin::auth')
+@extends('material-admin::minimal')
 
 @section('content')
     <!-- Login -->
@@ -12,9 +12,8 @@
 
         <div class="lcb-form">
 
-            <form class="form-horizontal" role="form" method="POST" action="{{ route(sprintf('%s.login', prefix_name())) }}">
-
-                {!! csrf_field() !!}
+            <form class="form-horizontal" role="form" method="POST" action="{{ route(prefix_name() . '.login') }}">
+                @csrf
 
                 <div class="input-group m-b-20">
                     <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
@@ -46,16 +45,23 @@
                     </label>
                 </div>
 
-                <button type="submit" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></button>
+                <button type="submit" class="btn btn-login btn-danger btn-float">
+                    <i class="zmdi zmdi-arrow-forward"></i></button>
 
             </form>
         </div>
 
         <div class="lcb-navigation">
-            @if(has_route(sprintf('%s.register', prefix_name())))
-                <a href="{{ route(sprintf('%s.register', prefix_name())) }}" data-ma-no-action="login-switch" data-ma-block="#l-register"><i class="zmdi zmdi-plus"></i> <span>{{ trans('material-admin::auth.buttons.register') }}</span></a>
+            @if(has_route(prefix_name() . '.register'))
+                <a href="{{ route(prefix_name() . '.register') }}">
+                    <i class="zmdi zmdi-plus"></i> <span>{{ trans('material-admin::auth.buttons.register') }}</span>
+                </a>
             @endif
-            <a href="{{ route(sprintf('%s.password.request', prefix_name())) }}" data-ma-no-action="login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>{{ trans('material-admin::auth.buttons.forgot_password') }}</span></a>
+            @if(has_route(prefix_name() . '.password.request'))
+                <a href="{{ route(prefix_name() . '.password.request') }}">
+                    <i class="zmdi zmdi-key"></i> <span>{{ trans('material-admin::auth.buttons.forgot_password') }}</span>
+                </a>
+            @endif
         </div>
     </div>
 @endsection

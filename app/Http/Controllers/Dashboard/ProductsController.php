@@ -35,6 +35,16 @@ class ProductsController extends ResourceController
 	 */
 	protected $resource = 'product';
 
+    /**
+     * @var array
+     */
+	protected $with = [
+        'brand',
+        'packageType',
+        'productGroup',
+        'productTags',
+    ];
+
 	/**
 	 * @var BrandRepository
 	 */

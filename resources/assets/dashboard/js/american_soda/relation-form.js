@@ -1,6 +1,4 @@
 jQuery(function ($) {
-    var $forms = $('.js-relation-form'),
-        templates = {};
 
     function updateRelationForm($table) {
         var row_index = 0;
@@ -17,22 +15,19 @@ jQuery(function ($) {
                     _name = $input.attr('name');
 
                 if (_id) {
-                    $input.attr('name', _id.replace(/[\d]+/, row_index));
+                    $input.attr('name', _id.replace(/\[(%%idx%%|idx|0)]/gm, '[' + row_index + ']'));
                 }
 
                 if (_for) {
-                    $input.attr('name', _for.replace(/[\d]+/, row_index));
+                    $input.attr('name', _for.replace(/\[(%%idx%%|idx|0)]/gm, '[' + row_index + ']'));
                 }
 
                 if (_name) {
-                    $input.attr('name', _name.replace(/[\d]+/, row_index));
+                    $input.attr('name', _name.replace(/\[(%%idx%%|idx|0)]/gm, '[' + row_index + ']'));
                 }
             });
 
-            $row.find('.selectpicker').selectpicker();
-            $row.find('.date-picker').datetimepicker({
-                format: 'DD/MM/YYYY'
-            });
+            $row.trigger('reanimate');
         });
     }
 
@@ -48,16 +43,15 @@ jQuery(function ($) {
         }
     }
 
-    $('.js-relation-form-row').each(function (idx, el) {
-        var $template = $(el),
-            resource = $template.data('resource');
+    var $policies = $('.js-relation-form[data-resource^="customer_pricing_policy"]');
 
-        templates[resource] = Handlebars.compile($template.html());
-    });
+    if ($policies.length) {
+        updateRelationForm($policies.closest('.js-relation-form'));
+    }
 
     $(document).on('click', '.js-add-row', function () {
         var $this = $(this),
-            $table, $parentTable, resource, $lastRow, $row;
+            $template, $table, $parentTable, resource, $lastRow, $row, template, lastRowIdx, idx;
 
         if ($this.closest('.js-relation-form').length) {
             $table = $this.closest('.js-relation-form');
@@ -69,11 +63,11 @@ jQuery(function ($) {
 
         resource = $table.data('resource');
         $lastRow = $table.find('.js-row').last();
-        $idx = $lastRow.index() + 1;
-        $row = $(
-            templates[resource]()
-                .replace(/\[(%%idx%%|idx|\d*)]/gm, '[' + $idx + ']')
-        );
+        lastRowIdx = $lastRow.index() + 1;
+        idx = lastRowIdx + 1;
+        $template = $('[data-role="template"][data-resource="' + resource + '"]');
+        template = $template.html().replace(/\[(%%idx%%|idx|0)]/gm, '[' + idx + ']');
+        $row = $(template);
 
         $row.addClass('new');
 
@@ -87,71 +81,50 @@ jQuery(function ($) {
 
         toggleRelationForm($table);
 
-        $table.trigger('relation-form-row-added', [$row]).trigger('relation-form-row-added/' + resource, [$row]);
+        $table.trigger('relation-form-row-added', [$row]);
 
         return false;
     });
 
-    $forms.each(function (i, form) {
-        var $form = $(form);
+    $(document).on('click', '.js-remove-row', function () {
+        var $this = $(this),
+            $row = $this.closest('.js-row'),
+            $table = $row.closest('.js-relation-form'),
+            colspan = $row.find('>td').length - 1;
 
-        $form.on('click', '.js-remove-row', function () {
-            var $this = $(this),
-                $row = $this.closest('.js-row'),
-                $mainForm = $row.closest('form');
+        if ($row.hasClass('new')) {
 
-            if ($mainForm.data('create') === 1 || $row.hasClass('new')) {
-                $row.remove();
+            $row.remove();
 
-                toggleRelationForm($form);
-
-                return false;
-            }
-
-            var oldText = $this.text();
-
-            $this.text($this.data('text'));
-            $this.data('text', oldText);
-
-            $row.data('removed', $row.data('removed') !== 1 ? 1 : 0);
-
-            $row.find('[data-remove]').val($row.data('removed'));
-
-            $row.find('td:not(.js-td-removed)').toggleClass('hidden');
-            $row.find('.js-td-removed').toggleClass('hidden').attr('colspan', $row.find('td:not(.js-td-removed)').length);
-
-            toggleRelationForm($form);
+            toggleRelationForm($table);
 
             return false;
-        });
-
-        $form.on('click', '.js-undo-link', function () {
-            $(this).closest('.js-row').find('.js-remove-row').click();
-
-            return false;
-        });
-
-        $form.on('input change', '.form-control', function () {
-            var $this = $(this),
-                $row = $this.closest('.js-row'),
-                val = $this.val() || $this.text(),
-                changed = (val !== $this.data('initial') ? 1 : 0);
-
-            $row.find('[data-changed]').val(changed);
-        });
-
-        toggleRelationForm($form);
-
-    });
-
-    (function () {
-
-        $policies = $('.js-relation-form[data-resource^="customer_pricing_policy"]');
-
-        if ($policies.length) {
-            updateRelationForm($policies.closest('.js-relation-form'));
         }
 
-    }());
+        $row.data('removed', !$row.data('removed'));
+
+        $row.find('[name$="[_remove]"]')
+            .val($row.data('removed'));
+
+        $row.find('td:not(.js-td-removed)')
+            .toggleClass('hidden');
+
+        $row.find('.js-td-removed')
+            .toggleClass('hidden')
+            .attr('colspan', colspan);
+
+        toggleRelationForm($table);
+
+        return false;
+    });
+
+    $(document).on('click', '.js-undo-link', function () {
+
+        $(this).closest('.js-row')
+            .find('.js-remove-row')
+            .click();
+
+        return false;
+    });
 
 });

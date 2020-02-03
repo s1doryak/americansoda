@@ -16,80 +16,81 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerPreOrderCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:customer_pre_order';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
-	/**
-	 * @var CustomerUserRepository
-	 */
-	protected $customerUsers;
+    /**
+     * @var string
+     */
+    protected $resource = 'customer_pre_order';
 
-	/**
-	 * @var CustomerOrderRepository
-	 */
-	protected $customerOrders;
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
-	/**
-	 * @var CustomerRepository
-	 */
-	protected $customers;
+    /**
+     * @var CustomerUserRepository
+     */
+    protected $customerUsers;
 
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'customerUsers' => 'name',
-		'customerOrders' => 'number',
-		'customers' => 'name',
-	];
+    /**
+     * @var CustomerOrderRepository
+     */
+    protected $customerOrders;
 
-	public function __construct(
-	    CustomerPreOrder $customerPreOrder,
-		CustomerPreOrderRepository $customerPreOrderRepository,
-		CustomerUserRepository $customerUserRepository,
-		CustomerOrderRepository $customerOrderRepository,
-		CustomerRepository $customerRepository
-	)
-	{
-	    $this->resource = $customerPreOrder;
-		$this->repository = $customerPreOrderRepository;
-		$this->customerUsers = $customerUserRepository;
-		$this->customerOrders = $customerOrderRepository;
-		$this->customers = $customerRepository;
+    /**
+     * @var CustomerRepository
+     */
+    protected $customers;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'customerUsers' => 'name',
+        'customerOrders' => 'number',
+        'customers' => 'name',
+    ];
+
+    public function __construct(
+        CustomerPreOrder $customerPreOrder,
+        CustomerPreOrderRepository $customerPreOrderRepository,
+        CustomerUserRepository $customerUserRepository,
+        CustomerOrderRepository $customerOrderRepository,
+        CustomerRepository $customerRepository
+    )
+    {
+        $this->model = $customerPreOrder;
+        $this->repository = $customerPreOrderRepository;
+        $this->customerUsers = $customerUserRepository;
+        $this->customerOrders = $customerOrderRepository;
+        $this->customers = $customerRepository;
 
         parent::__construct();
-	}
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
+    /**
+     * @param CustomerPreOrder $customerPreOrder
+     * @return array
+     */
+    public function getEventAttributes($customerPreOrder)
+    {
+        return $customerPreOrder->getAttributes();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'customer_pre_order';
-	}
-
-	/**
-	 * @param CustomerPreOrder $customerPreOrder
-	 * @return array
-	 */
-	public function getEventAttributes($customerPreOrder)
-	{
-		return $customerPreOrder->getAttributes();
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

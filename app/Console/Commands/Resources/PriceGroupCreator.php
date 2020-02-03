@@ -13,9 +13,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class PriceGroupCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:price_group';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
+    /**
+     * @var string
+     */
+    protected $resource = 'price_group';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var array
@@ -29,26 +45,10 @@ class PriceGroupCreator extends ResourceCreator
 		PriceGroupRepository $priceGroupRepository
 	)
 	{
-	    $this->resource = $priceGroup;
+	    $this->model = $priceGroup;
 		$this->repository = $priceGroupRepository;
 
         parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'price_group';
 	}
 
 	/**

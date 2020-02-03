@@ -32,11 +32,18 @@ class CompaniesController extends ResourceController
      */
     protected $resource = 'company';
 
+    /**
+     * @var array
+     */
+    protected $with = [
+        'region',
+        'companyBankAccounts',
+    ];
+
 	/**
 	 * @var RegionRepository
 	 */
 	protected $regions;
-	
 
     /**
      * @var array

@@ -48,6 +48,18 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      *
      * @return boolean
      */
+    public function export(Authenticatable $authenticatable)
+    {
+        return true;
+    }
+
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
     public function action(Authenticatable $authenticatable)
     {
         return true;
@@ -63,7 +75,7 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      */
     public function view(Authenticatable $authenticatable, CustomerShipment $customerShipment)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -75,7 +87,7 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      */
     public function create(Authenticatable $authenticatable)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -88,20 +100,20 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      */
     public function update(Authenticatable $authenticatable, CustomerShipment $customerShipment)
     {
-        return false;
+        return true;
     }
 
     /**
-     * Determine whether the user can delete the entity.
+     * Determine whether the user can trash the entity.
      *
      * @param Authenticatable $authenticatable
      * @param CustomerShipment $customerShipment
      *
      * @return boolean
      */
-    public function delete(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    public function trash(Authenticatable $authenticatable, CustomerShipment $customerShipment)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -114,8 +126,20 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      */
     public function restore(Authenticatable $authenticatable, CustomerShipment $customerShipment)
     {
+        return true;
+    }
 
-        return false;
+    /**
+     * Determine whether the user can destroy the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerShipment $customerShipment
+     *
+     * @return boolean
+     */
+    public function destroy(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    {
+        return true;
     }
 
     /**

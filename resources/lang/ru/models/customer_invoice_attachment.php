@@ -60,7 +60,7 @@ return [
 		'filename' => 'Название файла',
 		'file' => 'Содержимое',
 		'customerInvoice' => [
-			'name' => 'Счёт',
+			'order_nr' => 'Счёт',
 		],
         'created_at' => 'Создан',
         'updated_at' => 'Изменён',
@@ -68,7 +68,7 @@ return [
     ],
     'filters' => [
 		'customerInvoice' => [
-			'name' => 'Счёт',
+			'order_nr' => 'Счёт',
 		],
     ],
 ];

@@ -88,8 +88,7 @@ class User extends \Crmplease\MaterialAdmin\Foundation\Auth\User
 	];
 
 	protected $with = [
-		'role',
-		'company',
+
 	];
 
 	protected $images = [

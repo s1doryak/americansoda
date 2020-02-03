@@ -1,4 +1,4 @@
-@extends('material-admin::.auth')
+@extends('material-admin::minimal')
 
 @section('content')
 
@@ -19,16 +19,15 @@
 
         <div class="lcb-form">
 
-            <form class="form-horizontal" role="form" method="POST" action="{{ route(sprintf('%s.password.request', prefix_name())) }}">
-
-                {{ csrf_field() }}
+            <form class="form-horizontal" role="form" method="POST" action="{{ route(prefix_name() . '.password.update') }}">
+                @csrf
 
                 <input type="hidden" name="token" value="{{ $token }}">
 
                 <div class="input-group m-b-20">
                     <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
                     <div class="fg-line{{ $errors->has('email') ? ' has-error' : '' }}">
-                        <input type="text" name="email" class="form-control" placeholder="{{ trans('material-admin::auth.reset_password.email') }}" value="{{ $email or old('email') }}">
+                        <input type="text" name="email" class="form-control" placeholder="{{ trans('material-admin::auth.reset_password.email') }}" value="{{ $email ?? old('email') }}">
                     </div>
                     @if ($errors->has('email'))
                         <span class="help-block">{{ $errors->first('email') }}</span>
@@ -63,9 +62,15 @@
         </div>
 
         <div class="lcb-navigation">
-            <a href="{{ route(sprintf('%s.login', prefix_name())) }}" data-ma-no-action="login-switch" data-ma-block="#l-login"><i class="zmdi zmdi-long-arrow-right"></i> <span>{{ trans('material-admin::auth.buttons.login') }}</span></a>
-            @if(has_route(sprintf('%s.register', prefix_name())))
-            <a href="{{ route(sprintf('%s.register', prefix_name())) }}" data-ma-no-action="login-switch" data-ma-block="#l-register"><i class="zmdi zmdi-plus"></i> <span>{{ trans('material-admin::auth.buttons.register') }}</span></a>
+            @if(has_route(prefix_name() . '.login'))
+                <a href="{{ route(prefix_name() . '.login') }}">
+                    <i class="zmdi zmdi-long-arrow-right"></i> <span>{{ trans('material-admin::auth.buttons.login') }}</span>
+                </a>
+            @endif
+            @if(has_route(prefix_name() . '.register'))
+                <a href="{{ route(prefix_name() . '.register') }}">
+                    <i class="zmdi zmdi-plus"></i> <span>{{ trans('material-admin::auth.buttons.register') }}</span>
+                </a>
             @endif
         </div>
     </div>

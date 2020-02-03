@@ -31,11 +31,18 @@ class CustomerTypesController extends ResourceController
      */
     protected $resource = 'customer_type';
 
-	/**
+    /**
+     * @var array
+     */
+    protected $with = [
+        'customerType',
+        'banners',
+    ];
+
+    /**
 	 * @var CustomerTypeRepository
 	 */
 	protected $customerTypes;
-	
 
     /**
      * @var array

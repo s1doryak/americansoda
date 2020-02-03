@@ -76,8 +76,7 @@ class PriceGroupBreakpoint extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
     ];
 
     protected $with = [
-		'priceGroup',
-		'productGroups',
+
     ];
 
     protected $images = [

@@ -63,6 +63,14 @@ class CustomerOrderItemsAssigned implements ResourceEventInterface
     }
 
     /**
+     * @return string
+     */
+    public function getAction()
+    {
+        return 'customerOrderItemsAssigned';
+    }
+
+    /**
      * @return array
      */
     public function getAttributes()

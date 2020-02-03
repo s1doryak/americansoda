@@ -2,88 +2,114 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\CustomerPricingPolicy;
 use App\Repositories\Contracts\CustomerPricingPolicyRepository;
+use Illuminate\Support\Arr;
 
 class CustomerPricingPolicyRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerPricingPolicyRepository
 {
-	/**
-	 * @param $customerId
-	 * @param array $policies
-	 * @return array
-	 */
-	public function setPoliciesForCustomer($customerId, array $policies)
-	{
-		$trashed = [];
-		$models = [];
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return CustomerPricingPolicy::class;
+    }
 
-		foreach ($policies as $idx => $attributes) {
-			$isUpdated = (boolean)array_pull($attributes, 'updated');
-			$isTrashed = (boolean)array_pull($attributes, 'trashed');
+    /**
+     * @param $customerId
+     * @param array $policies
+     * @return array
+     */
+    public function setPoliciesForCustomer($customerId, array $policies)
+    {
+        $trashed = [];
+        $models = [];
 
-			if (!isset($attributes['id']) || empty($attributes['id'])) {
-				array_pull($attributes, 'id');
-				$attributes['customer_id'] = $customerId;
+        foreach ($policies as $idx => $attributes) {
+            $isUpdated = (boolean)Arr::pull($attributes, 'updated');
+            $isTrashed = (boolean)Arr::pull($attributes, 'trashed');
 
-				$model = $this->model->create($attributes);
-				$models[] = array_merge($model->toArray(), [
-					'index' => $idx,
-					'created' => true
-				]);
-			} else if ($isUpdated) {
-				$model = $this->model->find($attributes['id']);
-				$model->update($attributes);
+            if (!isset($attributes['id']) || empty($attributes['id'])) {
+                Arr::pull($attributes, 'id');
+                $attributes['customer_id'] = $customerId;
 
-				$models[] = array_merge($model->toArray(), [
-					'updated' => true
-				]);
-			} else if ($isTrashed) {
-				$trashed[] = [
-					'id' => $attributes['id'],
-					'trashed' => true
-				];
-			}
-		}
+                $model = $this->model->create($attributes);
+                $models[] = array_merge($model->toArray(), [
+                    'index' => $idx,
+                    'created' => true
+                ]);
+            } else if ($isUpdated) {
+                $model = $this->model->find($attributes['id']);
+                $model->update($attributes);
 
-		if (count($trashed)) {
-			$ids = array_map(function ($item) {
-				return $item['id'];
-			}, $trashed);
+                $models[] = array_merge($model->toArray(), [
+                    'updated' => true
+                ]);
+            } else if ($isTrashed) {
+                $trashed[] = [
+                    'id' => $attributes['id'],
+                    'trashed' => true
+                ];
+            }
+        }
 
-			$trashing = $this->model->whereIn('id', $ids)->get();
+        if (count($trashed)) {
+            $ids = array_map(function ($item) {
+                return $item['id'];
+            }, $trashed);
 
-			foreach ($trashing as $model) {
-				$models[] = array_merge($model->toArray(), ['trashed' => true]);
+            $trashing = $this->model->whereIn('id', $ids)->get();
 
-				$model->delete();
-			}
-		}
+            foreach ($trashing as $model) {
+                $models[] = array_merge($model->toArray(), ['trashed' => true]);
 
-		return $models;
-	}
+                $model->delete();
+            }
+        }
 
-	/**
-	 * @param $quantity
-	 * @param $customerId
-	 * @param $productGroupId
-	 * @return mixed
-	 */
-	public function getPriceBySalesUnitQuantity($quantity, $customerId, $productGroupId)
-	{
-		$price = $this->findWhere([
-			'customer_id' => $customerId,
-			'product_group_id' => $productGroupId,
-			[function ($query) use ($quantity) {
-				$query->where('products_range', '<=', $quantity);
-			}, null, null]
-		])->min('price');
+        return $models;
+    }
 
-		if (!$price) {
-			$price = $this->findWhere([
-				'customer_id' => $customerId,
-				'product_group_id' => $productGroupId
-			])->max('price');
-		}
+    /**
+     * @param $quantity
+     * @param $customerId
+     * @param $productGroupId
+     * @return mixed
+     */
+    public function getPriceBySalesUnitQuantity($quantity, $customerId, $productGroupId)
+    {
+        $price = $this->findWhere([
+            'customer_id' => $customerId,
+            'product_group_id' => $productGroupId,
+            [function ($query) use ($quantity) {
+                $query->where('products_range', '<=', $quantity);
+            }, null, null]
+        ])->min('price');
 
-		return $price;
-	}
+        if (!$price) {
+            $price = $this->findWhere([
+                'customer_id' => $customerId,
+                'product_group_id' => $productGroupId
+            ])->max('price');
+        }
+
+        return $price;
+    }
+
+    public function getByShopId($shopId, $ids = [])
+    {
+        $query = $this->model
+            ->getQuery()
+            ->where('customer_id', $shopId)
+            ->where('price', '>', '0.00')
+            ->where('products_range', '>', 0)
+            ->whereNull('deleted_at');
+
+        if ($ids) {
+            $query->whereIn('id', $ids);
+        }
+
+        return $query->get();
+    }
 }

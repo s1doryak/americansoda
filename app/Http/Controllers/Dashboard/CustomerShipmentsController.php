@@ -51,6 +51,19 @@ class CustomerShipmentsController extends ResourceController
     protected $resource = 'customer_shipment';
 
     /**
+     * @var array
+     */
+    protected $with = [
+        'customer',
+        'user',
+        'packageType',
+        'customerInvoice',
+        'customerOrderItems',
+        'customerOrderItems.customerOrder',
+        'customerOrderItems.product',
+    ];
+
+    /**
      * @var PackageTypeRepository
      */
     protected $packageTypes;
@@ -109,6 +122,14 @@ class CustomerShipmentsController extends ResourceController
         ],
         'users' => 'name',
         'products' => 'name',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $popupActions = [
+        'create' => 'fullscreen',
+        'edit' => 'fullscreen'
     ];
 
     /**
@@ -202,7 +223,7 @@ class CustomerShipmentsController extends ResourceController
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function invoice(Request $request)
     {
@@ -255,10 +276,10 @@ class CustomerShipmentsController extends ResourceController
                 'customerInvoiceItems' => $customerInvoiceItems->concat($customerInvoicePalpaItems)->toArray()
             ];
 
-            event(new ResourceStored($this->getPrefix(), 'customer_invoice', $attributes, $params));
+            event(new ResourceStored($this->getPrefix(), 'customer_invoice', 'invoice', $attributes, $params));
         }
 
-        return redirect(route(sprintf('%s.customer_invoice.edit', $this->getPrefix()), $customerInvoice->getKey()));
+        return redirect(route("{$this->getPrefix()}.customer_invoice.edit", $customerInvoice->getKey()));
     }
 
     /**

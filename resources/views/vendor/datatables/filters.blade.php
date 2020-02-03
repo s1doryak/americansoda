@@ -27,8 +27,8 @@
         <div class="row">
             <div class="form-group col-sm-6">
                 <div class="col-sm-offset-4 col-sm-8">
-                    <button type="submit" class="btn btn-primary btn-sm waves-effect">{{ trans('material-admin::forms.buttons.apply') }}</button>
-                    <button type="reset" class="btn btn-danger btn-sm waves-effect m-l-10">{{ trans('material-admin::forms.buttons.reset') }}</button>
+                    <button type="submit" class="btn btn-primary btn-sm">{{ trans('material-admin::forms.buttons.apply') }}</button>
+                    <button type="reset" class="btn btn-danger btn-sm m-l-10">{{ trans('material-admin::forms.buttons.reset') }}</button>
                 </div>
             </div>
         </div>

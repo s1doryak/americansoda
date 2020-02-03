@@ -15,8 +15,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class CustomerPricingPolicyCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:customer_pricing_policy';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = 'customer_pricing_policy';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 	/**
 	 * @var ProductGroupRepository
 	 */
@@ -26,7 +43,6 @@ class CustomerPricingPolicyCreator extends ResourceCreator
 	 * @var CustomerRepository
 	 */
 	protected $customers;
-
 
 	/**
 	 * @var array
@@ -43,28 +59,12 @@ class CustomerPricingPolicyCreator extends ResourceCreator
 		CustomerRepository $customerRepository
 	)
 	{
-	    $this->resource = $customerPricingPolicy;
+	    $this->model = $customerPricingPolicy;
 		$this->repository = $customerPricingPolicyRepository;
 		$this->productGroups = $productGroupRepository;
 		$this->customers = $customerRepository;
 
         parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'customer_pricing_policy';
 	}
 
 	/**

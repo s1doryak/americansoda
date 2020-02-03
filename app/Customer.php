@@ -172,13 +172,7 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-        'stock',
-        'customerType',
-        'paymentType',
-        'user',
-        'billingRegion',
-        'shippingRegion',
-        'priceGroup',
+
     ];
 
     protected $images = [
@@ -190,24 +184,6 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     /**
-     * @return array
-     */
-    public function getWith()
-    {
-        $condition = is_resource_page(['customer']) || is_datatable(['customer']);
-
-        return [
-            $condition ? 'billingRegion' : null,
-            $condition ? 'shippingRegion' : null,
-            $condition ? 'customerType' : null,
-            $condition ? 'paymentType' : null,
-            $condition ? 'priceGroup' : null,
-            $condition ? 'user' : null,
-            $condition ? 'stock' : null,
-        ];
-    }
-
-    /**
      * @return string
      */
     public function renderName()
@@ -217,7 +193,6 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
             sprintf("%s / BID %s / OVT %s", $this->legal_name, $this->bid ?? '—', $this->ovt ?? '—')
         );
     }
-
 
     /**
      * @return string

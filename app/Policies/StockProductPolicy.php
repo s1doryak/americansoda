@@ -11,23 +11,23 @@ use Illuminate\Contracts\Auth\Authenticatable;
 /**
  * StockProduct policy.
  *
- * @package App\Policies
+ * @payment App\Policies
  */
 class StockProductPolicy implements DatatablePolicyContract
 {
-	use HandlesAuthorization;
+    use HandlesAuthorization;
 
-	/**
-	 * Determine whether the user can list of entities.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function index(Authenticatable $authenticatable)
-	{
-		return true;
-	}
+    /**
+     * Determine whether the user can list of entities.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function index(Authenticatable $authenticatable)
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can list of trashed entities.
@@ -41,73 +41,86 @@ class StockProductPolicy implements DatatablePolicyContract
         return true;
     }
 
-	/**
-	 * Determine whether the user can view action column.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function action(Authenticatable $authenticatable)
-	{
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function export(Authenticatable $authenticatable)
+    {
 
-		return false;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can view the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param StockProduct $stockProduct
-	 *
-	 * @return boolean
-	 */
-	public function view(Authenticatable $authenticatable, StockProduct $stockProduct)
-	{
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function action(Authenticatable $authenticatable)
+    {
 
-		return false;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can create entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function create(Authenticatable $authenticatable)
-	{
+    /**
+     * Determine whether the user can view the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param StockProduct $stockProduct
+     *
+     * @return boolean
+     */
+    public function view(Authenticatable $authenticatable, StockProduct $stockProduct)
+    {
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * Determine whether the user can update the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param StockProduct $stockProduct
-	 *
-	 * @return boolean
-	 */
-	public function update(Authenticatable $authenticatable, StockProduct $stockProduct)
-	{
+    /**
+     * Determine whether the user can create entity.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function create(Authenticatable $authenticatable)
+    {
 
-		return false;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can delete the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param StockProduct $stockProduct
-	 *
-	 * @return boolean
-	 */
-	public function delete(Authenticatable $authenticatable, StockProduct $stockProduct)
-	{
+    /**
+     * Determine whether the user can update the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param StockProduct $stockProduct
+     *
+     * @return boolean
+     */
+    public function update(Authenticatable $authenticatable, StockProduct $stockProduct)
+    {
 
-		return false;
-	}
+        return true;
+    }
+
+    /**
+     * Determine whether the user can trash the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param StockProduct $stockProduct
+     *
+     * @return boolean
+     */
+    public function trash(Authenticatable $authenticatable, StockProduct $stockProduct)
+    {
+
+        return true;
+    }
 
     /**
      * Determine whether the user can restore the entity.
@@ -120,6 +133,20 @@ class StockProductPolicy implements DatatablePolicyContract
     public function restore(Authenticatable $authenticatable, StockProduct $stockProduct)
     {
 
-        return false;
+        return true;
+    }
+
+    /**
+     * Determine whether the user can destroy the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param StockProduct $stockProduct
+     *
+     * @return boolean
+     */
+    public function destroy(Authenticatable $authenticatable, StockProduct $stockProduct)
+    {
+
+        return true;
     }
 }

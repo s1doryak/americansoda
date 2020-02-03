@@ -11,23 +11,23 @@ use Illuminate\Contracts\Auth\Authenticatable;
 /**
  * Role policy.
  *
- * @package App\Policies
+ * @payment App\Policies
  */
 class RolePolicy implements DatatablePolicyContract
 {
-	use HandlesAuthorization;
+    use HandlesAuthorization;
 
-	/**
-	 * Determine whether the user can list of entities.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function index(Authenticatable $authenticatable)
-	{
-		return true;
-	}
+    /**
+     * Determine whether the user can list of entities.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function index(Authenticatable $authenticatable)
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can list of trashed entities.
@@ -41,73 +41,86 @@ class RolePolicy implements DatatablePolicyContract
         return true;
     }
 
-	/**
-	 * Determine whether the user can view action column.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function action(Authenticatable $authenticatable)
-	{
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function export(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can view the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param Role $role
-	 *
-	 * @return boolean
-	 */
-	public function view(Authenticatable $authenticatable, Role $role)
-	{
+    /**
+     * Determine whether the user can view action column.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function action(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can create entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 *
-	 * @return boolean
-	 */
-	public function create(Authenticatable $authenticatable)
-	{
+    /**
+     * Determine whether the user can view the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param Role $role
+     *
+     * @return boolean
+     */
+    public function view(Authenticatable $authenticatable, Role $role)
+    {
 
-		return true;
-	}
+        return false;
+    }
 
-	/**
-	 * Determine whether the user can update the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param Role $role
-	 *
-	 * @return boolean
-	 */
-	public function update(Authenticatable $authenticatable, Role $role)
-	{
+    /**
+     * Determine whether the user can create entity.
+     *
+     * @param Authenticatable $authenticatable
+     *
+     * @return boolean
+     */
+    public function create(Authenticatable $authenticatable)
+    {
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Determine whether the user can delete the entity.
-	 *
-	 * @param Authenticatable $authenticatable
-	 * @param Role $role
-	 *
-	 * @return boolean
-	 */
-	public function delete(Authenticatable $authenticatable, Role $role)
-	{
+    /**
+     * Determine whether the user can update the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param Role $role
+     *
+     * @return boolean
+     */
+    public function update(Authenticatable $authenticatable, Role $role)
+    {
 
-		return true;
-	}
+        return true;
+    }
+
+    /**
+     * Determine whether the user can trash the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param Role $role
+     *
+     * @return boolean
+     */
+    public function trash(Authenticatable $authenticatable, Role $role)
+    {
+
+        return true;
+    }
 
     /**
      * Determine whether the user can restore the entity.
@@ -118,6 +131,20 @@ class RolePolicy implements DatatablePolicyContract
      * @return boolean
      */
     public function restore(Authenticatable $authenticatable, Role $role)
+    {
+
+        return true;
+    }
+
+    /**
+     * Determine whether the user can destroy the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param Role $role
+     *
+     * @return boolean
+     */
+    public function destroy(Authenticatable $authenticatable, Role $role)
     {
 
         return true;

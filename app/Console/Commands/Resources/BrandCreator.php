@@ -13,9 +13,25 @@ use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
  */
 class BrandCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:brand';
 
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
+    /**
+     * @var string
+     */
+    protected $resource = 'brand';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
 	/**
 	 * @var array
@@ -29,26 +45,10 @@ class BrandCreator extends ResourceCreator
 		BrandRepository $brandRepository
 	)
 	{
-	    $this->resource = $brand;
+	    $this->model = $brand;
 		$this->repository = $brandRepository;
 
         parent::__construct();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'brand';
 	}
 
 	/**

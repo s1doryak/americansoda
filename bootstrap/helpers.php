@@ -4,14 +4,36 @@ use App\CustomerInvoiceItem;
 use App\CustomerOrderItem;
 use Illuminate\Support\Collection;
 
+/**
+ * @return boolean
+ */
 function is_app()
 {
-    return prefix_name() == '';
+    return prefix_name() === '';
 }
 
+/**
+ * @return boolean
+ */
 function is_dashboard()
 {
-    return prefix_name() == 'dashboard';
+    return prefix_name() === 'dashboard';
+}
+
+/**
+ * @return boolean
+ */
+function is_api()
+{
+    return strpos(prefix_name(), 'api') !== false;
+}
+
+/**
+ * @return boolean
+ */
+function is_local()
+{
+    return env('APP_ENV', 'production') === 'local';
 }
 
 /**
@@ -240,4 +262,37 @@ function viitenumero_check_digit($number)
     }
 
     return $sum % 10;
+}
+
+/**
+ * @param string $token
+ * @return string
+ */
+function generateApiAuthLink($token)
+{
+    return config('app.shop_url') . '?token=' . $token;
+}
+
+/**
+ * @param integer $id
+ * @param string $resource
+ * @param string $action
+ * @return string
+ */
+function generateResourceLink($id, $resource, $action = 'edit')
+{
+    return config('app.url') . "/dashboard/{$resource}/{$id}/$action";
+}
+
+/**
+ * @param bool $reset
+ * @return int
+ */
+function static_idx($reset = false)
+{
+    static $idx = 0;
+
+    $idx = $reset ? 1 : $idx + 1;
+
+    return $idx;
 }

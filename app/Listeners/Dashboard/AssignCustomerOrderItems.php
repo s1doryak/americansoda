@@ -132,9 +132,9 @@ class AssignCustomerOrderItems
 
         foreach ($items as $idx => $item) {
 
-            $id = $item['id'] ?? false;
+            $id = numerize($item['id'] ?? false);
+            $removing = booleanize($item['_remove'] ?? false);
             $status = $item['status'] ?? false;
-            $removing = $item['_remove'] ?? false;
 
             if ($removing) {
 

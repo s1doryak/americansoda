@@ -39,7 +39,7 @@ class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $belongsToMany = [
-
+        'banners' => [Banner::class, 'banner_customer_type'],
     ];
 
     protected $belongsToManyPivot = [
@@ -52,10 +52,9 @@ class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     protected $hasOne = [
 
-	];
+    ];
 
     protected $hasMany = [
-
     ];
 
     protected $hasManyThrough = [
@@ -71,7 +70,7 @@ class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $with = [
-        'customerType',
+
     ];
 
     protected $images = [
@@ -81,16 +80,4 @@ class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
-
-    /**
-     * @return array
-     */
-    public function getWith()
-    {
-        $condition = is_resource_page(['customer_type']) || is_datatable(['customer_type']);
-
-        return [
-            $condition ? 'customerType' : null,
-        ];
-    }
 }

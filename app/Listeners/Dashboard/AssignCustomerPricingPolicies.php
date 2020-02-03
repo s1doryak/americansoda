@@ -8,97 +8,100 @@ use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
 use App\Repositories\Contracts\CustomerPricingPolicyRepository;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
+use Illuminate\Support\Arr;
 
 class AssignCustomerPricingPolicies
 {
     use ValidatesResource, ValidatesNamespace;
 
-	/**
-	 * @var CustomerPricingPolicyRepository
-	 */
-	protected $pricingPolicies;
+    /**
+     * @var CustomerPricingPolicyRepository
+     */
+    protected $customerPricingPolicies;
 
-	/**
-	 * Create the event listener.
-	 *
-	 * @param CustomerPricingPolicyRepository $pricingPolicies
-	 */
-	public function __construct(
-		CustomerPricingPolicyRepository $pricingPolicies
-	)
-	{
-		$this->pricingPolicies = $pricingPolicies;
-	}
+    /**
+     * Create the event listener.
+     *
+     * @param CustomerPricingPolicyRepository $customerPricingPolicyRepository
+     */
+    public function __construct(
+        CustomerPricingPolicyRepository $customerPricingPolicyRepository
+    )
+    {
+        $this->customerPricingPolicies = $customerPricingPolicyRepository;
+    }
 
-	/**
-	 * Handle the event.
-	 *
-	 * @param ResourceEventInterface $event
-	 * @return void
-	 */
-	public function handle(ResourceEventInterface $event)
-	{
-		if (!$this->isValidResource($event->getResource())) {
-			return;
-		}
+    /**
+     * Handle the event.
+     *
+     * @param ResourceEventInterface $event
+     * @return void
+     */
+    public function handle(ResourceEventInterface $event)
+    {
+        if (!$this->isValidResource($event->getResource())) {
+            return;
+        }
 
-		$attributes = $event->getAttributes();
-		$params = $event->getParams();
-		$policies = array_get($params, 'customerPricingPolicies');
+        $attributes = $event->getAttributes();
+        $params = $event->getParams();
 
-		if (!is_array($policies) || !count($policies)) {
-			return;
-		}
+        $updated = [];
 
-		$updated = [];
+        $policies = Arr::get($params, 'customerPricingPolicies', []);
 
-		foreach ($policies as $policy) {
+        foreach ($policies as $policy) {
 
-			$_changed = array_pull($policy, '_changed');
+            $_changed = Arr::pull($policy, '_changed');
 
-			if (isset($policy['_remove']) && (boolean)$policy['_remove'] === true) {
+            if (booleanize($policy['_remove'] ?? false)) {
 
-				try {
-					$deleted = $this->pricingPolicies->findWhere(['id' => $policy['id']]);
+                $deleted = $this->customerPricingPolicies->findWhere(['id' => $policy['id']]);
 
-					if ($deleted) {
+                if ($deleted) {
 
-						$this->pricingPolicies->trash($policy['id']);
+                    $this->customerPricingPolicies->trash($policy['id']);
 
-						$updated[] = array_merge($policy, $deleted->toArray(), compact('_changed'));
-					}
-				} catch (\Exception $e) {
-				}
+                    $updated[] = array_merge($policy, $deleted->toArray(), compact('_changed'));
+                }
 
-				continue;
-			}
+                continue;
+            }
 
-			$_policy = [
-				'customer_id' => $attributes['id'],
-				'product_group_id' => $policy['productGroup'],
-				'products_range' => $policy['products_range'],
-				'price' => $policy['price'],
-			];
+            $_policy = [
+                'customer_id' => $attributes['id'],
+                'product_group_id' => $policy['productGroup'],
+                'products_range' => $policy['products_range'],
+                'price' => $policy['price'],
+            ];
 
-			if ($event instanceof ResourceStored) {
-				$policy['customer_id'] = $attributes['id'];
+            if ($event instanceof ResourceStored) {
+                $policy['customer_id'] = $attributes['id'];
 
-				$saved = $this->pricingPolicies->create($_policy);
-			} else {
-				$id = array_pull($policy, 'id');
-				$saved = $this->pricingPolicies->updateOrCreate(compact('id'), $_policy);
-			}
+                $saved = $this->customerPricingPolicies->create($_policy);
+            } else {
+                $id = Arr::pull($policy, 'id');
+                $saved = $this->customerPricingPolicies->updateOrCreate(compact('id'), $_policy);
+            }
 
-			$updated[] = array_merge($_policy, $saved->toArray(), compact('_changed'));
-		}
+            $updated[] = array_merge($_policy, $saved->toArray(), compact('_changed'));
+        }
 
-		event(new ResourceUpdated('dashboard', 'customer.pricing_policy', $updated, $params));
-	}
+        event(
+            new ResourceUpdated(
+                'dashboard',
+                'customer.pricing_policy',
+                'update',
+                $updated,
+                $params
+            )
+        );
+    }
 
-	protected function getValidResources()
-	{
-		return [
-			'customer'
-		];
-	}
+    protected function getValidResources()
+    {
+        return [
+            'customer'
+        ];
+    }
 }

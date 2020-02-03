@@ -2,8 +2,8 @@
 
 return [
     'labels' => [
-        'singular' => 'Строка заказа',
-        'plural' => 'Строки заказа',
+        'singular' => 'Позиция',
+        'plural' => 'Позиции',
 		'create' => 'Создать'
     ],
 	'index' => [
@@ -78,7 +78,7 @@ return [
             'delivery_month' => 'Месяц доставки',
             'delivery_date' => 'Дата доставки',
             'delivery_type' => 'Тип доставки',
-            'number' => 'Номер заказа',
+            'name' => 'Номер заказа',
             'invoice_number' => 'Номер счета',
             'batch_number' => 'Номер в системе клиента',
             'customer' => [

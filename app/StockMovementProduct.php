@@ -72,7 +72,7 @@ class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
 
     protected $hasOne = [
 
-	];
+    ];
 
     protected $hasMany = [
 
@@ -92,7 +92,7 @@ class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
 
     protected $with = [
 
-	];
+    ];
 
     protected $images = [
 
@@ -103,24 +103,14 @@ class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
     ];
 
     /**
-     * @return array
-     */
-    public function getWith()
-    {
-        $condition = is_resource_page(['stock_movement_product', 'stock_movement.product']) || is_datatable(['stock_movement_product', 'stock_movement.product']);
-
-        return [
-            $condition ? 'stockMovement' : null,
-            $condition ? 'stockMovement.stock' : null,
-            $condition ? 'product' : null,
-        ];
-    }
-
-    /**
      * @return string
      */
     public function getFormattedProductsQuantityAttribute()
     {
+        if (is_null($this->stockMovement)) {
+            return $this->renderDefaultView();
+        }
+
         if ($this->stockMovement->movement_type === 'receipt') {
             $class = 'green';
             $value = '+' . $this->attributes['products_quantity'];
@@ -137,7 +127,7 @@ class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
      */
     public function getExpirationDateAttribute()
     {
-        return $this->formatDateForForm('expiration_date');
+        return ''; // $this->formatDateForForm('expiration_date');
     }
 
     /**

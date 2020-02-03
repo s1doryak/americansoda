@@ -94,4 +94,17 @@ class StockDataTable extends DataTable
     {
         return parent::getButtons();
     }
+
+    /**
+     * @param Stock $stock
+     * @return string
+     */
+    public function renderRegion__NameColumn($stock)
+    {
+        if ($this->isDataTableRequest()) {
+           return $stock->region->name ?? $this->renderDefaultView();
+        }
+
+        return $stock->region->name ?? null;
+    }
 }

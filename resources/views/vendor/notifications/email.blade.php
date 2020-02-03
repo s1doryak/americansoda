@@ -1,7 +1,7 @@
 @component('mail::message')
 {{-- Greeting --}}
 @if (! empty($greeting))
-# {{ $greeting }}
+# {!! $greeting !!}
 @else
 @if ($level === 'error')
 # @lang('email.whoops')
@@ -12,7 +12,7 @@
 
 {{-- Intro Lines --}}
 @foreach ($introLines as $line)
-{{ $line }}
+{!! $line !!}
 
 @endforeach
 
@@ -20,28 +20,30 @@
 @isset($actionText)
 <?php
     switch ($level) {
-        case 'success':
-        case 'error':
-            $color = $level;
-            break;
-        default:
-            $color = 'primary';
+		case 'success':
+			$color = 'green';
+			break;
+		case 'error':
+			$color = 'red';
+			break;
+		default:
+			$color = 'blue';
     }
 ?>
 @component('mail::button', ['url' => $actionUrl, 'color' => $color])
-{{ $actionText }}
+{!! $actionText !!}
 @endcomponent
 @endisset
 
 {{-- Outro Lines --}}
 @foreach ($outroLines as $line)
-{{ $line }}
+{!! $line !!}
 
 @endforeach
 
 {{-- Salutation --}}
 @if (! empty($salutation))
-{{ $salutation }}
+{!! $salutation !!}
 @else
 @lang('email.regards'),<br>{{ config('app.name') }}
 @endif

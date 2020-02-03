@@ -19,112 +19,112 @@ use App\Repositories\Contracts\PriceGroupRepository;
  */
 class CustomerCreator extends ResourceCreator
 {
-
-	/**
-	 * @var PriceGroupRepository
-	 */
-	protected $priceGroups;
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:customer';
 
-	/**
-	 * @var StockRepository
-	 */
-	protected $stocks;
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
-	/**
-	 * @var CustomerTypeRepository
-	 */
-	protected $customerTypes;
+    /**
+     * @var string
+     */
+    protected $resource = 'customer';
 
-	/**
-	 * @var PaymentTypeRepository
-	 */
-	protected $paymentTypes;
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
-	/**
-	 * @var UserRepository
-	 */
-	protected $users;
+    /**
+     * @var StockRepository
+     */
+    protected $stocks;
 
-	/**
-	 * @var RegionRepository
-	 */
-	protected $billingRegions;
+    /**
+     * @var CustomerTypeRepository
+     */
+    protected $customerTypes;
 
-	/**
-	 * @var RegionRepository
-	 */
-	protected $shippingRegions;
+    /**
+     * @var PaymentTypeRepository
+     */
+    protected $paymentTypes;
 
+    /**
+     * @var UserRepository
+     */
+    protected $users;
 
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'stocks' => 'name',
-		'customerTypes' => 'name',
-		'paymentTypes' => 'name',
-		'users' => 'name',
-		'billingRegions' => 'name',
-		'shippingRegions' => 'name',
-				'priceGroups' => 'name',
+    /**
+     * @var RegionRepository
+     */
+    protected $billingRegions;
 
-	];
+    /**
+     * @var RegionRepository
+     */
+    protected $shippingRegions;
 
-	public function __construct(
-	    Customer $customer,
-		CustomerRepository $customerRepository,
-		StockRepository $stockRepository,
-		CustomerTypeRepository $customerTypeRepository,
-		PaymentTypeRepository $paymentTypeRepository,
-		UserRepository $userRepository,
-		RegionRepository $regionRepository,
-		PriceGroupRepository $priceGroupRepository
-	)
-	{
-	    $this->priceGroups = $priceGroupRepository;
-		$this->resource = $customer;
-		$this->repository = $customerRepository;
-		$this->stocks = $stockRepository;
-		$this->customerTypes = $customerTypeRepository;
-		$this->paymentTypes = $paymentTypeRepository;
-		$this->users = $userRepository;
-		$this->billingRegions = $regionRepository;
-		$this->shippingRegions = $regionRepository;
+    /**
+     * @var PriceGroupRepository
+     */
+    protected $priceGroups;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'stocks' => 'name',
+        'customerTypes' => 'name',
+        'paymentTypes' => 'name',
+        'users' => 'name',
+        'billingRegions' => 'name',
+        'shippingRegions' => 'name',
+        'priceGroups' => 'name',
+    ];
+
+    public function __construct(
+        Customer $customer,
+        CustomerRepository $customerRepository,
+        StockRepository $stockRepository,
+        CustomerTypeRepository $customerTypeRepository,
+        PaymentTypeRepository $paymentTypeRepository,
+        UserRepository $userRepository,
+        RegionRepository $regionRepository,
+        PriceGroupRepository $priceGroupRepository
+    )
+    {
+        $this->model = $customer;
+        $this->repository = $customerRepository;
+        $this->stocks = $stockRepository;
+        $this->customerTypes = $customerTypeRepository;
+        $this->paymentTypes = $paymentTypeRepository;
+        $this->users = $userRepository;
+        $this->billingRegions = $regionRepository;
+        $this->shippingRegions = $regionRepository;
+        $this->priceGroups = $priceGroupRepository;
 
         parent::__construct();
-	}
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
+    /**
+     * @param Customer $customer
+     * @return array
+     */
+    public function getEventAttributes($customer)
+    {
+        return $customer->getAttributes();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'customer';
-	}
-
-	/**
-	 * @param Customer $customer
-	 * @return array
-	 */
-	public function getEventAttributes($customer)
-	{
-		return $customer->getAttributes();
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 }

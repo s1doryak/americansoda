@@ -2,10 +2,19 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\CustomerInvoice;
 use App\Repositories\Contracts\CustomerInvoiceRepository;
 
 class CustomerInvoiceRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerInvoiceRepository
 {
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return CustomerInvoice::class;
+    }
+
     /**
      * @return integer
      * @throws \Prettus\Repository\Exceptions\RepositoryException

@@ -45,9 +45,18 @@ class CustomerOrdersController extends ResourceController
     protected $resource = 'customer_order';
 
     /**
+     * @var array
+     */
+    protected $with = [
+        'customer',
+        'user',
+        'customerOrderItems',
+        'customerOrderItems.product',
+    ];
+    /**
      * @var CompanyRepository
      */
-    private $companies;
+    protected $companies;
 
     /**
      * @var CustomerRepository
@@ -79,6 +88,14 @@ class CustomerOrdersController extends ResourceController
         ],
         'users' => 'name',
         'products' => 'name',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $popupActions = [
+        'create' => 'fullscreen',
+        'edit' => 'fullscreen'
     ];
 
     /**

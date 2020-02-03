@@ -16,68 +16,78 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class StockMovementsController extends ResourceController
 {
-	use DashboardSidebar;
+    use DashboardSidebar;
 
-	/**
-	 * @var Gate
-	 */
-	protected $gate;
+    /**
+     * @var Gate
+     */
+    protected $gate;
 
-	/**
-	 * @var string
-	 */
-	protected $prefix = 'dashboard';
+    /**
+     * @var string
+     */
+    protected $prefix = 'dashboard';
 
-	/**
-	 * @var string
-	 */
-	protected $resource = 'stock_movement';
+    /**
+     * @var string
+     */
+    protected $resource = 'stock_movement';
 
-	/**
-	 * @var StockRepository
-	 */
-	protected $stocks;
+    /**
+     * @var array
+     */
+    protected $with = [
+        'product',
+        'stock',
+        'stockMovement',
+        'stockMovement.stock',
+    ];
 
-	/**
-	 * @var array
-	 */
-	protected $editActionFormData = [
-		'stocks' => 'name',
-	];
+    /**
+     * @var StockRepository
+     */
+    protected $stocks;
 
-	/**
-	 * StockMovementsController constructor.
-	 * @param Gate $gate
-	 * @param StockMovementRepository $stockMovementRepository
-	 * @param StockRepository $stockRepository
-	 */
-	public function __construct(
-		Gate $gate,
-		StockMovementRepository $stockMovementRepository,
-		StockRepository $stockRepository
-	)
-	{
-		$this->gate = $gate;
-		$this->repository = $stockMovementRepository;
-		$this->stocks = $stockRepository;
+    /**
+     * @var array
+     */
+    protected $editActionFormData = [
+        'stocks' => 'name',
+    ];
 
-		$this->middleware('auth:dashboard');
-		$this->shareSidebar();
-	}
+    /**
+     * StockMovementsController constructor.
+     * @param Gate $gate
+     * @param StockMovementRepository $stockMovementRepository
+     * @param StockRepository $stockRepository
+     */
+    public function __construct(
+        Gate $gate,
+        StockMovementRepository $stockMovementRepository,
+        StockRepository $stockRepository
+    )
+    {
+        $this->gate = $gate;
+        $this->repository = $stockMovementRepository;
+        $this->stocks = $stockRepository;
 
-	/**
-	 * @param string $action
-	 * @param StockMovement $stockMovement
-	 * @return string
-	 */
-	protected function getRedirectUrl($action, $stockMovement = null)
-	{
-		switch ($action) {
-			case 'store':
-				return route('dashboard.stock_movement_product.index');
-				break;
-			default:
-				return parent::getRedirectUrl($action, $stockMovement);
-		}
-	}
+        $this->middleware('auth:dashboard');
+        $this->shareSidebar();
+    }
+
+    /**
+     * @param string $action
+     * @param StockMovement $stockMovement
+     * @return string
+     */
+    protected function getRedirectUrl($action, $stockMovement = null)
+    {
+        switch ($action) {
+            case 'store':
+                return route('dashboard.stock_movement_product.index');
+                break;
+            default:
+                return parent::getRedirectUrl($action, $stockMovement);
+        }
+    }
 }

@@ -16,74 +16,75 @@ use Illuminate\Support\Carbon;
  */
 class UserCreator extends ResourceCreator
 {
+    /**
+     * @var string
+     */
     protected $name = 'resource:create:user';
 
-	/**
-	 * @var RoleRepository
-	 */
-	protected $roles;
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
 
-	/**
-	 * @var CompanyRepository
-	 */
-	protected $companies;
+    /**
+     * @var string
+     */
+    protected $resource = 'user';
 
+    /**
+     * @var string
+     */
+    protected $action = 'store';
 
-	/**
-	 * @var array
-	 */
-	protected $findOrCreateData = [
-		'roles' => 'name',
-		'companies' => 'name',
-	];
+    /**
+     * @var RoleRepository
+     */
+    protected $roles;
 
-	public function __construct(
-	    User $user,
-		UserRepository $userRepository,
-		RoleRepository $roleRepository,
-		CompanyRepository $companyRepository
-	)
-	{
-	    $this->resource = $user;
-		$this->repository = $userRepository;
-		$this->roles = $roleRepository;
-		$this->companies = $companyRepository;
+    /**
+     * @var CompanyRepository
+     */
+    protected $companies;
+
+    /**
+     * @var array
+     */
+    protected $findOrCreateData = [
+        'roles' => 'name',
+        'companies' => 'name',
+    ];
+
+    public function __construct(
+        User $user,
+        UserRepository $userRepository,
+        RoleRepository $roleRepository,
+        CompanyRepository $companyRepository
+    )
+    {
+        $this->model = $user;
+        $this->repository = $userRepository;
+        $this->roles = $roleRepository;
+        $this->companies = $companyRepository;
 
         parent::__construct();
-	}
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventNamespace()
-	{
-		return 'cli';
-	}
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function getEventAttributes($user)
+    {
+        return $user->getAttributes();
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventResource()
-	{
-		return 'user';
-	}
-
-	/**
-	 * @param User $user
-	 * @return array
-	 */
-	public function getEventAttributes($user)
-	{
-		return $user->getAttributes();
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getEventParams()
-	{
-		return [];
-	}
+    /**
+     * @return array
+     */
+    public function getEventParams()
+    {
+        return [];
+    }
 
     /**
      * @param string $value
