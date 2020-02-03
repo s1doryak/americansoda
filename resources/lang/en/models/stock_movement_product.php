@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'StockMovementProduct',
-        'plural' => 'StockMovementProduct',
-		'create' => 'Create StockMovementProduct'
+        'singular' => 'Movement',
+        'plural' => 'Movement',
+		'create' => 'Create Movement'
     ],
 	'index' => [
-		'title' => 'List of StockMovementProduct',
+		'title' => 'List of Movement',
 	],
     'trashed' => [
-        'title' => 'List of trashed StockMovementProduct',
+        'title' => 'List of trashed Movement',
     ],
 	'create' => [
-		'title' => 'Create StockMovementProduct',
+		'title' => 'Create Movement',
 	],
     'store' => [
-	    'success' => 'StockMovementProduct created successfully!',
-	    'error' => 'StockMovementProduct created unsuccessfully!'
+	    'success' => 'Movement created successfully!',
+	    'error' => 'Movement created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'StockMovementProduct',
+        'title' => 'Movement',
     ],
 	'edit' => [
-		'title' => 'Edit StockMovementProduct',
+		'title' => 'Edit Movement',
 	],
 	'update' => [
-		'success' => 'StockMovementProduct updated successfully!',
-		'error' => 'StockMovementProduct updated unsuccessfully!'
+		'success' => 'Movement updated successfully!',
+		'error' => 'Movement updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move StockMovementProduct to trash',
-		'success' => 'StockMovementProduct trashed successfully!',
-		'error' => 'StockMovementProduct trashed unsuccessfully!'
+        'title' => 'Move Movement to trash',
+		'success' => 'Movement trashed successfully!',
+		'error' => 'Movement trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore StockMovementProduct',
-        'success' => 'StockMovementProduct restored successfully!',
-        'error' => 'StockMovementProduct restored unsuccessfully!'
+        'title' => 'Restore Movement',
+        'success' => 'Movement restored successfully!',
+        'error' => 'Movement restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy StockMovementProduct',
-        'success' => 'StockMovementProduct destroyed successfully!',
-        'error' => 'StockMovementProduct destroyed unsuccessfully!'
+        'title' => 'Destroy Movement',
+        'success' => 'Movement destroyed successfully!',
+        'error' => 'Movement destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'product_name' => 'Product Name',

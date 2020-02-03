@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'StockMovement',
-        'plural' => 'StockMovement',
-		'create' => 'Create StockMovement'
+        'singular' => 'Stock Movement',
+        'plural' => 'Stock Movement',
+		'create' => 'Create Stock Movement'
     ],
 	'index' => [
-		'title' => 'List of StockMovement',
+		'title' => 'List of Stock Movement',
 	],
     'trashed' => [
-        'title' => 'List of trashed StockMovement',
+        'title' => 'List of trashed Stock Movement',
     ],
 	'create' => [
-		'title' => 'Create StockMovement',
+		'title' => 'Create Stock Movement',
 	],
     'store' => [
-	    'success' => 'StockMovement created successfully!',
-	    'error' => 'StockMovement created unsuccessfully!'
+	    'success' => 'Stock Movement created successfully!',
+	    'error' => 'Stock Movement created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'StockMovement',
+        'title' => 'Stock Movement',
     ],
 	'edit' => [
-		'title' => 'Edit StockMovement',
+		'title' => 'Edit Stock Movement',
 	],
 	'update' => [
-		'success' => 'StockMovement updated successfully!',
-		'error' => 'StockMovement updated unsuccessfully!'
+		'success' => 'Stock Movement updated successfully!',
+		'error' => 'Stock Movement updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move StockMovement to trash',
-		'success' => 'StockMovement trashed successfully!',
-		'error' => 'StockMovement trashed unsuccessfully!'
+        'title' => 'Move Stock Movement to trash',
+		'success' => 'Stock Movement trashed successfully!',
+		'error' => 'Stock Movement trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore StockMovement',
-        'success' => 'StockMovement restored successfully!',
-        'error' => 'StockMovement restored unsuccessfully!'
+        'title' => 'Restore Stock Movement',
+        'success' => 'Stock Movement restored successfully!',
+        'error' => 'Stock Movement restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy StockMovement',
-        'success' => 'StockMovement destroyed successfully!',
-        'error' => 'StockMovement destroyed unsuccessfully!'
+        'title' => 'Destroy Stock Movement',
+        'success' => 'Stock Movement destroyed successfully!',
+        'error' => 'Stock Movement destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'movement_type' => 'Movement Type',

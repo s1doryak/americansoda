@@ -2,9 +2,9 @@
 
 return [
     'labels' => [
-        'singular' => 'CustomerInvoiceItem',
+        'singular' => 'Customer Invoice Item',
         'plural' => 'Customer Invoice Items',
-		'create' => 'Create CustomerInvoiceItem'
+		'create' => 'Create Customer Invoice Item'
     ],
 	'index' => [
 		'title' => 'List of Customer Invoice Items',
@@ -13,36 +13,36 @@ return [
         'title' => 'List of trashed Customer Invoice Items',
     ],
 	'create' => [
-		'title' => 'Create CustomerInvoiceItem',
+		'title' => 'Create Customer Invoice Item',
 	],
     'store' => [
-	    'success' => 'CustomerInvoiceItem created successfully!',
-	    'error' => 'CustomerInvoiceItem created unsuccessfully!'
+	    'success' => 'Customer Invoice Item created successfully!',
+	    'error' => 'Customer Invoice Item created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'CustomerInvoiceItem',
+        'title' => 'Customer Invoice Item',
     ],
 	'edit' => [
-		'title' => 'Edit CustomerInvoiceItem',
+		'title' => 'Edit Customer Invoice Item',
 	],
 	'update' => [
-		'success' => 'CustomerInvoiceItem updated successfully!',
-		'error' => 'CustomerInvoiceItem updated unsuccessfully!'
+		'success' => 'Customer Invoice Item updated successfully!',
+		'error' => 'Customer Invoice Item updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move CustomerInvoiceItem to trash',
-		'success' => 'CustomerInvoiceItem trashed successfully!',
-		'error' => 'CustomerInvoiceItem trashed unsuccessfully!'
+        'title' => 'Move Customer Invoice Item to trash',
+		'success' => 'Customer Invoice Item trashed successfully!',
+		'error' => 'Customer Invoice Item trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore CustomerInvoiceItem',
-        'success' => 'CustomerInvoiceItem restored successfully!',
-        'error' => 'CustomerInvoiceItem restored unsuccessfully!'
+        'title' => 'Restore Customer Invoice Item',
+        'success' => 'Customer Invoice Item restored successfully!',
+        'error' => 'Customer Invoice Item restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy CustomerInvoiceItem',
-        'success' => 'CustomerInvoiceItem destroyed successfully!',
-        'error' => 'CustomerInvoiceItem destroyed unsuccessfully!'
+        'title' => 'Destroy Customer Invoice Item',
+        'success' => 'Customer Invoice Item destroyed successfully!',
+        'error' => 'Customer Invoice Item destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'position' => 'Position',

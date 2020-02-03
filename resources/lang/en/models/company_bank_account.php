@@ -2,9 +2,9 @@
 
 return [
     'labels' => [
-        'singular' => 'CompanyBankAccount',
+        'singular' => 'Company Bank Account',
         'plural' => 'Company Bank Accounts',
-		'create' => 'Create CompanyBankAccount'
+		'create' => 'Create Company Bank Account'
     ],
 	'index' => [
 		'title' => 'List of Company Bank Accounts',
@@ -13,36 +13,36 @@ return [
         'title' => 'List of trashed Company Bank Accounts',
     ],
 	'create' => [
-		'title' => 'Create CompanyBankAccount',
+		'title' => 'Create Company Bank Account',
 	],
     'store' => [
-	    'success' => 'CompanyBankAccount created successfully!',
-	    'error' => 'CompanyBankAccount created unsuccessfully!'
+	    'success' => 'Company Bank Account created successfully!',
+	    'error' => 'Company Bank Account created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'CompanyBankAccount',
+        'title' => 'Company Bank Account',
     ],
 	'edit' => [
-		'title' => 'Edit CompanyBankAccount',
+		'title' => 'Edit Company Bank Account',
 	],
 	'update' => [
-		'success' => 'CompanyBankAccount updated successfully!',
-		'error' => 'CompanyBankAccount updated unsuccessfully!'
+		'success' => 'Company Bank Account updated successfully!',
+		'error' => 'Company Bank Account updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move CompanyBankAccount to trash',
-		'success' => 'CompanyBankAccount trashed successfully!',
-		'error' => 'CompanyBankAccount trashed unsuccessfully!'
+        'title' => 'Move Company Bank Account to trash',
+		'success' => 'Company Bank Account trashed successfully!',
+		'error' => 'Company Bank Account trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore CompanyBankAccount',
-        'success' => 'CompanyBankAccount restored successfully!',
-        'error' => 'CompanyBankAccount restored unsuccessfully!'
+        'title' => 'Restore Company Bank Account',
+        'success' => 'Company Bank Account restored successfully!',
+        'error' => 'Company Bank Account restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy CompanyBankAccount',
-        'success' => 'CompanyBankAccount destroyed successfully!',
-        'error' => 'CompanyBankAccount destroyed unsuccessfully!'
+        'title' => 'Destroy Company Bank Account',
+        'success' => 'Company Bank Account destroyed successfully!',
+        'error' => 'Company Bank Account destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'bank' => 'Bank',

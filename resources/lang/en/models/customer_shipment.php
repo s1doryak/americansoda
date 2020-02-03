@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'CustomerShipment',
-        'plural' => 'CustomerShipment',
-        'create' => 'Create CustomerShipment'
+        'singular' => 'Customer Shipment',
+        'plural' => 'Customer Shipment',
+        'create' => 'Create Customer Shipment'
     ],
     'index' => [
-        'title' => 'List of CustomerShipment',
+        'title' => 'List of Customer Shipment',
     ],
     'trashed' => [
-        'title' => 'List of trashed CustomerShipment',
+        'title' => 'List of trashed Customer Shipment',
     ],
     'create' => [
-        'title' => 'Create CustomerShipment',
+        'title' => 'Create Customer Shipment',
     ],
     'store' => [
-        'success' => 'CustomerShipment created successfully!',
-        'error' => 'CustomerShipment created unsuccessfully!'
+        'success' => 'Customer Shipment created successfully!',
+        'error' => 'Customer Shipment created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'CustomerShipment',
+        'title' => 'Customer Shipment',
     ],
     'edit' => [
-        'title' => 'Edit CustomerShipment',
+        'title' => 'Edit Customer Shipment',
     ],
     'update' => [
-        'success' => 'CustomerShipment updated successfully!',
-        'error' => 'CustomerShipment updated unsuccessfully!'
+        'success' => 'Customer Shipment updated successfully!',
+        'error' => 'Customer Shipment updated unsuccessfully!'
     ],
     'trash' => [
-        'title' => 'Move CustomerShipment to trash',
-        'success' => 'CustomerShipment trashed successfully!',
-        'error' => 'CustomerShipment trashed unsuccessfully!'
+        'title' => 'Move Customer Shipment to trash',
+        'success' => 'Customer Shipment trashed successfully!',
+        'error' => 'Customer Shipment trashed unsuccessfully!'
     ],
     'restore' => [
-        'title' => 'Restore CustomerShipment',
-        'success' => 'CustomerShipment restored successfully!',
-        'error' => 'CustomerShipment restored unsuccessfully!'
+        'title' => 'Restore Customer Shipment',
+        'success' => 'Customer Shipment restored successfully!',
+        'error' => 'Customer Shipment restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy CustomerShipment',
-        'success' => 'CustomerShipment destroyed successfully!',
-        'error' => 'CustomerShipment destroyed unsuccessfully!'
+        'title' => 'Destroy Customer Shipment',
+        'success' => 'Customer Shipment destroyed successfully!',
+        'error' => 'Customer Shipment destroyed unsuccessfully!'
     ],
     'package_list' => [
         'title' => 'Package List',

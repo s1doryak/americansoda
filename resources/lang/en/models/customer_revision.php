@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'CustomerRevision',
-        'plural' => 'CustomerRevision',
-		'create' => 'Create CustomerRevision'
+        'singular' => 'Customer Revision',
+        'plural' => 'Customer Revision',
+		'create' => 'Create Customer Revision'
     ],
 	'index' => [
-		'title' => 'List of CustomerRevision',
+		'title' => 'List of Customer Revision',
 	],
     'trashed' => [
-        'title' => 'List of trashed CustomerRevision',
+        'title' => 'List of trashed Customer Revision',
     ],
 	'create' => [
-		'title' => 'Create CustomerRevision',
+		'title' => 'Create Customer Revision',
 	],
     'store' => [
-	    'success' => 'CustomerRevision created successfully!',
-	    'error' => 'CustomerRevision created unsuccessfully!'
+	    'success' => 'Customer Revision created successfully!',
+	    'error' => 'Customer Revision created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'CustomerRevision',
+        'title' => 'Customer Revision',
     ],
 	'edit' => [
-		'title' => 'Edit CustomerRevision',
+		'title' => 'Edit Customer Revision',
 	],
 	'update' => [
-		'success' => 'CustomerRevision updated successfully!',
-		'error' => 'CustomerRevision updated unsuccessfully!'
+		'success' => 'Customer Revision updated successfully!',
+		'error' => 'Customer Revision updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move CustomerRevision to trash',
-		'success' => 'CustomerRevision trashed successfully!',
-		'error' => 'CustomerRevision trashed unsuccessfully!'
+        'title' => 'Move Customer Revision to trash',
+		'success' => 'Customer Revision trashed successfully!',
+		'error' => 'Customer Revision trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore CustomerRevision',
-        'success' => 'CustomerRevision restored successfully!',
-        'error' => 'CustomerRevision restored unsuccessfully!'
+        'title' => 'Restore Customer Revision',
+        'success' => 'Customer Revision restored successfully!',
+        'error' => 'Customer Revision restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy CustomerRevision',
-        'success' => 'CustomerRevision destroyed successfully!',
-        'error' => 'CustomerRevision destroyed unsuccessfully!'
+        'title' => 'Destroy Customer Revision',
+        'success' => 'Customer Revision destroyed successfully!',
+        'error' => 'Customer Revision destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'revision_type' => 'Revision Type',

@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'PackageType',
-        'plural' => 'PackageType',
-		'create' => 'Create PackageType'
+        'singular' => 'Package Type',
+        'plural' => 'Package Type',
+		'create' => 'Create Package Type'
     ],
 	'index' => [
-		'title' => 'List of PackageType',
+		'title' => 'List of Package Type',
 	],
     'trashed' => [
-        'title' => 'List of trashed PackageType',
+        'title' => 'List of trashed Package Type',
     ],
 	'create' => [
-		'title' => 'Create PackageType',
+		'title' => 'Create Package Type',
 	],
     'store' => [
-	    'success' => 'PackageType created successfully!',
-	    'error' => 'PackageType created unsuccessfully!'
+	    'success' => 'Package Type created successfully!',
+	    'error' => 'Package Type created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'PackageType',
+        'title' => 'Package Type',
     ],
 	'edit' => [
-		'title' => 'Edit PackageType',
+		'title' => 'Edit Package Type',
 	],
 	'update' => [
-		'success' => 'PackageType updated successfully!',
-		'error' => 'PackageType updated unsuccessfully!'
+		'success' => 'Package Type updated successfully!',
+		'error' => 'Package Type updated unsuccessfully!'
 	],
 	'trash' => [
-        'title' => 'Move PackageType to trash',
-		'success' => 'PackageType trashed successfully!',
-		'error' => 'PackageType trashed unsuccessfully!'
+        'title' => 'Move Package Type to trash',
+		'success' => 'Package Type trashed successfully!',
+		'error' => 'Package Type trashed unsuccessfully!'
 	],
     'restore' => [
-        'title' => 'Restore PackageType',
-        'success' => 'PackageType restored successfully!',
-        'error' => 'PackageType restored unsuccessfully!'
+        'title' => 'Restore Package Type',
+        'success' => 'Package Type restored successfully!',
+        'error' => 'Package Type restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy PackageType',
-        'success' => 'PackageType destroyed successfully!',
-        'error' => 'PackageType destroyed unsuccessfully!'
+        'title' => 'Destroy Package Type',
+        'success' => 'Package Type destroyed successfully!',
+        'error' => 'Package Type destroyed unsuccessfully!'
     ],
 	'fields' => [
 		'name' => 'Name',
