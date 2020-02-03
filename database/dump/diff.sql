@@ -303,15 +303,16 @@ ALTER TABLE `customer_order_items` CHANGE `packages_quantity` `packages_quantity
 ALTER TABLE `customer_revisions` CHANGE `shipping_address` `shipping_address` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL;
 ALTER TABLE `customer_revisions` CHANGE `email` `email` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL;
 ALTER TABLE `customers` CHANGE `email` `email` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL;
-ALTER TABLE `stock_movements` DROP `supplier_order_id`;
-ALTER TABLE `stock_movements` DROP INDEX `stock_movements_stock_id_foreign`;
-ALTER TABLE `stock_movements` DROP INDEX `stock_movements_supplier_order_id_foreign`;
+
 ALTER TABLE `stock_movements` DROP CONSTRAINT `stock_movements_supplier_order_id_foreign`;
 ALTER TABLE `stock_movements` DROP CONSTRAINT `stock_movements_stock_id_foreign`;
+ALTER TABLE `stock_movements` DROP INDEX `stock_movements_stock_id_foreign`;
+ALTER TABLE `stock_movements` DROP INDEX `stock_movements_supplier_order_id_foreign`;
+ALTER TABLE `stock_movements` DROP `supplier_order_id`;
 
-DROP TABLE `supplier_order_items`;
-DROP TABLE `supplier_orders`;
-DROP TABLE `suppliers`;
-DROP TABLE `cars`;
-DROP TABLE `transport_sheets`;
+DROP TABLE IF EXISTS `supplier_order_items`;
+DROP TABLE IF EXISTS `supplier_orders`;
+DROP TABLE IF EXISTS `suppliers`;
+DROP TABLE IF EXISTS `cars`;
+DROP TABLE IF EXISTS `transport_sheets`;
 #---------- DOWN ----------
