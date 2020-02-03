@@ -2,7 +2,7 @@
 # On 02/03/2020 10:16:59 am
 
 #---------- UP ----------
-CREATE TABLE IF NOT EXISTS IF NOT EXISTS `banner_customer_type` (
+CREATE TABLE IF NOT EXISTS `banner_customer_type` (
   `banner_id` bigint(20) unsigned DEFAULT NULL,
   `customer_type_id` bigint(20) unsigned DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
