@@ -6,7 +6,15 @@ return [
      */
     'table' => [
         'class' => 'table',
-        'id'    => 'dataTableBuilder',
+        'id' => 'dataTableBuilder',
+    ],
+
+    /*
+     * Default filter attributes when generating the table.
+     */
+    'filter' => [
+        'class' => 'dataTableFilter',
+        'id' => 'dataTableFilter'
     ],
 
     /*
