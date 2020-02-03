@@ -33,6 +33,7 @@ class CustomerOrderItemForm extends Form
 
 		$fields['product'] = [
 			'type' => 'choice',
+            'empty_value' => trans('models/customer_order_item.placeholders.product'),
 			'multiple' => false,
 		];
 		$fields['sales_unit_quantity'] = [
@@ -115,6 +116,7 @@ class CustomerOrderItemForm extends Form
 
 		$fields['product'] = [
 			'type' => 'choice',
+            'empty_value' => trans('models/customer_order_item.placeholders.product'),
 			'multiple' => false,
 		];
 		$fields['sales_unit_quantity'] = [
