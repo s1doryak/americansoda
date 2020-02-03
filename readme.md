@@ -19,9 +19,27 @@ docker-compose run npm install
 docker-compose run npm run production
 ```
 
+### Миграция БД
+```bash
+source .env
+docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/diff.sql
+docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/migrations.sql
+```
+
 ### Счета
 ```bash
-docker-compose run artisan maventa:import:invoices 20190401000000 --tiff --force
+docker-compose run artisan resource:create:company \
+  --name="American Soda"
+
+docker-compose run artisan resource:create:company_bank_account \
+     --bank="Nordea" \
+     --swift="NDEAFIHH" \
+     --account="106430-240775" \
+     --iban="FI72 1064 3000 240775" \
+     --default="true" \
+     --company="American Soda"
+
+docker-compose run artisan maventa:import:invoices 20200101000000 --tiff --force
 ```
 
 ### Supervisor
