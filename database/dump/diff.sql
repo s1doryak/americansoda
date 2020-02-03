@@ -2,18 +2,18 @@
 # On 02/03/2020 10:16:59 am
 
 #---------- UP ----------
-CREATE TABLE `banner_customer_type` (
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS `banner_customer_type` (
   `banner_id` bigint(20) unsigned DEFAULT NULL,
   `customer_type_id` bigint(20) unsigned DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `customer_users_password_resets` (
+CREATE TABLE IF NOT EXISTS `customer_users_password_resets` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `customer_users_password_resets_email_index` (`email`),
   KEY `customer_users_password_resets_token_index` (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `product_types` (
+CREATE TABLE IF NOT EXISTS `product_types` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE `product_types` (
   `image` text COLLATE utf8mb4_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `product_tags` (
+CREATE TABLE IF NOT EXISTS `product_tags` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `icon` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -32,11 +32,11 @@ CREATE TABLE `product_tags` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `product_product_tag` (
+CREATE TABLE IF NOT EXISTS `product_product_tag` (
   `product_id` bigint(20) unsigned DEFAULT NULL,
   `product_tag_id` bigint(20) unsigned DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `price_groups` (
+CREATE TABLE IF NOT EXISTS `price_groups` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `manual` tinyint(1) DEFAULT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `price_groups` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `price_group_breakpoints` (
+CREATE TABLE IF NOT EXISTS `price_group_breakpoints` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `price_group_id` bigint(20) unsigned DEFAULT NULL,
   `breakpoint` double(8,2) DEFAULT NULL,
@@ -54,12 +54,12 @@ CREATE TABLE `price_group_breakpoints` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `price_group_breakpoint_product_group` (
+CREATE TABLE IF NOT EXISTS `price_group_breakpoint_product_group` (
   `price_group_breakpoint_id` bigint(20) unsigned DEFAULT NULL,
   `product_group_id` bigint(20) unsigned DEFAULT NULL,
   `price` double(8,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `ltm_translations` (
+CREATE TABLE IF NOT EXISTS `ltm_translations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL DEFAULT '0',
   `locale` varchar(191) COLLATE utf8mb4_bin NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE `ltm_translations` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2953 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-CREATE TABLE `jobs` (
+CREATE TABLE IF NOT EXISTS `jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `queue` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE `jobs` (
   PRIMARY KEY (`id`),
   KEY `jobs_queue_index` (`queue`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `banners` (
+CREATE TABLE IF NOT EXISTS `banners` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` text COLLATE utf8mb4_unicode_ci,
@@ -91,7 +91,7 @@ CREATE TABLE `banners` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `failed_jobs` (
+CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE `failed_jobs` (
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `customer_users` (
+CREATE TABLE IF NOT EXISTS `customer_users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -116,11 +116,11 @@ CREATE TABLE `customer_users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `customer_users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `customer_user_customer` (
+CREATE TABLE IF NOT EXISTS `customer_user_customer` (
   `customer_user_id` bigint(20) unsigned DEFAULT NULL,
   `customer_id` bigint(20) unsigned DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `customer_pre_orders` (
+CREATE TABLE IF NOT EXISTS `customer_pre_orders` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `customer_user_id` bigint(20) unsigned DEFAULT NULL,
   `customer_order_id` bigint(20) unsigned DEFAULT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE `customer_pre_orders` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `customer_pre_order_items` (
+CREATE TABLE IF NOT EXISTS `customer_pre_order_items` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `customer_pre_order_id` bigint(20) unsigned DEFAULT NULL,
   `customer_user_id` bigint(20) unsigned DEFAULT NULL,
@@ -154,7 +154,7 @@ CREATE TABLE `customer_pre_order_items` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `customer_invoices` (
+CREATE TABLE IF NOT EXISTS `customer_invoices` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `customer_id` bigint(20) unsigned DEFAULT NULL,
   `customer_shipment_id` bigint(20) unsigned DEFAULT NULL,
@@ -205,7 +205,7 @@ CREATE TABLE `customer_invoices` (
   `maventa_sent_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=360 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `customer_invoice_items` (
+CREATE TABLE IF NOT EXISTS `customer_invoice_items` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `customer_invoice_id` bigint(20) unsigned DEFAULT NULL,
   `customer_order_item_id` bigint(20) unsigned DEFAULT NULL,
@@ -226,11 +226,11 @@ CREATE TABLE `customer_invoice_items` (
   `product_id` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8532 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `customer_invoice_company_bank_account` (
+CREATE TABLE IF NOT EXISTS `customer_invoice_company_bank_account` (
   `customer_invoice_id` bigint(20) unsigned DEFAULT NULL,
   `company_bank_account_id` bigint(20) unsigned DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `customer_invoice_attachments` (
+CREATE TABLE IF NOT EXISTS `customer_invoice_attachments` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `customer_invoice_id` bigint(20) unsigned DEFAULT NULL,
   `attachment_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -241,7 +241,7 @@ CREATE TABLE `customer_invoice_attachments` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `customer_invoice_actions` (
+CREATE TABLE IF NOT EXISTS `customer_invoice_actions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `customer_invoice_id` bigint(20) unsigned DEFAULT NULL,
   `action` text COLLATE utf8mb4_unicode_ci,
@@ -251,7 +251,7 @@ CREATE TABLE `customer_invoice_actions` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=215 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-CREATE TABLE `company_bank_accounts` (
+CREATE TABLE IF NOT EXISTS `company_bank_accounts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `company_id` bigint(20) unsigned DEFAULT NULL,
   `bank` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -264,11 +264,7 @@ CREATE TABLE `company_bank_accounts` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-DROP TABLE `suppliers`;
-DROP TABLE `supplier_orders`;
-DROP TABLE `supplier_order_items`;
-DROP TABLE `cars`;
-DROP TABLE `transport_sheets`;
+
 ALTER TABLE `customer_revisions` ADD `state` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL;
 ALTER TABLE `customers` ADD `ovt` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL;
 ALTER TABLE `customers` ADD `country` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL;
@@ -312,4 +308,10 @@ ALTER TABLE `stock_movements` DROP INDEX `stock_movements_stock_id_foreign`;
 ALTER TABLE `stock_movements` DROP INDEX `stock_movements_supplier_order_id_foreign`;
 ALTER TABLE `stock_movements` DROP CONSTRAINT `stock_movements_supplier_order_id_foreign`;
 ALTER TABLE `stock_movements` DROP CONSTRAINT `stock_movements_stock_id_foreign`;
+
+DROP TABLE `supplier_order_items`;
+DROP TABLE `supplier_orders`;
+DROP TABLE `suppliers`;
+DROP TABLE `cars`;
+DROP TABLE `transport_sheets`;
 #---------- DOWN ----------
