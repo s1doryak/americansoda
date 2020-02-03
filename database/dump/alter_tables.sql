@@ -10,8 +10,8 @@ ALTER TABLE `customer_revisions` CHANGE `shipping_address` `shipping_address` va
 ALTER TABLE `customer_revisions` CHANGE `email` `email` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL;
 ALTER TABLE `customers` CHANGE `email` `email` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL;
 
-ALTER TABLE `stock_movements` DROP CONSTRAINT `stock_movements_supplier_order_id_foreign`;
-ALTER TABLE `stock_movements` DROP CONSTRAINT `stock_movements_stock_id_foreign`;
+ALTER TABLE `stock_movements` DROP FOREIGN KEY `stock_movements_supplier_order_id_foreign`;
+ALTER TABLE `stock_movements` DROP FOREIGN KEY `stock_movements_stock_id_foreign`;
 ALTER TABLE `stock_movements` DROP INDEX `stock_movements_stock_id_foreign`;
 ALTER TABLE `stock_movements` DROP INDEX `stock_movements_supplier_order_id_foreign`;
 ALTER TABLE `stock_movements` DROP `supplier_order_id`;
