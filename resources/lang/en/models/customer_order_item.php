@@ -2,8 +2,8 @@
 
 return [
     'labels' => [
-        'singular' => 'CustomerOrderItem',
-        'plural' => 'CustomerOrderItem',
+        'singular' => 'Item',
+        'plural' => 'Items',
         'create' => 'Create CustomerOrderItem'
     ],
     'index' => [

@@ -2,9 +2,9 @@
 
 return [
     'labels' => [
-        'singular' => 'CustomerShipment',
-        'plural' => 'CustomerShipment',
-        'create' => 'Create CustomerShipment'
+        'singular' => 'Shipment',
+        'plural' => 'Shipments',
+        'create' => 'Create Shipment'
     ],
     'index' => [
         'title' => 'List of CustomerShipment',

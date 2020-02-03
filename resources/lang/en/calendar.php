@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'labels' => [
+        'singular' => 'Calendar',
+        'plural' => 'Calendar',
+    ],
 	'index' => [
 		'title' => 'Calendar'
 	],
