@@ -2,9 +2,9 @@
 
 return [
     'labels' => [
-        'singular' => 'Customer Invoice',
-        'plural' => 'Customer Invoices',
-        'create' => 'Create Customer Invoice'
+        'singular' => 'Invoice',
+        'plural' => 'Invoices',
+        'create' => 'Create CustomerInvoice'
     ],
     'index' => [
         'title' => 'List of Customer Invoices',
