@@ -4,6 +4,7 @@ namespace App\DataTables\Dashboard;
 
 use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 use App\CustomerOrder;
+use Illuminate\Support\Facades\DB;
 
 /**
  * CustomerOrder datatable.
@@ -12,6 +13,7 @@ use App\CustomerOrder;
  */
 class CustomerOrderDataTable extends DataTable
 {
+
     /**
      * DataTables using Eloquent Builder.
      *
@@ -22,6 +24,15 @@ class CustomerOrderDataTable extends DataTable
     {
         return parent::eloquent($builder)->orderColumn('number', 'SOUNDEX(number) $1, LENGTH(number) $1, number $1')
             ->orderColumn('batch_number', 'SOUNDEX(batch_number) $1, LENGTH(batch_number) $1, batch_number $1');
+    }
+
+    protected function getBuilderParameters()
+    {
+        return array_merge(parent::getBuilderParameters(), [
+            'order' => [
+                [6, 'desc']
+            ]
+        ]);
     }
 
     /**
