@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class BannersController extends Controller
 {
     protected $prefix = 'api';
+    protected $defaultMiddleware = 'api';
 
     /**
      * @param GetRequest $request

@@ -11,6 +11,7 @@ use Crmplease\MaterialAdmin\Routing\Controller;
 class ProductTypeController extends Controller
 {
     protected $prefix = 'api';
+    protected $defaultMiddleware = 'api';
 
     /**
      * @param NomenclatureRequest $request

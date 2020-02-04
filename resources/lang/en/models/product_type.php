@@ -55,7 +55,7 @@ return [
 		'productGroups' => 'Select Product Group',
     ],
     'columns' => [
-        'name' => 'Product Group',
+        'name' => 'Name',
         'productGroups' => [
             'count' => ':count group|:count groups'
         ],

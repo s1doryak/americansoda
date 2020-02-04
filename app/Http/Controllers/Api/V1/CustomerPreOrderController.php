@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CustomerPreOrderController extends Controller
 {
     protected $prefix = 'api';
+    protected $defaultMiddleware = 'api';
 
     public function create(CreateRequest $request, CustomerPreOrderService $service)
     {

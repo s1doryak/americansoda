@@ -11,5 +11,6 @@ sudo -i -u $PROJECT_USER bash << EOF
 	php artisan migrate &&
 	npm install &&
 	npm run production
+	sudo supervisorctl restart gtp.americansoda.demo.crmplease.me-queue:gtp.americansoda.demo.crmplease.me-queue_00
 EOF
 echo "Yay, DONE!"
