@@ -12,7 +12,6 @@ use App\CustomerOrder;
  */
 class CustomerOrderDataTable extends DataTable
 {
-
     /**
      * DataTables using Eloquent Builder.
      *
