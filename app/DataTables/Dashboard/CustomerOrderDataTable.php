@@ -24,6 +24,15 @@ class CustomerOrderDataTable extends DataTable
             ->orderColumn('batch_number', 'SOUNDEX(batch_number) $1, LENGTH(batch_number) $1, batch_number $1');
     }
 
+    protected function getBuilderParameters()
+    {
+        return array_merge(parent::getBuilderParameters(), [
+            'order' => [
+                [6, 'desc']
+            ]
+        ]);
+    }
+
     /**
      * @return array
      */
