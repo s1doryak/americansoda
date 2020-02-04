@@ -7,6 +7,7 @@ sudo -i -u $PROJECT_USER bash << EOF
 	echo "Working On ${USER}"
     cd $PROJECT_PATH &&
 	git pull &&
+	git pull --recurse-submodules &&
 	composer install &&
 	php artisan migrate &&
 	npm install &&
