@@ -51,6 +51,11 @@ class BannersController extends \Crmplease\MaterialAdmin\Routing\ResourceControl
 	];
 
     /**
+     * @var string 
+     */
+	protected $defaultMiddleware = 'dashboard';
+
+    /**
      * BannersController constructor.
      * @param Gate $gate
 	 * @param BannerRepository $bannerRepository
