@@ -37,6 +37,7 @@ class GenerateUserAuthToken
     {
         return [
             'api',
+            'dashboard'
         ];
     }
 
