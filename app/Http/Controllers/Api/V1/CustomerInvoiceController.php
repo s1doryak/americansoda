@@ -9,6 +9,7 @@ use Crmplease\MaterialAdmin\Routing\Controller;
 class CustomerInvoiceController extends Controller
 {
     protected $prefix = 'api';
+    protected $defaultMiddleware = 'api';
 
     public function downloadInvoice(DownloadPdfRequest $request, CustomerInvoiceService $service)
     {

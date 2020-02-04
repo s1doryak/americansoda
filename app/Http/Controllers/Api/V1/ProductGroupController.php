@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ProductGroupController extends Controller
 {
     protected $prefix = 'api';
+    protected $defaultMiddleware = 'api';
 
     public function get(GetRequest $request, ProductGroupService $service)
     {
