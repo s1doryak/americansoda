@@ -4,7 +4,6 @@ namespace App\DataTables\Dashboard;
 
 use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 use App\CustomerOrder;
-use Illuminate\Support\Facades\DB;
 
 /**
  * CustomerOrder datatable.
