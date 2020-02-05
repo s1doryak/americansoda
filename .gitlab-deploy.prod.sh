@@ -16,12 +16,12 @@ sudo -i -u $PROJECT_USER bash << EOF
 EOF
 
 ssh admin@gtp.americansoda.fi "cd $REMOTE_PROJECT_PATH && \
-    git pull && \
-    && git pull --recurse-submodules && \
-    composer install && \
-    php artisan migrate && \
-    npm install && \
-    npm run production"
+                                git pull && \
+                                && git pull --recurse-submodules && \
+                                composer install && \
+                                php artisan migrate && \
+                                npm install && \
+                                npm run production"
 
 echo "Yay, DONE!"
 
