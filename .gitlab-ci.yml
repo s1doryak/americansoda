@@ -7,8 +7,8 @@ Deploy to Dev:
     - node
   script:
     - bash ./.gitlab-deploy.dev.sh
-  only:
-    - dev
+  except:
+    - master
     
 Deploy to Production:
   stage: production
