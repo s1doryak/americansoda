@@ -17,5 +17,6 @@ Deploy to Production:
   script:
     - bash ./.gitlab-deploy.prod.sh
   only:
-    - dev
-    - master
+    refs:
+      - master
+      - dev
