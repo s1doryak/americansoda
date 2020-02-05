@@ -281,7 +281,7 @@ function generateApiAuthLink($token)
  */
 function generateResourceLink($id, $resource, $action = 'edit')
 {
-    return config('app.url') . "/dashboard/{$resource}/{$id}/$action";
+    return config('app.url') . "dashboard/{$resource}/{$id}/$action";
 }
 
 /**

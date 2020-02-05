@@ -7,7 +7,6 @@ use App\CustomerOrderItem;
 use App\Forms\Traits\UserFieldForm;
 use App\Repositories\Contracts\CustomerOrderRepository;
 use Crmplease\MaterialAdmin\Forms\Form;
-use Illuminate\Validation\Rule;
 
 /**
  * CustomerOrder form.
@@ -30,6 +29,9 @@ class CustomerOrderForm extends Form
             'type' => 'choice',
             'empty_value' => trans('models/customer_order.placeholders.customer'),
             'multiple' => false,
+            'attr' => [
+                'data-live-search' => 'true'
+            ]
         ];
         $fields['number'] = [
             'type' => 'text',
@@ -37,16 +39,6 @@ class CustomerOrderForm extends Form
         ];
         $fields['batch_number'] = 'text';
         $fields['comment'] = 'editor';
-        $fields['customerOrderItems[idx]'] = [
-            'type' => 'relation_form',
-            'fields' => CustomerOrderItemForm::getCreateFormFields(),
-            'form_title' => trans('models/customer_order_item.labels.plural'),
-            'resource' => 'customer_order_item',
-            'items' => [],
-            'can_add' => true,
-            'can_edit' => true,
-            'can_select' => true,
-        ];
 
         return $fields;
     }

@@ -354,4 +354,27 @@ class CustomerOrdersController extends ResourceController
 
         return response(format_date($customerOrder->sent_at));
     }
+
+    /**
+     * @param $action
+     * @param CustomerOrder|null $model
+     * @param null $request
+     * @return array
+     */
+    protected function getResponseExtraData($action, $model = null, $request = null)
+    {
+        switch ($action) {
+            case 'store':
+                if ($model && $model->getKey()) {
+                    return [
+                        'redirect_url' => $this->getRedirectUrl($action, $model),
+                    ];
+                }
+                return [];
+                break;
+            default:
+                return [];
+                break;
+        }
+    }
 }

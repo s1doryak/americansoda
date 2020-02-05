@@ -1,5 +1,16 @@
 stages:
+    - dev
     - production
+Deploy to Dev:
+  stage: dev
+  tags:
+    - node
+  script:
+    - bash ./.gitlab-deploy.dev.sh
+  only:
+    refs:
+      - dev
+    
 Deploy to Production:
   stage: production
   tags:
@@ -7,4 +18,6 @@ Deploy to Production:
   script:
     - bash ./.gitlab-deploy.prod.sh
   only:
-    - dev
+    refs:
+      - master
+      - dev

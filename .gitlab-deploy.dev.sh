@@ -2,7 +2,7 @@
 
 set - f
 
-echo "Deploy project on server DEV ${DEPLOY_SERVER}"
+echo "Deploy project on server ${DEPLOY_SERVER}"
 sudo -i -u $PROJECT_USER bash << EOF
 	echo "Working On ${USER}"
     cd $PROJECT_PATH &&
@@ -11,18 +11,7 @@ sudo -i -u $PROJECT_USER bash << EOF
 	composer install &&
 	php artisan migrate &&
 	npm install &&
-	npm run production &&
+	npm run production
 	sudo supervisorctl restart gtp.americansoda.demo.crmplease.me-queue:gtp.americansoda.demo.crmplease.me-queue_00
 EOF
-
-ssh admin@gtp.americansoda.fi \
-"cd $REMOTE_PROJECT_PATH && \
-git pull && \
-git pull --recurse-submodules && \
-composer install && \
-php artisan migrate && \
-npm install && \
-npm run production"
-
 echo "Yay, DONE!"
-
