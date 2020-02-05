@@ -35,6 +35,9 @@ class CustomerOrderItemForm extends Form
 			'type' => 'choice',
             'empty_value' => trans('models/customer_order_item.placeholders.product'),
 			'multiple' => false,
+            'attr' => [
+                'data-live-search' => 'true'
+            ]
 		];
 		$fields['sales_unit_quantity'] = [
 			'type' => 'text',
@@ -118,6 +121,9 @@ class CustomerOrderItemForm extends Form
 			'type' => 'choice',
             'empty_value' => trans('models/customer_order_item.placeholders.product'),
 			'multiple' => false,
+            'attr' => [
+                'data-live-search' => 'true'
+            ]
 		];
 		$fields['sales_unit_quantity'] = [
 			'type' => 'text',
