@@ -11,7 +11,7 @@ sudo -i -u $REMOTE_PROJECT_USER bash << EOF
 	composer install &&
 	php artisan migrate &&
 	npm install &&
-	npm run production &&
+	npm run production
 EOF
 
 echo "Yay, DONE!"
