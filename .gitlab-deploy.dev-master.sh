@@ -6,7 +6,7 @@ echo "Deploy project on server ${DEPLOY_SERVER}"
 sudo -i -u $PROJECT_USER bash << EOF
 	echo "Working On ${USER}"
     cd $PROJECT_PATH &&
-    git checkout dev &&
+    git checkout master &&
 	git pull &&
 	git pull --recurse-submodules &&
 	composer install &&
