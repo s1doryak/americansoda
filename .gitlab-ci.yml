@@ -21,7 +21,7 @@ Deploy to Production:
     refs:
       - master
 
-Deploy to Dev:
+Deploy Master to Dev:
   stage: dev
   tags:
     - node
