@@ -10,14 +10,23 @@ Deploy to Dev:
   only:
     refs:
       - dev
-    
+
 Deploy to Production:
   stage: production
   tags:
-    - node
+    - node-2
   script:
     - bash ./.gitlab-deploy.prod.sh
   only:
     refs:
       - master
-      - dev
+
+Deploy to Dev:
+  stage: dev
+  tags:
+    - node
+  script:
+    - bash ./.gitlab-deploy.dev-master.sh
+  only:
+    refs:
+      - master
