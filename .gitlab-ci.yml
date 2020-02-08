@@ -6,7 +6,7 @@ Deploy to Dev:
   tags:
     - node
   script:
-    - bash ./.gitlab-deploy.dev.sh
+    - bash ./.gitlab-deploy.sh -d
   only:
     refs:
       - dev
@@ -16,7 +16,7 @@ Deploy to Production:
   tags:
     - node-2
   script:
-    - bash ./.gitlab-deploy.prod.sh
+    - bash ./.gitlab-deploy.sh -m
   only:
     refs:
       - master
@@ -26,7 +26,7 @@ Deploy Master to Dev:
   tags:
     - node
   script:
-    - bash ./.gitlab-deploy.dev-master.sh
+    - bash ./.gitlab-deploy.sh -dm
   only:
     refs:
       - master
