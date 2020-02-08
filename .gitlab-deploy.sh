@@ -8,6 +8,7 @@ case "$ACTION_NAME" in
 		sudo -i -u $REMOTE_PROJECT_USER bash <<- EOF
 			echo "Working On ${USER}"
 		    cd $REMOTE_PROJECT_PATH
+		    git checkout master
 			git pull
 			git pull --recurse-submodules
 			composer install
