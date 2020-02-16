@@ -3,15 +3,15 @@
 return [
 	'buttons' =>
 		[
-			'export' => '<span class="hidden-xs">Выгрузка</span><i class="zmdi zmdi-chevron-down zmdi-hc-fw"></i>',
+			'export' => '<span class="hidden-xs hidden-md">Выгрузка</span><i class="zmdi zmdi-chevron-down zmdi-hc-fw"></i>',
 			'excel' => 'Excel',
 			'pdf' => 'PDF',
 			'print' => 'Печать',
-            'create' => '<i class="zmdi zmdi-plus zmdi-hc-fw"></i><span class="hidden-xs">Создать</span>',
-			'reload' => '<i class="zmdi zmdi-refresh-alt zmdi-hc-fw"></i><span class="hidden-xs">Обновить</span>',
-            'trashed' => '<i class="zmdi zmdi-delete zmdi-hc-fw"></i><span class="hidden-xs">Корзина</span>',
-			'colvis' => '<i class="zmdi zmdi-more-vert zmdi-hc-fw"></i><span class="hidden-xs">Столбцы</span>',
-			'filter' => '<i class="zmdi zmdi-filter-list zmdi-hc-fw"></i><span class="hidden-xs">Фильтры</span>',
+            'create' => '<i class="zmdi zmdi-plus zmdi-hc-fw"></i><span class="hidden-xs hidden-md">Создать</span>',
+			'reload' => '<i class="zmdi zmdi-refresh-alt zmdi-hc-fw"></i><span class="hidden-xs hidden-md">Обновить</span>',
+            'trashed' => '<i class="zmdi zmdi-delete zmdi-hc-fw"></i><span class="hidden-xs hidden-md">Корзина</span>',
+			'colvis' => '<i class="zmdi zmdi-more-vert zmdi-hc-fw"></i><span class="hidden-xs hidden-md">Столбцы</span>',
+			'filter' => '<i class="zmdi zmdi-filter-list zmdi-hc-fw"></i><span class="hidden-xs hidden-md">Фильтры</span>',
 		],
 	'columns' =>
 		[
