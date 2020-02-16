@@ -78,14 +78,6 @@
             </span>
         </a>
     </li>
-    <li class="hidden-xs">
-        <a href="{{ route('dashboard.stock_product.index') }}">
-            <span class="him-label">
-                <i class="zmdi zmdi-chart zmdi-hc-lg"></i>
-                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/stock_product.labels.plural') }}</span>
-            </span>
-        </a>
-    </li>
 @stop
 
 @section('scripts')
