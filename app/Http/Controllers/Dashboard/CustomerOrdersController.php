@@ -208,7 +208,7 @@ class CustomerOrdersController extends ResourceController
      */
     protected function getRedirectUrl($action, $customerOrder = null)
     {
-        if ($customerOrder) {
+        if ($customerOrder && $action === 'store') {
             return route(sprintf('%s.%s.edit', $this->getPrefix(), $this->getResource()), ['id' => $customerOrder->getKey()]);
         } else {
             return parent::getRedirectUrl($action, $customerOrder);
@@ -354,4 +354,40 @@ class CustomerOrdersController extends ResourceController
 
         return response(format_date($customerOrder->sent_at));
     }
+
+    /**
+     * @param $action
+     * @param CustomerOrder|null $model
+     * @param null $request
+     * @return array
+     */
+    protected function getResponseExtraData($action, $model = null, $request = null)
+    {
+        switch ($action) {
+            case 'store':
+                if ($model && $model->getKey()) {
+                    return [
+                        'redirect_url' => $this->getRedirectUrl($action, $model),
+                    ];
+                }
+                return [];
+                break;
+            default:
+                return [];
+                break;
+        }
+    }
+
+    /**
+     * Check whether user should be returned back after action.
+     *
+     * @param string|$action
+     * @param mixed|null $request
+     * @return boolean
+     */
+    protected function shouldReturnBack($action, $request = null)
+    {
+        return !in_array($action, ['store', 'update']);
+    }
+
 }

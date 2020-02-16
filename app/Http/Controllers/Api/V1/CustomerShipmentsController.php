@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CustomerShipmentsController extends Controller
 {
     protected $prefix = 'api';
+    protected $defaultMiddleware = 'api';
 
     public function get(GetRequest $request, CustomerShipmentService $service)
     {

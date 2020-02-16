@@ -10,11 +10,13 @@ use Symfony\Component\HttpFoundation\Response;
 class CustomerUserController extends Controller
 {
     protected $prefix = 'api';
+    protected $defaultMiddleware = 'api';
 
     /**
      * @param GetProfileRequest $request
      * @param CustomerUserService $service
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function profile(GetProfileRequest $request, CustomerUserService $service)
     {

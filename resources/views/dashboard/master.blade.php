@@ -79,6 +79,13 @@
             </span>
         </a>
     </li>
+        <a href="{{ route('dashboard.stock_product.index') }}">
+            <span class="him-label">
+                <i class="zmdi zmdi-chart zmdi-hc-lg m-r-5"></i>
+                <span class="hidden-xs hidden-md">{{ trans('models/stock_product.labels.plural') }}</span>
+            </span>
+        </a>
+    </li>
 @stop
 
 @section('scripts')

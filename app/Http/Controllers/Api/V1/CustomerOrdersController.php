@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CustomerOrdersController extends Controller
 {
     protected $prefix = 'api';
+    protected $defaultMiddleware = 'api';
 
     public function get(
         GetRequest $request,

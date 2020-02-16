@@ -1,22 +1,25 @@
 <?php
 
 return [
-    'index' => [
-        'title' => 'Calendar'
+    'labels' => [
+        'singular' => 'Calendar',
+        'plural' => 'Calendar',
     ],
-    'view' => [
-        'day' => 'Day',
-        'week' => 'Week',
-        'month' => 'Month',
-        'list' => 'List'
-    ],
-    'event' => [
-        'placeholder' => [
-            'comment' => 'Comment',
-        ],
-        'button' => [
-            'update' => 'Update',
-            'close' => 'Close'
-        ]
-    ]
+	'index' => [
+		'title' => 'Calendar'
+	],
+	'view' => [
+		'day' => 'Day View',
+		'week' => 'Week View',
+		'month' => 'Month View'
+	],
+	'event' => [
+		'placeholder' => [
+			'comment' => 'Event Comments',
+		],
+		'button' => [
+			'update' => 'Save',
+			'close' => 'Cancel'
+		]
+	]
 ];

@@ -2,9 +2,9 @@
 
 return [
     'labels' => [
-        'singular' => 'Customer Order Item',
-        'plural' => 'Customer Order Item',
-        'create' => 'Create Customer Order Item'
+        'singular' => 'Item',
+        'plural' => 'Items',
+        'create' => 'Create OrderItem'
     ],
     'index' => [
         'title' => 'List of Customer Order Item',
