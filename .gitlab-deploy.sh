@@ -15,6 +15,7 @@ case "$ACTION_NAME" in
 			php artisan migrate
 			npm install
 			npm run production
+			sudo supervisorctl restart gtp.americansoda.fi-queue:gtp.americansoda.fi-queue_00
 		EOF
 		;;
 	-d|--dev)
