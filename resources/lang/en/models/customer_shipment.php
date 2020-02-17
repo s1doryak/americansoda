@@ -119,6 +119,8 @@ return [
         'user' => [
             'name' => 'User',
         ],
+        'status' => 'Status',
+        'number' => 'Number',
     ],
     'statuses' => [
         'open' => 'Open',
