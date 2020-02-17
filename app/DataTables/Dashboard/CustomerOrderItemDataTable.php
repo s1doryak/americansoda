@@ -617,7 +617,7 @@ class CustomerOrderItemDataTable extends DataTable
     protected function renderCustomerOrder__Customer__PaymentConditionsColumn($customerOrderItem)
     {
         if ($this->isDataTableRequest()) {
-            return $customerOrderItem->customerOrder->customer ?? $this->renderDefaultView();
+            return $customerOrderItem->customerOrder->customer->payment_conditions ?? $this->renderDefaultView();
         }
 
         return $customerOrderItem->customerOrder->customer->payment_conditions ?? null;
