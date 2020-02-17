@@ -38,7 +38,6 @@ class CustomerOrderForm extends Form
             'value' => app(CustomerOrderRepository::class)->getFirstAvailableNumber()
         ];
         $fields['batch_number'] = 'text';
-        $fields['comment'] = 'editor';
 
         return $fields;
     }
