@@ -41,6 +41,9 @@ class CustomerOrderItemForm extends Form
 		];
 		$fields['sales_unit_quantity'] = [
 			'type' => 'text',
+            'attr' => [
+                'required' => 'required'
+            ]
 		];
 		$fields['products_quantity'] = [
 			'type' => 'static',
