@@ -15,7 +15,7 @@ case "$ACTION_NAME" in
 			php artisan migrate
 			npm install
 			npm run production
-			sudo supervisorctl restart gtp.americansoda.fi-queue:gtp.americansoda.fi-queue_00
+			supervisorctl restart gtp.americansoda.fi-queue:gtp.americansoda.fi-queue_00
 		EOF
 		;;
 	-d|--dev)
@@ -30,7 +30,7 @@ case "$ACTION_NAME" in
 			php artisan migrate
 			npm install
 			npm run production
-			sudo supervisorctl restart gtp.americansoda.demo.crmplease.me-queue:gtp.americansoda.demo.crmplease.me-queue_00
+			supervisorctl restart gtp.americansoda.demo.crmplease.me-queue:gtp.americansoda.demo.crmplease.me-queue_00
 		EOF
 		;;
 	-dm|--devmaster)
@@ -45,7 +45,7 @@ case "$ACTION_NAME" in
 			php artisan migrate
 			npm install
 			npm run production
-			sudo supervisorctl restart gtp.americansoda.demo.crmplease.me-queue:gtp.americansoda.demo.crmplease.me-queue_00
+			supervisorctl restart gtp.americansoda.demo.crmplease.me-queue:gtp.americansoda.demo.crmplease.me-queue_00
 		EOF
 		;;
     *)
