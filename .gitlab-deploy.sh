@@ -13,9 +13,9 @@ case "$ACTION_NAME" in
 			git pull --recurse-submodules
 			composer install
 			php artisan migrate
+			supervisorctl restart gtp.americansoda.fi-queue:gtp.americansoda.fi-queue_00
 			npm install
 			npm run production
-			supervisorctl restart gtp.americansoda.fi-queue:gtp.americansoda.fi-queue_00
 		EOF
 		;;
 	-d|--dev)
@@ -28,9 +28,9 @@ case "$ACTION_NAME" in
 			git pull --recurse-submodules
 			composer install
 			php artisan migrate
+			supervisorctl restart gtp.americansoda.demo.crmplease.me-queue:gtp.americansoda.demo.crmplease.me-queue_00
 			npm install
 			npm run production
-			supervisorctl restart gtp.americansoda.demo.crmplease.me-queue:gtp.americansoda.demo.crmplease.me-queue_00
 		EOF
 		;;
 	-dm|--devmaster)
@@ -43,9 +43,9 @@ case "$ACTION_NAME" in
 			git pull --recurse-submodules
 			composer install
 			php artisan migrate
+			supervisorctl restart gtp.americansoda.demo.crmplease.me-queue:gtp.americansoda.demo.crmplease.me-queue_00
 			npm install
 			npm run production
-			supervisorctl restart gtp.americansoda.demo.crmplease.me-queue:gtp.americansoda.demo.crmplease.me-queue_00
 		EOF
 		;;
     *)
