@@ -315,8 +315,16 @@ class CustomerInvoicesController extends ResourceController
         $result = MaventaConfirmInvoice::dispatchNow(
             $this->getResourceId()
         );
+        $hasErrors = strpos($result, 'ERROR');
 
-        return $result ? $result : 'ERROR';
+        if ($hasErrors !== false) {
+            $result = [
+                'errors' => true,
+                'message' => $result
+            ];
+        }
+        
+        return $result;
     }
 
     /**
