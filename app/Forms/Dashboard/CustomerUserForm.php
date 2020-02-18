@@ -25,6 +25,9 @@ class CustomerUserForm extends Form
             'customers' => [
                 'type' => 'choice',
                 'multiple' => true,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'comment' => 'editor',
         ];
@@ -43,6 +46,9 @@ class CustomerUserForm extends Form
             'customers' => [
                 'type' => 'choice',
                 'multiple' => true,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'comment' => 'editor',
         ];
