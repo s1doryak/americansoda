@@ -121,8 +121,8 @@ class CustomerOrderItemDataTable extends DataTable
                 'name' => 'customerShipment.number',
             ],
             'customerShipment.assembly_number' => [
-                'data' => 'customerShipment.number',
-                'name' => 'customerShipment.number',
+                'data' => 'customerShipment.assembly_number',
+                'name' => 'customerShipment.assembly_number',
                 'template' => 'dashboard::resources.customer_order_item.columns.assembly_number',
             ],
             'customerShipment.delivery_month' => [
@@ -296,11 +296,6 @@ class CustomerOrderItemDataTable extends DataTable
                         'value' => 'Non-Backorders only',
                     ],
                 ],
-            ],
-            'customerShipment.number' => [
-                'type' => 'text',
-                'name' => 'customerShipment.number',
-                'data' => 'customerShipment.number',
             ],
             'customerShipmentAdvanced' => [
                 'template' => 'dashboard::resources.customer_order_item.filters.shipment',
@@ -516,6 +511,19 @@ class CustomerOrderItemDataTable extends DataTable
         }
 
         return $customerOrderItem->customerShipment->delivery_month ?? null;
+    }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
+    protected function renderCustomerShipment__NumberColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->customerShipment->number ?? $this->renderDefaultView();
+        }
+
+        return $customerOrderItem->customerShipment->number ?? null;
     }
 
     /**
