@@ -353,48 +353,4 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
             'id' => $this->getKey() . '_order',
         ];
     }
-
-    /**
-     * @param $attachment
-     * @return boolean
-     */
-    public function sendEmail($attachment)
-    {
-        try {
-
-            /** @var CustomerOrder $order */
-            $order = $this;
-
-            Mail::send(
-                'dashboard::resources.customer.mail.order_review',
-                ['order' => $order],
-
-                function (Message $message) use ($order, $attachment) {
-
-                    /** @var Customer $customer */
-                    $customer = $order->customer;
-                    $emails = $customer->customerUsers->isNotEmpty()
-                        ? $customer->customerUsers->pluck('email')->toArray()
-                        : $customer->email;
-
-                    $message->from(env('MAIL_FROM'), env('MAIL_FROM_NAME'))
-                        ->to($emails, $customer->name)
-                        ->cc(config('mail.from.address'), config('mail.from.name'))
-                        ->subject($order->getEmailSubject())
-                        ->attach(
-                            $attachment,
-                            [
-                                'as' => sprintf('%s.pdf', $order->getOrderReviewFileName()),
-                                'mime' => 'application/pdf',
-                            ]
-                        );
-
-                }
-            );
-
-        } catch (\Swift_TransportException $e) {
-        }
-
-        return true;
-    }
 }

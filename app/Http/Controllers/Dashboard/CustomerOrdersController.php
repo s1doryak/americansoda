@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Notifications\Dashboard\SendEmail;
 use Auth;
 use PDF;
 use App\Company;
@@ -343,7 +344,19 @@ class CustomerOrdersController extends ResourceController
         /** @var CustomerOrder $order */
         $order = $this->repository->with('customer')->find($id);
 
-        $order->sendEmail($this->orderReview($request, false));
+        $customer = $order->customer;
+        $notification = new SendEmail(
+            $this->orderReview($request, false),
+            sprintf('%s.pdf', $order->getOrderReviewFileName()),
+            $order
+        );
+        if ($customer->customerUsers->isNotEmpty()) {
+            $customer->customerUsers->each(function ($customerUser) use ($notification){
+                $customerUser->notify($notification);
+            });
+        } else {
+            $customer->notify($notification);
+        }
 
         $customerOrder = $this->repository->update(
             [

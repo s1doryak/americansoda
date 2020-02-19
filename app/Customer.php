@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
+
 /**
  * Customer
  *
@@ -70,6 +72,8 @@ namespace App;
  */
 class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
+    use Notifiable;
+
     protected $fillable = [
         'name',
         'legal_name',
