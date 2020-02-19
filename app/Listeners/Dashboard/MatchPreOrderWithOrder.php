@@ -67,7 +67,7 @@ class MatchPreOrderWithOrder
 
                 return $item;
             });
-
+            $this->customerPreOrders->update(['customer_order_id' => $customerOrder->getKey()], $customerPreOrder->getKey());
             event(new ResourceStored(
                     'dashboard',
                     'customer_order',
