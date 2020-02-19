@@ -68,13 +68,25 @@ class CustomerOrderForm extends Form
             'resource' => 'customer_order_item',
             'items' => $customerOrder->customerOrderItems,
             'can_add' => true,
-            'can_edit' => function (CustomerOrderItem $customerOrderItem = null) {
-                return $customerOrderItem ? in_array($customerOrderItem->status, ['open', 'assembly', 'shipment']) : true;
+            'can_edit' => function ($customerOrderItem = null) {
+                $answer = true;
+
+                if ($customerOrderItem instanceof CustomerOrderItem) {
+                    $answer = in_array($customerOrderItem->status, ['open', 'assembly', 'shipment']);
+                }
+
+                return $answer;
             },
-            'can_remove' => function (CustomerOrderItem $customerOrderItem = null) {
-                return $customerOrderItem ? in_array($customerOrderItem->status, ['open', 'assembly', 'shipment']) : true;
+            'can_remove' => function ($customerOrderItem = null) {
+                $answer = true;
+
+                if ($customerOrderItem instanceof CustomerOrderItem) {
+                    $answer = in_array($customerOrderItem->status, ['open', 'assembly', 'shipment']);
+                }
+
+                return $answer;
             },
-            'can_select' => function (CustomerOrderItem $customerOrderItem = null) {
+            'can_select' => function ($customerOrderItem = null) {
                 return $customerOrderItem ? false : true;
             },
         ];
