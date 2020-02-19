@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\Dashboard\MatchPreOrderWithOrder;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -135,6 +136,11 @@ class EventServiceProvider extends ServiceProvider
              * Создает ревизию ценовых политик клиента
              */
             \App\Listeners\Dashboard\CreateCustomerPricingPolicyRevision::class,
+
+            /**
+             * Создает заказ при обновлении предзаказа если он отсуствует
+             */
+            \App\Listeners\Dashboard\MatchPreOrderWithOrder::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceDestroyed::class => [

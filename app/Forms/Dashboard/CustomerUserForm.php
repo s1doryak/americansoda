@@ -25,6 +25,10 @@ class CustomerUserForm extends Form
             'customers' => [
                 'type' => 'choice',
                 'multiple' => true,
+                'empty_value' => trans('models/customer_user.placeholders.customers'),
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'comment' => 'editor',
         ];
@@ -43,6 +47,9 @@ class CustomerUserForm extends Form
             'customers' => [
                 'type' => 'choice',
                 'multiple' => true,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'comment' => 'editor',
         ];

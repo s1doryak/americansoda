@@ -46,13 +46,13 @@ class CustomerInvoiceForm extends Form
                 'resource' => 'customer_invoice_item',
                 'items' => [],
                 'can_add' => true,
-                'can_edit' => function (CustomerInvoiceItem $customerInvoiceItem = null) {
+                'can_edit' => function ($customerInvoiceItem = null) {
                     return true;
                 },
-                'can_remove' => function (CustomerInvoiceItem $customerInvoiceItem = null) {
+                'can_remove' => function ($customerInvoiceItem = null) {
                     return true;
                 },
-                'can_select' => function (CustomerInvoiceItem $customerInvoiceItem = null) {
+                'can_select' => function ($customerInvoiceItem = null) {
                     return true;
                 },
             ],
@@ -108,13 +108,13 @@ class CustomerInvoiceForm extends Form
                 'resource' => 'customer_invoice_item',
                 'items' => $customerInvoice->customerInvoiceItems,
                 'can_add' => true,
-                'can_edit' => function (CustomerInvoiceItem $customerInvoiceItem = null) {
+                'can_edit' => function ($customerInvoiceItem = null) {
                     return true;
                 },
-                'can_remove' => function (CustomerInvoiceItem $customerInvoiceItem = null) {
+                'can_remove' => function ($customerInvoiceItem = null) {
                     return true;
                 },
-                'can_select' => function (CustomerInvoiceItem $customerInvoiceItem = null) {
+                'can_select' => function ($customerInvoiceItem = null) {
                     return true;
                 },
             ],

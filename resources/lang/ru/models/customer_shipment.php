@@ -119,6 +119,8 @@ return [
 		'user' => [
 			'name' => 'Менеджер',
 		],
+        'status' => 'Статус',
+        'number' => 'Номер',
     ],
     'statuses' => [
         'open' => 'Новый',

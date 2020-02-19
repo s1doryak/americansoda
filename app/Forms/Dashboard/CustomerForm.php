@@ -37,6 +37,9 @@ class CustomerForm extends Form
                 'multiple' => false,
                 'resource' => 'region',
                 'selected' => null,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'billing_postcode' => 'text',
             'billing_address' => 'text',
@@ -46,6 +49,9 @@ class CustomerForm extends Form
                 'multiple' => false,
                 'resource' => 'region',
                 'selected' => null,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'shipping_postcode' => 'text',
             'shipping_address' => 'text',
@@ -74,10 +80,16 @@ class CustomerForm extends Form
             'stock' => [
                 'type' => 'choice',
                 'multiple' => false,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'customerType' => [
                 'type' => 'choice',
                 'multiple' => false,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'paymentType' => [
                 'type' => 'choice',
@@ -86,6 +98,9 @@ class CustomerForm extends Form
             'priceGroup' => [
                 'type' => 'choice',
                 'multiple' => false,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'payment_conditions' => 'text',
             'pays_vat' => [

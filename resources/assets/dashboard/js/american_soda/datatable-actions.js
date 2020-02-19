@@ -25,7 +25,7 @@ jQuery(document).ready(function ($) {
                 $this.prop('checked', !checked);
                 $this.prop('disabled', false);
             }
-
+            $.showActionNotifications($.parseJSON(response.responseText), [])
         });
 
     });

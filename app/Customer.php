@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
+
 /**
  * Customer
  *
@@ -48,6 +50,7 @@ namespace App;
  * @property \Illuminate\Support\Collection|CustomerShipment[] $customerShipments
  * @property \Illuminate\Support\Collection|CustomerPricingPolicy[] $customerPricingPolicies
  * @property \Illuminate\Support\Collection|CustomerInvoice[] $customerInvoices
+ * @property \Illuminate\Support\Collection|CustomerUser[] $customerUsers
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -58,6 +61,7 @@ namespace App;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo user()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo billingRegion()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo shippingRegion()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany customerUsers()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo priceGroup()
  * @method \Illuminate\Database\Eloquent\Relations\HasMany customerOrders()
  * @method \Illuminate\Database\Eloquent\Relations\HasMany customerShipments()
@@ -68,6 +72,8 @@ namespace App;
  */
 class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
+    use Notifiable;
+
     protected $fillable = [
         'name',
         'legal_name',
@@ -136,7 +142,7 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $belongsToMany = [
-
+        'customerUsers' => [\App\CustomerUser::class, 'customer_user_customer'],
     ];
 
     protected $belongsToManyPivot = [
