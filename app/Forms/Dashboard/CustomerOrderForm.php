@@ -27,7 +27,6 @@ class CustomerOrderForm extends Form
         $fields['user'] = static::provideUserFormField();
         $fields['customer'] = [
             'type' => 'choice',
-            'empty_value' => trans('models/customer_order.placeholders.customer'),
             'multiple' => false,
             'attr' => [
                 'data-live-search' => 'true'
