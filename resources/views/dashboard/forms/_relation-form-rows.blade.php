@@ -1,4 +1,5 @@
-@php($items = $options['items']->isNotEmpty() ? $options['items'] : collect(array_values(old(Str::plural(Str::camel($options['resource']))) ?? [])))
+@php($itemsNotEmpty = is_array($options['items']) ? !empty($options['items']) : $options['items']->isNotEmpty())
+@php($items = $itemsNotEmpty ? $options['items'] : collect(array_values(old(Str::plural(Str::camel($options['resource']))) ?? [])))
 @php($can_add = isset($options['can_add']) ? is_callable($options['can_add']) ? call_user_func($options['can_add']) : (boolean)$options['can_add'] : true)
 @php($actions = isset($options['actions']) ? is_callable($options['actions']) ? call_user_func($options['actions']) : (boolean)$options['actions'] : true)
 

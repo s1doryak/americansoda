@@ -137,7 +137,7 @@ class ManageShipmentsAndAssemblies
 			}
 
 		}
-        dd($attributes['assembly_number']);
+		
 		/**
 		 * Найдем все отгрузки с таким же номером сборки.
 		 * Если в них есть позиции заказов, то создадим для них сборку.
@@ -307,7 +307,6 @@ class ManageShipmentsAndAssemblies
 		return [
 			'customer.shipment',
 			'customer_shipment',
-			'customer_order_item',
 		];
 	}
 
