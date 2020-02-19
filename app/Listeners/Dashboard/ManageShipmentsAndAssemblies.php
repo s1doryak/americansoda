@@ -307,7 +307,6 @@ class ManageShipmentsAndAssemblies
 		return [
 			'customer.shipment',
 			'customer_shipment',
-			'customer_order_item',
 		];
 	}
 
