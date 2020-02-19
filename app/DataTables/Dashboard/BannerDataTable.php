@@ -12,6 +12,8 @@ use App\Banner;
  */
 class BannerDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

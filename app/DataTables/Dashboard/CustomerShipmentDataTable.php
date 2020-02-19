@@ -12,6 +12,8 @@ use App\CustomerShipment;
  */
 class CustomerShipmentDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

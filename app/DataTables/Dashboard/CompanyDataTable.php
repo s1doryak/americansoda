@@ -12,7 +12,9 @@ use App\Company;
  */
 class CompanyDataTable extends DataTable
 {
-	/**
+    protected $responsive = false;
+
+    /**
 	 * @return array
 	 */
 	protected function getColumns()

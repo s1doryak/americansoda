@@ -12,6 +12,8 @@ use App\Role;
  */
 class RoleDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

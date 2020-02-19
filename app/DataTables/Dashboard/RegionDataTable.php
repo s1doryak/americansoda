@@ -12,6 +12,8 @@ use App\Region;
  */
 class RegionDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

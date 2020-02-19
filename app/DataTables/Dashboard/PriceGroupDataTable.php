@@ -12,7 +12,9 @@ use App\PriceGroup;
  */
 class PriceGroupDataTable extends DataTable
 {
-	/**
+    protected $responsive = false;
+
+    /**
 	 * @return array
 	 */
 	protected function getColumns()

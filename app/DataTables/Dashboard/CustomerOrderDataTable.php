@@ -12,6 +12,8 @@ use App\CustomerOrder;
  */
 class CustomerOrderDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * DataTables using Eloquent Builder.
      *

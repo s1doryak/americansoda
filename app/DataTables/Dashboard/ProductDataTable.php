@@ -13,6 +13,8 @@ use App\Product;
  */
 class ProductDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

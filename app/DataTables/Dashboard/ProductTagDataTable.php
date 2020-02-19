@@ -12,7 +12,9 @@ use App\ProductTag;
  */
 class ProductTagDataTable extends DataTable
 {
-	/**
+    protected $responsive = false;
+
+    /**
 	 * @return array
 	 */
 	protected function getColumns()

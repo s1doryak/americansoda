@@ -12,6 +12,8 @@ use App\Administrator;
  */
 class AdministratorDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

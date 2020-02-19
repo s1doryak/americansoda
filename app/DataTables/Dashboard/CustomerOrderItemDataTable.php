@@ -15,6 +15,8 @@ use Illuminate\Support\Arr;
  */
 class CustomerOrderItemDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * Get engine {@see DataTable::ajax()}.
      *

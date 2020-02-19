@@ -12,6 +12,8 @@ use App\ProductType;
  */
 class ProductTypeDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */
