@@ -64,6 +64,8 @@ class MatchPreOrderWithOrder
                 $item->product = $item->product_id;
                 $item->product_price = $item->price;
                 $item->sales_unit_quantity = $item->quantity;
+                $item->status = config('stock.status.open');
+                $item->bypass = true;
 
                 return $item;
             });
