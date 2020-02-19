@@ -12,6 +12,8 @@ use App\Brand;
  */
 class BrandDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

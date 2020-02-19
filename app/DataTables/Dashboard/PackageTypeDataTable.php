@@ -12,7 +12,9 @@ use App\PackageType;
  */
 class PackageTypeDataTable extends DataTable
 {
-	/**
+    protected $responsive = false;
+
+    /**
 	 * @return array
 	 */
 	protected function getColumns()

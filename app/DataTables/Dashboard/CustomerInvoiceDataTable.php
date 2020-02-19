@@ -12,6 +12,8 @@ use App\CustomerInvoice;
  */
 class CustomerInvoiceDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

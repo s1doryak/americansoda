@@ -12,6 +12,8 @@ use App\ProductGroup;
  */
 class ProductGroupDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * Enable or disable table pagination.
      * @see https://datatables.net/reference/option/paging

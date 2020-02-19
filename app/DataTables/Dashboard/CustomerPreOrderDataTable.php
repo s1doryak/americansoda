@@ -12,7 +12,9 @@ use App\CustomerPreOrder;
  */
 class CustomerPreOrderDataTable extends DataTable
 {
-	/**
+    protected $responsive = false;
+
+    /**
 	 * @return array
 	 */
 	protected function getColumns()

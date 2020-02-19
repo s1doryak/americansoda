@@ -12,6 +12,8 @@ use App\CustomerType;
  */
 class CustomerTypeDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

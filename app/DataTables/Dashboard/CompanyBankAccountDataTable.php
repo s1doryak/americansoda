@@ -12,7 +12,9 @@ use App\CompanyBankAccount;
  */
 class CompanyBankAccountDataTable extends DataTable
 {
-	/**
+    protected $responsive = false;
+
+    /**
 	 * @return array
 	 */
 	protected function getColumns()

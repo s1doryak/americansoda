@@ -13,6 +13,8 @@ use App\StockProduct;
  */
 class StockProductDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * Get the query object to be processed by datatables.
      *

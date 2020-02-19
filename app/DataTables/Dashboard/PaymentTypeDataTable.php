@@ -12,6 +12,8 @@ use App\PaymentType;
  */
 class PaymentTypeDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */
