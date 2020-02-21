@@ -38,10 +38,7 @@ class StockMovementsController extends ResourceController
      * @var array
      */
     protected $with = [
-        'product',
         'stock',
-        'stockMovement',
-        'stockMovement.stock',
     ];
 
     /**
