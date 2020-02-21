@@ -49,7 +49,12 @@ class CustomerPreOrderForm extends Form
             'number' => 'text',
             'comment' => 'textarea',
             'customerUser' => 'choice',
-            'customer' => 'choice',
+            'customer' => [
+                'type' => 'choice',
+                'attr' => [
+                    'disabled' => 'disabled'
+                ]
+            ],
             'customerPreOrderItems[idx]' => [
                 'type' => 'relation_form',
                 'fields' => CustomerPreOrderItemForm::getCreateFormFields(),
