@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
+use App\Repositories\Contracts\ProductRepository;
 use App\StockMovement;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use App\Repositories\Contracts\StockMovementRepository;
@@ -49,10 +50,24 @@ class StockMovementsController extends ResourceController
     protected $stocks;
 
     /**
+     * @var ProductRepository
+     */
+    protected $products;
+
+    /**
      * @var array
      */
     protected $editActionFormData = [
         'stocks' => 'name',
+        'products' => 'name'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $popupActions = [
+        'create' => 'large',
+        'edit' => 'large'
     ];
 
     /**
@@ -60,16 +75,19 @@ class StockMovementsController extends ResourceController
      * @param Gate $gate
      * @param StockMovementRepository $stockMovementRepository
      * @param StockRepository $stockRepository
+     * @param ProductRepository $productRepository
      */
     public function __construct(
         Gate $gate,
         StockMovementRepository $stockMovementRepository,
-        StockRepository $stockRepository
+        StockRepository $stockRepository,
+        ProductRepository $productRepository
     )
     {
         $this->gate = $gate;
         $this->repository = $stockMovementRepository;
         $this->stocks = $stockRepository;
+        $this->products = $productRepository;
 
         $this->middleware('auth:dashboard');
         $this->shareSidebar();
