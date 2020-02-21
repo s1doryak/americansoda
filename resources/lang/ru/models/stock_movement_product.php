@@ -49,8 +49,10 @@ return [
         'products_quantity' => 'Количество',
         'delivery_number' => 'L-номер',
         'expiration_date' => 'Срок годности',
-        'movement_type' => 'Тип движения',
         'comment' => 'Комментарий',
+        'movement_type' => [
+            'name' => 'Тип движения'
+        ],
         'stockMovement' => [
             'name' => 'Движение товаров',
         ],
