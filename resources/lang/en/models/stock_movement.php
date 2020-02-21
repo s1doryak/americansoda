@@ -45,11 +45,17 @@ return [
         'error' => 'Stock Movement destroyed unsuccessfully!'
     ],
 	'fields' => [
-		'movement_type' => 'Movement Type',
+		'movement_type' => [
+		    'name' => 'Movement Type'
+        ],
 		'stock' => [
 			'name' => 'Stock',
 		],
 	],
+    'movement_types' => [
+        'receipt' => 'Receipt',
+        'cancellation' => 'Cancellation',
+    ],
     'placeholders' => [
 		'stock' => 'Select Stock',
     ],

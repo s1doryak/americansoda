@@ -66,7 +66,8 @@ class CustomerShipmentDataTable extends DataTable
             'number',
             'customer.name',
             'status',
-            'action'
+            'action',
+            'packageType.name'
         ];
     }
 
