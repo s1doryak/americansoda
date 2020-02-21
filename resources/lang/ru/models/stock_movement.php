@@ -45,11 +45,17 @@ return [
         'error' => 'Не удалось удалить движение по складу!'
     ],
 	'fields' => [
-		'movement_type' => 'Тип',
+		'movement_type' => [
+		    'name' => 'Тип'
+        ],
 		'stock' => [
 			'name' => 'Склад',
 		],
 	],
+    'movement_types' => [
+        'receipt' => 'Чек',
+        'cancellation' => 'Отмена',
+    ],
     'placeholders' => [
 		'stock' => 'Выберите Склад',
     ],
