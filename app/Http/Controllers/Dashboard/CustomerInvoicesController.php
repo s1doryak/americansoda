@@ -132,6 +132,14 @@ class CustomerInvoicesController extends ResourceController
     ];
 
     /**
+     * @var array
+     */
+    protected $popupActions = [
+        'create' => 'fullscreen',
+        'edit' => 'fullscreen'
+    ];
+
+    /**
      * CustomerInvoicesController constructor.
      * @param Gate $gate
      * @param CustomerInvoiceRepository $customerInvoiceRepository
