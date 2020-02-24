@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\StockProductRepository;
 use App\StockProduct;
+use DB;
 
 class StockProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements StockProductRepository
 {
@@ -123,4 +124,30 @@ class StockProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositori
 			->whereIn('id', $ids)
 			->forceDelete();
 	}
+
+    /**
+     * Bulk create entities in storage.
+     *
+     * @param array $values
+     *
+     */
+    public function bulkCreate(array $values)
+    {
+        $query  = DB::table($this->model->getTable());
+        $values = array_chunk($values, 500, true);
+
+        DB::statement('SET foreign_key_checks=0;');
+        DB::statement('SET unique_checks=0;');
+        DB::statement('SET autocommit=0;');
+
+        foreach ($values as $index => $chunk) {
+            set_time_limit(10);
+            $query->insert($chunk);
+        }
+
+        DB::statement('COMMIT;');
+        DB::statement('SET foreign_key_checks=1;');
+        DB::statement('SET unique_checks=1;');
+        DB::statement('SET autocommit=1;');
+    }
 }
