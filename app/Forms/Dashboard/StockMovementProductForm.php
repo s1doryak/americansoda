@@ -4,8 +4,6 @@ namespace App\Forms\Dashboard;
 
 use App\StockMovementProduct;
 use Crmplease\MaterialAdmin\Forms\Form;
-use Illuminate\Validation\Rule;
-use function PHPSTORM_META\type;
 
 /**
  * StockMovementProduct form.
