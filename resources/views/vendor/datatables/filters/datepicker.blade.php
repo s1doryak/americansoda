@@ -1,6 +1,6 @@
 <div class="fg-line">
 
-    <div class="datepicker-container" data-filter-container="{{ $filter->name }}">
+    <div class="datepicker-container">
         <input type="hidden" name="filters[{{ $idx }}][name]" value="{{ $filter->name }}">
         <input type="text" name="filters[{{ $idx }}][value]" value="{{ $filter->default }}" data-filter-name="{{ $filter->name }}" class="form-control input-sm">
     </div>
@@ -11,10 +11,10 @@
             jQuery(document).ready(function () {
 
                 var selector = '[data-filter-name="{{ $filter->name }}"]',
-                    parentSelector = '[data-filter-container="{{ $filter->name }}"]';
+                    $input = $(selector);
 
-                $(selector).datepicker({
-                    parentEl: parentSelector,
+                $input.daterangepicker({
+                    parentEl: $input.parent(),
                     locale: {
                         format: 'DD/MM/YYYY',
                         applyLabel: '{{ trans('material-admin::datepicker.labels.apply') }}',

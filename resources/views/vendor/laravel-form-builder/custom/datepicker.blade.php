@@ -3,6 +3,7 @@
         <div {!! $options['wrapperAttrs'] !!}>
             @endif
             @endif
+            @php($options['attr']['class'] .= ' datepicker')
             @if ($showLabel && $options['label'] !== false)
                 {!! Form::label($name, $options['label'], $options['label_attr']) !!}
             @endif
