@@ -190,7 +190,7 @@ class CustomerOrderItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
      */
     public function getExpectedDateAttribute()
     {
-        return ''; // $this->formatDateForForm('expected_date');
+        return formatDateForForm($this->attributes, 'expected_date');
     }
 
     /**

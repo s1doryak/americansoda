@@ -127,7 +127,7 @@ class StockMovementProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Mo
      */
     public function getExpirationDateAttribute()
     {
-        return ''; // $this->formatDateForForm('expiration_date');
+        return formatDateForForm($this->attributes, 'expiration_date');
     }
 
     /**
