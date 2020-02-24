@@ -157,7 +157,20 @@ class StockMovementProductDataTable extends DataTable
      */
     protected function getButtons()
     {
-        return parent::getButtons();
+        $buttons = parent::getButtons();
+
+        if ($this->can('create') && !is_trashed_page()) {
+            $buttons = array_map(function ($button) {
+                if ($button['extend'] === 'action' && $button['attr']['data-action'] === 'create') {
+                    $resource = 'stock_movement';
+                    $button['attr']['data-url'] = route("{$this->prefix}.{$resource}.create");
+                    $button['attr']['data-resource'] = $resource;
+                }
+                return $button;
+            }, $buttons);
+        }
+        
+        return $buttons;
     }
 
     /**

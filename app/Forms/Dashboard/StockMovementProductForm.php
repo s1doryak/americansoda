@@ -4,7 +4,6 @@ namespace App\Forms\Dashboard;
 
 use App\StockMovementProduct;
 use Crmplease\MaterialAdmin\Forms\Form;
-use Illuminate\Validation\Rule;
 
 /**
  * StockMovementProduct form.
@@ -29,7 +28,12 @@ class StockMovementProductForm extends Form
             ],
             'products_quantity' => 'text',
             'delivery_number' => 'text',
-            'expiration_date' => 'datepicker',
+            'expiration_date' => [
+                'type' => 'datepicker',
+                'attr' => [
+                    'format' => 'd/m/Y'
+                ]
+            ],
             'movement_type' => [
                 'type' => 'select',
                 'expanded' => true,
@@ -54,7 +58,12 @@ class StockMovementProductForm extends Form
             ],
             'products_quantity' => 'text',
             'delivery_number' => 'text',
-            'expiration_date' => 'datepicker',
+            'expiration_date' => [
+                'type' => 'datepicker',
+                'attr' => [
+                    'format' => 'd/m/Y'
+                ]
+            ],
             'movement_type' => [
                 'type' => 'select',
                 'expanded' => true,
