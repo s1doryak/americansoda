@@ -39,6 +39,7 @@ class StockMovementsController extends ResourceController
      */
     protected $with = [
         'stock',
+        'stockMovementProducts'
     ];
 
     /**

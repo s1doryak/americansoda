@@ -71,6 +71,7 @@ class StockMovementForm extends Form
 				'type' => 'relation_form',
 				'fields' => StockMovementProductForm::getCreateFormFields(),
 				'form_title' => trans('models/stock_movement_product.labels.plural'),
+                'items' => $stockMovement->stockMovementProducts,
 				'resource' => 'stock_movement_product',
 			],
 		];
