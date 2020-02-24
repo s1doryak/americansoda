@@ -28,6 +28,12 @@ return [
             'label_class' => 'control-label',
             'field_class' => 'form-control selectpicker',
         ],
+
+        'datepicker' => [
+            'wrapper_class' => 'form-group',
+            'label_class' => 'control-label',
+            'field_class' => 'form-control datepicker',
+        ],
     ],
     // Templates
     'form' => 'laravel-form-builder::form',
