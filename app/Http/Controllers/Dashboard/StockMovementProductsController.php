@@ -55,8 +55,19 @@ class StockMovementProductsController extends ResourceController
      * @var array
      */
     protected $editActionFormData = [
-        'stockMovements' => 'name',
+        'stockMovements' => 'movement_type',
         'products' => 'name',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $popupActions = [
+        'create' => [
+            'resource' => 'stock_movement',
+            'class' => 'large'
+        ],
+        'edit' => 'large',
     ];
 
     /**
