@@ -99,7 +99,7 @@ class StockProduct extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
      */
     public function getExpirationDateAttribute()
     {
-        return ''; // $this->formatDateForForm('expiration_date');
+        return formatDateForForm($this->attributes, 'expiration_date');
     }
 
     /**
