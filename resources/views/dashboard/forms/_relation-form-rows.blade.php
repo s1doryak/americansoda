@@ -5,9 +5,10 @@
 
 @if ($items)
     @foreach($items as $idx => $item)
-        @php($can_select = isset($options['can_select']) ? is_callable($options['can_select']) ? call_user_func($options['can_select'], $item) : (boolean)$options['can_select'] : true)
-        @php($can_edit = isset($options['can_edit']) ? is_callable($options['can_edit']) ? call_user_func($options['can_edit'], $item) : (boolean)$options['can_edit'] : true)
-        @php($can_remove = isset($options['can_remove']) ? is_callable($options['can_remove']) ? call_user_func($options['can_remove'], $item) : (boolean)$options['can_remove'] : true)
+        @php($can_select = isset($options['can_select']) ? (is_callable($options['can_select']) ? call_user_func($options['can_select'], $item) : (boolean)$options['can_select']) : true)
+        @php($can_edit = isset($options['can_edit']) ? (is_callable($options['can_edit']) ? call_user_func($options['can_edit'], $item) : (boolean)$options['can_edit']) : true)
+        @php($can_remove = isset($options['can_remove']) ? (is_callable($options['can_remove']) ? call_user_func($options['can_remove'], $item) : (boolean)$options['can_remove']) : true)
+
         @include('dashboard::forms._relation-form-row', [
             'idx' => $idx + 1,
             'item' => $item,

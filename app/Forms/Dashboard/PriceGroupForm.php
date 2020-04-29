@@ -40,10 +40,13 @@ class PriceGroupForm extends Form
      */
     public static function getEditFormFields($priceGroup)
     {
-        return [
+        $fields = [
             'name' => 'text',
             'manual' => 'checkbox',
-            'priceGroupBreakpoints[idx]' => [
+        ];
+
+        if (!$priceGroup->manual) {
+            $fields['priceGroupBreakpoints[idx]'] = [
                 'type' => 'relation_form',
                 'fields' => PriceGroupBreakpointForm::getCreateFormFields(),
                 'form_title' => trans('models/price_group_breakpoint.labels.plural'),
@@ -53,8 +56,10 @@ class PriceGroupForm extends Form
                 'can_edit' => true,
                 'can_remove' => true,
                 'can_select' => true,
-            ],
-        ];
+            ];
+        }
+
+        return $fields;
     }
 
     /**

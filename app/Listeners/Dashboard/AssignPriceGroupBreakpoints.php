@@ -2,15 +2,15 @@
 
 namespace App\Listeners\Dashboard;
 
+use App\Events\Dashboard\PriceGroupBreakpointsAssigned;
 use App\PriceGroup;
 use App\PriceGroupBreakpoint;
-use App\Events\Dashboard\PriceGroupBreakpointsAssigned;
 use App\Repositories\Contracts\PriceGroupBreakpointRepository;
 use App\Repositories\Contracts\PriceGroupRepository;
+use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesAction;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
-use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
@@ -76,54 +76,58 @@ class AssignPriceGroupBreakpoints
             }
         )->find($attributes['id']);
 
-        $items = Arr::get($params, 'priceGroupBreakpoints', []);
+        if ($priceGroup->manual) {
+            $this->priceGroupBreakpoints->destroyWhere(['price_group_id' => $priceGroup->getKey()]);
+        } else {
+            $items = Arr::get($params, 'priceGroupBreakpoints', []);
 
-        $priceGroupBreakpoints = new Collection();
+            $priceGroupBreakpoints = new Collection();
 
-        foreach ($items as $idx => $item) {
+            foreach ($items as $idx => $item) {
 
-            $id = numerize($item['id'] ?? false);
-            $removing = booleanize($item['_remove'] ?? false);
+                $id = numerize($item['id'] ?? false);
+                $removing = booleanize($item['_remove'] ?? false);
 
-            if ($removing) {
+                if ($removing) {
 
-                if ($id) {
-                    $this->priceGroupBreakpoints->destroy($id);
+                    if ($id) {
+                        $this->priceGroupBreakpoints->destroy($id);
+                    }
+
+                    continue;
                 }
 
-                continue;
+                $breakpoint = (integer)Arr::get($item, 'breakpoint', 0);
+                $productGroups = (array)$item['productGroups'] ?? [];
+
+                $data = [
+                    'breakpoint' => $breakpoint
+                ];
+
+                if ($id) {
+                    /** @var PriceGroupBreakpoint $priceGroupBreakpoint */
+                    $priceGroupBreakpoint = $this->priceGroupBreakpoints->update($data, $id);
+                } else {
+                    /** @var PriceGroupBreakpoint $priceGroupBreakpoint */
+                    $priceGroupBreakpoint = $this->priceGroupBreakpoints->create($data);
+                }
+
+                $priceGroupBreakpoint->priceGroup()->associate($priceGroup);
+                $priceGroupBreakpoint->productGroups()->sync($productGroups);
+                $priceGroupBreakpoint->save();
+
+                $priceGroupBreakpoints->push($priceGroupBreakpoint);
             }
 
-            $breakpoint = (integer)$item['breakpoint'] ?? 0;
-            $productGroups = (array)$item['productGroups'] ?? [];
-
-            $data = [
-                'breakpoint' => $breakpoint
-            ];
-
-            if ($id) {
-                /** @var PriceGroupBreakpoint $priceGroupBreakpoint */
-                $priceGroupBreakpoint = $this->priceGroupBreakpoints->update($data, $id);
-            } else {
-                /** @var PriceGroupBreakpoint $priceGroupBreakpoint */
-                $priceGroupBreakpoint = $this->priceGroupBreakpoints->create($data);
-            }
-
-            $priceGroupBreakpoint->priceGroup()->associate($priceGroup);
-            $priceGroupBreakpoint->productGroups()->sync($productGroups);
-            $priceGroupBreakpoint->save();
-
-            $priceGroupBreakpoints->push($priceGroupBreakpoint);
+            event(
+                new PriceGroupBreakpointsAssigned(
+                    $priceGroup,
+                    $priceGroupBreakpoints,
+                    $attributes,
+                    $params
+                )
+            );
         }
-
-        event(
-            new PriceGroupBreakpointsAssigned(
-                $priceGroup,
-                $priceGroupBreakpoints,
-                $attributes,
-                $params
-            )
-        );
 
         return;
     }

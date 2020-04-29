@@ -4,10 +4,11 @@ namespace App\Forms\Dashboard;
 
 use App\Customer;
 use App\CustomerPricingPolicy;
+use App\PriceGroupBreakpoint;
+use App\ProductGroup;
 use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Contracts\ProductGroupRepository;
 use Crmplease\MaterialAdmin\Forms\Form;
-use Illuminate\Validation\Rule;
 
 /**
  * Customer form.
@@ -290,6 +291,10 @@ class CustomerForm extends Form
                 ->groupBy(function (CustomerPricingPolicy $customerPricingPolicy) {
                     return $customerPricingPolicy->productGroup ? $customerPricingPolicy->productGroup->getKey() : null;
                 }),
+            'can_add' => $customer->priceGroup->manual,
+            'can_edit' => $customer->priceGroup->manual,
+            'can_remove' => $customer->priceGroup->manual,
+            'can_select' => $customer->priceGroup->manual,
         ];
 
         return $fields;
