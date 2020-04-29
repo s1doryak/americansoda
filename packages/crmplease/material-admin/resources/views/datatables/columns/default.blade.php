@@ -1,0 +1,1 @@
+<span class="text-muted">{!! trans('material-admin::datatables.attributes.defaultContent') !!}</span>

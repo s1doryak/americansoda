@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Repositories\Contracts;
+
+/**
+ * Interface {{class}}Repository
+ * @package App\Repositories\Contracts
+ */
+interface {{class}}Repository extends \Crmplease\MaterialAdmin\Repositories\RepositoryInterface
+{
+}

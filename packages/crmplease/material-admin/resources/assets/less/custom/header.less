@@ -1,0 +1,64 @@
+#header {
+  height: 70px;
+
+  .hi-trigger {
+    margin-left: 0;
+    margin-right: 5px;
+  }
+
+  .hi-logo {
+    a {
+      padding: 0;
+    }
+
+    img, svg {
+      margin: -8px 0;
+      width: auto;
+      height: 50px;
+      max-width: 180px;
+      max-height: 50px;
+    }
+  }
+
+  .hi-spinner {
+    position: relative;
+
+    & > div {
+      margin: 8px 10px;
+      color: #fff;
+
+      @media (max-width: @screen-xs-max) {
+        margin: 8px 0;
+      }
+    }
+  }
+
+  .hi-menu {
+    & > li {
+      @media (max-width: @screen-xs-max) {
+        min-width: 32px;
+      }
+      @media (max-width: 320px) {
+        min-width: 20px;
+      }
+
+      & > a {
+        & > .him-label {
+          display: inline;
+          @media (max-width: @screen-xs-max) {
+            padding: 0;
+          }
+
+          & > .badge-circle {
+            position: absolute;
+            top: -2px;
+            left: 20px;
+            @media (max-width: @screen-xs-max) {
+              left: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

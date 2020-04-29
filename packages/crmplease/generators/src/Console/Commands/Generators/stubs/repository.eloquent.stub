@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Repositories\Eloquent;
+
+use App\{{class}};
+use App\Repositories\Contracts\{{class}}Repository;
+
+/**
+ * Class {{class}}RepositoryEloquent
+ * @package App\Repositories\Eloquent
+ */
+class {{class}}RepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements {{class}}Repository
+{
+    /**
+     * @return string
+     */
+    public function model()
+    {
+        return {{class}}::class;
+    }
+}

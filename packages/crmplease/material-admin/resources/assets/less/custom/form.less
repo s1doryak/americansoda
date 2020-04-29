@@ -1,0 +1,80 @@
+.form-container {
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-label {
+    display: block;
+}
+
+.form-control {
+    @media screen and (max-width: @screen-xs) {
+        font-size: 16px;
+    }
+
+    &.upload {
+        margin-top: 20px;
+    }
+}
+
+.form-control-static {
+    &[disabled] {
+        cursor: @cursor-disabled;
+    }
+}
+
+/*------------------------------
+    Checkbox & Radio
+-------------------------------*/
+.checkbox, .radio {
+    .input-helper {
+        &:before {
+            left: 0;
+            border: 1px solid #7a7a7a;
+        }
+    }
+}
+
+.checkbox-light, .radio-light {
+    .input-helper {
+        &:before {
+            border-color: #fff;
+        }
+    }
+
+    input:checked {
+        & + .input-helper {
+            &:before {
+                border-color: #fff !important;
+                background-color: #fff !important;
+            }
+        }
+    }
+}
+
+.checkbox {
+    .input-helper {
+        &:after {
+            left: 3px;
+        }
+    }
+}
+
+.toggle-switch {
+    input {
+        &[disabled] {
+            opacity: 0;
+        }
+    }
+
+    .ts-helper {
+        margin: 0 5px 5px;
+    }
+
+    .ts-label {
+        font-weight: normal;
+    }
+}

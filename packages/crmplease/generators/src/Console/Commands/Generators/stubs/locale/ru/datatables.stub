@@ -1,0 +1,31 @@
+<?php
+
+return [
+	'buttons' =>
+		[
+			'export' => '<span class="hidden-xs">Выгрузка</span><i class="zmdi zmdi-chevron-down zmdi-hc-fw"></i>',
+			'excel' => 'Excel',
+			'pdf' => 'PDF',
+			'print' => 'Печать',
+            'create' => '<i class="zmdi zmdi-hc-fw zmdi-plus"></i><span class="hidden-xs">Создать</span>',
+			'reload' => '<i class="zmdi zmdi-hc-fw zmdi-refresh-alt"></i><span class="hidden-xs">Обновить</span>',
+            'trashed' => '<i class="zmdi zmdi-hc-fw zmdi-delete"></i><span class="hidden-xs">Корзина</span>',
+			'colvis' => '<i class="zmdi zmdi-hc-fw zmdi-more-vert"></i><span class="hidden-xs">Столбцы</span>',
+			'filter' => '<i class="zmdi zmdi-hc-fw zmdi-filter-list"></i><span class="hidden-xs">Фильтры</span>',
+		],
+	'columns' =>
+		[
+			'action' => 'Действие',
+            'created_at' => 'Создано',
+            'updated_at' => 'Обновлено',
+		],
+	'badges' =>
+		[
+			'recently_updated' => 'Недавно обновлено',
+		],
+	'attributes' =>
+		[
+			'defaultContent' => '—',
+			'footer' => '&nbsp;',
+		],
+];

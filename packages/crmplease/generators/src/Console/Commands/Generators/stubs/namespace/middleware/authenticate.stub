@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Http\Middleware\{{namespace_studly_case}};
+
+use App\Http\Middleware\Authenticate as Middleware;
+
+class Authenticate extends Middleware
+{
+	/**
+	 * @var string
+	 */
+	protected $guard = '{{namespace_camel_case}}';
+}

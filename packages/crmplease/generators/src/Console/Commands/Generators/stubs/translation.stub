@@ -1,0 +1,70 @@
+<?php
+
+return [
+    'labels' => [
+        'singular' => '{{translation_label}}',
+        'plural' => '{{translation_label_plural}}',
+        'create' => 'Create {{translation_label}}'
+    ],
+    'index' => [
+        'title' => 'List of {{translation_label_plural}}',
+    ],
+    'trashed' => [
+        'title' => 'List of trashed {{translation_label_plural}}',
+    ],
+    'create' => [
+        'title' => 'Create {{translation_label}}',
+    ],
+    'store' => [
+        'success' => '{{translation_label}} created successfully!',
+        'error' => '{{translation_label}} created unsuccessfully!'
+    ],
+    'show' => [
+        'title' => '{{translation_label}}',
+    ],
+    'edit' => [
+        'title' => 'Edit {{translation_label}}',
+    ],
+    'update' => [
+        'success' => '{{translation_label}} updated successfully!',
+        'error' => '{{translation_label}} updated unsuccessfully!'
+    ],
+    'trash' => [
+        'title' => 'Move {{translation_label}} to trash',
+        'success' => '{{translation_label}} trashed successfully!',
+        'error' => '{{translation_label}} trashed unsuccessfully!'
+    ],
+    'restore' => [
+        'title' => 'Restore {{translation_label}}',
+        'success' => '{{translation_label}} restored successfully!',
+        'error' => '{{translation_label}} restored unsuccessfully!'
+    ],
+    'destroy' => [
+        'title' => 'Destroy {{translation_label}}',
+        'success' => '{{translation_label}} destroyed successfully!',
+        'error' => '{{translation_label}} destroyed unsuccessfully!'
+    ],
+    //    'customAction' => [
+    //        'title' => '{{translation_label}} custom action',
+    //        'success' => '{{translation_label}} custom action completed successfully!',
+    //        'redirect' => '{{translation_label}} custom action completed successfully!',
+    //        'error' => '{{translation_label}} custom action completed unsuccessfully!',
+    //    ],
+    'fields' => [
+{{translation_fields}}
+{{translation_relations}}
+    ],
+    'placeholders' => [
+{{translation_placeholders}}
+    ],
+    'columns' => [
+{{translation_fields}}
+{{translation_relations}}
+        'created_at' => 'Created',
+        'updated_at' => 'Updated',
+        'deleted_at' => 'Trashed',
+    ],
+    'filters' => [
+{{translation_relations}}
+    ],
+];

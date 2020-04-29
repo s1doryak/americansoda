@@ -1,0 +1,19 @@
+.card {
+    box-shadow: @card-shadow;
+
+    .card-body {
+        &.card-padding {
+            padding: 30px 30px;
+        }
+    }
+}
+
+@media (max-width: @screen-xs-max) {
+    .card {
+        .card-body {
+            &.card-padding {
+                padding: 30px 15px;
+            }
+        }
+    }
+}

@@ -1,0 +1,84 @@
+<?php
+
+namespace {{namespace}};
+
+use Crmplease\MaterialAdmin\Events\Traits\ValidatesAction;
+use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
+use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
+use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
+{{listener_repositories}}
+
+/**
+ * {{class}} listener.
+ *
+ * @package {{namespace}}
+ */
+class {{class}}
+{
+    use ValidatesAction, ValidatesResource, ValidatesNamespace;
+
+{{listener_properties}}
+
+    /**
+     * {{class}} constructor.
+{{listener_constructor_phpdoc}}
+     * @return void
+     */
+	public function __construct(
+{{listener_constructor_signature}}
+	)
+	{
+{{listener_constructor_body}}
+	}
+
+    /**
+     * @param ResourceEventInterface $e
+     * @return void
+     */
+	public function handle(ResourceEventInterface $e)
+	{
+		if (!$this->isValidNamespace($e->getNamespace())) {
+			return;
+		}
+
+		if (!$this->isValidResource($e->getResource())) {
+			return;
+		}
+
+        if (!$this->isValidAction($e->getAction())) {
+            return;
+        }
+
+		return;
+	}
+
+    /**
+     * @return array
+     */
+    protected function getValidNamespaces()
+    {
+        return [
+{{listener_valid_namespaces}}
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getValidResources()
+    {
+        return [
+{{listener_valid_resources}}
+        ];
+    }
+
+    /**
+     * Default actions: store, show, edit, update, trash, restore, destroy.
+     *
+     * @return array
+     */
+    protected function getValidActions()
+    {
+        return [];
+    }
+}

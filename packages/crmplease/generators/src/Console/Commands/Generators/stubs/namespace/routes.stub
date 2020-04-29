@@ -1,0 +1,54 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| {{namespace_studly_case}} Routes
+|--------------------------------------------------------------------------
+*/
+
+use \App\Http\Controllers\{{namespace_studly_case}}\Auth\LoginController;
+use \App\Http\Controllers\{{namespace_studly_case}}\Auth\RegisterController;
+use \App\Http\Controllers\{{namespace_studly_case}}\Auth\ForgotPasswordController;
+use \App\Http\Controllers\{{namespace_studly_case}}\Auth\ResetPasswordController;
+use \App\Http\Controllers\{{namespace_studly_case}}\Auth\VerificationController;
+use \App\Http\Controllers\{{namespace_studly_case}}\HomeController;
+
+Route::group(['middleware' => 'web'], function () {
+
+	Route::group(['prefix' => '{{namespace_snake_case}}'], function () {
+
+        // Authentication Routes...
+        Route::get('login', [LoginController::class, 'showLoginForm'])->name('app.login');
+        Route::post('login', [LoginController::class, 'login']);
+        Route::any('logout', [LoginController::class, 'logout'])->name('app.logout');
+
+        // Registration Routes...
+        Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('app.register');
+        Route::post('register', [RegisterController::class, 'register']);
+
+        // Password Reset Routes...
+        Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('app.password.request');
+        Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('app.password.email');
+        Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('app.password.reset');
+        Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('app.password.update');
+
+        // Email Verification Routes...
+        Route::get('email/verify', [VerificationController::class, 'show'])->name('app.verification.notice');
+        Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('app.verification.verify');
+        Route::get('email/resend', [VerificationController::class, 'resend'])->name('app.verification.resend');
+
+        Route::get('/', [HomeController::class, 'home'])->name('app');
+
+        // Custom Actions Routes...
+        //  Route::get('/user/{user}/customUserAction', [
+        //      'as' => '{{namespace_snake_case}}.user.custom_user_action',
+        //      'uses' => 'UsersController@customUserAction'
+        //  ]);
+
+        foreach (get_route_resources() as $resource => $controller) {
+            Route::material($resource, $controller, ['as' => 'app']);
+        }
+
+	});
+
+});

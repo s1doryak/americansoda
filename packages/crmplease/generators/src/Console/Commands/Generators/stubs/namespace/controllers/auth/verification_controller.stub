@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Http\Controllers\{{namespace_studly_case}}\Auth;
+
+class VerificationController extends \Crmplease\MaterialAdmin\Routing\Auth\VerificationController
+{
+	/**
+	 * @var string
+	 */
+	protected $prefix = '{{namespace_camel_case}}';
+}

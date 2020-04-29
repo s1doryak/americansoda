@@ -1,0 +1,1 @@
+{{ format_date($model->created_at) }}

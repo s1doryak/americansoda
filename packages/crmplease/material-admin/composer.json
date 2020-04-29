@@ -1,0 +1,47 @@
+{
+    "name": "crmplease/material-admin",
+    "description": "Material Admin package for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "s1doryak",
+            "email": "a@sidoryak.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0.0",
+        "ext-soap": "*",
+        "laravel/framework": "5.8.*",
+        "barryvdh/laravel-snappy": "^0.4.4",
+        "doctrine/dbal": "^2.9",
+        "h4cc/wkhtmltoimage-amd64": "^0.12.4",
+        "h4cc/wkhtmltopdf-amd64": "^0.12.4",
+        "imagine/imagine": "^1.2",
+        "jenssegers/date": "^3.5",
+        "kris/laravel-form-builder": "^1.20",
+        "laravelcollective/html": "^5.8",
+        "prettus/l5-repository": "^2.6",
+        "ramsey/uuid": "^3.8",
+        "yajra/laravel-datatables": "^1.5"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "~1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Crmplease\\MaterialAdmin\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Crmplease\\MaterialAdmin\\Providers\\MaterialAdminServiceProvider"
+            ]
+        }
+    }
+}
