@@ -67,7 +67,6 @@ class CustomerDataTable extends DataTable
             'payment_conditions',
             'stock.name' => [
                 'data' => 'stock.name',
-                'searchable' => true
             ],
             'archived',
             //'country',
@@ -131,6 +130,13 @@ class CustomerDataTable extends DataTable
                 'data' => 'shippingRegion.id',
                 'lists' => 'shippingRegion.name',
             ],
+            'stock.name' => [
+                'type' => 'select',
+                'multiple' => true,
+                'data' => 'stock.id',
+                'lists' => 'stock.name',
+            ],
+
             'customerType.name' => [
                 'type' => 'select',
                 'multiple' => true,
