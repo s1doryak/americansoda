@@ -56,6 +56,7 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
                     return $query->select('id', 'product_type_id', 'name')->withCount($withCount);
                 }
             ])
+            ->orderBy('name')
             ->get(['id'])
             ->map(function ($productType) {
                 $productGroups = $productType->productGroups->filter(function ($productGroup) {

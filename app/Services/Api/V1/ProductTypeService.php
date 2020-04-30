@@ -34,7 +34,7 @@ class ProductTypeService extends ResourceService
     {
         $nomenclature = $this->repository->getByShopId($shopId, $withCount);
 
-        return $this->getOnlyIdsFromNomenclature($nomenclature->sortBy('name'))->values();
+        return $this->getOnlyIdsFromNomenclature($nomenclature)->values();
     }
 
     /**
