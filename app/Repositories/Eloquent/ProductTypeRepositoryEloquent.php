@@ -57,7 +57,6 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
                 }
             ])
             ->get(['id'])
-            ->sortBy('name')
             ->map(function ($productType) {
                 $productGroups = $productType->productGroups->filter(function ($productGroup) {
                     return $productGroup->products->isNotEmpty()
