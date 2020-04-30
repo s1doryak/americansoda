@@ -1,32 +1,46 @@
 stages:
-    - dev
-    - production
-Deploy to Dev:
-  stage: dev
+  - demo
+  - production
+
+demo:
+  stage: demo
   tags:
     - node
   script:
-    - bash ./.gitlab-deploy.sh -d
+    - |
+      sudo -i -u $DEMO_USER bash <<-EOF
+      cd $DEMO_PATH
+      git pull origin $CI_COMMIT_REF_NAME
+      git submodule update --init --recursive
+      composer install
+      php artisan migrate
+      supervisorctl restart $DEMO_SUPERVISOR
+      npm install
+      npm run production
+      sed -i "s/^APP_VERSION=.*$/APP_VERSION=$CI_COMMIT_SHORT_SHA/g" .env
+      EOF
   only:
     refs:
       - dev
-
-Deploy to Production:
-  stage: production
-  tags:
-    - node-2
-  script:
-    - bash ./.gitlab-deploy.sh -m
-  only:
-    refs:
       - master
 
-Deploy Master to Dev:
-  stage: dev
+production:
+  stage: production
   tags:
-    - node
+    - gtp
   script:
-    - bash ./.gitlab-deploy.sh -dm
+    - |
+      sudo -i -u $PROD_USER bash <<-EOF
+      cd $PROD_PATH
+      git pull origin $CI_COMMIT_REF_NAME
+      git submodule update --init --recursive
+      composer install
+      php artisan migrate
+      supervisorctl restart $PROD_SUPERVISOR
+      npm install
+      npm run production
+      sed -i "s/^APP_VERSION=.*$/APP_VERSION=$CI_COMMIT_SHORT_SHA/g" .env
+      EOF
   only:
     refs:
       - master
