@@ -73,13 +73,13 @@ class CustomerPreOrderItemService extends ResourceService
             'customer_user_id' => Auth::id(),
             'customer_id' => $customerPreOrder->customer_id
         ];
-        $preOrderItemsQuantity = array_sum(Arr::pluck($preOrderItems, 'quantity'));
+        $preOrderItemsQuantity = $this->getTotalSalesUnitQuantity($preOrderItems);
 
         foreach ($preOrderItems as $preOrderItem) {
             $customerPreOrderItems[] = array_merge(
                 $preOrderItemsCustomerData,
                 $preOrderItem,
-                $this->getCalculatedFields($preOrderItem, $customerPreOrder->id, $preOrderItemsQuantity)
+                $this->getCalculatedFields($preOrderItem, $customerPreOrder->customer_id, $preOrderItemsQuantity)
             );
         }
 
@@ -114,11 +114,23 @@ class CustomerPreOrderItemService extends ResourceService
             'vat_price' => sprintf('%.2f', $price + ($price * ($productGroup->vat / 100))),
             'products_quantity' => $productsQuantity,
             'total_price' => $totalPrice,
-            'total_vat_price' => $totalVatPrice,
+            'total_vat_price' => sprintf('%.2f', $totalVatPrice),
             'deposit_price' => $depositPrice,
             'deposit_vat_price' => $depositVatPrice,
             'deposit_total_price' => $depositTotalPrice,
             'deposit_total_vat_price' => $depositTotalVatPrice
         ];
+    }
+
+    /**
+     * @param Collection $items
+     *
+     * @return mixed
+     */
+    protected function getTotalSalesUnitQuantity($items)
+    {
+        return collect($items)->filter(function ($item) {
+            return false === booleanize($item['_remove'] ?? false);
+        })->sum('quantity');
     }
 }
