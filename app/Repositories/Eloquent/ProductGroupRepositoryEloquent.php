@@ -44,8 +44,10 @@ class ProductGroupRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositori
 
         $result = $query->findWhere($where);
 
-        return $result->map(function ($productGroup) {
-            return ProductGroupTransformer::toArray($productGroup);
-        });
+        return $result
+            ->map(function ($productGroup) {
+                return ProductGroupTransformer::toArray($productGroup);
+            })
+            ->sortBy('name');
     }
 }
