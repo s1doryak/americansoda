@@ -1,0 +1,33 @@
+{
+    "name": "crmplease/generators",
+    "description": "Generators for Material Admin package",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "s1doryak",
+            "email": "a@sidoryak.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": "5.8.*",
+        "crmplease/material-admin": "1.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Crmplease\\Generators\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Crmplease\\Generators\\Providers\\GeneratorsServiceProvider"
+            ]
+        }
+    }
+}

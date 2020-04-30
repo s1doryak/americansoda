@@ -1,0 +1,70 @@
+<?php
+
+return [
+    'labels' => [
+        'singular' => '{{translation_label:0}}',
+        'plural' => '{{translation_label:1}}',
+        'create' => 'Создать'
+    ],
+    'index' => [
+        'title' => 'Список {{translation_label_lower_case:3}}',
+    ],
+    'trashed' => [
+        'title' => 'Удаленные {{translation_label_lower_case:1}}',
+    ],
+    'create' => [
+        'title' => 'Новый {{translation_label_lower_case:0}}',
+    ],
+    'store' => [
+        'success' => '{{translation_label}} успешно создан!',
+        'error' => 'Не удалось создать {{translation_label_lower_case:2}}!'
+    ],
+    'show' => [
+        'title' => '{{translation_label}}',
+    ],
+    'edit' => [
+        'title' => 'Редактировать {{translation_label_lower_case:2}}',
+    ],
+    'update' => [
+        'success' => '{{translation_label}} успешно обновлён!',
+        'error' => 'Не удалось обновить {{translation_label_lower_case:2}}!'
+    ],
+    'trash' => [
+        'title' => 'Переместить {{translation_label_lower_case:2}} в корзину',
+        'success' => '{{translation_label}} успешно перемещен в корзину!',
+        'error' => 'Не удалось переместить {{translation_label_lower_case:2}} в корзину!'
+    ],
+    'restore' => [
+        'title' => 'Восстановить {{translation_label_lower_case:2}}',
+        'success' => '{{translation_label}} успешно восстановлен!',
+        'error' => 'Не удалось восстановить {{translation_label_lower_case:2}}!'
+    ],
+    'destroy' => [
+        'title' => 'Удалить {{translation_label_lower_case:2}}',
+        'success' => '{{translation_label}} успешно удалён!',
+        'error' => 'Не удалось удалить {{translation_label_lower_case:2}}!'
+    ],
+    //    'customAction' => [
+    //        'title' => 'Сделать {{translation_label_lower_case:2}}',
+    //        'success' => '{{translation_label}} сделан успешно!',
+    //        'redirect' => '{{translation_label}} сделан успешно!',
+    //        'error' => 'Не удалось сделать {{translation_label_lower_case:2}}!',
+    //    ],
+    'fields' => [
+{{translation_fields}}
+{{translation_relations}}
+    ],
+    'placeholders' => [
+{{translation_placeholders}}
+    ],
+    'columns' => [
+{{translation_fields}}
+{{translation_relations}}
+        'created_at' => 'Создан',
+        'updated_at' => 'Изменён',
+        'deleted_at' => 'Удалён',
+    ],
+    'filters' => [
+{{translation_relations}}
+    ],
+];

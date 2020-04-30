@@ -2,8 +2,8 @@
 
 namespace App\DataTables\Dashboard;
 
-use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 use App\CustomerPreOrder;
+use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 
 /**
  * CustomerPreOrder datatable.
@@ -14,40 +14,49 @@ class CustomerPreOrderDataTable extends DataTable
 {
     protected $responsive = false;
 
-    /**
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
-			'number',
-			'comment',
-			'customerUser.name' => [
-				'data' => 'customerUser.name'
-			],
-			'customerOrder.number' => [
-				'data' => 'customerOrder.number'
-			],
-			'customer.name' => [
-				'data' => 'customer.name'
-			],
-		];
-	}
+    protected function getBuilderParameters()
+    {
+        return array_merge(parent::getBuilderParameters(), [
+            'order' => [
+                [0, 'desc']
+            ]
+        ]);
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function getRawColumns()
-	{
-		return [
-			'number',
-			'comment',
-			'customerUser.name',
-			'customerOrder.number',
-			'customer.name',
-			'action',
-		];
-	}
+    /**
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            'number',
+            'comment',
+            'customerUser.name' => [
+                'data' => 'customerUser.name'
+            ],
+            'customerOrder.number' => [
+                'data' => 'customerOrder.number'
+            ],
+            'customer.name' => [
+                'data' => 'customer.name'
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
+            'number',
+            'comment',
+            'customerUser.name',
+            'customerOrder.number',
+            'customer.name',
+            'action',
+        ];
+    }
 
     /**
      * @return array
@@ -65,41 +74,41 @@ class CustomerPreOrderDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-			'customerUser.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'customerUser.id',
-				'lists' => 'customerUser.name',
-			],
-			'customerOrder.number' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'customerOrder.id',
-				'lists' => 'customerOrder.number',
-			],
-			'customer.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'customer.id',
-				'lists' => 'customer.name',
-			],
-			'items.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'data' => 'items.id',
-				'lists' => 'items.name',
-			],
+            'customerUser.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'customerUser.id',
+                'lists' => 'customerUser.name',
+            ],
+            'customerOrder.number' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'customerOrder.id',
+                'lists' => 'customerOrder.number',
+            ],
+            'customer.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'customer.id',
+                'lists' => 'customer.name',
+            ],
+            'items.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'data' => 'items.id',
+                'lists' => 'items.name',
+            ],
         ];
     }
 
-	/**
-	 * @param CustomerPreOrder $customerPreOrder
-	 * @return array
-	 */
-	protected function getActions($customerPreOrder)
-	{
-		return parent::getActions($customerPreOrder);
-	}
+    /**
+     * @param CustomerPreOrder $customerPreOrder
+     * @return array
+     */
+    protected function getActions($customerPreOrder)
+    {
+        return parent::getActions($customerPreOrder);
+    }
 
     /**
      * @return array

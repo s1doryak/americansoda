@@ -1,0 +1,77 @@
+<?php return [
+    'title' => 'Главная',
+    'actions' => [
+        'refresh' => 'Обновить',
+        'manage-widgets' => 'Виджеты',
+        'widgets-settings' => 'Настройки'
+    ],
+    'curved-line-chart' => [
+        'title' => 'Статистика продаж',
+        'subtitle' => 'Продажи двух товаров за последний месяц',
+        'actions' => [
+            'change-date-range' => 'Период',
+            'change-graph-type' => 'Тип графика',
+            'other-settings' => 'Прочее'
+        ]
+    ],
+    'mini-charts' => [
+        'stats-bar' => 'Трафик',
+        'stats-bar-2' => 'Внутренние переходы',
+        'stats-line' => 'Продаж',
+        'stats-line-2' => 'Входящий обращений'
+    ],
+    'site-visits' => [
+        'title' => 'За последние 30 дней',
+        'page-views' => 'Просмотров страниц',
+        'site-visitors' => 'Посетителей сайта',
+        'total-clicks' => 'Всего кликов'
+    ],
+    'pie-charts' => [
+        'title' => 'Статистика рассылки',
+        'total-emails-sent' => 'Писем отправлено',
+        'bounce-rate' => 'Отказы',
+        'total-opened' => 'Открыто',
+        'total-ignored' => 'Проигнорировано',
+    ],
+    'todo' => [
+        'title' => 'Список задач',
+        'placeholder' => 'Что вы хотите сделать...',
+        'actions' => [
+            'delete' => 'Удалить',
+            'archive' => 'Скрыть',
+        ],
+        'items' => [
+            'Разобрать входящие письма',
+            'Позвонить клиентам',
+            'Проверить работу модуля выставления счетов',
+            'Оплатить аренду офиса',
+            'Спланировать выходные',
+        ]
+    ],
+    'recent-items' => [
+        'title' => 'Недавние продажи',
+        'subtitle' => 'Продажи товаров за последние 24 часа',
+        'actions' => [
+            'change-date-range' => 'Период',
+            'change-graph-type' => 'Тип графика',
+            'other-settings' => 'Прочее'
+        ],
+        'columns' => [
+            'id' => '#',
+            'name' => 'Позиция',
+            'price' => 'Цена'
+        ],
+    ],
+    'recent-posts' => [
+        'title' => 'Недавние записи',
+        'subtitle' => 'Записи в блоге за последние 24 часа',
+        'actions' => [
+            'change-date-range' => 'Период',
+            'change-graph-type' => 'Тип графика',
+            'other-settings' => 'Прочее'
+        ],
+        'buttons' => [
+            'view-more' => 'Показать все'
+        ]
+    ]
+];

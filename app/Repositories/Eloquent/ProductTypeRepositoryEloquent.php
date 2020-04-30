@@ -81,10 +81,12 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
 
         $result = ($ids) ? $query->findWhereIn('id', $ids) : $query->get();
 
-        return $result->map(function ($productType) {
-            $productType['image'] = (string)$productType['image'] ? asset((string)$productType['image']) : null;
+        return $result
+            ->map(function ($productType) {
+                $productType['image'] = (string)$productType['image'] ? asset((string)$productType['image']) : null;
 
-            return $productType;
-        });
+                return $productType;
+            })
+            ->sortBy('name');
     }
 }

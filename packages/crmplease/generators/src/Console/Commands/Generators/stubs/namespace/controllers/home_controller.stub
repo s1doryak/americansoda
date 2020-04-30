@@ -1,0 +1,50 @@
+<?php
+
+namespace {{namespace}};
+
+use Illuminate\Contracts\Auth\Access\Gate;
+
+/**
+ * HomeController
+ *
+ * @package {{namespace}}
+ */
+class HomeController extends \Crmplease\MaterialAdmin\Routing\Controller
+{
+	/**
+	 * @var Gate
+	 */
+	protected $gate;
+
+    /**
+     * @var string
+     */
+    protected $defaultMiddleware = 'auth:{{prefix}}';
+
+    /**
+     * @var string
+     */
+    protected $prefix = '{{prefix}}';
+
+    /**
+     * HomeController constructor.
+     * @param Gate $gate
+     * @return void
+     */
+	public function __construct(
+	    Gate $gate
+	)
+	{
+	    parent::__construct();
+
+	    $this->gate = $gate;
+	}
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function home()
+    {
+        return response()->view('{{prefix}}::home');
+    }
+}

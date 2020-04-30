@@ -75,7 +75,7 @@ return [
 			'name' => 'Customer User',
 		],
 		'customerOrder' => [
-			'number' => 'Number',
+			'number' => 'Order Number',
 		],
 		'customer' => [
             'name' => 'Customer'
@@ -92,7 +92,7 @@ return [
 			'name' => 'Customer User',
 		],
 		'customerOrder' => [
-			'number' => 'Number',
+			'number' => 'Order Number',
 		],
 		'customer' => [
             'name' => 'Customer'

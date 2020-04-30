@@ -1,0 +1,50 @@
+.daterangepicker-container {
+
+}
+
+.daterangepicker {
+  min-width: 100%;
+  .ranges {
+    margin-top: 40px;
+    @media screen and (max-width: @screen-sm-max) {
+      margin-top: 10px;
+    }
+
+    ul {
+      li {
+        border: none;
+        border-radius: @border-radius-base;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        &:hover {
+          border: none;
+        }
+      }
+    }
+    .range_inputs {
+      text-align: center;
+      margin-top: 20px;
+
+      .applyBtn,
+      .cancelBtn {
+        box-shadow: none;
+      }
+    }
+  }
+  .calendar {
+    max-width: none;
+  }
+  .daterangepicker_input {
+    .input-mini {
+      border-width: 0 0 2px 0;
+      border-radius: 0;
+      &.active {
+
+      }
+    }
+    i {
+      display: none;
+    }
+  }
+}

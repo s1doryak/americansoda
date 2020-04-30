@@ -1,0 +1,60 @@
+<?php
+
+namespace {{namespace}};
+
+use Crmplease\MaterialAdmin\Http\Requests\Request;
+use Crmplease\MaterialAdmin\Transformers\Contracts\TransformerContract;
+use Crmplease\MaterialAdmin\Transformers\Traits\Collector;
+
+/**
+ * {{class}} transformer.
+ *
+ * @package {{namespace}}
+ */
+class {{class}}Transformer implements TransformerContract
+{
+    use Collector;
+
+	/**
+	 * @param Request $request
+	 * @return array
+	 */
+	public static function transformStoreRequest(Request $request)
+	{
+		return [
+{{transformer_request_fields}}
+{{transformer_request_relations}}
+{{transformer_request_many_relations}}
+		];
+	}
+
+	/**
+	 * @param Request $request
+	 * @return array
+	 */
+	public static function transformUpdateRequest(Request $request)
+	{
+		return [
+{{transformer_request_fields}}
+{{transformer_request_relations}}
+{{transformer_request_many_relations}}
+		];
+	}
+
+	/**
+	 * @param \App\{{class}} ${{class_camel_case}}
+	 * @return array
+	 */
+	public static function toArray(${{class_camel_case}})
+	{
+		return [
+			'id' => (int)${{class_camel_case}}->getKey(),
+{{transformer_to_array_fields}}
+{{transformer_to_array_relations}}
+{{transformer_to_array_many_relations}}
+			'created_at' => (string)${{class_camel_case}}->created_at,
+			'updated_at' => (string)${{class_camel_case}}->updated_at,
+			'deleted_at' => (string)${{class_camel_case}}->deleted_at,
+		];
+	}
+}

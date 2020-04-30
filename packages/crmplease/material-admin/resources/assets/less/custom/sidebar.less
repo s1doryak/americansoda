@@ -1,0 +1,70 @@
+.sidebar {
+    background: #333;
+}
+
+.sidebar-alt {
+    top: @header-height;
+}
+
+.s-profile {
+    & > a {
+        height: auto;
+        background: none !important;
+
+        .sp-pic {
+            padding: 12px 25px;
+        }
+
+        .sp-info {
+            margin-top: 0;
+            padding-left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+    }
+}
+
+.main-menu {
+
+    a:hover,
+    .active > a,
+    a.active {
+        color: #fff;
+    }
+
+    & > li {
+        & > a {
+            color: #bbb;
+            padding: 14px 20px 14px 60px;
+
+            & > i {
+                top: 0;
+                left: 20px;
+            }
+        }
+
+        & > a:hover,
+        &.active > a {
+            color: #fff;
+            background-color: #555;
+        }
+    }
+}
+
+.sub-menu {
+    & > a {
+        position: relative;
+
+        &:before, &:after {
+            right: 25px;
+        }
+    }
+
+    ul {
+        & > li {
+            & > a {
+                padding: 8px 20px 8px 60px;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,164 @@
+<?php
+
+namespace App;
+
+{{traits}}
+
+/**
+ * {{class}}
+{{phpdoc}}
+ * @package {{namespace}}
+ */
+class {{class}} extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
+{
+{{use}}
+
+{{extra}}
+
+    /**
+     * @var array
+     */
+	protected $fillable = [
+{{fillable}}
+	];
+
+    /**
+     * @var array
+     */
+	protected $appends = [
+
+	];
+
+    /**
+     * @var array
+     */
+	protected $casts = [
+{{casts}}
+	];
+
+    /**
+     * @var array
+     */
+	protected $dates = [
+{{dates}}
+	];
+
+    /**
+     * @var array
+     */
+    protected $images = [
+{{images}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $files = [
+{{files}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $hidden = [
+{{hidden}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $belongsTo = [
+{{belongs_to}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $belongsToMany = [
+{{belongs_to_many}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $belongsToManyPivot = [
+{{belongs_to_many_pivot}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $belongsToManyPivotTimestamps = [
+{{belongs_to_many_pivot_timestamps}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $hasOne = [
+{{has_one}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $hasMany = [
+{{has_many}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $hasManyThrough = [
+{{has_many_through}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $morphTo = [
+{{morph_to}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $morphOne = [
+{{morph_one}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $morphMany = [
+{{morph_many}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $morphToMany = [
+{{morph_to_many}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $morphedByMany = [
+{{morphed_by_many}}
+    ];
+
+    /**
+     * @var array
+     */
+    protected $with = [
+
+    ];
+
+    /**
+     * @var array
+     */
+    protected $touches = [
+
+    ];
+}

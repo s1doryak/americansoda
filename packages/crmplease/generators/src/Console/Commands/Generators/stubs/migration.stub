@@ -1,0 +1,35 @@
+<?php
+
+use Crmplease\MaterialAdmin\Database\Schema\Blueprint;
+use Crmplease\MaterialAdmin\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
+
+class Create{{class_plural}}Table extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('{{class_snake_case_plural}}', function (Blueprint $table) {
+{{migration_id}}
+{{migration_fks}}
+{{migration_fields}}
+{{migration_morph_to}}
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('{{class_snake_case_plural}}');
+    }
+}

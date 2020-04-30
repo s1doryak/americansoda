@@ -1,0 +1,57 @@
+<?php
+
+namespace {{namespace}};
+
+use App\{{class}};
+use Crmplease\MaterialAdmin\Forms\Form;
+use Illuminate\Validation\Rule;
+
+/**
+ * {{class}} form.
+ *
+ * @package {{namespace}}
+ */
+class {{class}}Form extends Form
+{
+    /**
+     * @return array
+     */
+	public static function getCreateFormFields()
+	{
+        return [
+{{form_fields}}
+        ];
+	}
+
+    /**
+     * @param {{class}} ${{class_camel_case}}
+     * @return array
+     */
+	public static function getEditFormFields(${{class_camel_case}})
+	{
+        return [
+{{form_fields}}
+        ];
+	}
+
+    /**
+     * @return array
+     */
+	public static function getStoreValidationRules()
+	{
+        return [
+{{store_validation_rules}}
+        ];
+	}
+
+    /**
+     * @param {{class}} ${{class_camel_case}}
+     * @return array
+     */
+	public static function getUpdateValidationRules(${{class_camel_case}})
+	{
+        return [
+{{update_validation_rules}}
+        ];
+	}
+}

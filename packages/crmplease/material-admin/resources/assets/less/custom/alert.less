@@ -1,0 +1,32 @@
+.alert {
+  padding-left: 20px;
+  font-size: 13px;
+  opacity: 0.85;
+  width: 500px;
+  border-width: 0;
+  vertical-align: middle;
+  float: none;
+
+  @media (max-width: @screen-xs-max) {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  span {
+    cursor: pointer;
+  }
+
+  .close {
+    color: #fff;
+    margin: 8px 5px;
+    font-size: 20px;
+  }
+
+  &:not(.alert-dismissible) {
+    padding-right: 20px;
+  }
+
+  &.alert-dismissable {
+    padding-right: 20px;
+  }
+}

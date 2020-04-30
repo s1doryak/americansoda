@@ -94,7 +94,7 @@ return [
 			'name' => 'Payment Type',
 		],
 		'user' => [
-			'name' => 'User',
+			'name' => 'Manager',
 		],
 		'billingRegion' => [
 			'name' => 'Billing Region',
@@ -159,7 +159,7 @@ return [
 			'name' => 'Payment Type',
 		],
 		'user' => [
-			'name' => 'User',
+			'name' => 'Manager',
 		],
 		'billingRegion' => [
 			'name' => 'Billing Region',

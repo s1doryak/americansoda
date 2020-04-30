@@ -44,13 +44,21 @@
                 @endif
 
                 @if(in_array($type, ['select', 'choice']))
-                    @if ($can_select || $can_edit)
+                    @if ($can_select)
                         @php($field->enable())
                     @else
                         @php($field->disable())
                         @php($field->setOption('attr.disabled', 'disabled'))
                         {!! Form::hidden($field->getName(), $value) !!}
                     @endif
+                @else
+                        @if ($can_edit)
+                            @php($field->enable())
+                        @else
+                            @php($field->disable())
+                            @php($field->setOption('attr.disabled', 'disabled'))
+                            {!! Form::hidden($field->getName(), $value) !!}
+                        @endif
                 @endif
 
                 @php($field->setOption('parent_name', $field->getName()))

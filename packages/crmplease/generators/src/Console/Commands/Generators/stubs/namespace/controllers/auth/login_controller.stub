@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Http\Controllers\{{namespace_studly_case}}\Auth;
+
+class LoginController extends \Crmplease\MaterialAdmin\Routing\Auth\LoginController
+{
+	/**
+	 * @var string
+	 */
+	protected $prefix = '{{namespace_camel_case}}';
+}

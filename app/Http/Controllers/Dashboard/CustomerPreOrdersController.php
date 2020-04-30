@@ -136,8 +136,7 @@ class CustomerPreOrdersController extends ResourceController
                             'customer_pricing_policies.product_group_id',
                             '=',
                             'products.product_group_id'
-                        )->where('customer_pricing_policies.customer_id', '=', $customerPreOrder->customer_id)
-                        ->whereNull('customer_pricing_policies.deleted_at');
+                        )->where('customer_pricing_policies.customer_id', '=', $customerPreOrder->customer_id);
                 }
 
                 return $query;

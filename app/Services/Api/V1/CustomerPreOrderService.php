@@ -82,29 +82,4 @@ class CustomerPreOrderService extends ResourceService
             $administrator->notify(new PreOrderCreate($customer, $customerPreOrder));
         });
     }
-
-    /**
-     * @param integer $shopId
-     * @param integer $orderId
-     * @throws ValidatorException
-     */
-    public function createFromCustomerOrder($shopId, $orderId)
-    {
-        $customerOrderItems = $this->customerOrderService
-            ->with('customerOrderItems')
-            ->find($orderId)
-            ->customerOrderItems->toArray();
-        $customerOrderItems = array_map(function ($customerOrderItem) {
-            return [
-                'product_id' => $customerOrderItem['product_id'],
-                'quantity' => $customerOrderItem['sales_unit_quantity']
-            ];
-        }, $customerOrderItems);
-        $customerPreOrder = $this->repository->create([
-            'customer_user_id' => Auth::id(),
-            'customer_id' => $shopId
-        ]);
-
-        $this->customerPreOrderItemsService->create($customerOrderItems, $customerPreOrder);
-    }
 }
