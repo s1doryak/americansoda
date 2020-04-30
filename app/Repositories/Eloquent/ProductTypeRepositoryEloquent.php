@@ -53,10 +53,11 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
                         ->whereNull('deleted_at');
                 },
                 'productGroups' => function ($query) use ($withCount) {
-                    return $query->select('id', 'product_type_id')->withCount($withCount);
+                    return $query->select('id', 'product_type_id', 'name')->withCount($withCount);
                 }
             ])
             ->get(['id'])
+            ->sortBy('name')
             ->map(function ($productType) {
                 $productGroups = $productType->productGroups->filter(function ($productGroup) {
                     return $productGroup->products->isNotEmpty()

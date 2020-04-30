@@ -46,7 +46,7 @@ class ProductTypeService extends ResourceService
         return $nomenclature->map(function ($item) {
             return [
                 'id' => $item->id,
-                'productGroups' => $this->getOnlyIdsFromProductGroups($item->productGroups)->values()
+                'productGroups' => $this->getOnlyIdsFromProductGroups($item->productGroups->sortBy('name'))->values()
             ];
         });
     }
