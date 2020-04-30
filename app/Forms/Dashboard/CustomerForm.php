@@ -37,6 +37,10 @@ class CustomerForm extends Form
                 'multiple' => false,
                 'resource' => 'region',
                 'selected' => null,
+                'empty_value' => trans('models/customer.placeholders.billingRegion'),
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'billing_postcode' => 'text',
             'billing_address' => 'text',
@@ -46,6 +50,10 @@ class CustomerForm extends Form
                 'multiple' => false,
                 'resource' => 'region',
                 'selected' => null,
+                'empty_value' => trans('models/customer.placeholders.shippingRegion'),
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'shipping_postcode' => 'text',
             'shipping_address' => 'text',
@@ -69,15 +77,27 @@ class CustomerForm extends Form
             'phone' => 'text',
             'user' => [
                 'type' => 'choice',
+                'empty_value' => trans('models/customer.placeholders.user'),
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
                 'multiple' => false,
             ],
             'stock' => [
                 'type' => 'choice',
                 'multiple' => false,
+                'empty_value' => trans('models/customer.placeholders.stock'),
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'customerType' => [
                 'type' => 'choice',
                 'multiple' => false,
+                'empty_value' => trans('models/customer.placeholders.customerType'),
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'paymentType' => [
                 'type' => 'choice',
@@ -86,6 +106,10 @@ class CustomerForm extends Form
             'priceGroup' => [
                 'type' => 'choice',
                 'multiple' => false,
+                'empty_value' => trans('models/customer.placeholders.priceGroup'),
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'payment_conditions' => 'text',
             'pays_vat' => [
@@ -97,11 +121,17 @@ class CustomerForm extends Form
                 'type' => 'select',
                 'choices' => array_combine($delivery_payer, $delivery_payer),
                 'selected' => null,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'incomterms' => [
                 'type' => 'select',
                 'choices' => array_combine($incomterms, $incomterms),
                 'selected' => null,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'comment' => 'editor',
             'terms_of_cooperation' => 'editor',
@@ -146,6 +176,10 @@ class CustomerForm extends Form
                 'multiple' => false,
                 'resource' => 'region',
                 'selected' => $customer ? $customer->billingRegion->getKey() : null,
+                'empty_value' => trans('models/customer.placeholders.billingRegion'),
+                'attr' => [
+                    'data-live-search' => 'true',
+                ],
             ],
             'billing_postcode' => 'text',
             'billing_address' => 'text',
@@ -155,6 +189,10 @@ class CustomerForm extends Form
                 'multiple' => false,
                 'resource' => 'region',
                 'selected' => $customer ? $customer->shippingRegion->getKey() : null,
+                'empty_value' => trans('models/customer.placeholders.shippingRegion'),
+                'attr' => [
+                    'data-live-search' => 'true',
+                ],
             ],
             'shipping_postcode' => 'text',
             'shipping_address' => 'text',
@@ -176,14 +214,26 @@ class CustomerForm extends Form
             'user' => [
                 'type' => 'choice',
                 'multiple' => false,
+                'empty_value' => trans('models/customer.placeholders.user'),
+                'attr' => [
+                    'data-live-search' => 'true',
+                ],
             ],
             'stock' => [
                 'type' => 'choice',
                 'multiple' => false,
+                'empty_value' => trans('models/customer.placeholders.stock'),
+                'attr' => [
+                    'data-live-search' => 'true',
+                ],
             ],
             'customerType' => [
                 'type' => 'choice',
                 'multiple' => false,
+                'empty_value' => trans('models/customer.placeholders.customerType'),
+                'attr' => [
+                    'data-live-search' => 'true',
+                ],
             ],
             'paymentType' => [
                 'type' => 'choice',
@@ -192,6 +242,9 @@ class CustomerForm extends Form
             'priceGroup' => [
                 'type' => 'choice',
                 'multiple' => false,
+                'attr' => [
+                    'data-live-search' => 'true',
+                ],
             ],
             'payment_conditions' => 'text',
             'pays_vat' => [
@@ -203,11 +256,19 @@ class CustomerForm extends Form
                 'type' => 'select',
                 'choices' => array_combine($delivery_payer, $delivery_payer),
                 'selected' => $customer ? $customer->delivery_payer : null,
+                'empty_value' => trans('models/customer.placeholders.delivery_payer'),
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'incomterms' => [
                 'type' => 'select',
                 'choices' => array_combine($incomterms, $incomterms),
                 'selected' => $customer ? $customer->incomterms : null,
+                'empty_value' => trans('models/customer.placeholders.incomterms'),
+                'attr' => [
+                    'data-live-search' => 'true'
+                ],
             ],
             'comment' => 'editor',
             'terms_of_cooperation' => 'editor',

@@ -12,7 +12,9 @@ use App\PriceGroupBreakpoint;
  */
 class PriceGroupBreakpointDataTable extends DataTable
 {
-	/**
+    protected $responsive = false;
+
+    /**
 	 * @return array
 	 */
 	protected function getColumns()

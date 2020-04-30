@@ -12,6 +12,8 @@ use App\Stock;
  */
 class StockDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

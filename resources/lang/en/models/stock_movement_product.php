@@ -49,9 +49,11 @@ return [
 		'products_quantity' => 'Products Quantity',
 		'delivery_number' => 'Delivery Number',
 		'expiration_date' => 'Expiration Date',
-		'movement_type' => 'Movement Type',
 		'comment' => 'Comment',
-		'stockMovement' => [
+        'movement_type' => [
+            'name' => 'Movement Type'
+        ],
+        'stockMovement' => [
 			'name' => 'Stock Movement',
 		],
 		'product' => [

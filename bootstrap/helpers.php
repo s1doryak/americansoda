@@ -2,6 +2,7 @@
 
 use App\CustomerInvoiceItem;
 use App\CustomerOrderItem;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 /**
@@ -295,4 +296,19 @@ function static_idx($reset = false)
     $idx = $reset ? 1 : $idx + 1;
 
     return $idx;
+}
+
+/**
+ * @param $attributes
+ * @param string $key
+ *
+ * @return string
+ */
+function formatDateForForm($attributes, $key)
+{
+    if (empty($attributes[$key])) {
+        return null;
+    }
+
+    return Carbon::parse($attributes[$key])->format('d/m/Y');
 }

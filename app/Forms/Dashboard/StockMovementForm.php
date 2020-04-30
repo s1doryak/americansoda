@@ -38,8 +38,8 @@ class StockMovementForm extends Form
 			'stockMovementProducts[0]' => [
 				'type' => 'relation_form',
 				'fields' => StockMovementProductForm::getCreateFormFields(),
-				'form_title' => trans('models/stock_movement.product.labels.plural'),
-				'resource' => 'stock_movement.product',
+				'form_title' => trans('models/stock_movement_product.labels.plural'),
+				'resource' => 'stock_movement_product',
 			],
 		];
 	}
@@ -70,8 +70,9 @@ class StockMovementForm extends Form
 			'stockMovementProducts[0]' => [
 				'type' => 'relation_form',
 				'fields' => StockMovementProductForm::getCreateFormFields(),
-				'form_title' => trans('models/stock_movement.product.labels.plural'),
-				'resource' => 'stock_movement.product',
+				'form_title' => trans('models/stock_movement_product.labels.plural'),
+                'items' => $stockMovement->stockMovementProducts,
+				'resource' => 'stock_movement_product',
 			],
 		];
 	}

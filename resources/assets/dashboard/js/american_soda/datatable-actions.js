@@ -25,7 +25,7 @@ jQuery(document).ready(function ($) {
                 $this.prop('checked', !checked);
                 $this.prop('disabled', false);
             }
-
+            $.showActionNotifications($.parseJSON(response.responseText), [])
         });
 
     });
@@ -140,7 +140,9 @@ jQuery(document).ready(function ($) {
 
     $(document).on('change', '[data-action="shipment_assign"]', function (e) {
         var $this = $(this),
-            checked = $this.prop('checked');
+            checked = $this.prop('checked'),
+            $table = $this.closest('table'),
+            dt = $table.DataTable();
 
         $this.prop('disabled', true);
 
@@ -158,6 +160,7 @@ jQuery(document).ready(function ($) {
 
             if (response.status === 200) {
                 $this.prop('checked', checked);
+                dt.draw(false);
             } else {
                 $this.prop('checked', !checked);
             }

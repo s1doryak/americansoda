@@ -23,7 +23,6 @@ class CustomerPreOrderForm extends Form
                 'type' => 'text',
                 'value' => app(CustomerPreOrderRepository::class)->getFirstAvailableNumber()
             ],
-            'reference_number' => 'text',
             'comment' => 'textarea',
             'customerUser' => 'choice',
             'customer' => 'choice',
@@ -48,10 +47,14 @@ class CustomerPreOrderForm extends Form
     {
         return [
             'number' => 'text',
-            'reference_number' => 'text',
             'comment' => 'textarea',
             'customerUser' => 'choice',
-            'customer' => 'choice',
+            'customer' => [
+                'type' => 'choice',
+                'attr' => [
+                    'disabled' => 'disabled'
+                ]
+            ],
             'customerPreOrderItems[idx]' => [
                 'type' => 'relation_form',
                 'fields' => CustomerPreOrderItemForm::getCreateFormFields(),

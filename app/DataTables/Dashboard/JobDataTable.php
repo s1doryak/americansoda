@@ -14,6 +14,8 @@ use Jenssegers\Date\Date;
  */
 class JobDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * Get default row attributes.
      */

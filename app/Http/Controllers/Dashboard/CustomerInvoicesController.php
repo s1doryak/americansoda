@@ -132,6 +132,14 @@ class CustomerInvoicesController extends ResourceController
     ];
 
     /**
+     * @var array
+     */
+    protected $popupActions = [
+        'create' => 'fullscreen',
+        'edit' => 'fullscreen'
+    ];
+
+    /**
      * CustomerInvoicesController constructor.
      * @param Gate $gate
      * @param CustomerInvoiceRepository $customerInvoiceRepository
@@ -315,8 +323,16 @@ class CustomerInvoicesController extends ResourceController
         $result = MaventaConfirmInvoice::dispatchNow(
             $this->getResourceId()
         );
+        $hasErrors = strpos($result, 'ERROR');
 
-        return $result ? $result : 'ERROR';
+        if ($hasErrors !== false) {
+            $result = [
+                'errors' => true,
+                'message' => $result
+            ];
+        }
+        
+        return $result;
     }
 
     /**

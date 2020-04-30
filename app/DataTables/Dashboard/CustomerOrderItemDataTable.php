@@ -15,6 +15,8 @@ use Illuminate\Support\Arr;
  */
 class CustomerOrderItemDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * Get engine {@see DataTable::ajax()}.
      *
@@ -121,8 +123,8 @@ class CustomerOrderItemDataTable extends DataTable
                 'name' => 'customerShipment.number',
             ],
             'customerShipment.assembly_number' => [
-                'data' => 'customerShipment.number',
-                'name' => 'customerShipment.number',
+                'data' => 'customerShipment.assembly_number',
+                'name' => 'customerShipment.assembly_number',
                 'template' => 'dashboard::resources.customer_order_item.columns.assembly_number',
             ],
             'customerShipment.delivery_month' => [
@@ -296,11 +298,6 @@ class CustomerOrderItemDataTable extends DataTable
                         'value' => 'Non-Backorders only',
                     ],
                 ],
-            ],
-            'customerShipment.number' => [
-                'type' => 'text',
-                'name' => 'customerShipment.number',
-                'data' => 'customerShipment.number',
             ],
             'customerShipmentAdvanced' => [
                 'template' => 'dashboard::resources.customer_order_item.filters.shipment',
@@ -522,6 +519,19 @@ class CustomerOrderItemDataTable extends DataTable
      * @param CustomerOrderItem $customerOrderItem
      * @return string
      */
+    protected function renderCustomerShipment__NumberColumn($customerOrderItem)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerOrderItem->customerShipment->number ?? $this->renderDefaultView();
+        }
+
+        return $customerOrderItem->customerShipment->number ?? null;
+    }
+
+    /**
+     * @param CustomerOrderItem $customerOrderItem
+     * @return string
+     */
     protected function renderCustomerShipment__DeliveryDateColumn($customerOrderItem)
     {
         if ($this->isDataTableRequest()) {
@@ -617,7 +627,7 @@ class CustomerOrderItemDataTable extends DataTable
     protected function renderCustomerOrder__Customer__PaymentConditionsColumn($customerOrderItem)
     {
         if ($this->isDataTableRequest()) {
-            return $customerOrderItem->customerOrder->customer ?? $this->renderDefaultView();
+            return $customerOrderItem->customerOrder->customer->payment_conditions ?? $this->renderDefaultView();
         }
 
         return $customerOrderItem->customerOrder->customer->payment_conditions ?? null;

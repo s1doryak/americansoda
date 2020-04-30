@@ -64,7 +64,7 @@ class StockProductPolicy implements DatatablePolicyContract
     public function action(Authenticatable $authenticatable)
     {
 
-        return true;
+        return false;
     }
 
     /**

@@ -6,33 +6,77 @@
 @stop
 
 @section('header-menu')
-
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.calendar') }}"><span class="him-label"><i class="zmdi zmdi-calendar zmdi-hc-lg m-r-5"></i> {{ trans('calendar.index.title') }}</span></a>
+        <a href="{{ route('dashboard.calendar') }}">
+            <span class="him-label">
+                <i class="zmdi zmdi-calendar zmdi-hc-lg"></i>
+                <span class="hidden-xs hidden-md m-l-5">{{ trans('calendar.index.title') }}</span>
+            </span>
+        </a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.customer_invoice.index') }}"><span class="him-label"><i class="zmdi zmdi-file-text zmdi-hc-lg m-r-5"></i> {{ trans('models/customer_invoice.labels.plural') }}</span></a>
+        <a href="{{ route('dashboard.customer_invoice.index') }}">
+            <span class="him-label">
+                <i class="zmdi zmdi-file-text zmdi-hc-lg"></i>
+                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/customer_invoice.labels.plural') }}</span>
+            </span>
+        </a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.customer.index') }}"><span class="him-label"><i class="zmdi zmdi-accounts-add zmdi-hc-lg m-r-5"></i> {{ trans('models/customer.labels.plural') }}</span></a>
+        <a href="{{ route('dashboard.customer.index') }}">
+            <span class="him-label">
+                <i class="zmdi zmdi-accounts-add zmdi-hc-lg"></i>
+                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/customer.labels.plural') }}</span>
+            </span>
+        </a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.customer_order.index') }}"><span class="him-label"><i class="zmdi zmdi-shopping-cart-plus zmdi-hc-lg m-r-5"></i> {{ trans('models/customer_order.labels.plural') }}</span></a>
+        <a href="{{ route('dashboard.customer_order.index') }}">
+            <span class="him-label">
+                <i class="zmdi zmdi-shopping-cart-plus zmdi-hc-lg"></i>
+                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/customer_order.labels.plural') }}</span>
+            </span>
+        </a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.customer_order_item.index') }}"><span class="him-label"><i class="zmdi zmdi-tune zmdi-hc-lg m-r-5"></i> {{ trans('models/customer_order_item.labels.plural') }}</span></a>
+        <a href="{{ route('dashboard.customer_order_item.index') }}">
+            <span class="him-label">
+                <i class="zmdi zmdi-tune zmdi-hc-lg"></i>
+                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/customer_order_item.labels.plural') }}</span>
+            </span>
+        </a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.customer_shipment.index') }}"><span class="him-label"><i class="zmdi zmdi-local-shipping zmdi-hc-lg m-r-5"></i> {{ trans('models/customer_shipment.labels.plural') }}</span></a>
+        <a href="{{ route('dashboard.customer_shipment.index') }}">
+            <span class="him-label">
+                <i class="zmdi zmdi-local-shipping zmdi-hc-lg"></i>
+                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/customer_shipment.labels.plural') }}</span>
+            </span>
+        </a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.assembly.index') }}"><span class="him-label"><i class="zmdi zmdi-dropbox zmdi-hc-lg m-r-5"></i> {{ trans('models/assembly.labels.plural') }}</span></a>
+        <a href="{{ route('dashboard.assembly.index') }}">
+            <span class="him-label">
+                <i class="zmdi zmdi-dropbox zmdi-hc-lg"></i>
+                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/assembly.labels.plural') }}</span>
+            </span>
+        </a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.stock_movement_product.index') }}"><span class="him-label"><i class="zmdi zmdi-swap zmdi-hc-lg m-r-5"></i> {{ trans('models/stock_movement_product.labels.plural') }}</span></a>
+        <a href="{{ route('dashboard.stock_movement_product.index') }}">
+            <span class="him-label">
+                <i class="zmdi zmdi-swap zmdi-hc-lg"></i>
+                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/stock_movement_product.labels.plural') }}</span>
+            </span>
+        </a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.stock_product.index') }}"><span class="him-label"><i class="zmdi zmdi-chart zmdi-hc-lg m-r-5"></i> {{ trans('models/stock_product.labels.plural') }}</span></a>
+        <a href="{{ route('dashboard.stock_product.index') }}">
+            <span class="him-label">
+                <i class="zmdi zmdi-chart zmdi-hc-lg"></i>
+                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/stock_product.labels.plural') }}</span>
+            </span>
+        </a>
     </li>
 @stop
 

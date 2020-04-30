@@ -12,6 +12,8 @@ use App\Assembly;
  */
 class AssemblyDataTable extends DataTable
 {
+    protected $responsive = false;
+
     /**
      * @return array
      */

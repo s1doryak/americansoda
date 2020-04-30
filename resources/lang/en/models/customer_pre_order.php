@@ -55,10 +55,10 @@ return [
 			'number' => 'Number',
 		],
 		'customer' => [
-
+            'name' => 'Customer'
 		],
 		'items' => [
-
+            'name' => 'Items'
 		],
 	],
     'placeholders' => [
@@ -78,10 +78,10 @@ return [
 			'number' => 'Number',
 		],
 		'customer' => [
-
+            'name' => 'Customer'
 		],
 		'items' => [
-
+            'name' => 'Items'
 		],
         'created_at' => 'Created',
         'updated_at' => 'Updated',
@@ -95,10 +95,10 @@ return [
 			'number' => 'Number',
 		],
 		'customer' => [
-
+            'name' => 'Customer'
 		],
 		'items' => [
-
+            'name' => 'Items'
 		],
     ],
 ];

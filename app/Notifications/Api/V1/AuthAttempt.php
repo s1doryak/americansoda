@@ -49,7 +49,7 @@ class AuthAttempt extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject(trans('notifications/auth_attempt.subject'))
             ->line(trans('notifications/auth_attempt.message'))
-            ->action(trans('notifications/auth_attempt.login'), generateApiAuthLink($this->token));
+            ->action(trans('notifications/auth_attempt.action'), generateApiAuthLink($this->token));
     }
 
     /**

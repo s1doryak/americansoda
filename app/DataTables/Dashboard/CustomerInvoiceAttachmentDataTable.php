@@ -12,7 +12,9 @@ use App\CustomerInvoiceAttachment;
  */
 class CustomerInvoiceAttachmentDataTable extends DataTable
 {
-	/**
+    protected $responsive = false;
+
+    /**
 	 * @return array
 	 */
 	protected function getColumns()
