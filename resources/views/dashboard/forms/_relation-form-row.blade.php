@@ -41,6 +41,8 @@
                     @else
                         @php($value = Arr::get($item, $name))
                     @endif
+                @else
+                    @php($value = null)
                 @endif
 
                 @if(in_array($type, ['select', 'choice']))

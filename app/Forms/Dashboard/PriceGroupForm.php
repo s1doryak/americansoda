@@ -51,7 +51,7 @@ class PriceGroupForm extends Form
                 'fields' => PriceGroupBreakpointForm::getCreateFormFields(),
                 'form_title' => trans('models/price_group_breakpoint.labels.plural'),
                 'resource' => 'price_group_breakpoint',
-                'items' => $priceGroup->priceGroupBreakpoints,
+                'items' => $priceGroup->priceGroupBreakpoints->sortBy('breakpoint'),
                 'can_add' => true,
                 'can_edit' => true,
                 'can_remove' => true,
