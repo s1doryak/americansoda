@@ -4,8 +4,6 @@ namespace App\Forms\Dashboard;
 
 use App\Customer;
 use App\CustomerPricingPolicy;
-use App\PriceGroupBreakpoint;
-use App\ProductGroup;
 use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Contracts\ProductGroupRepository;
 use Crmplease\MaterialAdmin\Forms\Form;
@@ -288,6 +286,7 @@ class CustomerForm extends Form
                 ->filter(function (CustomerPricingPolicy $customerPricingPolicy) {
                     return false === $customerPricingPolicy->trashed();
                 })
+                ->sortBy('products_range')
                 ->groupBy(function (CustomerPricingPolicy $customerPricingPolicy) {
                     return $customerPricingPolicy->productGroup ? $customerPricingPolicy->productGroup->getKey() : null;
                 }),
