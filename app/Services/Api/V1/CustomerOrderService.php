@@ -6,11 +6,9 @@ use App\Company;
 use App\Customer;
 use App\CustomerOrder;
 use App\CustomerOrderItem;
-use App\CustomerPreOrder;
 use App\Repositories\Contracts\CustomerOrderRepository;
 use App\Repositories\Eloquent\CustomerOrderRepositoryEloquent;
 use App\Transformers\Api\V1\CustomerOrderTransformer;
-use App\Transformers\Api\V1\CustomerPreOrderTransformer;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Http\Response;
 use PDF;
@@ -65,7 +63,7 @@ class CustomerOrderService extends ResourceService
             'customer.stock.region'
         ])->find($orderId);
 
-        $pdf = PDF::loadView('dashboard::documents.order-review', $this->prepareOrderReview($order));
+        $pdf = PDF::loadView('dashboard::documents.order-review', $this->prepareOrderReview($order, false, false));
 
         if ($inline) {
             $filename = sprintf('%s.pdf', $order->getOrderReviewFileName());
