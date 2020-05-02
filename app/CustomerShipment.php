@@ -154,7 +154,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public function getAmountAttribute($value)
     {
         return number_format(
-            $this->customerOrderItems->sum('total_price'),
+                $this->customerOrderItems->sum('total_price') + $this->customerOrderItems->sum('deposit_total_price'),
             2,
             '.',
             ''
