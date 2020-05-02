@@ -4,7 +4,6 @@ namespace App\Forms\Dashboard;
 
 use App\CustomerInvoiceItem;
 use Crmplease\MaterialAdmin\Forms\Form;
-use Illuminate\Validation\Rule;
 
 /**
  * CustomerInvoiceItem form.
@@ -43,7 +42,6 @@ class CustomerInvoiceItemForm extends Form
             'unit_type' => 'text',
             'amount' => [
                 'type' => 'text',
-                'value' => 1
             ],
             'sum' => [
                 'type' => 'text',
@@ -53,7 +51,6 @@ class CustomerInvoiceItemForm extends Form
             ],
             'tax' => [
                 'type' => 'text',
-                'value' => 24
             ],
             'sum_tax' => [
                 'type' => 'text',

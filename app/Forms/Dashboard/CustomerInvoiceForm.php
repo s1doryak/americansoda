@@ -123,6 +123,7 @@ class CustomerInvoiceForm extends Form
                 'can_select' => function ($customerInvoiceItem = null) {
                     return true;
                 },
+                'with_parent_data' => false
             ],
             'notes' => 'textarea',
         ];
