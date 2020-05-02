@@ -290,10 +290,10 @@ class CustomerForm extends Form
                 ->groupBy(function (CustomerPricingPolicy $customerPricingPolicy) {
                     return $customerPricingPolicy->productGroup ? $customerPricingPolicy->productGroup->getKey() : null;
                 }),
-            'can_add' => $customer->priceGroup->manual,
-            'can_edit' => $customer->priceGroup->manual,
-            'can_remove' => $customer->priceGroup->manual,
-            'can_select' => $customer->priceGroup->manual,
+            'can_add' => $customer->priceGroup->manual ?? false,
+            'can_edit' => $customer->priceGroup->manual ?? false,
+            'can_remove' => $customer->priceGroup->manual ?? false,
+            'can_select' => $customer->priceGroup->manual ?? false,
         ];
 
         return $fields;

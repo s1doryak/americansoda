@@ -96,11 +96,11 @@ class CustomerPreOrderItemService extends ResourceService
     {
         $product = $this->productService->with('productGroup')->find($preOrderItem['product_id']);
         $productGroup = $product->productGroup;
-        $price = $this->customerPricingPolicyService->getPriceBySalesUnitQuantity($preOrderItemsQuantity, $customerId, $productGroup->id);
+        $price = round($this->customerPricingPolicyService->getPriceBySalesUnitQuantity($preOrderItemsQuantity, $customerId, $productGroup->id), 2);
         $packagesQuantity = $preOrderItem['quantity'] * $productGroup->sales_unit_volume / $product->number_in_package;
         $productsQuantity = $packagesQuantity * $product->number_in_package;
         $totalPrice = $price * $productsQuantity;
-        $totalVatPrice = $totalPrice + ($totalPrice * ($productGroup->vat / 100));
+        $totalVatPrice = round($totalPrice + ($totalPrice * ($productGroup->vat / 100)), 2);
 
         $depositPrice = (float)$product->deposit_price;
         $depositVat = (int)$product->deposit_vat;
@@ -111,10 +111,10 @@ class CustomerPreOrderItemService extends ResourceService
 
         return [
             'price' => $price,
-            'vat_price' => sprintf('%.2f', $price + ($price * ($productGroup->vat / 100))),
+            'vat_price' => $price + ($price * ($productGroup->vat / 100)),
             'products_quantity' => $productsQuantity,
             'total_price' => $totalPrice,
-            'total_vat_price' => sprintf('%.2f', $totalVatPrice),
+            'total_vat_price' => $totalVatPrice,
             'deposit_price' => $depositPrice,
             'deposit_vat_price' => $depositVatPrice,
             'deposit_total_price' => $depositTotalPrice,
