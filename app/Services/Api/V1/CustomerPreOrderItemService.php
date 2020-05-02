@@ -96,11 +96,11 @@ class CustomerPreOrderItemService extends ResourceService
     {
         $product = $this->productService->with('productGroup')->find($preOrderItem['product_id']);
         $productGroup = $product->productGroup;
-        $price = round($this->customerPricingPolicyService->getPriceBySalesUnitQuantity($preOrderItemsQuantity, $customerId, $productGroup->id), 2);
+        $price = $this->customerPricingPolicyService->getPriceBySalesUnitQuantity($preOrderItemsQuantity, $customerId, $productGroup->id);
         $packagesQuantity = $preOrderItem['quantity'] * $productGroup->sales_unit_volume / $product->number_in_package;
         $productsQuantity = $packagesQuantity * $product->number_in_package;
         $totalPrice = $price * $productsQuantity;
-        $totalVatPrice = round($totalPrice + ($totalPrice * ($productGroup->vat / 100)), 2);
+        $totalVatPrice = $totalPrice + ($totalPrice * ($productGroup->vat / 100));
 
         $depositPrice = (float)$product->deposit_price;
         $depositVat = (int)$product->deposit_vat;
@@ -110,15 +110,15 @@ class CustomerPreOrderItemService extends ResourceService
         $depositTotalVatPrice = $productsQuantity * $depositVatPrice;
 
         return [
-            'price' => $price,
-            'vat_price' => $price + ($price * ($productGroup->vat / 100)),
-            'products_quantity' => $productsQuantity,
-            'total_price' => $totalPrice,
-            'total_vat_price' => $totalVatPrice,
-            'deposit_price' => $depositPrice,
-            'deposit_vat_price' => $depositVatPrice,
-            'deposit_total_price' => $depositTotalPrice,
-            'deposit_total_vat_price' => $depositTotalVatPrice
+            'price' => round($price),
+            'vat_price' => round($price + ($price * ($productGroup->vat / 100))),
+            'products_quantity' => round($productsQuantity, 2),
+            'total_price' => round($totalPrice, 2),
+            'total_vat_price' => round($totalVatPrice, 2),
+            'deposit_price' => round($depositPrice, 2),
+            'deposit_vat_price' => round($depositVatPrice, 2),
+            'deposit_total_price' => round($depositTotalPrice, 2),
+            'deposit_total_vat_price' => round($depositTotalVatPrice, 2)
         ];
     }
 
