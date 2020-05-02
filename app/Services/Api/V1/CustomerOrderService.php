@@ -153,8 +153,10 @@ class CustomerOrderService extends ResourceService
         /** @var \Illuminate\Support\Collection|CustomerOrder[] $customerOrders */
         $customerOrders = $this->repository->getByShopId($shopId);
 
-        return $customerOrders->map(function ($customerOrder) {
-            return CustomerOrderTransformer::toArray($customerOrder);
-        });
+        return $customerOrders
+            ->map(function ($customerOrder) {
+                return CustomerOrderTransformer::toArray($customerOrder);
+            })
+            ->sortBy('created_at');
     }
 }
