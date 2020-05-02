@@ -24,7 +24,10 @@ class CustomerInvoiceForm extends Form
             'companyBankAccounts' => 'choice',
             'date' => [
                 'type' => 'datepicker',
-                'value' => now()->format('Y-m-d')
+                'value' => now()->format('Y-m-d'),
+                'attr' => [
+                    'format' => 'YYYY/MM/DD'
+                ]
             ],
             'invoice_nr' => [
                 'type' => 'text',
@@ -78,7 +81,10 @@ class CustomerInvoiceForm extends Form
                 'lists' => 'number',
             ] : null,
             'date' => [
-                'type' => 'datepicker'
+                'type' => 'datepicker',
+                'attr' => [
+                    'format' => 'YYYY/MM/DD'
+                ]
             ],
             'invoice_nr' => [
                 'type' => 'text'
