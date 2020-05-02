@@ -48,7 +48,7 @@ class MaventaCreateInvoice implements ShouldQueue
 
             /** @var object $result */
             $result = $maventa->invoice_create(
-                CustomerInvoiceTransformer::toMaventaArray($customerInvoice)
+                CustomerInvoiceTransformer::toMaventa($customerInvoice)
             );
 
             if ($result->status === 'OK: INVOICE CREATED') {

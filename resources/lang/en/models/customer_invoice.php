@@ -129,7 +129,7 @@ return [
         'maventa_tiff' => 'Maventa Tiff',
         'maventa_initiated' => 'Maventa Initiated',
         'maventa_paid' => 'Maventa Paid',
-        'maventa_sent_at' => 'Maventa Sent At',
+        'maventa_sent_at' => 'Maventa Send',
         'currency' => 'Currency',
         'data' => 'Data',
         'date' => 'Date',

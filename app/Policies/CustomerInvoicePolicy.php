@@ -50,7 +50,6 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
      */
     public function export(Authenticatable $authenticatable)
     {
-
         return true;
     }
 
@@ -63,7 +62,19 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
      */
     public function action(Authenticatable $authenticatable)
     {
+        return true;
+    }
 
+    /**
+     * Determine whether the user can view the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerInvoice $customerInvoice
+     *
+     * @return boolean
+     */
+    public function send(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
+    {
         return true;
     }
 
@@ -77,7 +88,6 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
      */
     public function view(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
-
         return false;
     }
 
@@ -90,7 +100,6 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
      */
     public function create(Authenticatable $authenticatable)
     {
-
         return true;
     }
 
@@ -104,7 +113,6 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
      */
     public function update(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
-
         return true;
     }
 
@@ -118,7 +126,6 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
      */
     public function trash(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
-
         return true;
     }
 
@@ -132,7 +139,6 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
      */
     public function restore(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
-
         return true;
     }
 
@@ -146,7 +152,6 @@ class CustomerInvoicePolicy implements DatatablePolicyContract
      */
     public function destroy(Authenticatable $authenticatable, CustomerInvoice $customerInvoice)
     {
-
         return true;
     }
 }

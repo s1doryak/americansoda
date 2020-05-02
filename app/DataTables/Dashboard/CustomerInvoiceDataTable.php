@@ -66,8 +66,8 @@ class CustomerInvoiceDataTable extends DataTable
             'customerShipment.number' => [
                 'data' => 'customerShipment.number'
             ],
-            'maventa_paid',
             'maventa_sent_at',
+            'maventa_paid',
         ];
     }
 
@@ -249,23 +249,6 @@ class CustomerInvoiceDataTable extends DataTable
      * @param CustomerInvoice $customerInvoice
      * @return string
      */
-    public function renderMaventaPaidColumn($customerInvoice)
-    {
-        $label = $customerInvoice->maventa_paid ? 'models/customer_invoice.maventa_paid.true' : 'models/customer_invoice.maventa_paid.false';
-
-        if ($this->isDataTableRequest()) {
-            return $this->renderView('dashboard::resources.customer_invoice.columns.maventa_paid', [
-                'model' => $customerInvoice
-            ]);
-        }
-
-        return trans($label);
-    }
-
-    /**
-     * @param CustomerInvoice $customerInvoice
-     * @return string
-     */
     public function renderMaventaSentAtColumn($customerInvoice)
     {
         if ($this->isDataTableRequest()) {
@@ -285,5 +268,24 @@ class CustomerInvoiceDataTable extends DataTable
         }
 
         return $customerInvoice->maventa_sent_at ? format_date($customerInvoice->maventa_sent_at) : null;
+    }
+
+    /**
+     * @param CustomerInvoice $customerInvoice
+     * @return string
+     */
+    public function renderMaventaPaidColumn($customerInvoice)
+    {
+        $label = $customerInvoice->maventa_paid ? 'models/customer_invoice.maventa_paid.true' : 'models/customer_invoice.maventa_paid.false';
+
+        if ($this->isDataTableRequest()) {
+            return $customerInvoice->maventa_sent_at
+                ? $this->renderView('dashboard::resources.customer_invoice.columns.maventa_paid', [
+                    'model' => $customerInvoice
+                ])
+                : '';
+        }
+
+        return trans($label);
     }
 }
