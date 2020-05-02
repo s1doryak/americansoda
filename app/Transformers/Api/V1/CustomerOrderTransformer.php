@@ -65,8 +65,7 @@ class CustomerOrderTransformer implements TransformerContract
             'customer_id' => $customerOrder->customer ? $customerOrder->customer->id : null,
             'user_id' => $customerOrder->user ? $customerOrder->user->id : null,
             'status' => $customerOrder->status,
-            'amount' => $customerOrder->amount,
-            'amount_vat' => $customerOrder->amount_vat,
+            'amount' => $customerOrder->amount_vat,
             'type' => 'order',
 
             'created_at' => (string)$customerOrder->created_at,
