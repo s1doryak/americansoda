@@ -100,7 +100,7 @@ class CustomerPreOrderItemService extends ResourceService
         $packagesQuantity = $preOrderItem['quantity'] * $productGroup->sales_unit_volume / $product->number_in_package;
         $productsQuantity = $packagesQuantity * $product->number_in_package;
         $totalPrice = $price * $productsQuantity;
-        $totalVatPrice = $totalPrice + ($totalPrice * ($productGroup->vat / 100));
+        $totalVatPrice = round($totalPrice + ($totalPrice * ($productGroup->vat / 100)), 2);
 
         $depositPrice = (float)$product->deposit_price;
         $depositVat = (int)$product->deposit_vat;
