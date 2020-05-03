@@ -2,8 +2,8 @@
 
 namespace App\DataTables\Dashboard;
 
-use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 use App\CustomerInvoice;
+use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 
 /**
  * CustomerInvoice datatable.
@@ -208,7 +208,7 @@ class CustomerInvoiceDataTable extends DataTable
             ];
         }
 
-        return array_merge($actions, parent::getActions($customerInvoice));
+        return array_merge($actions, $this->getDefaultActions($customerInvoice));
     }
 
     /**
@@ -252,19 +252,13 @@ class CustomerInvoiceDataTable extends DataTable
     public function renderMaventaSentAtColumn($customerInvoice)
     {
         if ($this->isDataTableRequest()) {
+            $actionView = $customerInvoice->customer->paymentType === 'e-invoice'
+                ? $this->getMaventaInvoiceSend($customerInvoice)
+                : $this->getEmailInvoiceSend($customerInvoice);
 
             return $customerInvoice->maventa_sent_at
                 ? format_date($customerInvoice->maventa_sent_at)
-                : $this->renderActionView([
-                    'send' => [
-                        'target' => '_blank',
-                        'url' => route(sprintf('%s.%s.maventa_sent_at', $this->prefix, $this->resource), $customerInvoice->getKey()),
-                        'method' => 'post',
-                        'icon' => 'upload',
-                        'color' => 'green',
-                        'title' => trans(sprintf('models/%s.send.title', $this->resource)),
-                    ]
-                ], $customerInvoice);
+                : $actionView;
         }
 
         return $customerInvoice->maventa_sent_at ? format_date($customerInvoice->maventa_sent_at) : null;
@@ -287,5 +281,40 @@ class CustomerInvoiceDataTable extends DataTable
         }
 
         return trans($label);
+    }
+
+    /**
+     * @param CustomerInvoice $customerInvoice
+     * @return string
+     */
+    protected function getMaventaInvoiceSend(CustomerInvoice $customerInvoice)
+    {
+        return $this->renderActionView([
+            'send' => [
+                'target' => '_blank',
+                'url' => route(sprintf('%s.%s.maventa_sent_at', $this->prefix, $this->resource), $customerInvoice->getKey()),
+                'method' => 'post',
+                'icon' => 'upload',
+                'color' => 'green',
+                'title' => trans(sprintf('models/%s.send.title', $this->resource)),
+            ]
+        ], $customerInvoice);
+    }
+
+    /**
+     * @param CustomerInvoice $customerInvoice
+     * @return string
+     */
+    protected function getEmailInvoiceSend(CustomerInvoice $customerInvoice)
+    {
+        return $this->renderActionView([
+            'send' => [
+                'url' => route(sprintf('%s.%s.send_email', $this->prefix, $this->resource), $customerInvoice->getKey()),
+                'method' => 'post',
+                'icon' => 'email',
+                'color' => 'primary',
+                'title' => trans(sprintf('models/%s.send_email.title', $this->resource)),
+            ]
+        ], $customerInvoice);
     }
 }
