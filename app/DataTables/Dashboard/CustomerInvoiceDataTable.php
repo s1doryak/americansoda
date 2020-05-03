@@ -2,8 +2,8 @@
 
 namespace App\DataTables\Dashboard;
 
-use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 use App\CustomerInvoice;
+use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 
 /**
  * CustomerInvoice datatable.
@@ -208,7 +208,7 @@ class CustomerInvoiceDataTable extends DataTable
             ];
         }
 
-        return array_merge($actions, parent::getActions($customerInvoice));
+        return array_merge($actions, $this->getDefaultActions($customerInvoice));
     }
 
     /**

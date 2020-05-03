@@ -50,6 +50,9 @@ return [
     'send' => [
         'title' => 'Send to Maventa',
     ],
+    'invoice' => [
+        'title' => 'Download Invoice',
+    ],
     'fields' => [
         'maventa_id' => 'Maventa',
         'maventa_tiff' => 'Maventa Tiff',
