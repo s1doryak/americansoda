@@ -10,6 +10,19 @@ docker-compose run artisan generate:namespace Dashboard
 docker-compose run artisan generate:locale fi
 ```
 
+###  Информация о компании:
+```json
+{
+    "status": "OK",
+    "email": "denis.sarvi@gtp.fi",
+    "bid": "FI22875676",
+    "name": "GLOBAL TRADE PARTNERS OY",
+    "id": "14362337-4077-4550-b83c-fc23018325b7",
+    "maventa_id": "FI-000022875676-83205-5",
+    "country": "FI"
+}
+```
+
 ### Тестовый счет:
 ```json
 {

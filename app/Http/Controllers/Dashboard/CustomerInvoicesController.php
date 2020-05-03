@@ -193,11 +193,6 @@ class CustomerInvoicesController extends ResourceController
                 'lists' => 'name',
                 'extra' => 'content'
             ],
-            //'customerInvoiceItems' => 'item_code',
-            //'customerInvoiceActions' => 'action',
-            //'customerInvoiceAttachments' => 'filename',
-            //'customerOrders' => 'number',
-            //'customerOrderItems' => 'product_name',
             'products' => 'name',
         ];
 
@@ -226,11 +221,6 @@ class CustomerInvoicesController extends ResourceController
                     };
                 }
             ],
-            //'customerInvoiceItems' => 'item_code',
-            //'customerInvoiceActions' => 'action',
-            //'customerInvoiceAttachments' => 'filename',
-            //'customerOrders' => 'number',
-            //'customerOrderItems' => 'product_name',
             'products' => 'name',
         ];
 
@@ -247,10 +237,6 @@ class CustomerInvoicesController extends ResourceController
      */
     protected function getRedirectUrl($action, $customerInvoice = null)
     {
-        if ($customerInvoice && $customerInvoice->getKey()) {
-            return route(sprintf('%s.%s.edit', $this->getPrefix(), $this->getResource()), $customerInvoice->getKey());
-        }
-
         return route(sprintf('%s.%s.index', $this->getPrefix(), $this->getResource()));
     }
 
@@ -299,10 +285,10 @@ class CustomerInvoicesController extends ResourceController
 
     /**
      * @param Request $request
-     * @param bool $inlile
+     * @param bool $inline
      * @return mixed
      */
-    public function invoice(Request $request, $inlile = true)
+    public function invoice(Request $request, $inline = true)
     {
         /** @var CustomerInvoice $customerInvoice */
         $customerInvoice = $this->repository->find(
@@ -316,7 +302,7 @@ class CustomerInvoicesController extends ResourceController
         $pdf = PDF::loadView('dashboard::documents.invoice', $this->getDocumentData($request));
         $filename = sprintf('%s.pdf', $customerInvoice->getInvoiceFileName());
 
-        if ($inlile) {
+        if ($inline) {
             return $pdf->inline($filename);
         } else {
             if (file_exists($filename)) {
@@ -389,7 +375,7 @@ class CustomerInvoicesController extends ResourceController
         /** @var CustomerInvoice $customerInvoice */
         $customerInvoice = $this->repository->update(
             [
-                'maventa_sent_at' => Carbon::now()
+                'maventa_sent_at' => now()
             ],
             $id
         );

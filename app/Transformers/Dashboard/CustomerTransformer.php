@@ -199,7 +199,7 @@ class CustomerTransformer implements TransformerContract
             'customer_type' => 'COMPANY',
             'customer_nr' => $customer->nr,
 
-            'name' => $customer->name,
+            'name' => $customer->legal_name,
             'email' => $customer->email,
             'phone' => $customer->phone,
             'gsm' => null,
@@ -213,7 +213,7 @@ class CustomerTransformer implements TransformerContract
             'address1' => $customer->address1,
             'address2' => $customer->address2,
 
-            'contact_p' => $customer->contact_p,
+            'contact_p' => $customer->name,
 
             'bid' => $customer->bid,
             'ovt' => $customer->ovt,
