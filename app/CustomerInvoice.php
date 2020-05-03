@@ -208,4 +208,16 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
         return sprintf("%s%s", $number, viitenumero_check_digit($number));
     }
+
+    /**
+     * @return string|
+     */
+    public function getInvoiceFileName()
+    {
+        return preg_replace(
+            '/\s+/mui',
+            '_',
+            sprintf('invoice_%d', $this->id)
+        );
+    }
 }

@@ -162,6 +162,11 @@ Route::group(['middleware' => 'web'], function () {
                     'uses' => "{$controller}@maventaSentAt"
                 ]);
 
+                Route::any("{$resource}/{{$resource}}/send_email", [
+                    'as' => "dashboard.{$resource}.send_email",
+                    'uses' => "{$controller}@sendEmail"
+                ]);
+
             }
 
         }

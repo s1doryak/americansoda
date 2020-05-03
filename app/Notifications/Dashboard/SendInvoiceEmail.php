@@ -2,18 +2,13 @@
 
 namespace App\Notifications\Dashboard;
 
-use App\CustomerOrder;
+use App\CustomerInvoice;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-/**
- * SendEmail Notification
- *
- * @package App\Notifications\Dashboard
- */
-class SendEmail extends Notification implements ShouldQueue
+class SendInvoiceEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -28,22 +23,23 @@ class SendEmail extends Notification implements ShouldQueue
     protected $as;
 
     /**
-     * @var CustomerOrder $order
+     * @var CustomerInvoice $invoice
      */
-    protected $order;
+    protected $invoice;
 
     /**
-     * AccountingReports constructor.
+     * SendInvoiceEmail constructor.
      * @param $file
      * @param $as
-     * @param CustomerOrder $order
+     * @param CustomerInvoice $invoice
      */
-    public function __construct($file, $as, CustomerOrder $order)
+    public function __construct($file, $as, CustomerInvoice $invoice)
     {
         $this->file = $file;
         $this->as = $as;
-        $this->order = $order;
+        $this->invoice = $invoice;
     }
+
 
     /**
      * Get the notification's delivery channels.
@@ -66,7 +62,7 @@ class SendEmail extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject($this->order->getEmailSubject())
+            ->subject($this->invoice->getInvoiceFileName())
             ->cc(config('mail.from.address'), config('mail.from.name'))
             ->attach($this->file, [
                 'as' => $this->as,

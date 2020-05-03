@@ -53,6 +53,9 @@ return [
     'invoice' => [
         'title' => 'Download Invoice',
     ],
+    'send_email' => [
+        'title' => 'Send email',
+    ],
     'fields' => [
         'maventa_id' => 'Maventa',
         'maventa_tiff' => 'Maventa Tiff',
