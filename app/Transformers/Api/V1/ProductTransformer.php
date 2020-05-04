@@ -101,8 +101,8 @@ class ProductTransformer implements TransformerContract
         return [
             'id' => (int)$product->getKey(),
             'name' => $product->name,
-            'product_barcode' => $product->product_barcode_plaintext,
-            'package_barcode' => $product->package_barcode_plaintext,
+            'product_barcode' => sprintf('*%s*', $product->product_barcode_plaintext),
+            'package_barcode' => sprintf('*%s*', $product->package_barcode_plaintext),
             'product_image' => (string)$productImage ? asset((string)$productImage) : null,
             'package_image' => (string)$product->package_image ? asset((string)$product->package_image) : null,
             'description' => $product->description,
