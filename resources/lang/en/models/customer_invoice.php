@@ -199,6 +199,7 @@ return [
         'deleted_at' => 'Trashed',
     ],
     'filters' => [
+        'date' => 'Date',
         'customer' => [
             'name' => 'Customer',
         ],

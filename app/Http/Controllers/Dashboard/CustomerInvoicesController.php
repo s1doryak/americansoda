@@ -313,8 +313,6 @@ class CustomerInvoicesController extends ResourceController
 
             return $filename;
         }
-
-
     }
 
     /**
@@ -339,16 +337,18 @@ class CustomerInvoicesController extends ResourceController
     }
 
     /**
-     * @return mixed
+     * @param Request $request
+     * @return \Illuminate\Http\Response
      */
-    public function maventaSentAt()
+    public function maventaSentAt(Request $request)
     {
         /** @var CustomerInvoice|null $customerInvoice */
         $result = MaventaCreateInvoice::dispatchNow(
-            $this->getResourceId()
+            $this->getResourceId(),
+            $this->invoice($request, false)
         );
 
-        return $result ? $result->status : 'ERROR';
+        return response($result ? $result->status : 'ERROR');
     }
 
     /**
@@ -364,21 +364,18 @@ class CustomerInvoicesController extends ResourceController
         /** @var CustomerInvoice $invoice */
         $invoice = $this->repository->with('customer')->find($id);
 
-        $customer = $invoice->customer;
         $notification = new SendInvoiceEmail(
             $this->invoice($request, false),
             sprintf('%s.pdf', $invoice->getInvoiceFileName()),
             $invoice
         );
-        $customer->notify($notification);
+
+        $invoice->customer->notify($notification);
 
         /** @var CustomerInvoice $customerInvoice */
-        $customerInvoice = $this->repository->update(
-            [
-                'maventa_sent_at' => now()
-            ],
-            $id
-        );
+        $customerInvoice = $this->repository->update([
+            'maventa_sent_at' => now()
+        ], $id);
 
         return response(format_date($customerInvoice->maventa_sent_at));
     }

@@ -21,13 +21,18 @@ class MaventaCreateInvoice implements ShouldQueue
     public $id;
 
     /**
-     * Create a new job instance.
-     *
-     * @return void
+     * @var
      */
-    public function __construct($id)
+    public $filename;
+
+    /**
+     * @param $id
+     * @param $filename
+     */
+    public function __construct($id, $filename)
     {
         $this->id = $id;
+        $this->filename = $filename;
     }
 
     /**
@@ -48,7 +53,7 @@ class MaventaCreateInvoice implements ShouldQueue
 
             /** @var object $result */
             $result = $maventa->invoice_create(
-                CustomerInvoiceTransformer::toMaventa($customerInvoice)
+                CustomerInvoiceTransformer::toMaventa($customerInvoice, $this->filename)
             );
 
             if ($result->status === 'OK: INVOICE CREATED') {

@@ -10,8 +10,8 @@ namespace App;
  * @property string $product_barcode_plaintext
  * @property string $package_barcode
  * @property string $package_barcode_plaintext
- * @property string $product_image
- * @property string $package_image
+ * @property \Crmplease\MaterialAdmin\Database\Eloquent\Traits\Image\ImageField $product_image
+ * @property \Crmplease\MaterialAdmin\Database\Eloquent\Traits\Image\ImageField $package_image
  * @property string $description
  * @property string $contents
  * @property integer $number_in_package
