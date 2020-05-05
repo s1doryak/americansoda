@@ -6,8 +6,6 @@ use App\CustomerUser;
 use App\Notifications\Api\V1\AuthAttempt;
 use App\Notifications\Api\V1\AuthAttemptFailed;
 use App\Repositories\Contracts\CustomerUserRepository;
-use App\Repositories\Eloquent\AdministratorRepositoryEloquent;
-use App\Repositories\Eloquent\CustomerUserRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -30,7 +28,7 @@ class CustomerUserService extends ResourceService
     protected $administratorService;
 
     public function __construct(
-        CustomerUserRepositoryEloquent $repository,
+        CustomerUserRepository $repository,
         AdministratorService $administratorService
     )
     {
