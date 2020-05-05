@@ -24,7 +24,7 @@
                 <small>Päivämäärä</small>
             </td>
             <td class="text-right">
-                <small>Viitenumero</small>
+                <small>Yhteensä</small>
             </td>
         </tr>
         <tr>
@@ -34,8 +34,8 @@
             <td>
                 {{ $invoice->created_at->format('d.m.Y') }}
             </td>
-            <td class="number">
-                {{ $invoice->reference_nr }}
+            <td class="text-right number">
+                {!! auto_number_format($totalVatPrice, 2, ',', '&nbsp;') !!} €
             </td>
         </tr>
         <tr>
@@ -46,7 +46,7 @@
                 <small>Toimittaja viite</small>
             </td>
             <td class="text-right">
-                <small>Yhteensä</small>
+                <small>Viitenumero</small>
             </td>
         </tr>
         <tr>
@@ -57,7 +57,7 @@
                 {{ $customer->user->name }}
             </td>
             <td class="text-right">
-                {!! auto_number_format($totalVatPrice, 2, ',', '&nbsp;') !!} €
+                {{ $invoice->reference_nr }}
             </td>
         </tr>
 {{--        <tr>--}}
