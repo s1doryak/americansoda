@@ -64,8 +64,7 @@ class CustomerPreOrderTransformer implements TransformerContract
             'customer_id' => $customerPreOrder->customer ? $customerPreOrder->customer->id : null,
             'user_id' => $customerPreOrder->customerOrder ? $customerPreOrder->customerOrder->user->id : null,
             'status' => 'open',
-            'amount' => $customerPreOrder->amount,
-            'amount_vat' => $customerPreOrder->amount_vat,
+            'amount' => $customerPreOrder->amount_vat,
             'type' => 'pre-order',
 
             'created_at' => (string)$customerPreOrder->created_at,

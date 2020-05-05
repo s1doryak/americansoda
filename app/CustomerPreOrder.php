@@ -13,48 +13,46 @@ namespace App;
  * @property \App\CustomerOrder $customerOrder
  * @property \App\Customer $customer
  * @property \Illuminate\Support\Collection|\App\CustomerPreOrderItem[] $items
-
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerUser()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerOrder()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
-
  * @package App
  */
 class CustomerPreOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'number',
-		'reference_number',
-		'comment',
-		'customer_user_id',
-		'customer_order_id',
-		'customer_id',
-	];
+    protected $fillable = [
+        'number',
+        'reference_number',
+        'comment',
+        'customer_user_id',
+        'customer_order_id',
+        'customer_id',
+    ];
 
-	protected $appends = [
+    protected $appends = [
         'amount',
         'amount_vat',
-	];
+    ];
 
-	protected $casts = [
+    protected $casts = [
 
-	];
+    ];
 
-	protected $dates = [
+    protected $dates = [
 
-	];
+    ];
 
     protected $hidden = [
 
     ];
 
     protected $belongsTo = [
-		'customerUser' => \App\CustomerUser::class,
-		'customerOrder' => \App\CustomerOrder::class,
-		'customer' => \App\Customer::class,
+        'customerUser' => \App\CustomerUser::class,
+        'customerOrder' => \App\CustomerOrder::class,
+        'customer' => \App\Customer::class,
     ];
 
     protected $belongsToMany = [
@@ -74,7 +72,7 @@ class CustomerPreOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $hasMany = [
-		'items' => \App\CustomerPreOrderItem::class,
+        'items' => \App\CustomerPreOrderItem::class,
     ];
 
     protected $hasManyThrough = [
@@ -104,7 +102,7 @@ class CustomerPreOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public function getAmountAttribute($value)
     {
         return number_format(
-            $this->items->sum('total_price'),
+            $this->items->sum('total_price') + $this->items->sum('deposit_total_price'),
             2,
             '.',
             ''
@@ -114,7 +112,7 @@ class CustomerPreOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public function getAmountVatAttribute($value)
     {
         return number_format(
-            $this->items->sum('total_vat_price'),
+            $this->items->sum('total_vat_price') + $this->items->sum('deposit_total_vat_price'),
             2,
             '.',
             ''
