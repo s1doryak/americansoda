@@ -5,6 +5,7 @@ namespace App\Services\Api\V1;
 use App\CustomerUser;
 use App\Notifications\Api\V1\AuthAttempt;
 use App\Notifications\Api\V1\AuthAttemptFailed;
+use App\Repositories\Contracts\CustomerUserRepository;
 use App\Repositories\Eloquent\AdministratorRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerUserRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
@@ -19,22 +20,22 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class CustomerUserService extends ResourceService
 {
     /**
-     * @var CustomerUserRepositoryEloquent
+     * @var CustomerUserRepository
      */
     protected $repository;
 
     /**
-     * @var AdministratorRepositoryEloquent
+     * @var AdministratorService
      */
-    protected $administratorRepository;
+    protected $administratorService;
 
     public function __construct(
         CustomerUserRepositoryEloquent $repository,
-        AdministratorRepositoryEloquent $administratorRepository
+        AdministratorService $administratorService
     )
     {
         $this->repository = $repository;
-        $this->administratorRepository = $administratorRepository;
+        $this->administratorService = $administratorService;
     }
 
     /**
@@ -67,7 +68,7 @@ class CustomerUserService extends ResourceService
                 new AuthAttempt($this->getOrCreateToken($user))
             );
         } else {
-            $this->administratorRepository
+            $this->administratorService
                 ->all()
                 ->each(function ($administrator) use ($email) {
                     $administrator->notify(
