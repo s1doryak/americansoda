@@ -20,10 +20,14 @@ class CustomerUserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name',
+            'name' => [
+                'searchable' => true,
+            ],
             'email',
             'phone',
-            'customers.name',
+            'customers.name' => [
+                'searchable' => true,
+            ],
             'comment',
         ];
     }
@@ -59,12 +63,7 @@ class CustomerUserDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-            /*'customers.name' => [
-                'type' => 'choice',
-                'multiple' => true,
-                'data' => 'customers.id',
-                'lists' => 'customers.name',
-            ],*/
+
         ];
     }
 
