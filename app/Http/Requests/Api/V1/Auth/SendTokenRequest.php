@@ -32,7 +32,7 @@ class SendTokenRequest extends FormRequest
         $email = $this->input('email');
 
         if (!$customerUserService->firstWhere(compact('email'))) {
-            Notification::send($administratorService->all(), new AuthAttemptFailed(''));
+            Notification::send($administratorService->all(), new AuthAttemptFailed($email));
 
             throw new UnprocessableEntityHttpException();
         }
