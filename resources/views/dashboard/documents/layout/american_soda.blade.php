@@ -115,7 +115,7 @@
 
         .barcode {
             margin: .2em;
-            font-family: viisaseanmatala;
+            font-family: viisaseanmatala, serif;
             font-size: 3.2em;
         }
 

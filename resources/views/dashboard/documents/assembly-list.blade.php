@@ -4,17 +4,6 @@
     <meta charset="UTF-8">
     <title>Keräyslista</title>
     <style>
-        @font-face {
-            font-family: viisaseanmatala;
-            src: url('{{ env('APP_URL') }}/build/fonts/viisaseanmatala/viisaseanmatala.eot');
-            src: url('{{ env('APP_URL') }}/build/fonts/viisaseanmatala/viisaseanmatala.eot?#iefix') format('embedded-opentype'),
-            url('{{ env('APP_URL') }}/build/fonts/viisaseanmatala/viisaseanmatala.woff') format('woff'),
-            url('{{ env('APP_URL') }}/build/fonts/viisaseanmatala/viisaseanmatala.ttf') format('truetype'),
-            url('{{ env('APP_URL') }}/build/fonts/viisaseanmatala/viisaseanmatala.svg#icon') format('svg');
-            font-weight: normal;
-            font-style: normal;
-        }
-
         html {
             font-size: 16px;
         }

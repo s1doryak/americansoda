@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Company;
+use App\CompanyBankAccount;
 use App\Customer;
 use App\CustomerInvoice;
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
@@ -249,6 +250,11 @@ class CustomerInvoicesController extends ResourceController
         /** @var Company $company */
         $company = $this->companies->with('region')->first();
 
+        /** @var CompanyBankAccount $companyBankAccount */
+        $companyBankAccount = $company->companyBankAccounts->first(function (CompanyBankAccount $companyBankAccount) {
+            return $companyBankAccount->default;
+        });
+
         /** @var CustomerInvoice $invoice */
         $invoice = $this->repository->with([
             'customer',
@@ -273,6 +279,7 @@ class CustomerInvoicesController extends ResourceController
 
         return compact(
             'company',
+            'companyBankAccount',
             'customer',
             'invoice',
             'invoiceItems',
