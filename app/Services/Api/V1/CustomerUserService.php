@@ -4,7 +4,6 @@ namespace App\Services\Api\V1;
 
 use App\CustomerUser;
 use App\Notifications\Api\V1\AuthAttempt;
-use App\Notifications\Api\V1\AuthAttemptFailed;
 use App\Repositories\Contracts\CustomerUserRepository;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -22,18 +21,11 @@ class CustomerUserService extends ResourceService
      */
     protected $repository;
 
-    /**
-     * @var AdministratorService
-     */
-    protected $administratorService;
-
     public function __construct(
-        CustomerUserRepository $repository,
-        AdministratorService $administratorService
+        CustomerUserRepository $repository
     )
     {
         $this->repository = $repository;
-        $this->administratorService = $administratorService;
     }
 
     /**
@@ -66,13 +58,6 @@ class CustomerUserService extends ResourceService
                 new AuthAttempt($this->getOrCreateToken($user))
             );
         } else {
-            $this->administratorService
-                ->all()
-                ->each(function ($administrator) use ($email) {
-                    $administrator->notify(
-                        new AuthAttemptFailed($email)
-                    );
-                });
             throw (new ModelNotFoundException)->setModel(CustomerUser::class);
         }
 
