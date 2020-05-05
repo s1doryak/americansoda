@@ -4,15 +4,17 @@ namespace App\Services\Api\V1;
 
 use App\CustomerUser;
 use App\Notifications\Api\V1\AuthAttempt;
+use App\Notifications\Api\V1\AuthAttemptFailed;
+use App\Repositories\Eloquent\AdministratorRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerUserRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class CustomerUserService extends ResourceService
 {
@@ -21,11 +23,18 @@ class CustomerUserService extends ResourceService
      */
     protected $repository;
 
+    /**
+     * @var AdministratorRepositoryEloquent
+     */
+    protected $administratorRepository;
+
     public function __construct(
-        CustomerUserRepositoryEloquent $repository
+        CustomerUserRepositoryEloquent $repository,
+        AdministratorRepositoryEloquent $administratorRepository
     )
     {
         $this->repository = $repository;
+        $this->administratorRepository = $administratorRepository;
     }
 
     /**
@@ -58,6 +67,13 @@ class CustomerUserService extends ResourceService
                 new AuthAttempt($this->getOrCreateToken($user))
             );
         } else {
+            $this->administratorRepository
+                ->all()
+                ->each(function ($administrator) use ($email) {
+                    $administrator->notify(
+                        new AuthAttemptFailed($email)
+                    );
+                });
             throw (new ModelNotFoundException)->setModel(CustomerUser::class);
         }
 
