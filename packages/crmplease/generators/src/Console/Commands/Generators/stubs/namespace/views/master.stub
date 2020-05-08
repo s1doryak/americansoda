@@ -1,0 +1,25 @@
+@extends('material-admin::master')
+
+@section('head')
+    @parent
+    {{-- <link rel="stylesheet" href="{{ asset('assets/{{namespace_snake_case}}/css/{{namespace_snake_case}}.css') }}?ver={{ config('app.version') }}"> --}}
+@stop
+
+@section('scripts')
+    @parent
+    {{-- <script src="{{ asset('assets/{{namespace_snake_case}}/js/{{namespace_snake_case}}.js') }}?ver={{ config('app.version') }}"></script> --}}
+@stop
+
+@section('header-menu')
+    @parent
+    {{--
+    <li>
+       <a href="{{ route('{{namespace_snake_case}}.user.index') }}">
+           <div class="him-label">
+               <i class="zmdi zmdi-hc-lg zmdi-hc-fw zmdi-accounts"></i>
+               <span class="hidden-xs">{{ trans('models/user.labels.plural') }}</span>
+           </div>
+       </a>
+    </li>
+    --}}
+@stop

@@ -1,0 +1,1 @@
+@extends('{{namespace_snake_case}}::actions.create')

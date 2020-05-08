@@ -48,7 +48,12 @@ class CustomerPreOrderForm extends Form
         return [
             'number' => 'text',
             'comment' => 'textarea',
-            'customerUser' => 'choice',
+            'customerUser' => [
+                'type' => 'choice',
+                'attr' => [
+                    'disabled' => 'disabled'
+                ]
+            ],
             'customer' => [
                 'type' => 'choice',
                 'attr' => [

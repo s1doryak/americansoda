@@ -1,0 +1,22 @@
+/*-------------------------
+	Lightbox
+-------------------------*/
+
+.lightbox {
+  .lightbox-item {
+
+    & > img {
+      .transition(all);
+      .transition-duration(200ms);
+      width: 100%;
+      border-radius: 0;
+    }
+
+    &:hover {
+
+      img {
+        transform: none;
+      }
+    }
+  }
+}

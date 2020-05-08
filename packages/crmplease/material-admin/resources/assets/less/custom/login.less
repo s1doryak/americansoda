@@ -1,0 +1,98 @@
+.login-content {
+  background-color: transparent;
+  overflow: hidden;
+
+  @media screen and (max-width: @screen-xs) {
+    &:before {
+      vertical-align: top;
+    }
+  }
+
+  .alert {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.lc-block {
+
+  &:not(.lc-block-alt) {
+    .lcb-form {
+      position: relative;
+      @media screen and (max-width: @screen-xs) {
+        padding: 25px 55px 25px 25px;
+      }
+
+      .lgi-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+    }
+
+    .btn-login {
+      margin-top: 0;
+      transform: translateY(-50%);
+    }
+  }
+
+  .logo {
+    img, svg {
+      max-width: 250px;
+      max-height: 90px;
+      margin-bottom: 40px;
+      @media screen and (max-width: @screen-xs) {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .checkbox {
+    min-height: initial;
+  }
+}
+
+/*-----------------------------
+    Login Navigation
+------------------------------*/
+.lcb-navigation {
+
+  a, a span {
+    .transition(width);
+    .transition-duration(200ms);
+  }
+
+  a {
+    width: auto;
+    margin: 10px 5px;
+    padding: 0 15px;
+
+    i {
+      width: auto;
+      margin-right: 10px;
+    }
+
+    span {
+      width: auto;
+    }
+
+  }
+}
+
+/**
+ * Change Autocomplete styles in Chrome
+ * Reference: https://css-tricks.com/snippets/css/change-autocomplete-styles-webkit-browsers/
+ */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  background-color: transparent !important;
+}

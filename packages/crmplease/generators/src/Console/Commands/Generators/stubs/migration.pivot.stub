@@ -1,0 +1,35 @@
+<?php
+
+use Crmplease\MaterialAdmin\Database\Schema\Blueprint;
+use Crmplease\MaterialAdmin\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
+
+class Create{{pivot_class_name}}Table extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('{{pivot_table_name}}', function (Blueprint $table) {
+            $table->fks([
+                '{{a_table}}_id',
+                '{{b_table}}_id'
+            ], 'cascade', true);
+{{pivot_table_fields}}
+{{pivot_table_timestamps}}
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('{{pivot_table_name}}');
+    }
+}

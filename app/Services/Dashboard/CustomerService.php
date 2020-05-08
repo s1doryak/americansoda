@@ -42,6 +42,10 @@ class CustomerService extends ResourceService
      */
     public function applyPriceGroupToCustomer(Customer $customer, PriceGroup $priceGroup)
     {
+        if ($priceGroup->manual) {
+            return;
+        }
+
         /** @var PriceGroupBreakpoint[] $priceGroupBreakpoints * */
         $priceGroupBreakpoints = $priceGroup->priceGroupBreakpoints;
         $this->customerPricingPolicyService->deleteWhere(['customer_id' => $customer->id]);

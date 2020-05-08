@@ -1,0 +1,241 @@
+.ma-theme(@color) {
+  background-color: transparent;
+
+  .plc-path {
+    stroke: @color
+  }
+
+  .c-primary {
+    color: @color !important;
+  }
+
+  .bgm-primary {
+    background-color: @color !important;
+  }
+
+  .btn-primary {
+    background-color: @color;
+
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    .open > .dropdown-toggle& {
+      background-color: @color;
+      border-color: transparent;
+
+      &:hover,
+      &:focus,
+      &.focus {
+        background-color: @color;
+        border-color: transparent
+      }
+    }
+    &:active,
+    &.active,
+    .open > .dropdown-toggle& {
+      background-image: none;
+    }
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+      &,
+      &:hover,
+      &:focus,
+      &.focus,
+      &:active {
+        background-color: @color;
+        border-color: @color;
+      }
+    }
+
+    .badge {
+      background-color: @color;
+    }
+  }
+
+  .checkbox, .radio {
+    input {
+      &:checked + .input-helper {
+        &:before {
+          border-color: @color;
+        }
+      }
+    }
+  }
+
+  .checkbox {
+    input {
+      &:checked + .input-helper {
+        &:before {
+          background-color: @color;
+        }
+      }
+    }
+  }
+
+  .radio {
+    .input-helper {
+      &:after {
+        background: @color;
+      }
+    }
+  }
+
+  #header {
+    background-color: @color;
+
+    .ss-icon {
+      color: @color;
+    }
+
+    .ha-menu {
+      @media (max-width: @screen-xs-max) {
+        background: @color;
+      }
+    }
+  }
+
+  .login-content {
+    background-color: @color;
+  }
+
+  table.dataTable {
+    tbody {
+      & > tr.selected,
+      & > tr > .selected {
+        background-color: @color;
+        td {
+          &,
+          & * {
+            color: @m-white !important;
+          }
+        }
+      }
+    }
+  }
+
+  .dataTables_wrapper {
+    #header .hi-spinner > div {
+      &:before {
+        color: @color;
+      }
+    }
+    .dataTables_paginate {
+      .paginate_button {
+        &.current {
+          &, &:hover, &:focus {
+            background: @color;
+          }
+        }
+      }
+    }
+  }
+
+  .daterangepicker {
+    &.dropdown-menu {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    .ranges {
+      ul {
+        li {
+          color: @color;
+          &.active,
+          &.active:hover,
+          &:hover {
+            background-color: @color;
+            color: @m-white;
+          }
+        }
+      }
+      .range_inputs {
+        .applyBtn {
+          background-color: @color;
+        }
+      }
+    }
+    .daterangepicker_input {
+      .input-mini {
+        border-width: 0 0 2px 0;
+        border-radius: 0;
+        &.active {
+          border-color: @color;
+        }
+      }
+    }
+    .calendar-table {
+      td {
+        &.in-range {
+          background-color: lighten(@color, 40%);
+        }
+        &.active,
+        &.active:hover,
+        &.start-date,
+        &.start-date:hover,
+        &.end-date,
+        &.end-date:hover {
+          background-color: @color;
+          color: @m-white;
+        }
+      }
+    }
+  }
+
+  table.dataTable.dtr-inline.collapsed {
+    & > tbody {
+      & > tr[role="row"] {
+        & > th:first-child:before,
+        & > td:first-child:before {
+          top: 50%;
+          transform: translateY(-50%);
+          box-shadow: none;
+          font-family: inherit;
+          background-color: @color;
+        }
+      }
+      & > tr.parent {
+        & > th:first-child:before,
+        & > td:first-child:before {
+          background-color: @m-red;
+        }
+      }
+    }
+  }
+
+  .note-editor,
+  .note-popover {
+    .note-toolbar,
+    .popover-content {
+      & > .btn-group {
+        & > .active {
+          background: @color;
+        }
+      }
+    }
+
+  }
+
+}
+
+[data-ma-theme="white"] { .ma-theme(@m-white); }
+[data-ma-theme="black"] { .ma-theme(@m-black); }
+[data-ma-theme="blue"] { .ma-theme(@m-blue); }
+[data-ma-theme="red"] { .ma-theme(@m-red); }
+[data-ma-theme="purple"] { .ma-theme(@m-purple); }
+[data-ma-theme="deeppurple"] { .ma-theme(@m-deeppurple); }
+[data-ma-theme="lightblue"] { .ma-theme(@m-lightblue); }
+[data-ma-theme="cyan"] { .ma-theme(@m-cyan); }
+[data-ma-theme="teal"] { .ma-theme(@m-teal); }
+[data-ma-theme="green"] { .ma-theme(@m-green); }
+[data-ma-theme="lightgreen"] { .ma-theme(@m-lightgreen); }
+[data-ma-theme="lime"] { .ma-theme(@m-lime); }
+[data-ma-theme="yellow"] { .ma-theme(@m-yellow); }
+[data-ma-theme="amber"] { .ma-theme(@m-amber); }
+[data-ma-theme="orange"] { .ma-theme(@m-orange); }
+[data-ma-theme="deeporange"] { .ma-theme(@m-deeporange); }
+[data-ma-theme="gray"] { .ma-theme(@m-gray); }
+[data-ma-theme="bluegray"] { .ma-theme(@m-bluegray); }
+[data-ma-theme="indigo"] { .ma-theme(@m-indigo); }
+[data-ma-theme="pink"] { .ma-theme(@m-pink); }
+[data-ma-theme="brown"] { .ma-theme(@m-brown); }

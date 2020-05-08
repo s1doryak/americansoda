@@ -1,0 +1,32 @@
+<?php
+
+use Crmplease\MaterialAdmin\Database\Schema\Blueprint;
+use Crmplease\MaterialAdmin\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
+
+class Update{{class_plural}}Table{{migration_hash}} extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('{{class_snake_case_plural}}', function (Blueprint $table) {
+{{migration_fks}}
+{{migration_fields}}
+{{migration_morph_to}}
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        //
+    }
+}

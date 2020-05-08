@@ -1,0 +1,49 @@
+/*--------------------------------------------------
+    Block Header
+    Used for Heading outside the Cards.
+---------------------------------------------------*/
+.block-header {
+  @media screen and (min-width: @screen-sm-min) {
+    padding: 0 28px;
+  }
+
+  & > h2 {
+    display: inline-block;
+    font-weight: inherit;
+    text-transform: none;
+    & > small {
+      margin-bottom: 0;
+    }
+    & > a {
+      color: inherit;
+    }
+  }
+
+  .buttons {
+    float: right;
+    margin-top: -8px;
+  }
+
+  .actions {
+    top: -2px;
+    & > li {
+      & > a {
+        padding-top: 0;
+      }
+    }
+  }
+}
+
+/*-------------------------
+    Collapse Menu Icons
+--------------------------*/
+.line-wrap {
+  margin: 10px 10px;
+}
+
+/*----------------------------------
+    Backdrop
+-----------------------------------*/
+.ma-backdrop {
+  background-color: rgba(0, 0, 0, 0.1);
+}

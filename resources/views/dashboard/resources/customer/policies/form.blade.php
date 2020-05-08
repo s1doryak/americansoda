@@ -1,6 +1,7 @@
 @php($exclude = (array)$options['exclude'])
 @php($fields = (array)$options['children'])
 @php($groups = $options['groups'] ?? collect())
+@php($can_add = isset($options['can_add']) ? is_callable($options['can_add']) ? call_user_func($options['can_add']) : (boolean)$options['can_add'] : true)
 @if ($showLabel && $showField)
     @if ($options['wrapper'] !== false)
         <div {!! $options['wrapperAttrs'] !!}>
@@ -15,7 +16,7 @@
                     @include('dashboard::resources.customer.policies._group-header', [
                         'group' => $group,
                         'is_template' => false,
-                        'can_add' => true,
+                        'can_add' => $can_add,
                         'can_select' => true,
                         'can_edit' => true,
                         'can_remove' => true

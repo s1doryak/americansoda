@@ -1,0 +1,77 @@
+<?php return [
+    'title' => 'Home',
+    'actions' => [
+        'refresh' => 'Refresh',
+        'manage-widgets' => 'Manage Widgets',
+        'widgets-settings' => 'Widgets Settings'
+    ],
+    'curved-line-chart' => [
+        'title' => 'Sales Statistics',
+        'subtitle' => 'Vestibulum purus quam scelerisque, mollis nonummy metus',
+        'actions' => [
+            'change-date-range' => 'Change Date Range',
+            'change-graph-type' => 'Change Graph Type',
+            'other-settings' => 'Other Settings'
+        ]
+    ],
+    'mini-charts' => [
+        'stats-bar' => 'Website Traffics',
+        'stats-bar-2' => 'Website Impressions',
+        'stats-line' => 'Total Sales',
+        'stats-line-2' => 'Support Tickets'
+    ],
+    'site-visits' => [
+        'title' => 'For the past 30 days',
+        'page-views' => 'Page Views',
+        'site-visitors' => 'Site Visitors',
+        'total-clicks' => 'Total Clicks'
+    ],
+    'pie-charts' => [
+        'title' => 'Email Statistics',
+        'total-emails-sent' => 'Total Emails Sent',
+        'bounce-rate' => 'Bounce Rate',
+        'total-opened' => 'Total Opened',
+        'total-ignored' => 'Total Ignored',
+    ],
+    'todo' => [
+        'title' => 'Todo Lists',
+        'placeholder' => 'What you want to do...',
+        'actions' => [
+            'delete' => 'Delete',
+            'archive' => 'Archive',
+        ],
+        'items' => [
+            'Duis vitae nibh molestie pharetra augue vitae',
+            'Suspendisse quis sollicitudin erosvel dictum nunc',
+            'Suspendisse potenti. Cras dolor augue, tincidunt sit amet lorem id, blandit rutrum libero',
+            'Sed ut perspiciatis unde omnis iste natus',
+            'Quis autem vel eum iure reprehenderit qui in ea voluptate velit',
+        ]
+    ],
+    'recent-items' => [
+        'title' => 'Recent Items',
+        'subtitle' => 'Phasellus condimentum ipsum id auctor imperdie',
+        'actions' => [
+            'change-date-range' => 'Change Date Range',
+            'change-graph-type' => 'Change Graph Type',
+            'other-settings' => 'Other Settings'
+        ],
+        'columns' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'price' => 'Price'
+        ],
+    ],
+    'recent-posts' => [
+        'title' => 'Recent Posts',
+        'subtitle' => 'Phasellus condimentum ipsum id auctor imperdie',
+        'actions' => [
+            'change-date-range' => 'Change Date Range',
+            'change-graph-type' => 'Change Graph Type',
+            'other-settings' => 'Other Settings'
+        ],
+        'buttons' => [
+            'view-more' => 'View All'
+        ]
+    ]
+];

@@ -74,9 +74,9 @@ class CompanyBankAccountTransformer implements TransformerContract
 
     /**
      * @param CompanyBankAccount $companyBankAccount
-     * @return array
+     * @return object
      */
-    public static function toMaventaArray($companyBankAccount)
+    public static function toMaventa($companyBankAccount)
     {
         /**
          * $bank_accounts = array();
@@ -91,7 +91,7 @@ class CompanyBankAccountTransformer implements TransformerContract
          * array_push($bank_accounts, $bank_account);
          */
 
-        return [
+        return (object)[
             'bank' => $companyBankAccount->bank,
             'swift' => $companyBankAccount->swift,
             'account' => $companyBankAccount->account,
@@ -107,7 +107,7 @@ class CompanyBankAccountTransformer implements TransformerContract
     public static function mapMaventa($collection)
     {
         return $collection->map(function ($item) {
-            return self::toMaventaArray($item);
+            return self::toMaventa($item);
         });
     }
 }

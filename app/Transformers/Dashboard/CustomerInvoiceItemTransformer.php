@@ -96,9 +96,9 @@ class CustomerInvoiceItemTransformer implements TransformerContract
 
     /**
      * @param CustomerInvoiceItem $customerInvoiceItem
-     * @return array
+     * @return object
      */
-    public static function toMaventaArray($customerInvoiceItem)
+    public static function toMaventa($customerInvoiceItem)
     {
         /**
          * # Gather invoice items into array
@@ -122,7 +122,7 @@ class CustomerInvoiceItemTransformer implements TransformerContract
          * array_push($items, $inv_items);
          */
 
-        return [
+        return (object)[
             'position' => $customerInvoiceItem->position,
             'item_code' => $customerInvoiceItem->item_code,
             'subject' => $customerInvoiceItem->subject,
@@ -134,6 +134,7 @@ class CustomerInvoiceItemTransformer implements TransformerContract
             'sum' => $customerInvoiceItem->sum,
             'tax' => $customerInvoiceItem->tax,
             'sum_tax' => $customerInvoiceItem->sum_tax,
+            'data' => null,
         ];
     }
 
@@ -144,7 +145,7 @@ class CustomerInvoiceItemTransformer implements TransformerContract
     public static function mapMaventa($collection)
     {
         return $collection->map(function ($item) {
-            return self::toMaventaArray($item);
+            return self::toMaventa($item);
         });
     }
 }

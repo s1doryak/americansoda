@@ -414,7 +414,7 @@ class ManageStockProducts
 				$common,
 				[
 					'back_order' => true,
-					'expected_date' => $this->getBackOrderExpectedDate($item->product->id),
+					'expected_date' => null,
 					'status' => config('stock.status.open'),
 					'customer_order_id' => $item->customerOrder->id,
 					'product_id' => $item->product->id,
@@ -513,18 +513,6 @@ class ManageStockProducts
 			'deposit_total_vat' => 0.00,
 			'deposit_total_vat_price' => $totalDepositPrice + ($totalDepositPrice * ($depositVat / 100)),
 		];
-	}
-
-	/**
-	 * Return back order's expected date by the product id.
-	 *
-	 * @param int $productId
-	 *
-	 * @return mixed
-	 */
-	protected function getBackOrderExpectedDate($productId)
-	{
-		return null;
 	}
 
 	/**

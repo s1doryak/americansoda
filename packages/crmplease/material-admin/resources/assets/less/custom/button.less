@@ -1,0 +1,44 @@
+.btn {
+    &:not(.btn-link) {
+        box-shadow: none;
+    }
+}
+
+.btn-group, .btn-group-vertical {
+    &:not(.bootstrap-select) {
+        box-shadow: none;
+    }
+}
+
+.btn-icon-text {
+    & > .zmdi,
+    & > span > .zmdi {
+        font-size: 15px;
+        vertical-align: top;
+        display: inline-block;
+        margin-top: 2px;
+        line-height: 100%;
+        @media (max-width: @screen-xs-max) {
+            margin-right: 0;
+        }
+
+        & + span {
+            margin-right: 5px;
+        }
+    }
+}
+
+.btn-default,
+.btn-primary,
+.btn-success,
+.btn-info,
+.btn-warning,
+.btn-danger {
+    &.btn-link {
+        color: @btn-primary-color;
+
+        &:hover {
+            color: @btn-primary-color;
+        }
+    }
+}

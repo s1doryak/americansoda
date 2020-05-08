@@ -20,8 +20,8 @@ services:
       - 3306:3306
     privileged: true
 
-  phpfpm:
-    image: crmplease/laravel-phpfpm
+  php-fpm:
+    image: crmplease/laravel-php-fpm
     volumes_from:
       - storage
     links:
@@ -35,10 +35,10 @@ services:
     volumes_from:
       - storage
     links:
-      - phpfpm:phpfpm
+      - php-fpm:php-fpm
     depends_on:
       - database
-      - phpfpm
+      - php-fpm
     ports:
       - 80:80
     privileged: true
@@ -49,7 +49,7 @@ services:
       - storage
     depends_on:
       - database
-      - phpfpm
+      - php-fpm
       - nginx
     links:
       - database:database
@@ -61,18 +61,17 @@ services:
       - storage
     depends_on:
       - database
-      - phpfpm
+      - php-fpm
       - nginx
     privileged: true
 
   queue:
     image: crmplease/laravel-queue
-    command: php artisan queue:listen --queue=default --tries=3
     volumes_from:
       - storage
     depends_on:
       - database
-      - phpfpm
+      - php-fpm
       - nginx
     links:
       - database:database
@@ -84,7 +83,7 @@ services:
       - storage
     depends_on:
       - database
-      - phpfpm
+      - php-fpm
       - nginx
     links:
       - database:database
@@ -95,22 +94,3 @@ services:
     volumes_from:
       - storage
     privileged: true
-
-#  websocket:
-#    build: docker/websocket
-#    volumes_from:
-#      - storage
-#    links:
-#      - redis:redis
-#    depends_on:
-#      - redis
-#    ports:
-#      - 6001:6001
-#    privileged: true
-#
-#  redis:
-#    image: redis
-#    command: redis-server --requirepass forge
-#    ports:
-#      - 6379:6379
-#    privileged: true

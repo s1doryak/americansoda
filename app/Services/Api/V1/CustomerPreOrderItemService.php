@@ -6,6 +6,7 @@ use App\Repositories\Contracts\CustomerPreOrderItemRepository;
 use App\Repositories\Eloquent\CustomerPreOrderItemRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerPricingPolicyRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -72,12 +73,13 @@ class CustomerPreOrderItemService extends ResourceService
             'customer_user_id' => Auth::id(),
             'customer_id' => $customerPreOrder->customer_id
         ];
+        $preOrderItemsQuantity = $this->getTotalSalesUnitQuantity($preOrderItems);
 
         foreach ($preOrderItems as $preOrderItem) {
             $customerPreOrderItems[] = array_merge(
                 $preOrderItemsCustomerData,
                 $preOrderItem,
-                $this->getCalculatedFields($preOrderItem, $customerPreOrder->id)
+                $this->getCalculatedFields($preOrderItem, $customerPreOrder->customer_id, $preOrderItemsQuantity)
             );
         }
 
@@ -87,13 +89,14 @@ class CustomerPreOrderItemService extends ResourceService
     /**
      * @param array $preOrderItem
      * @param integer $customerId
+     * @param $preOrderItemsQuantity
      * @return array
      */
-    protected function getCalculatedFields($preOrderItem, $customerId)
+    protected function getCalculatedFields($preOrderItem, $customerId, $preOrderItemsQuantity)
     {
         $product = $this->productService->with('productGroup')->find($preOrderItem['product_id']);
         $productGroup = $product->productGroup;
-        $price = $this->customerPricingPolicyService->getPriceBySalesUnitQuantity($preOrderItem['quantity'], $customerId, $productGroup->id);
+        $price = $this->customerPricingPolicyService->getPriceBySalesUnitQuantity($preOrderItemsQuantity, $customerId, $productGroup->id);
         $packagesQuantity = $preOrderItem['quantity'] * $productGroup->sales_unit_volume / $product->number_in_package;
         $productsQuantity = $packagesQuantity * $product->number_in_package;
         $totalPrice = $price * $productsQuantity;
@@ -107,15 +110,27 @@ class CustomerPreOrderItemService extends ResourceService
         $depositTotalVatPrice = $productsQuantity * $depositVatPrice;
 
         return [
-            'price' => $price,
-            'vat_price' => $price + ($price * ($productGroup->vat / 100)),
-            'products_quantity' => $productsQuantity,
-            'total_price' => $totalPrice,
-            'total_vat_price' => $totalVatPrice,
-            'deposit_price' => $depositPrice,
-            'deposit_vat_price' => $depositVatPrice,
-            'deposit_total_price' => $depositTotalPrice,
-            'deposit_total_vat_price' => $depositTotalVatPrice
+            'price' => round($price),
+            'vat_price' => round($price + ($price * ($productGroup->vat / 100))),
+            'products_quantity' => round($productsQuantity, 2),
+            'total_price' => round($totalPrice, 2),
+            'total_vat_price' => round($totalVatPrice, 2),
+            'deposit_price' => round($depositPrice, 2),
+            'deposit_vat_price' => round($depositVatPrice, 2),
+            'deposit_total_price' => round($depositTotalPrice, 2),
+            'deposit_total_vat_price' => round($depositTotalVatPrice, 2)
         ];
+    }
+
+    /**
+     * @param Collection $items
+     *
+     * @return mixed
+     */
+    protected function getTotalSalesUnitQuantity($items)
+    {
+        return collect($items)->filter(function ($item) {
+            return false === booleanize($item['_remove'] ?? false);
+        })->sum('quantity');
     }
 }

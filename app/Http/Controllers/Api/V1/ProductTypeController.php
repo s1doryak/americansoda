@@ -29,6 +29,6 @@ class ProductTypeController extends Controller
     {
         $data = $service->getCleanByShopId($request->route('id'), $request->query('ids'));
 
-        return response()->json($data, Response::HTTP_OK);
+        return response()->json($data->values(), Response::HTTP_OK);
     }
 }

@@ -1,0 +1,60 @@
+<?php
+
+namespace {{namespace}};
+
+use App\{{class}};
+{{creator_repositories}}
+use Crmplease\MaterialAdmin\Console\Commands\Resources\ResourceCreator;
+
+/**
+ * {{class}} resource creator.
+ *
+ * @package {{namespace}}
+ */
+class {{class}}Creator extends ResourceCreator
+{
+    /**
+     * @var string
+     */
+    protected $name = 'resource:create:{{resource}}';
+
+    /**
+     * @var string
+     */
+    protected $namespace = 'cli';
+
+    /**
+     * @var string
+     */
+    protected $resource = '{{resource}}';
+
+    /**
+     * @var string
+     */
+    protected $action = 'store';
+
+    /**
+     * @var array
+     */
+    protected $params = [];
+
+{{creator_properties}}
+
+	/**
+	 * @var array
+	 */
+	protected $findOrCreateData = [
+{{creator_find_or_create_data}}
+	];
+
+	public function __construct(
+	    {{class}} ${{class_camel_case}},
+{{creator_constructor_signature}}
+	)
+	{
+	    $this->model = ${{class_camel_case}};
+{{creator_constructor_body}}
+
+        parent::__construct();
+	}
+}

@@ -69,7 +69,7 @@ class CustomerShipmentService extends ResourceService
             'customer.stock',
             'customer.stock.region'
         ])->find($shipmentId);
-        $pdf = PDF::loadView('dashboard::documents.waybill', $this->prepareShipmentData($shipment));
+        $pdf = PDF::loadView('dashboard::documents.package-list', $this->prepareShipmentData($shipment));
         $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Rahtikirja')));
 
         return $pdf->inline($filename)

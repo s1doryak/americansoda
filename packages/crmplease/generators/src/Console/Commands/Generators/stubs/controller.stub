@@ -1,0 +1,161 @@
+<?php
+
+namespace {{namespace}};
+
+use App\DataTables\{{class}}DataTable;
+{{controller_repositories}}
+use Illuminate\Contracts\Auth\Access\Gate;
+
+/**
+ * {{class}} controller.
+ *
+ * @package {{namespace}}
+ */
+class {{class_plural}}Controller extends \Crmplease\MaterialAdmin\Routing\ResourceController
+{
+	/**
+	 * @var Gate
+	 */
+	protected $gate;
+
+    /**
+     * @var string
+     */
+	protected $defaultMiddleware = 'auth:{{prefix}}';
+
+    /**
+     * @var string
+     */
+    protected $prefix = '{{prefix}}';
+
+    /**
+     * @var string
+     */
+    protected $resource = '{{resource}}';
+
+    /**
+     * @var string
+     */
+    protected $dataTable = {{class}}DataTable::class;
+
+    /**
+     * @var string
+     */
+    protected $translationPrefix = 'models/';
+
+    /**
+     * @var array
+     */
+    protected $with = [
+{{controller_with}}
+    ];
+
+{{controller_properties}}
+
+	/**
+	 * Popup windows. @see getPopupActions()
+	 *
+	 * Example:
+	 *
+	 *  'create',
+	 *  'edit',
+	 *
+	 * or size specific:
+	 *
+	 *  'create' => 'large',
+	 *  'edit' => 'fullscreen',
+	 *
+	 * or advanced configuration:
+	 *
+	 *  'create' => [
+	 *      'resource' => 'user',
+	 *      'title' => 'Custom Title',
+	 *      'class' => 'modal-lg',
+	 *  ],
+	 *  'edit' => [
+	 *      'resource' => 'user',
+	 *      'title' => 'Custom Title',
+	 *      'class' => 'modal-fluid',
+	 *  ],
+	 *
+	 */
+	protected $popupActions = [
+
+	];
+
+	/**
+	 * Array describing additional data for the HTML 'create' form.
+	 *
+	 * Example:
+	 *
+	 * 'customer_orders' => [
+	 *     'repository' => 'orders',
+	 *     'lists' => 'number', // or 'lists' => ['number', 'id']
+	 *     'selected' => 'order' // or 'selected' => ['order, 'id']
+	 * ],
+	 * 'employees' => [
+	 *     'repository' => 'employees',
+	 *     'lists' => 'name',
+	 *     'selected' => 'employee'
+	 * ]
+	 *
+	 * @var array
+	 * @see mapFormDataConfigToAction()
+	 */
+	protected $createActionFormData = [
+{{controller_form_data}}
+	];
+
+	/**
+	 * Array describing additional data for the HTML 'edit' form.
+	 *
+	 * @var array
+	 */
+	protected $editActionFormData = [
+{{controller_form_data}}
+	];
+
+	/**
+	 * Custom editing actions. @see getEditingActions()
+	 *
+	 * @var array
+	 */
+	protected $editingActions = [
+
+	];
+
+	/**
+	 * Custom editing actions. @see getPersistingActions()
+	 *
+	 * @var array
+	 */
+	protected $persistingActions = [
+
+	];
+
+	/**
+	 * Additional view response data.
+	 *
+	 * @var array
+	 */
+	protected $defaultViewData = [
+
+	];
+
+    /**
+     * {{class_plural}}Controller constructor.
+     * @param Gate $gate
+{{controller_constructor_phpdoc}}
+     * @return void
+     */
+	public function __construct(
+	    Gate $gate,
+{{controller_constructor_signature}}
+	)
+	{
+	    parent::__construct();
+
+	    $this->gate = $gate;
+{{controller_constructor_body}}
+	}
+}

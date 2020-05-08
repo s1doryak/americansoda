@@ -80,13 +80,6 @@ class AssignCustomerOrderItems
         $attributes = $event->getAttributes();
         $params = $event->getParams();
 
-        $order = $this->customerOrders->scopeQuery(
-            function ($query) {
-                /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
-                return $query->withTrashed();
-            }
-        )->find($attributes['id']);
-
         if ($event instanceof ResourceTrashed) {
 
             $customerOrderItems = $this->customerOrderItems->with(
@@ -223,7 +216,16 @@ class AssignCustomerOrderItems
             ['product', 'product.productGroup', 'customer', 'customerOrder']
         )->findAllByOrderId($attributes['id']);
 
-        event(new CustomerOrderItemsAssigned($order, $customerOrderItems, $attributes, $params));
+        if (!($event instanceof ResourceDestroyed)) {
+            $order = $this->customerOrders->scopeQuery(
+                function ($query) {
+                    /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                    return $query->withTrashed();
+                }
+            )->find($attributes['id']);
+
+            event(new CustomerOrderItemsAssigned($order, $customerOrderItems, $attributes, $params));
+        }
     }
 
     /**

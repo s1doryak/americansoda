@@ -41,7 +41,7 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
             ->has('productGroups.products')
             ->with([
                 'productGroups.products' => function ($query) use ($productGroupIds) {
-                    return $query->select('id', 'product_group_id')
+                    return $query->select('id', 'product_group_id', 'name')
                         ->whereIn('product_group_id', $productGroupIds)
                         ->whereNull('deleted_at');
                 },
@@ -53,9 +53,10 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
                         ->whereNull('deleted_at');
                 },
                 'productGroups' => function ($query) use ($withCount) {
-                    return $query->select('id', 'product_type_id')->withCount($withCount);
+                    return $query->select('id', 'product_type_id', 'name')->withCount($withCount);
                 }
             ])
+            ->orderBy('name')
             ->get(['id'])
             ->map(function ($productType) {
                 $productGroups = $productType->productGroups->filter(function ($productGroup) {
@@ -81,10 +82,12 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
 
         $result = ($ids) ? $query->findWhereIn('id', $ids) : $query->get();
 
-        return $result->map(function ($productType) {
-            $productType['image'] = (string)$productType['image'] ? asset((string)$productType['image']) : null;
+        return $result
+            ->map(function ($productType) {
+                $productType['image'] = (string)$productType['image'] ? asset((string)$productType['image']) : null;
 
-            return $productType;
-        });
+                return $productType;
+            })
+            ->sortBy('name');
     }
 }

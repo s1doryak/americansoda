@@ -1,0 +1,4 @@
+<?php return [
+	'subject' => '{{notification_subject_translation}}',
+	'message' => '{{notification_message_translation}}',
+];

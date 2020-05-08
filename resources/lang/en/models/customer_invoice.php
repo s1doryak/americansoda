@@ -50,6 +50,12 @@ return [
     'send' => [
         'title' => 'Send to Maventa',
     ],
+    'invoice' => [
+        'title' => 'Download Invoice',
+    ],
+    'send_email' => [
+        'title' => 'Send email',
+    ],
     'fields' => [
         'maventa_id' => 'Maventa',
         'maventa_tiff' => 'Maventa Tiff',
@@ -93,6 +99,7 @@ return [
         'customer_contact_p' => 'Customer Contact P',
         'customer_bid' => 'Customer Bid',
         'customer_ovt' => 'Customer Ovt',
+        'customer_reference' => 'Customer Reference',
         'customer' => [
             'name' => 'Customer',
         ],
@@ -129,7 +136,7 @@ return [
         'maventa_tiff' => 'Maventa Tiff',
         'maventa_initiated' => 'Maventa Initiated',
         'maventa_paid' => 'Maventa Paid',
-        'maventa_sent_at' => 'Maventa Sent At',
+        'maventa_sent_at' => 'Maventa Send',
         'currency' => 'Currency',
         'data' => 'Data',
         'date' => 'Date',
@@ -167,6 +174,7 @@ return [
         'customer_contact_p' => 'Customer Contact P',
         'customer_bid' => 'Customer Bid',
         'customer_ovt' => 'Customer Ovt',
+        'customer_reference' => 'Customer Reference',
         'customer' => [
             'name' => 'Customer',
         ],
@@ -193,6 +201,7 @@ return [
         'deleted_at' => 'Trashed',
     ],
     'filters' => [
+        'date' => 'Date',
         'customer' => [
             'name' => 'Customer',
         ],

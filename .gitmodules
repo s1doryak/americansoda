@@ -1,11 +1,3 @@
-[submodule "packages/crmplease/generators"]
-	path = packages/crmplease/generators
-	url = git@gitlab.crmplease.me:crmplease/generators.git
-
-[submodule "packages/crmplease/material-admin"]
-	path = packages/crmplease/material-admin
-	url = git@gitlab.crmplease.me:crmplease/material-admin.git
-
 [submodule "packages/crmplease/maventa"]
 	path = packages/crmplease/maventa
 	url = git@gitlab.crmplease.me:crmplease/maventa.git

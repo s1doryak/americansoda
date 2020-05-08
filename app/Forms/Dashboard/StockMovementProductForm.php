@@ -31,7 +31,7 @@ class StockMovementProductForm extends Form
             'expiration_date' => [
                 'type' => 'datepicker',
                 'attr' => [
-                    'format' => 'd/m/Y'
+                    'format' => 'DD/MM/YYYY'
                 ]
             ],
             'movement_type' => [
@@ -61,7 +61,7 @@ class StockMovementProductForm extends Form
             'expiration_date' => [
                 'type' => 'datepicker',
                 'attr' => [
-                    'format' => 'd/m/Y'
+                    'format' => 'DD/MM/YYYY'
                 ]
             ],
             'movement_type' => [

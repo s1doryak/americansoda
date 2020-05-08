@@ -52,6 +52,7 @@ namespace App;
  * @property string $customer_contact_p
  * @property string $customer_bid
  * @property string $customer_ovt
+ * @property string $customer_reference
  * @property \App\Customer $customer
  * @property \App\CustomerShipment $customerShipment
  * @property \Illuminate\Support\Collection|\App\CompanyBankAccount[] $companyBankAccounts
@@ -123,6 +124,7 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'customer_contact_p',
         'customer_bid',
         'customer_ovt',
+		'customer_reference',
     ];
 
     protected $appends = [
@@ -207,5 +209,17 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         }
 
         return sprintf("%s%s", $number, viitenumero_check_digit($number));
+    }
+
+    /**
+     * @return string|
+     */
+    public function getInvoiceFileName()
+    {
+        return preg_replace(
+            '/\s+/mui',
+            '_',
+            sprintf('invoice_%d', $this->id)
+        );
     }
 }

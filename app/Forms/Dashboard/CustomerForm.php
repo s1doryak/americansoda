@@ -7,7 +7,6 @@ use App\CustomerPricingPolicy;
 use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Contracts\ProductGroupRepository;
 use Crmplease\MaterialAdmin\Forms\Form;
-use Illuminate\Validation\Rule;
 
 /**
  * Customer form.
@@ -287,9 +286,14 @@ class CustomerForm extends Form
                 ->filter(function (CustomerPricingPolicy $customerPricingPolicy) {
                     return false === $customerPricingPolicy->trashed();
                 })
+                ->sortBy('products_range')
                 ->groupBy(function (CustomerPricingPolicy $customerPricingPolicy) {
                     return $customerPricingPolicy->productGroup ? $customerPricingPolicy->productGroup->getKey() : null;
                 }),
+            'can_add' => $customer->priceGroup->manual ?? false,
+            'can_edit' => $customer->priceGroup->manual ?? false,
+            'can_remove' => $customer->priceGroup->manual ?? false,
+            'can_select' => $customer->priceGroup->manual ?? false,
         ];
 
         return $fields;

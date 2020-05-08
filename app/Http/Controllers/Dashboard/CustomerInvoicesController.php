@@ -3,26 +3,29 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Company;
+use App\CompanyBankAccount;
 use App\Customer;
-use App\Jobs\MaventaConfirmInvoice;
-use App\Jobs\MaventaCreateInvoice;
-use App\Repositories\Contracts\CompanyRepository;
-use Crmplease\MaterialAdmin\Http\Requests\Request;
-use PDF;
 use App\CustomerInvoice;
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
-use App\Repositories\Contracts\CustomerInvoiceRepository;
-use App\Repositories\Contracts\CustomerRepository;
-use App\Repositories\Contracts\CustomerShipmentRepository;
+use App\Jobs\MaventaConfirmInvoice;
+use App\Jobs\MaventaCreateInvoice;
+use App\Notifications\Dashboard\SendInvoiceEmail;
 use App\Repositories\Contracts\CompanyBankAccountRepository;
-use App\Repositories\Contracts\CustomerInvoiceItemRepository;
+use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\CustomerInvoiceActionRepository;
 use App\Repositories\Contracts\CustomerInvoiceAttachmentRepository;
+use App\Repositories\Contracts\CustomerInvoiceItemRepository;
+use App\Repositories\Contracts\CustomerInvoiceRepository;
 use App\Repositories\Contracts\CustomerOrderItemRepository;
 use App\Repositories\Contracts\CustomerOrderRepository;
+use App\Repositories\Contracts\CustomerRepository;
+use App\Repositories\Contracts\CustomerShipmentRepository;
 use App\Repositories\Contracts\ProductRepository;
+use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\Carbon;
+use PDF;
 
 /**
  * CustomerInvoice controller.
@@ -191,11 +194,6 @@ class CustomerInvoicesController extends ResourceController
                 'lists' => 'name',
                 'extra' => 'content'
             ],
-            //'customerInvoiceItems' => 'item_code',
-            //'customerInvoiceActions' => 'action',
-            //'customerInvoiceAttachments' => 'filename',
-            //'customerOrders' => 'number',
-            //'customerOrderItems' => 'product_name',
             'products' => 'name',
         ];
 
@@ -224,11 +222,6 @@ class CustomerInvoicesController extends ResourceController
                     };
                 }
             ],
-            //'customerInvoiceItems' => 'item_code',
-            //'customerInvoiceActions' => 'action',
-            //'customerInvoiceAttachments' => 'filename',
-            //'customerOrders' => 'number',
-            //'customerOrderItems' => 'product_name',
             'products' => 'name',
         ];
 
@@ -245,10 +238,6 @@ class CustomerInvoicesController extends ResourceController
      */
     protected function getRedirectUrl($action, $customerInvoice = null)
     {
-        if ($customerInvoice && $customerInvoice->getKey()) {
-            return route(sprintf('%s.%s.edit', $this->getPrefix(), $this->getResource()), $customerInvoice->getKey());
-        }
-
         return route(sprintf('%s.%s.index', $this->getPrefix(), $this->getResource()));
     }
 
@@ -260,6 +249,11 @@ class CustomerInvoicesController extends ResourceController
     {
         /** @var Company $company */
         $company = $this->companies->with('region')->first();
+
+        /** @var CompanyBankAccount $companyBankAccount */
+        $companyBankAccount = $company->companyBankAccounts->first(function (CompanyBankAccount $companyBankAccount) {
+            return $companyBankAccount->default;
+        });
 
         /** @var CustomerInvoice $invoice */
         $invoice = $this->repository->with([
@@ -285,6 +279,7 @@ class CustomerInvoicesController extends ResourceController
 
         return compact(
             'company',
+            'companyBankAccount',
             'customer',
             'invoice',
             'invoiceItems',
@@ -296,22 +291,35 @@ class CustomerInvoicesController extends ResourceController
     }
 
     /**
+     * @param Request $request
+     * @param bool $inline
      * @return mixed
      */
-    public function invoice(Request $request)
+    public function invoice(Request $request, $inline = true)
     {
         /** @var CustomerInvoice $customerInvoice */
         $customerInvoice = $this->repository->find(
             $this->getResourceId()
         );
 
-        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $customerInvoice->id, $customerInvoice->invoice_nr, $customerInvoice->customer->name, mb_strtoupper('Laskufaktura')));
-
         if ($request->has('inline')) {
             return view('dashboard::documents.invoice', $this->getDocumentData($request));
         }
 
-        return PDF::loadView('dashboard::documents.invoice', $this->getDocumentData($request))->inline($filename);
+        $pdf = PDF::loadView('dashboard::documents.invoice', $this->getDocumentData($request));
+        $filename = sprintf('%s.pdf', $customerInvoice->getInvoiceFileName());
+
+        if ($inline) {
+            return $pdf->inline($filename);
+        } else {
+            if (file_exists($filename)) {
+                unlink($filename);
+            }
+
+            $pdf->save($filename);
+
+            return $filename;
+        }
     }
 
     /**
@@ -331,21 +339,51 @@ class CustomerInvoicesController extends ResourceController
                 'message' => $result
             ];
         }
-        
+
         return $result;
     }
 
     /**
-     * @return mixed
+     * @param Request $request
+     * @return \Illuminate\Http\Response
      */
-    public function maventaSentAt()
+    public function maventaSentAt(Request $request)
     {
         /** @var CustomerInvoice|null $customerInvoice */
         $result = MaventaCreateInvoice::dispatchNow(
-            $this->getResourceId()
+            $this->getResourceId(),
+            $this->invoice($request, false)
         );
 
-        return $result ? $result->status : 'ERROR';
+        return response($result ? $result->status : 'ERROR');
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function sendEmail(Request $request)
+    {
+        $id = $this->getResourceId();
+
+        /** @var CustomerInvoice $invoice */
+        $invoice = $this->repository->with('customer')->find($id);
+
+        $notification = new SendInvoiceEmail(
+            $this->invoice($request, false),
+            sprintf('%s.pdf', $invoice->getInvoiceFileName()),
+            $invoice
+        );
+
+        $invoice->customer->notify($notification);
+
+        /** @var CustomerInvoice $customerInvoice */
+        $customerInvoice = $this->repository->update([
+            'maventa_sent_at' => now()
+        ], $id);
+
+        return response(format_date($customerInvoice->maventa_sent_at));
+    }
 }

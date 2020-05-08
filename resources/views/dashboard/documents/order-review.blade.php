@@ -4,7 +4,7 @@
     <table class="table-33p">
         <tr>
             <td class="logo">
-                <img src="{{ asset('assets/dashboard/img/american_soda/logo_document.png') }}">
+                <img src="{{ asset('/assets/dashboard/img/american_soda/logo_document.png') }}" alt="{{ $company->name }}">
             </td>
             @if($hasNegativeItems)
                 <td class="caption text-center">Hyvityslasku</td>

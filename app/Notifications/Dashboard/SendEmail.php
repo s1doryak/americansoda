@@ -13,7 +13,7 @@ use Illuminate\Notifications\Notification;
  *
  * @package App\Notifications\Dashboard
  */
-class SendEmail  extends Notification implements ShouldQueue
+class SendEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 

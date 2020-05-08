@@ -93,6 +93,7 @@ return [
         'customer_contact_p' => 'Контактное лицо',
         'customer_bid' => 'BID',
         'customer_ovt' => 'OVT',
+        'customer_reference' => 'Номер в системе клиента',
         'customer' => [
             'name' => 'Клиент',
         ],
@@ -167,6 +168,7 @@ return [
         'customer_contact_p' => 'Контактное лицо',
         'customer_bid' => 'BID',
         'customer_ovt' => 'OVT',
+        'customer_reference' => 'Номер в системе клиента',
         'customer' => [
             'name' => 'Клиент',
         ],

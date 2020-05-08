@@ -4,25 +4,25 @@ namespace App\Services\Api\V1;
 
 use App\CustomerUser;
 use App\Notifications\Api\V1\AuthAttempt;
-use App\Repositories\Eloquent\CustomerUserRepositoryEloquent;
+use App\Repositories\Contracts\CustomerUserRepository;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class CustomerUserService extends ResourceService
 {
     /**
-     * @var CustomerUserRepositoryEloquent
+     * @var CustomerUserRepository
      */
     protected $repository;
 
     public function __construct(
-        CustomerUserRepositoryEloquent $repository
+        CustomerUserRepository $repository
     )
     {
         $this->repository = $repository;

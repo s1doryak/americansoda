@@ -18,7 +18,7 @@ use Illuminate\Support\Arr;
  * @property integer $packages_quantity
  * @property string $comment
  * @property string $order_numbers
- * @property string $batch_order_numbers
+ * @property string $order_batch_numbers
  * @property \App\PackageType $packageType
  * @property \App\Customer $customer
  * @property \App\User $user
@@ -154,7 +154,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public function getAmountAttribute($value)
     {
         return number_format(
-            $this->customerOrderItems->sum('total_price'),
+                $this->customerOrderItems->sum('total_price') + $this->customerOrderItems->sum('deposit_total_price'),
             2,
             '.',
             ''

@@ -62,6 +62,9 @@ class CustomerOrderItemForm extends Form
 		];
 		$fields['expected_date'] = [
 			'type' => 'datepicker',
+            'attr' => [
+                'format' => 'DD/MM/YYYY'
+            ]
 		];
 		$fields['product_manual_price'] = [
 			'type' => 'checkbox',
@@ -144,6 +147,9 @@ class CustomerOrderItemForm extends Form
 		];
 		$fields['expected_date'] = [
 			'type' => 'datepicker',
+            'attr' => [
+                'format' => 'DD/MM/YYYY'
+            ]
 		];
 		$fields['product_manual_price'] = [
 			'type' => 'checkbox',

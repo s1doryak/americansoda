@@ -130,7 +130,7 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public function getAmountAttribute($value)
     {
         return number_format(
-            $this->customerOrderItems->sum('total_price'),
+            $this->customerOrderItems->sum('total_price') + $this->customerOrderItems->sum('deposit_total_price'),
             2,
             '.',
             ''
@@ -140,7 +140,7 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public function getAmountVatAttribute($value)
     {
         return number_format(
-            $this->customerOrderItems->sum('total_vat_price'),
+            $this->customerOrderItems->sum('total_vat_price') + $this->customerOrderItems->sum('deposit_total_vat_price'),
             2,
             '.',
             ''

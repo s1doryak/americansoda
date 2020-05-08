@@ -68,6 +68,7 @@ class CustomerInvoiceTransformer implements TransformerContract
             'accounts' => (array)$request->get('accounts'),
             'maventa_paid' => (boolean)$request->get('maventa_paid'),
             'maventa_sent_at' => $request->get('maventa_sent_at'),
+			'customer_reference' => $request->get('customer_reference'),
         ];
     }
 
@@ -118,6 +119,7 @@ class CustomerInvoiceTransformer implements TransformerContract
             'customer_contact_p' => $request->get('customer_contact_p'),
             'customer_bid' => $request->get('customer_bid'),
             'customer_ovt' => $request->get('customer_ovt'),
+            'customer_reference' => $request->get('customer_reference'),
             'customer' => (integer)$request->get('customer'),
             'shipment' => (integer)$request->get('shipment'),
             'accounts' => (array)$request->get('accounts'),
@@ -174,9 +176,10 @@ class CustomerInvoiceTransformer implements TransformerContract
             'customer_contact_p' => $customerInvoice->customer_contact_p,
             'customer_bid' => $customerInvoice->customer_bid,
             'customer_ovt' => $customerInvoice->customer_ovt,
+            'customer_reference' => $customerInvoice->customer_reference,
             'customer' => $customerInvoice->customer ? CustomerTransformer::toArray($customerInvoice->customer) : null,
-            'shipment' => $customerInvoice->shipment ? CustomerShipmentTransformer::toArray($customerInvoice->shipment) : null,
-            'accounts' => $customerInvoice->accounts ? CompanyBankAccountTransformer::map($customerInvoice->accounts) : [],
+            'shipment' => $customerInvoice->shipment ? CustomerShipmentTransformer::toArray($customerInvoice->customerShipment) : null,
+            'accounts' => $customerInvoice->accounts ? CompanyBankAccountTransformer::map($customerInvoice->companyBankAccounts) : [],
             'created_at' => (string)$customerInvoice->created_at,
             'updated_at' => (string)$customerInvoice->updated_at,
             'deleted_at' => (string)$customerInvoice->deleted_at,
@@ -187,31 +190,51 @@ class CustomerInvoiceTransformer implements TransformerContract
 
     /**
      * @param CustomerInvoice $customerInvoice
-     * @return array
+     * @return object
      */
-    public static function toMaventaArray($customerInvoice)
+    public static function toMaventa($customerInvoice, $filename = null)
     {
-        $attachments = [
-            [
+        $attachments = [];
+
+        if ($filename) {
+            $attachments[] = (object)[
                 'filename' => sprintf('invoice_%d.pdf', $customerInvoice->invoice_nr),
                 'attachment_type' => 'INVOICE_IMAGE',
-                'file' => base64_encode(''),
-            ]
-        ];
+                'file' => base64_encode(file_get_contents($filename)),
+            ];
+        }
 
         $bank_accounts = CompanyBankAccountTransformer::mapMaventa($customerInvoice->companyBankAccounts)->toArray();
 
-        $customer = CustomerTransformer::toMaventaArray($customerInvoice->customer);
+        $customer = CustomerTransformer::toMaventa($customerInvoice->customer);
 
-        $disabled_routes = [
-            'paper' => false,
+        $disabled_routes = (object)[
             'relay' => false,
-            'email' => false
+            'email' => true,
+            'paper' => true,
         ];
 
         $items = CustomerInvoiceItemTransformer::mapMaventa($customerInvoice->customerInvoiceItems)->toArray();
 
-        return [
+        $company_postal = (object)[
+            'status' => 'OK',
+            'lang' => 'FI',
+            'post_code' => '00810',
+            'post_office' => 'Helsinki',
+            'address1' => 'Hitsaajankatu 6',
+            'city' => 'HELSINKI',
+            'phone' => '09 425 77 810',
+            'state' => null,
+            'address2' => '',
+            'fax' => null,
+            'default' => true,
+            'id' => 'bbc88d7a-56e1-4f09-9b51-22dadc3b4e57',
+            'gsm' => '045 657 8971',
+            'country' => 'FI',
+            'company_name' => 'GLOBAL TRADE PARTNERS OY',
+        ];
+
+        return (object)[
             'company_comment' => $customerInvoice->company_comment,
             'company_interest' => $customerInvoice->company_interest,
             'company_paper_fee' => $customerInvoice->company_paper_fee,
@@ -220,7 +243,7 @@ class CustomerInvoiceTransformer implements TransformerContract
             'company_website' => null,
             'currency' => $customerInvoice->currency,
             'customer_maventa_id' => null,
-            'customer_reference' => null,
+            'customer_reference' => $customerInvoice->customer_reference,
             'date' => $customerInvoice->date,
             'date_due' => $customerInvoice->date_due,
             'delivery_date' => $customerInvoice->delivery_date,
@@ -237,15 +260,13 @@ class CustomerInvoiceTransformer implements TransformerContract
             'sum' => $customerInvoice->sum,
             'sum_tax' => $customerInvoice->sum_tax,
             'work_order_nr' => $customerInvoice->work_order_nr,
-
-            # Assign customer and item info to invoice
+            'data' => null,
+            'customer' => $customer,
+            'items' => $items,
+            'company_postal' => $company_postal,
+            'disabled_routes' => $disabled_routes,
             'attachments' => $attachments,
             'bank_accounts' => $bank_accounts,
-            'customer' => $customer,
-            'company_postal' => [],
-            'data' => [],
-            'disabled_routes' => $disabled_routes,
-            'items' => $items,
         ];
     }
 }

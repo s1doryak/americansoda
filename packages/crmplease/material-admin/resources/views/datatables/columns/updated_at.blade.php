@@ -1,0 +1,1 @@
+{{ format_date($model->updated_at) }}

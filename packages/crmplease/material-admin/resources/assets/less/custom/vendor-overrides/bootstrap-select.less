@@ -1,0 +1,69 @@
+.bootstrap-select {
+  min-height: 35px;
+  height: auto;
+
+  .dropdown-menu li {
+    &.selected a span.check-mark {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      margin-top: -12px !important;
+    }
+
+    a span.text {
+      margin-right: 35px;
+    }
+  }
+
+  &.btn-group {
+    &.disabled,
+    & > .disabled {
+      cursor: @cursor-disabled;
+    }
+
+    .dropdown-toggle {
+      .filter-option {
+        @media screen and (max-width: 480px) {
+          font-size: 16px;
+        }
+      }
+    }
+
+    // Feedback states
+    .has-success & .dropdown-toggle {
+      border-color: @state-success-text !important;
+    }
+
+    .has-warning & .dropdown-toggle {
+      border-color: @state-warning-text !important;
+    }
+
+    .has-error & .dropdown-toggle,
+    .error & .dropdown-toggle {
+      border-color: @state-danger-text !important;
+    }
+  }
+
+  & > .btn-default {
+    padding: 8px 0;
+    border-bottom: 1px solid @input-border !important;
+    text-transform: none;
+  }
+}
+
+.bs-searchbox + .bs-actionsbox {
+  padding: 8px;
+}
+
+.bs-actionsbox {
+  .btn-group {
+    button {
+      &:hover,
+      &:focus,
+      &:active,
+      &.focus {
+        background-color: @dropdown-link-hover-bg;
+      }
+    }
+  }
+}

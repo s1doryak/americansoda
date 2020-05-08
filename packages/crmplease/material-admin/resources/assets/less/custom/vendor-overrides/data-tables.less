@@ -1,0 +1,212 @@
+table.dataTable {
+  margin: 0 0 20px 0;
+  border-collapse: collapse;
+
+  tbody {
+    td {
+      .text-muted {
+        color: #aaa;
+        cursor: default;
+      }
+    }
+  }
+
+  tfoot {
+    background-color: @body-bg;
+    border-top: 2px solid #ccc;
+  }
+}
+
+div.dt-buttons {
+  margin: 5px 0;
+
+  & > .btn {
+    margin-right: 5px;
+  }
+}
+
+.dataTables_length,
+.dataTables_buttons,
+.dataTables_filter {
+  float: left;
+  padding: 20px 30px;
+
+  @media (max-width: @screen-xs-max) {
+    padding: 15px 15px;
+  }
+
+  label {
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.dataTables_wrapper {
+  .dataTables_filter {
+    width: 25%;
+    @media (max-width: @screen-xs-max) {
+      width: 100%;
+    }
+  }
+
+  .dataTables_paginate {
+    .paginate_button {
+      padding: 0.5em;
+      font-size: 0.8em;
+      line-height: 25px;
+    }
+  }
+}
+
+.dataTable {
+  tr[data-trashed="true"] {
+    .actions {
+      .column-action-edit,
+      .column-action-trash {
+        display: none;
+      }
+    }
+  }
+
+  tr[data-trashed="false"] {
+    .actions {
+      .column-action-restore,
+      .column-action-destroy {
+        display: none;
+      }
+    }
+  }
+
+  &.collapsed {
+    tr[data-trashed="true"] + tr.child {
+      .actions {
+        .column-action-edit,
+        .column-action-trash {
+          display: none;
+        }
+      }
+    }
+
+    tr[data-trashed="false"] + tr.child {
+      .actions {
+        .column-action-restore,
+        .column-action-destroy {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.dataTable {
+  tr[data-trashed="true"] {
+    background-color: #ffe9e9 !important;
+  }
+
+  tr[data-trashed="false"] {
+
+  }
+
+  &.collapsed {
+    tr[data-trashed="true"] + tr.child {
+      background-color: #ffe9e9 !important;
+    }
+
+    tr[data-trashed="false"] + tr.child {
+
+    }
+  }
+}
+
+.dataTable {
+  .column {
+    p {
+      margin-bottom: 5px;
+    }
+  }
+
+  .column-name,
+  .column-number {
+    white-space: nowrap;
+
+    .badge {
+      margin: -2px 0 0 2px;
+    }
+  }
+
+  .column-photo {
+    a {
+
+    }
+
+    img {
+      min-width: 100px;
+      max-width: 200px;
+      width: auto;
+      max-height: 200px;
+      height: auto;
+    }
+  }
+
+  .column-detergents,
+  .column-items {
+    .lgi-img {
+      width: 1em;
+      height: 1em;
+    }
+  }
+}
+
+.dataTable {
+  .actions {
+    & > li {
+      & > a {
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        text-align: center;
+        padding-top: 6px;
+        border-radius: 50%;
+        background-color: #00000000;
+        transition: background-color .2s ease-in-out;
+
+        &:hover {
+          background-color: #00000010;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Responsive
+ */
+.dataTable {
+  &.responsive.collapsed {
+    width: 100% !important;
+  }
+}
+
+/**
+ * Filters
+ */
+.dataTableFilter {
+  @media (max-width: @screen-xs-max) {
+    padding: 0 15px;
+  }
+
+  .form-control {
+    text-transform: none;
+  }
+
+  .toggle-switch .ts-helper {
+    margin: 8px 0 0;
+  }
+
+  .toggle-switch .ts-label {
+    margin: 8px 0 0 10px;
+  }
+}

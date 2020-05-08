@@ -1,0 +1,29 @@
+<?php
+
+return [
+	'primary' => 'Primary Color',
+	'custom' => 'Custom Color',
+	'palette' => [
+		'black' => 'Black',
+		'white' => 'White',
+		'red' => 'Red',
+		'pink' => 'Pink',
+		'purple' => 'Purple',
+		'deeppurple' => 'Deep Purple',
+		'indigo' => 'Indigo',
+		'blue' => 'Blue',
+		'lightblue' => 'Light Blue',
+		'cyan' => 'Cyan',
+		'teal' => 'Teal',
+		'green' => 'Green',
+		'lightgreen' => 'Light Green',
+		'lime' => 'Lime',
+		'yellow' => 'Yellow',
+		'amber' => 'Amber',
+		'orange' => 'Orange',
+		'deeporange' => 'Deep Orange',
+		'brown' => 'Brown',
+		'gray' => 'Gray',
+		'bluegray' => 'Blue Gray',
+	],
+];

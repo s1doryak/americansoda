@@ -1,0 +1,15 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| {{namespace_studly_case}} Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::group(['middleware' => 'api'], function () {
+
+	Route::group(['prefix' => '{{namespace_snake_case}}'], function () {
+
+	});
+
+});

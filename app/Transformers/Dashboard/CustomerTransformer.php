@@ -170,9 +170,9 @@ class CustomerTransformer implements TransformerContract
 
     /**
      * @param Customer $customer
-     * @return array
+     * @return object
      */
-    public static function toMaventaArray($customer)
+    public static function toMaventa($customer)
     {
         /**
          * # Gather needed data for invoice customer
@@ -195,25 +195,25 @@ class CustomerTransformer implements TransformerContract
          * $customer['ovt'] = null;
          */
 
-        return [
+        return (object)[
             'customer_type' => 'COMPANY',
             'customer_nr' => $customer->nr,
 
-            'name' => $customer->name,
+            'name' => $customer->legal_name,
             'email' => $customer->email,
             'phone' => $customer->phone,
             'gsm' => null,
 
 
             'lang' => 'FI',
-            'country' => $customer->country,
+            'country' => 'FI',
             'state' => $customer->state,
             'post_code' => $customer->post_code,
             'post_office' => $customer->post_office,
             'address1' => $customer->address1,
             'address2' => $customer->address2,
 
-            'contact_p' => $customer->contact_p,
+            'contact_p' => $customer->name,
 
             'bid' => $customer->bid,
             'ovt' => $customer->ovt,

@@ -46,8 +46,10 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
 
         $result = ($productIds) ? $this->findWhereIn('id', $productIds) : $this->get();
 
-        return $result->map(function ($product) {
-            return ProductTransformer::toArray($product);
-        });
+        return $result
+            ->map(function ($product) {
+                return ProductTransformer::toArray($product);
+            })
+            ->sortBy('name');
     }
 }

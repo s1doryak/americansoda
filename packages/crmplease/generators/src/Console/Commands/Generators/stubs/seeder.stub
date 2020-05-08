@@ -1,0 +1,19 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class {{class_plural}}TableSeeder extends Seeder
+{
+    public function run()
+    {
+{{static_relations}}
+{{belongs_to_repositories}}
+{{belongs_to_many_repositories}}
+
+        factory(App\{{class}}::class, {{seed_count}})->create()->each(function (App\{{class}} ${{class_camel_case}}) {{use_static_relations}}{
+{{belongs_to_associate}}
+{{belongs_to_many_sync}}
+{{save_model}}
+        });
+    }
+}
