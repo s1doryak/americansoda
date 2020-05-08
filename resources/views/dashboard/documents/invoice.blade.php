@@ -1,5 +1,5 @@
 @extends('dashboard::documents.layout.american_soda')
-@section('title', 'Laskufaktura')
+@section('title', 'Lasku')
 @section('content')
     <table class="table-33p">
         <tr>
@@ -7,7 +7,7 @@
                 <img src="{{ asset('/assets/dashboard/img/american_soda/logo_document.png') }}" alt="{{ $company->name }}">
             </td>
             <td class="caption text-center">
-                Laskufaktura
+                Lasku
             </td>
             <td>
                 <!-- ... -->
