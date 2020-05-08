@@ -119,12 +119,12 @@ class CustomerInvoiceTransformer implements TransformerContract
             'customer_contact_p' => $request->get('customer_contact_p'),
             'customer_bid' => $request->get('customer_bid'),
             'customer_ovt' => $request->get('customer_ovt'),
+            'customer_reference' => $request->get('customer_reference'),
             'customer' => (integer)$request->get('customer'),
             'shipment' => (integer)$request->get('shipment'),
             'accounts' => (array)$request->get('accounts'),
             'maventa_paid' => (boolean)$request->get('maventa_paid'),
             'maventa_sent_at' => $request->get('maventa_sent_at'),
-			'customer_reference' => $request->get('customer_reference'),
         ];
     }
 
@@ -176,6 +176,7 @@ class CustomerInvoiceTransformer implements TransformerContract
             'customer_contact_p' => $customerInvoice->customer_contact_p,
             'customer_bid' => $customerInvoice->customer_bid,
             'customer_ovt' => $customerInvoice->customer_ovt,
+            'customer_reference' => $customerInvoice->customer_reference,
             'customer' => $customerInvoice->customer ? CustomerTransformer::toArray($customerInvoice->customer) : null,
             'shipment' => $customerInvoice->shipment ? CustomerShipmentTransformer::toArray($customerInvoice->customerShipment) : null,
             'accounts' => $customerInvoice->accounts ? CompanyBankAccountTransformer::map($customerInvoice->companyBankAccounts) : [],
@@ -184,7 +185,6 @@ class CustomerInvoiceTransformer implements TransformerContract
             'deleted_at' => (string)$customerInvoice->deleted_at,
             'maventa_paid' => (boolean)$customerInvoice->maventa_paid,
             'maventa_sent_at' => $customerInvoice->maventa_sent_at,
-			'customer_reference' => $customerInvoice->customer_reference,
         ];
     }
 

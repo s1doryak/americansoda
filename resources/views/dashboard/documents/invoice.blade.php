@@ -7,7 +7,7 @@
                 <img src="{{ asset('/assets/dashboard/img/american_soda/logo_document.png') }}" alt="{{ $company->name }}">
             </td>
             <td class="caption text-center">
-                Laskufaktura #{{ $invoice->invoice_nr }}
+                Laskufaktura
             </td>
             <td>
                 <!-- ... -->
@@ -21,21 +21,21 @@
                 <small>Toimittaja</small>
             </td>
             <td>
-                <small>Päivämäärä</small>
+                <small>Numero</small>
             </td>
             <td class="text-right">
-                <small>Yhteensä</small>
+                <small>Tilausnumero</small>
             </td>
         </tr>
         <tr>
             <td class="upper">
-                {{ $company->name }} / {{ $company->legal_name }}
+                {{ $company->legal_name }}
             </td>
             <td>
-                {{ $invoice->created_at->format('d.m.Y') }}
+                {{ $invoice->invoice_nr }}
             </td>
             <td class="text-right number">
-                {!! auto_number_format($totalVatPrice, 2, ',', '&nbsp;') !!} €
+                {{ $invoice->order_nr }}
             </td>
         </tr>
         <tr>
@@ -43,10 +43,10 @@
                 {{ $company->address }}, {{ $company->postcode }} {{ $company->region->name }}
             </td>
             <td>
-                <small>Toimittaja viite</small>
+                <small>Viitenumero</small>
             </td>
             <td class="text-right">
-                <small>Viitenumero</small>
+                <small>Toimittajan viite</small>
             </td>
         </tr>
         <tr>
@@ -54,34 +54,78 @@
                 Y-tunnus: {{ $company->bid }}
             </td>
             <td>
-                {{ $customer->user->name }}
-            </td>
-            <td class="text-right">
                 {{ $invoice->reference_nr }}
             </td>
+            <td class="text-right">
+                {{ $invoice->company_reference }}
+            </td>
         </tr>
-{{--        <tr>--}}
-{{--            <td>--}}
+        <tr>
+            <td>
+                <small>Toimittaja viite</small>
+            </td>
+            <td>
+                <small>Asiakasnumero</small>
+            </td>
+            <td class="text-right">
+                <small>Tilaajan viite</small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ $customer->user->name }}
+            </td>
+            <td>
+                {{ $invoice->customer_nr }}
+            </td>
+            <td class="text-right">
+                {{ $invoice->customer_reference }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <small>Päivämäärä</small>
+            </td>
+            <td>
+                <small>Maksuehto</small>
+            </td>
+            <td class="text-right">
+                <small>Eräpäivä</small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ carbon($invoice->date, 'Ymd')->format('d.m.Y') }}
+            </td>
+            <td>
+                {{ $invoice->payment_terms }}
+            </td>
+            <td class="text-right">
+                {{ carbon($invoice->date_due, 'Ymd')->format('d.m.Y') }}
+            </td>
+        </tr>
+        <tr>
+            <td>
 
-{{--            </td>--}}
-{{--            <td>--}}
-{{--                <small>Vastaanottajan viite</small>--}}
-{{--            </td>--}}
-{{--            <td>--}}
-
-{{--            </td>--}}
-{{--        </tr>--}}
-{{--        <tr>--}}
-{{--            <td>--}}
-{{--                {{ $invoice->batch_number }}--}}
-{{--            </td>--}}
-{{--            <td>--}}
-{{--                <!-- ... -->--}}
-{{--            </td>--}}
-{{--            <td>--}}
-{{--                <!-- ... -->--}}
-{{--            </td>--}}
-{{--        </tr>--}}
+            </td>
+            <td>
+                <!-- ... -->
+            </td>
+            <td class="text-right">
+                <small>Viivästyskorko</small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- ... -->
+            </td>
+            <td>
+                <!-- ... -->
+            </td>
+            <td class="text-right">
+                {{ $invoice->company_interest }}%
+            </td>
+        </tr>
         </tbody>
     </table>
     <table class="table-50p">

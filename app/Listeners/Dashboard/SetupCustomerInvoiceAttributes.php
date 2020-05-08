@@ -87,6 +87,10 @@ class SetupCustomerInvoiceAttributes
         $date = Date::parse($customerInvoice->date);
         $date_due = Date::parse($customerInvoice->date)->addDays($payment_days);
 
+        $order_nr = $customerInvoice->order_nr ?: ($customerInvoice->customerShipment ? $customerInvoice->customerShipment->order_numebrs : $customerInvoice->order_nr);
+        $company_reference = $customerInvoice->company_reference ?: ($customerInvoice->customerShipment ? $customerInvoice->customerShipment->number : $customerInvoice->company_reference);
+        $customer_reference = $customerInvoice->customer_reference ?: ($customerInvoice->customerShipment ? $customerInvoice->customerShipment->order_batch_numbers : $customerInvoice->customer_reference);
+
         $customerInvoice->update([
             'maventa_initiated' => false,
 
@@ -102,20 +106,18 @@ class SetupCustomerInvoiceAttributes
             'invoice_seller_information' => null,
             'lang' => 'FI',
             'notes' => $customerInvoice->notes,
-            'order_nr' => $customerInvoice->customerShipment ? $customerInvoice->customerShipment->order_numebrs : $customerInvoice->order_nr,
+            'order_nr' => $order_nr,
             'payment_terms' => $customer->payment_conditions,
             'reference_nr' => $customerInvoice->generateReferenceNumber(),
             'state' => null,
             'status' => null,
-            // 'sum' => 0.00,
-            // 'sum_tax' => 0.00,
             'work_order_nr' => null,
 
             'company_interest' => 8.0,
             'company_paper_fee' => 0.0,
             'company_reminder' => 0.0,
             'company_comment' => $customerInvoice->company_comment,
-            'company_reference' => $customerInvoice->customerShipment ? $customerInvoice->customerShipment->number : $customerInvoice->company_reference,
+            'company_reference' => $company_reference,
 
             'customer_nr' => $customer->nr,
             'customer_email' => $customer->email,
@@ -129,7 +131,7 @@ class SetupCustomerInvoiceAttributes
             'customer_contact_p' => $customer->contact_p,
             'customer_bid' => $customer->bid,
             'customer_ovt' => $customer->ovt,
-            'customer_reference' => $customerInvoice->customerShipment ? $customerInvoice->customerShipment->order_batch_numbers : $customerInvoice->customer_reference,
+            'customer_reference' => $customer_reference,
         ]);
 
         if ($e instanceof ResourceTrashed) {
