@@ -67,7 +67,7 @@ class SetupCustomerInvoiceAttributes
 
         /** @var CustomerInvoice $customerInvoice */
         $customerInvoice = $this->customerInvoices
-            ->with(['customer', 'customerOrderItems', 'customerOrderItems.customerOrder'])
+            ->with(['customer', 'customerOrderItems', 'customerOrderItems.customerOrder', 'customerShipment'])
             ->scopeQuery(
                 function ($query) {
                     return $query->withTrashed();
@@ -129,6 +129,7 @@ class SetupCustomerInvoiceAttributes
             'customer_contact_p' => $customer->contact_p,
             'customer_bid' => $customer->bid,
             'customer_ovt' => $customer->ovt,
+            'customer_reference' => $customerInvoice->customerShipment ? $customerInvoice->customerShipment->order_batch_numbers : $customerInvoice->customer_reference,
         ]);
 
         if ($e instanceof ResourceTrashed) {

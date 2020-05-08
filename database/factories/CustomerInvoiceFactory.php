@@ -45,5 +45,6 @@ $factory->define(App\CustomerInvoice::class, function (Faker\Generator $faker) {
 		'customer_ovt' => null,
 		'maventa_paid' => $faker->boolean,
 		'maventa_sent_at' => null,
+		'customer_reference' => null,
     ];
 });

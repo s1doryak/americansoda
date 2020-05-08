@@ -68,6 +68,7 @@ class CustomerInvoiceTransformer implements TransformerContract
             'accounts' => (array)$request->get('accounts'),
             'maventa_paid' => (boolean)$request->get('maventa_paid'),
             'maventa_sent_at' => $request->get('maventa_sent_at'),
+			'customer_reference' => $request->get('customer_reference'),
         ];
     }
 
@@ -123,6 +124,7 @@ class CustomerInvoiceTransformer implements TransformerContract
             'accounts' => (array)$request->get('accounts'),
             'maventa_paid' => (boolean)$request->get('maventa_paid'),
             'maventa_sent_at' => $request->get('maventa_sent_at'),
+			'customer_reference' => $request->get('customer_reference'),
         ];
     }
 
@@ -182,6 +184,7 @@ class CustomerInvoiceTransformer implements TransformerContract
             'deleted_at' => (string)$customerInvoice->deleted_at,
             'maventa_paid' => (boolean)$customerInvoice->maventa_paid,
             'maventa_sent_at' => $customerInvoice->maventa_sent_at,
+			'customer_reference' => $customerInvoice->customer_reference,
         ];
     }
 
@@ -240,7 +243,7 @@ class CustomerInvoiceTransformer implements TransformerContract
             'company_website' => null,
             'currency' => $customerInvoice->currency,
             'customer_maventa_id' => null,
-            'customer_reference' => null,
+            'customer_reference' => $customerInvoice->customer_reference,
             'date' => $customerInvoice->date,
             'date_due' => $customerInvoice->date_due,
             'delivery_date' => $customerInvoice->delivery_date,

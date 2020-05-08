@@ -3,10 +3,8 @@
 namespace App\Forms\Dashboard;
 
 use App\CustomerInvoice;
-use App\CustomerInvoiceItem;
 use App\Repositories\Contracts\CustomerInvoiceRepository;
 use Crmplease\MaterialAdmin\Forms\Form;
-use Illuminate\Validation\Rule;
 
 /**
  * CustomerInvoice form.
@@ -22,19 +20,19 @@ class CustomerInvoiceForm extends Form
     {
         return [
             'companyBankAccounts' => 'choice',
+            'customer' => [
+                'type' => 'choice'
+            ],
             'date' => [
                 'type' => 'datepicker',
-                'value' => now()->format('Y-m-d'),
+                'value' => now()->format('Ymd'),
                 'attr' => [
-                    'format' => 'YYYY/MM/DD'
+                    'format' => 'YYYYMMDD'
                 ]
             ],
             'invoice_nr' => [
                 'type' => 'text',
                 'value' => app(CustomerInvoiceRepository::class)->getFirstAvailableNumber()
-            ],
-            'customer' => [
-                'type' => 'choice'
             ],
             'order_nr' => [
                 'type' => 'text',
@@ -83,17 +81,35 @@ class CustomerInvoiceForm extends Form
             'date' => [
                 'type' => 'datepicker',
                 'attr' => [
-                    'format' => 'YYYY/MM/DD'
+                    'format' => 'YYYYMMDD'
                 ]
             ],
-            'invoice_nr' => [
-                'type' => 'text'
+            'payment_terms' => [
+                'type' => 'text',
+            ],
+            'date_due' => [
+                'type' => 'text',
+                'attr' => [
+                    'disabled' => true
+                ]
             ],
             'reference_nr' => [
                 'type' => 'text',
                 'attr' => [
                     'disabled' => true
                 ]
+            ],
+            'invoice_nr' => [
+                'type' => 'text'
+            ],
+            'order_nr' => [
+                'type' => 'text',
+            ],
+            'company_reference' => [
+                'type' => 'text',
+            ],
+            'customer_reference' => [
+                'type' => 'text',
             ],
             'sum' => [
                 'type' => 'text',
@@ -144,6 +160,7 @@ class CustomerInvoiceForm extends Form
             'notes' => 'sometimes',
 			'maventa_paid' => 'sometimes',
 			'maventa_sent_at' => 'sometimes',
+			'customer_reference' => 'sometimes',
         ];
     }
 
@@ -163,6 +180,7 @@ class CustomerInvoiceForm extends Form
             'notes' => 'sometimes',
 			'maventa_paid' => 'sometimes',
 			'maventa_sent_at' => 'sometimes',
+			'customer_reference' => 'sometimes',
         ];
     }
 }

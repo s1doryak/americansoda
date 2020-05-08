@@ -1586,3 +1586,16 @@ docker-compose run artisan generate:resource StockProduct \
 ### OptionGroup ❌
 ### Option ❌
 
+### Обновить CustomerInvoice
+```bash
+docker-compose run artisan modify:resource CustomerInvoice \
+    --namespace=Dashboard \
+    \
+    --field=customer_reference \
+    \
+    --translate=ru \
+    \
+    --translate-field=customer_reference:ru:"Номер в системе клиента" \
+    \
+    --force
+```

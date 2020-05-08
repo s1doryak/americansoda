@@ -99,6 +99,7 @@ return [
         'customer_contact_p' => 'Customer Contact P',
         'customer_bid' => 'Customer Bid',
         'customer_ovt' => 'Customer Ovt',
+        'customer_reference' => 'Customer Reference',
         'customer' => [
             'name' => 'Customer',
         ],
@@ -173,6 +174,7 @@ return [
         'customer_contact_p' => 'Customer Contact P',
         'customer_bid' => 'Customer Bid',
         'customer_ovt' => 'Customer Ovt',
+        'customer_reference' => 'Customer Reference',
         'customer' => [
             'name' => 'Customer',
         ],
