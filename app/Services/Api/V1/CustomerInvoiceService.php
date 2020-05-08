@@ -60,7 +60,7 @@ class CustomerInvoiceService extends ResourceService
                 'customer_shipment_id' => $shipmentId
             ]);
 
-        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $customerInvoice->id, $customerInvoice->invoice_nr, $customerInvoice->customer->name, mb_strtoupper('Laskufaktura')));
+        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $customerInvoice->id, $customerInvoice->invoice_nr, $customerInvoice->customer->name, mb_strtoupper('Lasku')));
 
         return PDF::loadView('dashboard::documents.invoice', $this->getDocumentData($customerInvoice))
             ->inline($filename)
