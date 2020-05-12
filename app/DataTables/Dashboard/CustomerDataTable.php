@@ -45,7 +45,7 @@ class CustomerDataTable extends DataTable
             /*'shipping_address' => [
                 'searchable' => true
             ],*/
-            //'nr',
+            'nr',
             //'y_tunnus',
             //'iban',
             //'swift',
@@ -93,6 +93,7 @@ class CustomerDataTable extends DataTable
     {
         return [
             'name',
+            'nr',
             'comment',
             'priceGroup.name',
             'action',

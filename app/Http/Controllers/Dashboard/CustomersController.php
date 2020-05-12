@@ -108,12 +108,25 @@ class CustomersController extends ResourceController
             'lists' => 'name',
             'selected' => 'shipping_region_id'
         ],
-        'customerTypes' => 'name',
-        'paymentTypes' => 'name',
-        'users' => 'name',
-        'productGroups' => 'name',
-        'stocks' => 'name',
-        'priceGroups' => 'name',
+        'customerTypes' => [
+            'lists' => 'name',
+            'extra' => 'content',
+        ],
+        'paymentTypes' => [
+            'lists' => 'name',
+        ],
+        'users' => [
+            'lists' => 'name',
+        ],
+        'productGroups' => [
+            'lists' => 'name',
+        ],
+        'stocks' => [
+            'lists' => 'name',
+        ],
+        'priceGroups' => [
+            'lists' => 'name',
+        ],
     ];
 
     /**
@@ -165,15 +178,26 @@ class CustomersController extends ResourceController
                 'lists' => 'name',
                 'selected' => 'shipping_region_id'
             ],
-            'customerTypes' => 'name',
-            'paymentTypes' => 'name',
+            'customerTypes' => [
+                'lists' => 'name',
+                'extra' => 'content',
+            ],
+            'paymentTypes' => [
+                'lists' => 'name',
+            ],
             'users' => [
                 'lists' => 'name',
                 'selected' => Auth::user()
             ],
-            'productGroups' => 'name',
-            'stocks' => 'name',
-            'priceGroups' => 'name',
+            'productGroups' => [
+                'lists' => 'name',
+            ],
+            'stocks' => [
+                'lists' => 'name',
+            ],
+            'priceGroups' => [
+                'lists' => 'name',
+            ],
         ];
 
         $this->middleware('auth:dashboard');

@@ -80,4 +80,20 @@ class CustomerType extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+    /**
+     * @return string
+     */
+    public function renderName()
+    {
+        return $this->customerType ? sprintf('%s / %s', $this->customerType->name, $this->name) : $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentAttribute()
+    {
+        return $this->renderName();
+    }
 }

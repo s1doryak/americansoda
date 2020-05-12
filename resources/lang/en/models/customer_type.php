@@ -47,16 +47,16 @@ return [
 	'fields' => [
 		'name' => 'Name',
 		'customerType' => [
-			'name' => 'Customer Type',
+			'name' => 'Parent',
 		],
 	],
     'placeholders' => [
-		'customerType' => 'Select Customer Type',
+		'customerType' => 'Select Parent',
     ],
     'columns' => [
 		'name' => 'Name',
 		'customerType' => [
-			'name' => 'Customer Type',
+			'name' => 'Parent',
 		],
         'created_at' => 'Created',
         'updated_at' => 'Updated',
@@ -64,7 +64,7 @@ return [
     ],
     'filters' => [
 		'customerType' => [
-			'name' => 'Customer Type',
+			'name' => 'Parent',
 		],
     ],
 ];
