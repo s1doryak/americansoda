@@ -85,7 +85,7 @@ class CustomerInvoiceDataTable extends DataTable
             'date' => [
                 'type' => 'daterangepicker',
                 'name' => 'date',
-                'lists' => 'date',
+                'items' => [],
                 'query' => function ($query, $filterColumn, $value) {
 
                     /** @var \Illuminate\Support\Collection $dates */
