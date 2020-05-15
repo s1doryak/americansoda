@@ -8,16 +8,16 @@ use App\CustomerOrderItem;
 use App\Events\Dashboard\CustomerInvoiceItemsAssigned;
 use App\Product;
 use App\Repositories\Contracts\CustomerInvoiceItemRepository;
+use App\Repositories\Contracts\CustomerInvoiceRepository;
 use App\Repositories\Contracts\CustomerOrderItemRepository;
 use App\Repositories\Contracts\ProductRepository;
-use App\Repositories\Contracts\CustomerInvoiceRepository;
+use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
 use Crmplease\MaterialAdmin\Events\ResourceDestroyed;
 use Crmplease\MaterialAdmin\Events\ResourceRestored;
 use Crmplease\MaterialAdmin\Events\ResourceStored;
 use Crmplease\MaterialAdmin\Events\ResourceTrashed;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
-use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
@@ -118,9 +118,10 @@ class AssignCustomerInvoiceItems
         $items = Arr::get($params, 'customerInvoiceItems', []);
 
         $customerInvoiceItems = new Collection();
+        $idx = 0;
 
-        foreach ($items as $idx => $item) {
-
+        foreach ($items as $item) {
+            $idx++;
             $id = numerize($item['id'] ?? false);
             $removing = booleanize($item['_remove'] ?? false);
 
@@ -140,7 +141,14 @@ class AssignCustomerInvoiceItems
             $customerOrderItem = $customerOrderItemId ? $this->customerOrderItems->with(['product'])->find($customerOrderItemId) : null;
 
             /** @var Product|null $customerOrderItem */
-            $product = $productId ? $this->products->find($productId) : null;
+            $product = $productId
+                ? $this->products->scopeQuery(
+                    function ($query) {
+                        /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                        return $query->withTrashed();
+                    }
+                )->find($productId)
+                : null;
 
             if ($customerOrderItem) {
                 $item_code = $customerOrderItem->product->product_barcode_plaintext;

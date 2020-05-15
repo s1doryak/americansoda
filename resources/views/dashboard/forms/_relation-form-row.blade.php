@@ -1,5 +1,4 @@
 @php($is_template = $is_template ?? false)
-@php($multiple_rows = $multiple_rows ?? false)
 <tr class="js-row">
     @foreach($fields as $field)
         @php($type = $field->getType())
@@ -14,7 +13,7 @@
             @continue
         @endif
 
-        @if($multiple_rows && $is_template === false)
+        @if($is_template === false)
             @if(preg_match('/\[(%%idx%%|idx|\d+)]/', $field->getName()))
                 @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d+)]/', "[{$idx}]", $field->getName())))
             @else
@@ -41,8 +40,6 @@
                     @else
                         @php($value = Arr::get($item, $name))
                     @endif
-                @else
-                    @php($value = null)
                 @endif
 
                 @if(in_array($type, ['select', 'choice']))
@@ -85,7 +82,7 @@
 
                 @if ($type === 'hidden' && !in_array($name, $exclude))
 
-                    @if($multiple_rows && $is_template === false)
+                    @if($is_template === false)
                         @if(preg_match('/\[(%%idx%%|idx|\d+)]/', $field->getName()))
                             @php($field->setName(preg_replace('/\[(%%idx%%|idx|\d+)]/', "[{$idx}]", $field->getName())))
                         @else

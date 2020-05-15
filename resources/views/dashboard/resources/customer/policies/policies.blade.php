@@ -8,7 +8,10 @@
     @include('dashboard::forms._relation-form-row', [
         'can_select' => true,
         'can_edit' => true,
-        'can_remove' => true
+        'can_remove' => true,
+        'item' => [
+            'productGroup' => $group->getKey(),
+        ],
     ])
 
 @else
@@ -25,7 +28,6 @@
                 'item' => $item,
                 'idx' => static_idx(),
                 'is_template' => false,
-                'multiple_rows' => true,
                 'can_add' => $can_add,
                 'can_select' => $can_select,
                 'can_edit' => $can_edit,
@@ -36,17 +38,18 @@
         @endforeach
 
     @else
-        @php($item = null)
-        @php($can_select = isset($options['can_select']) ? is_callable($options['can_select']) ? call_user_func($options['can_select'], $item) : (boolean)$options['can_select'] : true)
-        @php($can_edit = isset($options['can_edit']) ? is_callable($options['can_edit']) ? call_user_func($options['can_edit'], $item) : (boolean)$options['can_edit'] : true)
-        @php($can_remove = isset($options['can_remove']) ? is_callable($options['can_remove']) ? call_user_func($options['can_remove'], $item) : (boolean)$options['can_remove'] : true)
+        @php($can_select = $options['can_select'] ?? true)
+        @php($can_edit = $options['can_edit'] ?? true)
+        @php($can_remove = $options['can_remove'] ?? true)
 
     @include('dashboard::forms._relation-form-row', [
         'can_select' => $can_select,
         'can_edit' => $can_edit,
         'can_remove' => $can_remove,
-        'item' => $item
-
+        'idx' => static_idx(),
+        'item' => [
+            'productGroup' => $group->getKey(),
+        ],
     ])
 @endif
 

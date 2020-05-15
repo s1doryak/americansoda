@@ -2,6 +2,20 @@
 @php($fields = (array)$options['children'])
 @php($groups = $options['groups'] ?? collect())
 @php($can_add = isset($options['can_add']) ? is_callable($options['can_add']) ? call_user_func($options['can_add']) : (boolean)$options['can_add'] : true)
+@section('scripts')
+    @foreach($groups as $group)
+        <script data-role="template" data-resource="{{ $options['resource'] }}[{{ $group->getKey() }}]" type="text/html">
+        @include('dashboard::resources.customer.policies.policies', [
+            'group' => $group,
+            'is_template' => true,
+            'can_select' => true,
+            'can_edit' => true,
+            'can_remove' => true
+        ])
+        </script>
+    @endforeach
+@stop
+
 @if ($showLabel && $showField)
     @if ($options['wrapper'] !== false)
         <div {!! $options['wrapperAttrs'] !!}>
@@ -31,18 +45,3 @@
         </div>
     @endif
 @endif
-
-@section('scripts')
-    @foreach($groups as $group)
-        <script data-role="template" data-resource="{{ $options['resource'] }}[{{ $group->getKey() }}]" type="text/html">
-        @include('dashboard::resources.customer.policies.policies', [
-            'group' => $group,
-            'is_template' => true,
-            'exclude' => ['id'],
-            'can_select' => true,
-            'can_edit' => true,
-            'can_remove' => true
-        ])
-        </script>
-    @endforeach
-@stop
