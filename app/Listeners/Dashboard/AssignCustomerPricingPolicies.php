@@ -68,6 +68,10 @@ class AssignCustomerPricingPolicies
                 continue;
             }
 
+            if (numerize($policy['products_range'] ?? 0) === 0) {
+                continue;
+            }
+
             $_policy = [
                 'customer_id' => $attributes['id'],
                 'product_group_id' => $policy['productGroup'],
