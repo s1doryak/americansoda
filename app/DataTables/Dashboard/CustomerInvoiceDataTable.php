@@ -191,10 +191,10 @@ class CustomerInvoiceDataTable extends DataTable
     public function renderCustomer__NameColumn($customerInvoice)
     {
         if ($this->isDataTableRequest()) {
-            return $customerInvoice->customer->name ?? $this->renderDefaultView();
+            return optional($customerInvoice->customer)->name ?? $this->renderDefaultView();
         }
 
-        return $customerInvoice->customer->name ?? null;
+        return optional($customerInvoice->customer)->name;
     }
 
     /**
@@ -204,10 +204,10 @@ class CustomerInvoiceDataTable extends DataTable
     public function renderCustomerShipment__NumberColumn($customerInvoice)
     {
         if ($this->isDataTableRequest()) {
-            return $customerInvoice->customerShipment->number ?? $this->renderDefaultView();
+            return optional($customerInvoice->customerShipment)->number ?? $this->renderDefaultView();
         }
 
-        return $customerInvoice->customerShipment->number ?? null;
+        return optional($customerInvoice->customerShipment)->number;
     }
 
     /**
@@ -216,8 +216,10 @@ class CustomerInvoiceDataTable extends DataTable
      */
     public function renderMaventaSentAtColumn($customerInvoice)
     {
+        $paymentType = $customerInvoice->customer && $customerInvoice->customer->paymentType ? $customerInvoice->customer->paymentType->name : 'e-mail';
+
         if ($this->isDataTableRequest()) {
-            $actionView = $customerInvoice->customer->paymentType->name === 'e-invoice'
+            $actionView = $paymentType === 'e-invoice'
                 ? $this->getMaventaInvoiceSend($customerInvoice)
                 : $this->getEmailInvoiceSend($customerInvoice);
 
