@@ -49,7 +49,12 @@ jQuery(function ($) {
         updateRelationForm($policies.closest('.js-relation-form'));
     }
 
-    $(document).on('click', '.js-add-row', function () {
+    $.generateId = function () {
+        return '_generated' + Date.now();
+    };
+
+    $(document).on('click', '.js-add-row', function (e) {
+        e.preventDefault();
         var $this = $(this),
             $template, $table, $parentTable, resource, $lastRow, $row, template, lastRowIdx, idx;
 
@@ -63,8 +68,7 @@ jQuery(function ($) {
 
         resource = $table.data('resource');
         $lastRow = $table.find('.js-row').last();
-        lastRowIdx = $lastRow.index() + 1;
-        idx = lastRowIdx + 1;
+        idx = $.generateId();
         $template = $('[data-role="template"][data-resource="' + resource + '"]');
         template = $template.html().replace(/\[(%%idx%%|idx|0)]/gm, '[' + idx + ']');
         $row = $(template);
