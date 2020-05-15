@@ -94,6 +94,7 @@ class StockMovementProductDataTable extends DataTable
             'created_at' => [
                 'type' => 'daterangepicker',
                 'name' => 'created_at',
+                'items' => [],
                 'query' => function ($query, $filterColumn, $value) {
 
                     /** @var \Illuminate\Support\Collection $dates */
@@ -117,6 +118,7 @@ class StockMovementProductDataTable extends DataTable
             'comment' => [
                 'type' => 'daterangepicker',
                 'name' => 'comment',
+                'items' => [],
                 'query' => function ($query, $filterColumn, $value) {
 
                     /** @var \Illuminate\Support\Collection $dates */
@@ -169,7 +171,7 @@ class StockMovementProductDataTable extends DataTable
                 return $button;
             }, $buttons);
         }
-        
+
         return $buttons;
     }
 

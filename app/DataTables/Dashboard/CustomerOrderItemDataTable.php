@@ -256,7 +256,7 @@ class CustomerOrderItemDataTable extends DataTable
             'customerOrder.number' => [
                 'type' => 'daterangepicker',
                 'name' => 'customerOrder.number',
-                'lists' => 'customerOrder.number',
+                'items' => [],
                 'query' => function ($query, $filterColumn, $value) {
 
                     /** @var \Illuminate\Support\Collection $dates */
