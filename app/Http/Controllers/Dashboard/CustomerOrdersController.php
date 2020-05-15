@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Notifications\Dashboard\SendEmail;
-use Auth;
-use PDF;
 use App\Company;
 use App\Customer;
-use App\CustomerOrderItem;
 use App\CustomerOrder;
+use App\CustomerOrderItem;
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
+use App\Notifications\Dashboard\SendEmail;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\CustomerOrderItemRepository;
+use App\Repositories\Contracts\CustomerOrderRepository;
+use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Contracts\ProductRepository;
+use App\Repositories\Contracts\UserRepository;
+use Auth;
 use Carbon\Carbon;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
-use App\Repositories\Contracts\CustomerOrderRepository;
-use App\Repositories\Contracts\CustomerRepository;
-use App\Repositories\Contracts\UserRepository;
 use Illuminate\Contracts\Auth\Access\Gate;
+use PDF;
 
 /**
  * CustomerOrder controller.
@@ -150,7 +150,7 @@ class CustomerOrdersController extends ResourceController
             'users' => 'name',
             'products' => [
                 'lists' => 'name',
-                'query' => $this->getProductsQueryScope()
+                'query' => $this->getEditProductsQueryScope()
             ]
         ];
 
@@ -168,22 +168,51 @@ class CustomerOrdersController extends ResourceController
         return function ($customerOrder) {
             return function ($query) use ($customerOrder) {
                 if (is_object($customerOrder)) {
-                    /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
-                    return $query
-                        ->distinct()
-                        ->select('products.*')
-                        ->join(
-                            'customer_pricing_policies',
-                            'customer_pricing_policies.product_group_id',
-                            '=',
-                            'products.product_group_id'
-                        )->where('customer_pricing_policies.customer_id', '=', $customerOrder->customer_id)
-                        ->whereNull('customer_pricing_policies.deleted_at');
+                    return $this->prepareProductsQuery($query, $customerOrder);
                 }
 
                 return $query;
             };
         };
+    }
+
+    /**
+     * Returns a part of products query.
+     *
+     * @return \Closure
+     */
+    protected function getEditProductsQueryScope()
+    {
+        return function ($customerOrder) {
+            return function ($query) use ($customerOrder) {
+                /** @var CustomerOrder $customerOrder */
+                if (is_object($customerOrder)) {
+                    $query = $this->prepareProductsQuery($query, $customerOrder);
+
+                    if ($customerOrder->customerOrderItems->isNotEmpty()) {
+                        $query = $query->orWhereIn('products.id', $customerOrder->customerOrderItems->pluck('product_id'));
+                    }
+
+                    return $query;
+                }
+
+                return $query;
+            };
+        };
+    }
+
+    protected function prepareProductsQuery($query, $customerOrder)
+    {
+        return $query
+            ->distinct()
+            ->select('products.*')
+            ->join(
+                'customer_pricing_policies',
+                'customer_pricing_policies.product_group_id',
+                '=',
+                'products.product_group_id'
+            )->where('customer_pricing_policies.customer_id', '=', $customerOrder->customer_id)
+            ->whereNull('customer_pricing_policies.deleted_at');
     }
 
     /**
@@ -351,7 +380,7 @@ class CustomerOrdersController extends ResourceController
             $order
         );
         if ($customer->customerUsers->isNotEmpty()) {
-            $customer->customerUsers->each(function ($customerUser) use ($notification){
+            $customer->customerUsers->each(function ($customerUser) use ($notification) {
                 $customerUser->notify($notification);
             });
         } else {
