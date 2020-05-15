@@ -82,6 +82,19 @@ class CustomerTypeDataTable extends DataTable
      * @param CustomerType $customerType
      * @return string
      */
+    public function renderNameColumn($customerType)
+    {
+        if ($this->isDataTableRequest()) {
+            return $customerType->customerType ? sprintf('%s / %s', $customerType->customerType->name, $customerType->name) : $customerType->name;
+        }
+
+        return $customerType->customerType->name ?? $customerType->name ?? null;
+    }
+
+    /**
+     * @param CustomerType $customerType
+     * @return string
+     */
     public function renderCustomerType__NameColumn($customerType)
     {
         if ($this->isDataTableRequest()) {

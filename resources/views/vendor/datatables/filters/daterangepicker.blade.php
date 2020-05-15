@@ -12,8 +12,8 @@
 
                 var selector = '[data-filter-name="{{ $filter->name }}"]';
                 var parentSelector = '[data-filter-container="{{ $filter->name }}"]';
-                var start = moment().startOf('year');
-                var end = moment().endOf('year');
+                var start = moment().startOf('month');
+                var end = moment().endOf('month');
 
                 $(selector).daterangepicker({
                     parentEl: parentSelector,

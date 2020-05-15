@@ -35,14 +35,8 @@ docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_U
 # Восстановление таблицы миграций
 docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/migrations.sql
 
-# Создание банковского счета компании
-docker-compose run artisan resource:create:company_bank_account \
-     --bank="Nordea" \
-     --swift="NDEAFIHH" \
-     --account="106430-240775" \
-     --iban="FI72 1064 3000 240775" \
-     --default="true" \
-     --company="American Soda"
+# Добавление необходимых связей
+docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/data.sql
 ```
 
 ### Счета
