@@ -162,7 +162,7 @@ class MaventaImportInvoice implements ShouldQueue
                         'email' => $customer->email ?: $invoice->customer_email,
                         'name' => $customer->name ?: $invoice->customer_contact_p,
                         'legal_name' => $customer->legal_name ?: $invoice->customer_name,
-                        'y_tunnus' => $customer->y_tunnus ?: $customer->bid,
+                        'y_tunnus' => $customer->y_tunnus ?: $customer->bid ?: $invoice->customer_bid,
                         'country' => $customer->country ?: $invoice->customer_country,
                         'state' => $customer->state ?: $invoice->customer_state,
                         'post_code' => $customer->post_code ?: $invoice->customer_post_code,
