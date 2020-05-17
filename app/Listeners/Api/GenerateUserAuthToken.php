@@ -47,6 +47,7 @@ class GenerateUserAuthToken
         })->find($attributes['id']);
 
         if ($customerUser) {
+
             if ($event instanceof ResourceTrashed) {
                 $customerUser->token = null;
             } else {
