@@ -141,6 +141,11 @@ class EventServiceProvider extends ServiceProvider
              * Создает заказ при обновлении предзаказа если он отсуствует
              */
             \App\Listeners\Dashboard\MatchPreOrderWithOrder::class,
+
+            /**
+             * Генерирует JWT токен при редактировании юзера
+             */
+            \App\Listeners\Api\GenerateUserAuthToken::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceDestroyed::class => [
@@ -208,6 +213,11 @@ class EventServiceProvider extends ServiceProvider
              */
             \App\Listeners\Dashboard\CreateCustomerPricingPolicyRevision::class,
 
+            /**
+             * Сбрасывает JWT токен при удалении юзера
+             */
+            \App\Listeners\Api\GenerateUserAuthToken::class,
+
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceRestored::class => [
@@ -236,6 +246,11 @@ class EventServiceProvider extends ServiceProvider
              * Создает ревизию ценовых политик клиента
              */
             \App\Listeners\Dashboard\CreateCustomerPricingPolicyRevision::class,
+
+            /**
+             * Генерирует JWT токен при восстановлении юзера
+             */
+            \App\Listeners\Api\GenerateUserAuthToken::class,
 
         ],
 

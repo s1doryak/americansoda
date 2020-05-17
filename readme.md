@@ -14,6 +14,7 @@ cp .env.example .env
 ```bash
 docker-compose run composer install
 docker-compose run artisan key:generate --ansi
+docker-compose run artisan jwt:secret
 docker-compose run artisan migrate
 docker-compose run npm install
 docker-compose run npm run production
