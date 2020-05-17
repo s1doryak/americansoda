@@ -46,13 +46,16 @@ class GenerateUserAuthToken
             return $query->withTrashed();
         })->find($attributes['id']);
 
-        if ($event instanceof ResourceTrashed) {
-            $customerUser->token = null;
-        } else {
-            $customerUser->token = $customerUser->token ?: JWTAuth::fromUser($customerUser);
-        }
+        if ($customerUser) {
+            if ($event instanceof ResourceTrashed) {
+                $customerUser->token = null;
+            } else {
+                $customerUser->token = null;
+                $customerUser->token = JWTAuth::fromUser($customerUser);
+            }
 
-        $customerUser->save();
+            $customerUser->save();
+        }
 
         return;
     }

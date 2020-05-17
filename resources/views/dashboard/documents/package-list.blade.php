@@ -187,12 +187,12 @@
                 </td>
                 <td colspan="2"><b>{{ $item->product_name }}</b></td>
                 <td><b>{{ $item->products_quantity }}</b></td>
-                <td>{{ auto_number_format($item->product->brutto_weight * $item->packages_quantity, 2, ',', '&nbsp;') }}</td>
-                <td class="price">{{ auto_number_format($item->product_price, 4, ',', '&nbsp;') }}</td>
-                <td class="price">{{ $item->vat }}%</td>
-                <td class="price">{{ auto_number_format($item->product_vat_price, 2, ',', '&nbsp;') }}</td>
-                <td class="price">{{ auto_number_format($item->total_price, 2, ',', '&nbsp;') }}</td>
-                <td class="price">{{ auto_number_format($item->total_vat_price, 2, ',', '&nbsp;') }}</td>
+                <td>{!! auto_number_format($item->product->brutto_weight * $item->packages_quantity, 2, ',', '&nbsp;') !!}</td>
+                <td class="price">{!! auto_number_format($item->product_price, 4, ',', '&nbsp;') !!}</td>
+                <td class="price">{!! $item->vat !!}%</td>
+                <td class="price">{!! auto_number_format($item->product_vat_price, 2, ',', '&nbsp;') !!}</td>
+                <td class="price">{!! auto_number_format($item->total_price, 2, ',', '&nbsp;') !!}</td>
+                <td class="price">{!! auto_number_format($item->total_vat_price, 2, ',', '&nbsp;') !!}</td>
             </tr>
         @endforeach
         <tr>
@@ -207,11 +207,11 @@
                     <td colspan="2"><b>PANTTI &times; {{ $deposit->sum('products_quantity') }}</b></td>
                     <td class="text-center"></td>
                     <td class="text-center">&ndash;</td>
-                    <td class="price">{{ auto_number_format($deposit->first()->deposit_price, 4, ',', '&nbsp;') }}</td>
-                    <td class="price">{{ $deposit->first()->deposit_vat }}%</td>
-                    <td class="price">{{ auto_number_format($deposit->first()->deposit_vat_price, 4, ',', '&nbsp;') }}</td>
-                    <td class="price">{{ auto_number_format($deposit->sum('deposit_total_price'), 4, ',', '&nbsp;') }}</td>
-                    <td class="price">{{ auto_number_format($deposit->sum('deposit_total_vat_price'), 2, ',', '&nbsp;') }}</td>
+                    <td class="price">{!! auto_number_format($deposit->first()->deposit_price, 4, ',', '&nbsp;') !!}</td>
+                    <td class="price">{!! $deposit->first()->deposit_vat !!}%</td>
+                    <td class="price">{!! auto_number_format($deposit->first()->deposit_vat_price, 4, ',', '&nbsp;') !!}</td>
+                    <td class="price">{!! auto_number_format($deposit->sum('deposit_total_price'), 4, ',', '&nbsp;') !!}</td>
+                    <td class="price">{!! auto_number_format($deposit->sum('deposit_total_vat_price'), 2, ',', '&nbsp;') !!}</td>
                 </tr>
             @endforeach
         @endforeach
