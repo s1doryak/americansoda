@@ -172,7 +172,7 @@ class AssignCustomerInvoiceItems
                 $amount = numerize($item['amount']);
                 $sum = $amount * $price;
                 $tax = numerize($item['tax']);
-                $sum_tax = $sum * (1 + ($tax / 100));
+                $sum_tax = $sum + ($sum * ($tax / 100));
 
                 $productId = $product ? $product->getKey() : null;
                 $customerOrderItemId = null;
@@ -183,7 +183,7 @@ class AssignCustomerInvoiceItems
                 'item_code' => $item_code,
                 'subject' => $subject,
                 'definition' => trim(strip_tags($definition)),
-                'price' => round($price, 2),
+                'price' => $price,
                 'unit_type' => $unit_type,
                 'amount' => $amount,
                 'sum' => round($sum, 2),
