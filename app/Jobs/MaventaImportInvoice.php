@@ -135,7 +135,8 @@ class MaventaImportInvoice implements ShouldQueue
             'customer_bid' => $invoice->customer_bid,
             'customer_ovt' => $invoice->customer_ovt,
 
-            'maventa_initiated' => true
+            'maventa_initiated' => true,
+            'maventa_sent_at' => carbon($invoice->date, 'Ymd')->endOfDay()
         ]);
 
         /**
