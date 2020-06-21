@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\AdministratorRepository;
+use App\Repositories\Contracts\UserRepository;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Queue::failing(function (JobFailed $event) {
             Notification::sendNow(
-                app(AdministratorRepository::class)->notifiable(),
+                app(UserRepository::class)->notifiable(),
                 new \App\Notifications\Cli\JobFailed(class_basename($event->job->resolveName()), $event->exception)
             );
         });

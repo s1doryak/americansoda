@@ -66,12 +66,12 @@ return [
         ],
         'customer' => [
             'name' => 'Customer',
+            'user' => [
+                'name' => 'User',
+            ],
         ],
         'customer_id' => [
             'name' => 'Customer',
-        ],
-        'user' => [
-            'name' => 'User',
         ],
     ],
     'placeholders' => [
@@ -92,9 +92,9 @@ return [
         ],
         'customer' => [
             'name' => 'Customer',
-        ],
-        'user' => [
-            'name' => 'User',
+            'user' => [
+                'name' => 'User',
+            ],
         ],
         'customerOrderItems' => [
             'customerOrder' => [
@@ -115,9 +115,9 @@ return [
         ],
         'customer' => [
             'name' => 'Customer',
-        ],
-        'user' => [
-            'name' => 'User',
+            'user' => [
+                'name' => 'User',
+            ],
         ],
         'status' => 'Status',
         'number' => 'Number',

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Api\V1\Auth;
 
 use App\Notifications\Api\V1\AuthAttemptFailed;
-use App\Services\Api\V1\AdministratorService;
+use App\Services\Api\V1\UserService;
 use App\Services\Api\V1\CustomerUserService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Notification;
@@ -27,12 +27,12 @@ class SendTokenRequest extends FormRequest
     {
         parent::validateResolved();
 
-        $administratorService = app(AdministratorService::class);
+        $userService = app(UserService::class);
         $customerUserService = app(CustomerUserService::class);
         $email = $this->input('email');
 
         if (!$customerUserService->firstWhere(compact('email'))) {
-            Notification::send($administratorService->all(), new AuthAttemptFailed($email));
+            Notification::send($userService->findWhere(['role_id' => 2]), new AuthAttemptFailed($email));
 
             throw new UnprocessableEntityHttpException();
         }

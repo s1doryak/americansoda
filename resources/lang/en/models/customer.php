@@ -69,7 +69,6 @@ return [
 		],
 		'payment_conditions' => 'Payment Conditions',
 		'pays_vat' => 'Pays Vat',
-		'archived' => 'Archived',
 		'nr' => 'Number',
 		'country' => 'Country',
 		'state' => 'State',
@@ -102,6 +101,7 @@ return [
 		'shippingRegion' => [
 			'name' => 'Shipping Region',
 		],
+        'editor' => 'Editor',
 	],
     'placeholders' => [
 		'stock' => 'Select Stock',
@@ -134,7 +134,6 @@ return [
 		'delivery_payer' => 'Delivery Payer',
 		'payment_conditions' => 'Payment Conditions',
 		'pays_vat' => 'Pays Vat',
-		'archived' => 'Archived',
 		'nr' => 'Number',
 		'country' => 'Country',
 		'state' => 'State',

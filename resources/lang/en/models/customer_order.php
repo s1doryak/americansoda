@@ -60,9 +60,9 @@ return [
         'sent_at' => 'Sent At',
         'customer' => [
             'name' => 'Customer',
-        ],
-        'user' => [
-            'name' => 'User',
+            'user' => [
+                'name' => 'User',
+            ],
         ],
     ],
     'placeholders' => [
@@ -86,10 +86,11 @@ return [
         'customer' => [
             'name' => 'Customer',
             'order_interval' => 'Interval',
+            'user' => [
+                'name' => 'User',
+            ],
         ],
-        'user' => [
-            'name' => 'User',
-        ],
+
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',
@@ -99,9 +100,9 @@ return [
         'customer' => [
             'name' => 'Customer',
             'order_interval' => 'Interval',
-        ],
-        'user' => [
-            'name' => 'User',
+            'user' => [
+                'name' => 'User',
+            ],
         ],
     ],
     'statuses' => [

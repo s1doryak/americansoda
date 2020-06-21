@@ -62,7 +62,6 @@ class CustomerPreOrderTransformer implements TransformerContract
             'fc_future_comment' => $customerPreOrder->customerOrder ? $customerPreOrder->customerOrder->fc_future_comment : null,
             'sent_at' => null,
             'customer_id' => $customerPreOrder->customer ? $customerPreOrder->customer->id : null,
-            'user_id' => $customerPreOrder->customerOrder ? $customerPreOrder->customerOrder->user->id : null,
             'status' => 'open',
             'amount' => $customerPreOrder->amount_vat,
             'type' => 'pre-order',

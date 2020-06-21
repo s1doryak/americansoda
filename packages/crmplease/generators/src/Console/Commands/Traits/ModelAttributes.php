@@ -91,7 +91,7 @@ trait ModelAttributes
 			case 'datepicker':
 				return 'date';
 			case 'datetime':
-				return 'dateTime';
+				return 'datetime';
 			case 'float':
 				return 'float';
 			case 'text':
@@ -690,10 +690,12 @@ trait ModelAttributes
 	{
 		$pivot = $fields->groupBy('relation');
 
-		return $pivot
-			->filter(function ($field) {
-				return $field->name ?? false;
-			})
+        return $pivot
+            ->map(function (Collection $fields) {
+                return $fields->filter(function ($field) {
+                    return $field->name ?? false;
+                });
+            })
 			->map(function (Collection $fields, $relation) {
 				return sprintf("\t\t'%s' => [%s],", $relation, $fields->map(function ($field) {
 					return sprintf("'%s'", $field->name);

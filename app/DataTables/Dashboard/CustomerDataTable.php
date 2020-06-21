@@ -68,7 +68,6 @@ class CustomerDataTable extends DataTable
             'stock.name' => [
                 'data' => 'stock.name',
             ],
-            'archived',
             //'country',
             //'state',
             //'post_code',

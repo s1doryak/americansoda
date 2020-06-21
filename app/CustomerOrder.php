@@ -40,7 +40,6 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'fc_future_comment',
         'sent_at',
         'customer_id',
-        'user_id',
     ];
 
     protected $casts = [
@@ -63,7 +62,6 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     protected $belongsTo = [
         'customer' => \App\Customer::class,
-        'user' => \App\User::class,
     ];
 
     protected $belongsToMany = [

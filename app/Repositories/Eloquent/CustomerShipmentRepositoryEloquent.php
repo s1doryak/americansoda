@@ -36,6 +36,7 @@ class CustomerShipmentRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
     {
         return $this
             ->with('customerInvoice')
+            ->orderBy(DB::raw('number', 'SOUNDEX(number) $1, LENGTH(number) $1, number $1'), 'desc')
             ->findWhere(['customer_id' => $shopId]);
     }
 }

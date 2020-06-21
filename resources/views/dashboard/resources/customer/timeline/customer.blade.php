@@ -14,9 +14,9 @@
                 <em>@lang('forms.labels.empty_value')</em>
             @else
                 @if (is_array($value))
-                    {!! $value['name'] !!}
+                    {!! strip_tags($value['name'],'<p><b><i><ul><ol><li>'); !!}
                 @else
-                    {!! $value !!}
+                    {!! strip_tags($value,'<p><b><i><ul><ol><li>'); !!}
                 @endif
             @endif
         </span>

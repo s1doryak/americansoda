@@ -24,10 +24,6 @@ class CustomerForm extends Form
         $delivery_payer = config('customer.delivery_payer');
 
         $fields = [
-            'archived' => [
-                'type' => 'checkbox',
-                'ts-color' => 'red',
-            ],
             'name' => 'text',
             'legal_name' => 'text',
 
@@ -163,10 +159,6 @@ class CustomerForm extends Form
         $delivery_payer = config('customer.delivery_payer');
 
         $fields = [
-            'archived' => [
-                'type' => 'checkbox',
-                'ts-color' => 'red',
-            ],
             'name' => 'text',
             'legal_name' => 'text',
 
@@ -322,7 +314,6 @@ class CustomerForm extends Form
             'customerType' => 'sometimes|exists:customer_types,id',
             'paymentType' => 'sometimes|exists:payment_types,id',
             'user' => 'sometimes|exists:users,id',
-            'archived' => 'sometimes',
             'nr' => 'sometimes',
             'country' => 'sometimes',
             'state' => 'sometimes',
@@ -361,7 +352,6 @@ class CustomerForm extends Form
             'customerType' => 'sometimes|exists:customer_types,id',
             'paymentType' => 'sometimes|exists:payment_types,id',
             'user' => 'sometimes|exists:users,id',
-            'archived' => 'sometimes',
             'nr' => 'sometimes',
             'country' => 'sometimes',
             'state' => 'sometimes',

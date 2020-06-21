@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -17,7 +18,6 @@ class Kernel extends ConsoleKernel
 		\App\Console\Commands\Resources\CompanyCreator::class,
 		\App\Console\Commands\Resources\RoleCreator::class,
 		\App\Console\Commands\Resources\UserCreator::class,
-		\App\Console\Commands\Resources\AdministratorCreator::class,
 		\App\Console\Commands\Resources\BrandCreator::class,
 		\App\Console\Commands\Resources\PackageTypeCreator::class,
 		\App\Console\Commands\Resources\ProductGroupCreator::class,
@@ -63,9 +63,24 @@ class Kernel extends ConsoleKernel
 	 */
 	protected function schedule(Schedule $schedule)
 	{
-		// $schedule->command('inspire')
-		//          ->hourly();
+	    $maventaImportDates = $this->getMaventaDates();
+
+	    $schedule
+            ->command(sprintf('maventa:import:invoices %s %s --tiff', $maventaImportDates['start'], $maventaImportDates['end']))
+            ->dailyAt('07:00');
 	}
+
+    /**
+     * @return array
+     */
+	protected function getMaventaDates()
+    {
+        $now = Carbon::now();
+        $start = $now->copy()->startOfDay()->subDay()->format('YmdHis');
+        $end = $now->copy()->endOfDay()->subDay()->format('YmdHis');
+
+        return compact('start', 'end');
+    }
 
 	/**
 	 * Register the commands for the application.

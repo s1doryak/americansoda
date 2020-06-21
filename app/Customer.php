@@ -102,7 +102,6 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'user_id',
         'billing_region_id',
         'shipping_region_id',
-        'archived',
         'nr',
         'country',
         'state',
@@ -119,7 +118,6 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $casts = [
         'order_interval' => 'integer',
         'pays_vat' => 'boolean',
-        'archived' => 'boolean',
 
     ];
 
@@ -206,5 +204,37 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public function getContentAttribute()
     {
         return $this->renderName();
+    }
+
+    /**
+     * @param $value
+     */
+    public function setTermsOfDeliveryAttribute($value)
+    {
+        $this->attributes['terms_of_delivery'] = strip_tags($value,'<p><b><i><ul><ol><li>');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setCommentAttribute($value)
+    {
+        $this->attributes['comment'] = strip_tags($value,'<p><b><i><ul><ol><li>');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setTermsOfCooperationAttribute($value)
+    {
+        $this->attributes['terms_of_cooperation'] = strip_tags($value,'<p><b><i><ul><ol><li>');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setTermsOfEquipmentAttribute($value)
+    {
+        $this->attributes['terms_of_equipment'] = strip_tags($value,'<p><b><i><ul><ol><li>');
     }
 }

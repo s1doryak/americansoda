@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Listeners\Dashboard\MatchPreOrderWithOrder;
+use App\Listeners\Dashboard\SetCustomerShipmentInvoiceStatus;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -88,6 +89,8 @@ class EventServiceProvider extends ServiceProvider
              * Генерирует JWT токен для созданного юзера
              */
             \App\Listeners\Api\GenerateUserAuthToken::class,
+
+            \App\Listeners\Dashboard\SetCustomerShipmentInvoiceStatus::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceUpdated::class => [
@@ -290,6 +293,9 @@ class EventServiceProvider extends ServiceProvider
 
         ],
 
+        \App\Events\Dashboard\CustomerInvoiceEmailSended::class => [
+            \App\Listeners\Dashboard\SetCustomerShipmentInvoiceStatus::class
+        ],
 
     ];
 

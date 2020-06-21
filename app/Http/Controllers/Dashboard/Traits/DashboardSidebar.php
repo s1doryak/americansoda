@@ -48,7 +48,6 @@ trait DashboardSidebar
 		[
 			'title' => 'sidebar.administration',
 			'resources' => [
-				'administrator',
 				'user',
 				'role',
 				'company',

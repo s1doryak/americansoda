@@ -4,7 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\CustomerPreOrder;
 use App\Repositories\Contracts\CustomerPreOrderRepository;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CustomerPreOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerPreOrderRepository
@@ -26,7 +26,7 @@ class CustomerPreOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
         }
 
         return $this
-            ->orderBy('created_at', 'desc')
+            ->orderBy(DB::raw('number', 'SOUNDEX(number) $1, LENGTH(number) $1, number $1'))
             ->findWhere($where);
     }
 

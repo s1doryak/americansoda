@@ -3,6 +3,7 @@
 namespace App\Services\Api\V1;
 
 use App\Company;
+use App\CompanyBankAccount;
 use App\Customer;
 use App\CustomerInvoice;
 use App\Repositories\Eloquent\CompanyRepositoryEloquent;
@@ -77,6 +78,12 @@ class CustomerInvoiceService extends ResourceService
         /** @var Company $company */
         $company = $this->companyService->with('region')->first();
 
+        /** @var CompanyBankAccount $companyBankAccount */
+        $companyBankAccount = $company->companyBankAccounts->first(function (CompanyBankAccount $companyBankAccount) {
+            return $companyBankAccount->default;
+        });
+
+
         /** @var Customer $customer */
         $customer = $invoice->customer;
 
@@ -89,6 +96,7 @@ class CustomerInvoiceService extends ResourceService
 
         return compact(
             'company',
+            'companyBankAccount',
             'customer',
             'invoice',
             'invoiceItems',

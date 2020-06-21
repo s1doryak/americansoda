@@ -2,8 +2,8 @@
 
 namespace App\DataTables\Dashboard;
 
-use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 use App\CustomerShipment;
+use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 
 /**
  * CustomerShipment datatable.
@@ -47,11 +47,6 @@ class CustomerShipmentDataTable extends DataTable
             'assembly_number',
             'invoice_number',
             'delivery_date',
-            'user.name' => [
-                'name' => 'user.name',
-                'data' => 'user.name',
-                'searchable' => true,
-            ],
             'created_at',
             'updated_at',
         ];
@@ -226,12 +221,12 @@ class CustomerShipmentDataTable extends DataTable
      * @param CustomerShipment $customerShipment
      * @return string
      */
-    public function renderUser__NameColumn($customerShipment)
+    public function renderCustomer__User__NameColumn($customerShipment)
     {
         if ($this->isDataTableRequest()) {
-            return $customerShipment->user->name ?? $this->renderDefaultView();
+            return $customerShipment->customer->user ? $customerShipment->customer->user->name : $this->renderDefaultView();
         }
 
-        return $customerShipment->user->name ?? null;
+        return $customerShipment->customer->user ? $customerShipment->customer->user->name : null;
     }
 }

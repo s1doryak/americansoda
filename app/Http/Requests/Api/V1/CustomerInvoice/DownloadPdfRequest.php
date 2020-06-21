@@ -3,8 +3,6 @@
 namespace App\Http\Requests\Api\V1\CustomerInvoice;
 
 use App\Customer;
-use App\CustomerOrder;
-use App\CustomerShipment;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,9 +12,9 @@ class DownloadPdfRequest extends FormRequest
     {
         $customerWithInvoices = Auth::user()
             ->customers()
+            ->where('id', $this->route('id'))
             ->with(['customerInvoices' => function ($query) {
                 return $query
-                    ->where('customer_id', $this->route('id'))
                     ->where('customer_shipment_id', $this->route('shipment_id'));
             }])
             ->first();

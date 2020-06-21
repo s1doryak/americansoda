@@ -145,7 +145,7 @@ class AssembliesController extends ResourceController
 		$pdf = PDF::loadView('dashboard::documents.assembly-list', $this->getDocumentData())
 			->setPaper('a4')
 			->setOrientation('landscape')
-			->setOption('footer-center', sprintf('%s - Page [page]/[toPage]', $assembly->number))
+			->setOption('footer-center', sprintf('%s - Sivu [page]/[toPage]', $assembly->number))
 			->setOption('footer-font-size', 10);
 
 		if ($inline) {

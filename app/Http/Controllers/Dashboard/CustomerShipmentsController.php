@@ -23,7 +23,6 @@ use Crmplease\MaterialAdmin\Routing\ResourceController;
 use App\Repositories\Contracts\CustomerShipmentRepository;
 use App\Repositories\Contracts\PackageTypeRepository;
 use App\Repositories\Contracts\CustomerRepository;
-use App\Repositories\Contracts\UserRepository;
 use Illuminate\Contracts\Auth\Access\Gate;
 
 /**
@@ -55,7 +54,6 @@ class CustomerShipmentsController extends ResourceController
      */
     protected $with = [
         'customer',
-        'user',
         'packageType',
         'customerInvoice',
         'customerOrderItems',
@@ -72,11 +70,6 @@ class CustomerShipmentsController extends ResourceController
      * @var CustomerRepository
      */
     protected $customers;
-
-    /**
-     * @var UserRepository
-     */
-    protected $users;
 
     /**
      * @var ProductRepository
@@ -120,7 +113,6 @@ class CustomerShipmentsController extends ResourceController
             'lists' => 'name',
             'prepend_empty' => true
         ],
-        'users' => 'name',
         'products' => 'name',
     ];
 
@@ -138,7 +130,6 @@ class CustomerShipmentsController extends ResourceController
      * @param CustomerShipmentRepository $customerShipmentRepository
      * @param PackageTypeRepository $packageTypeRepository
      * @param CustomerRepository $customerRepository
-     * @param UserRepository $userRepository
      * @param ProductRepository $productRepository
      * @param CustomerInvoiceRepository $customerInvoiceRepository
      * @param CustomerInvoiceItemRepository $customerInvoiceItemRepository
@@ -151,7 +142,6 @@ class CustomerShipmentsController extends ResourceController
         CustomerShipmentRepository $customerShipmentRepository,
         PackageTypeRepository $packageTypeRepository,
         CustomerRepository $customerRepository,
-        UserRepository $userRepository,
         ProductRepository $productRepository,
         CustomerInvoiceRepository $customerInvoiceRepository,
         CustomerInvoiceItemRepository $customerInvoiceItemRepository,
@@ -164,7 +154,6 @@ class CustomerShipmentsController extends ResourceController
         $this->repository = $customerShipmentRepository;
         $this->packageTypes = $packageTypeRepository;
         $this->customers = $customerRepository;
-        $this->users = $userRepository;
         $this->products = $productRepository;
         $this->customerInvoices = $customerInvoiceRepository;
         $this->customerInvoiceItems = $customerInvoiceItemRepository;
@@ -297,7 +286,6 @@ class CustomerShipmentsController extends ResourceController
             'customer',
             'customer.billingRegion',
             'customer.shippingRegion',
-            'customer.user',
             'customer.stock',
             'customer.stock.region'
         ])->find($this->getResourceId());

@@ -106,7 +106,6 @@ class CustomerRevision extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'billing_region_id',
         'shipping_region_id',
         'price_group_id',
-		'archived',
 		'nr',
 		'country',
 		'state',
@@ -122,7 +121,6 @@ class CustomerRevision extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $casts = [
         'order_interval' => 'integer',
         'pays_vat' => 'boolean',
-		'archived' => 'boolean',
     ];
 
     protected $dates = [
@@ -243,7 +241,6 @@ class CustomerRevision extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
             'customer_id',
             'stock_id',
             'trashed',
-            'archived',
             'revision_type'
         ];
 

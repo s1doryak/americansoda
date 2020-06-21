@@ -63,7 +63,6 @@ class CustomerOrderTransformer implements TransformerContract
             'fc_future_comment' => $customerOrder->fc_future_comment,
             'sent_at' => $customerOrder->sent_at,
             'customer_id' => $customerOrder->customer ? $customerOrder->customer->id : null,
-            'user_id' => $customerOrder->user ? $customerOrder->user->id : null,
             'status' => $customerOrder->status,
             'amount' => $customerOrder->amount_vat,
             'type' => 'order',

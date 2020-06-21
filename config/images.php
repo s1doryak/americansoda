@@ -10,14 +10,6 @@
                 'quality' => 90,
             ],
         ],
-        \App\Administrator::class => [
-            'avatar' => [
-                'width' => 512,
-                'height' => 512,
-                'crop' => true,
-                'quality' => 90,
-            ],
-        ],
         \App\Brand::class => [
             'logo' => [
                 'width' => 512,
