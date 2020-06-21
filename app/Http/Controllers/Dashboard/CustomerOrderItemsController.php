@@ -155,7 +155,6 @@ class CustomerOrderItemsController extends ResourceController
 
                 $customerShipment = $this->customerShipments->create(
                     [
-                        'user_id' => $user ? $user->getKey() : null,
                         'customer_id' => $customerOrderItem->customer_id,
                         'assembly_number' => $assemblyNumber,
                         'status' => config('stock.status.open'),

@@ -234,6 +234,11 @@ class CustomerOrderItemDataTable extends DataTable
                 'multiple' => true,
                 'data' => 'customer.id',
                 'lists' => 'customer.name',
+                'query' => function ($query, $filterColumn, $value) {
+                    return is_array($value)
+                        ? $query->whereIn($filterColumn, $value)
+                        : $query->where($filterColumn, $value);
+                }
             ],
             'customer.user.name' => [
                 'type' => 'select',
@@ -482,6 +487,12 @@ class CustomerOrderItemDataTable extends DataTable
                 'name' => 'customerShipment.invoice_number',
                 'lists' => 'customerShipment.invoice_number',
             ],
+            'customerShipment.number' => [
+                'type' => 'text',
+                'name' => 'customerShipment.number',
+                'data' => 'customerShipment.number',
+            ],
+
         ];
     }
 
@@ -640,9 +651,9 @@ class CustomerOrderItemDataTable extends DataTable
     protected function renderCustomerOrder__Customer__User__NameColumn($customerOrderItem)
     {
         if ($this->isDataTableRequest()) {
-            return $customerOrderItem->customerOrder->customer->payment_conditions ?? $this->renderDefaultView();
+            return $customerOrderItem->customerOrder->customer->user->name ?? $this->renderDefaultView();
         }
 
-        return $customerOrderItem->customerOrder->customer->payment_conditions ?? null;
+        return $customerOrderItem->customerOrder->customer->user->name ?? null;
     }
 }

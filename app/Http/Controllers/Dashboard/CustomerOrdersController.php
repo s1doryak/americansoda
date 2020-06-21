@@ -50,7 +50,6 @@ class CustomerOrdersController extends ResourceController
      */
     protected $with = [
         'customer',
-        'user',
         'customerOrderItems',
         'customerOrderItems.product',
     ];
@@ -87,7 +86,6 @@ class CustomerOrdersController extends ResourceController
             'lists' => 'name',
             'prepend_empty' => true
         ],
-        'users' => 'name',
         'products' => 'name',
     ];
 
@@ -132,10 +130,6 @@ class CustomerOrdersController extends ResourceController
                 'lists' => 'name',
                 'prepend_empty' => true
             ],
-            'users' => [
-                'lists' => 'name',
-                'selected' => Auth::user()
-            ],
             'products' => [
                 'lists' => 'name',
                 'query' => $this->getProductsQueryScope()
@@ -147,7 +141,6 @@ class CustomerOrdersController extends ResourceController
                 'lists' => 'name',
                 'prepend_empty' => true
             ],
-            'users' => 'name',
             'products' => [
                 'lists' => 'name',
                 'query' => $this->getEditProductsQueryScope()
@@ -301,7 +294,7 @@ class CustomerOrdersController extends ResourceController
     private function getDocumentData($hideBackOrder = true, $hideCancelled = true)
     {
         /** @var CustomerOrder $order */
-        $order = $this->repository->with(['customer', 'user', 'customer.billingRegion', 'customer.shippingRegion', 'customer.user', 'customer.stock', 'customer.stock.region'])->find($this->getResourceId());
+        $order = $this->repository->with(['customer', 'customer.billingRegion', 'customer.shippingRegion', 'customer.user', 'customer.stock', 'customer.stock.region'])->find($this->getResourceId());
 
         /** @var Company $company */
         $company = $this->companies->with('region')->first();

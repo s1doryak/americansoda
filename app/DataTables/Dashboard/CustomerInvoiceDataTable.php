@@ -25,6 +25,7 @@ class CustomerInvoiceDataTable extends DataTable
                 'searchable' => true,
             ],
             'date',
+            'date_due',
             'reference_nr',
             'sum',
             'sum_tax',
@@ -44,6 +45,20 @@ class CustomerInvoiceDataTable extends DataTable
     }
 
     /**
+     * Get row attributes.
+     */
+    public function getRowAttributes()
+    {
+        $attributes = [
+            'data-trashed' => function (CustomerInvoice $customerInvoice) {
+                return $customerInvoice->error_message || $customerInvoice->trashed() ? 'true' : 'false';
+            },
+        ];
+
+        return array_merge(parent::getRowAttributes(), $attributes);
+    }
+
+    /**
      * @return array
      */
     protected function getRawColumns()
@@ -51,6 +66,7 @@ class CustomerInvoiceDataTable extends DataTable
         return [
             'invoice_nr',
             'date',
+            'date_due',
             'reference_nr',
             'sum',
             'sum_tax',

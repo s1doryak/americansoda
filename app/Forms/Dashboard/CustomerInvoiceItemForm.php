@@ -56,7 +56,10 @@ class CustomerInvoiceItemForm extends Form
                 'type' => 'text',
                 'attr' => [
                     'disabled' => true,
-                ]
+                ],
+                'value' => function ($value) {
+                    return round($value, 2);
+                }
             ],
             //'discount' => 'text',
             //'customerInvoice' => 'choice',

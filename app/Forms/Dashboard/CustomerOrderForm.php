@@ -24,7 +24,6 @@ class CustomerOrderForm extends Form
     {
         $fields = [];
 
-        $fields['user'] = static::provideUserFormField();
         $fields['customer'] = [
             'type' => 'choice',
             'multiple' => false,
@@ -49,7 +48,6 @@ class CustomerOrderForm extends Form
     {
         $fields = [];
 
-        $fields['user'] = static::provideUserFormField($customerOrder);
         $fields['customer'] = [
             'type' => 'choice',
             'multiple' => false,
@@ -89,6 +87,7 @@ class CustomerOrderForm extends Form
             'can_select' => function ($customerOrderItem = null) {
                 return $customerOrderItem ? false : true;
             },
+            'parent_except' => ['status']
         ];
 
         return $fields;
@@ -100,7 +99,6 @@ class CustomerOrderForm extends Form
     public static function getStoreValidationRules()
     {
         return [
-            'user' => 'sometimes|exists:users,id',
             'customer' => 'sometimes|exists:customers,id',
             'number' => 'sometimes',
             'customerOrderItems.*.product' => 'sometimes|exists:products,id',
@@ -114,7 +112,6 @@ class CustomerOrderForm extends Form
     public static function getUpdateValidationRules($customerOrder)
     {
         return [
-            'user' => 'sometimes|exists:users,id',
             'customer' => 'sometimes|exists:customers,id',
             'number' => 'sometimes',
             'customerOrderItems.*.product' => 'sometimes|exists:products,id',

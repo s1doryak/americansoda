@@ -2,8 +2,8 @@
 
 namespace App\DataTables\Dashboard;
 
-use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 use App\CustomerOrder;
+use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 
 /**
  * CustomerOrder datatable.
@@ -57,9 +57,9 @@ class CustomerOrderDataTable extends DataTable
                 'searchable' => true,
             ],
             'sent_at',
-            'user.name' => [
-                'data' => 'user.name',
-                'name' => 'user.name',
+            'customer.user.name' => [
+                'data' => 'customer.user.name',
+                'name' => 'customer.user.name',
             ],
             'created_at',
             'updated_at',
@@ -201,10 +201,10 @@ class CustomerOrderDataTable extends DataTable
      * @param CustomerOrder $customerOrder
      * @return string
      */
-    public function renderUser__NameColumn($customerOrder)
+    public function renderCustomer__User__NameColumn($customerOrder)
     {
         if ($this->isDataTableRequest()) {
-            return $customerOrder->user->name ?? $this->renderDefaultView();
+            return $customerOrder->customer->user ? $customerOrder->customer->user->name : $this->renderDefaultView();
         }
 
         return $customerOrder->user->name ?? null;

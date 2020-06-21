@@ -21,7 +21,6 @@ use Illuminate\Support\Arr;
  * @property string $order_batch_numbers
  * @property \App\PackageType $packageType
  * @property \App\Customer $customer
- * @property \App\User $user
  * @property \App\CustomerInvoice $customerInvoice
  * @property \Illuminate\Support\Collection|\App\CustomerOrderItem[] $customerOrderItems
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -48,7 +47,6 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'comment',
         'package_type_id',
         'customer_id',
-        'user_id',
     ];
 
     protected $casts = [
@@ -66,7 +64,6 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $belongsTo = [
         'packageType' => \App\PackageType::class,
         'customer' => \App\Customer::class,
-        'user' => \App\User::class,
     ];
 
     protected $belongsToMany = [

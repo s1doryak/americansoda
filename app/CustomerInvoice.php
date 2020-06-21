@@ -219,7 +219,7 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         return preg_replace(
             '/\s+/mui',
             '_',
-            sprintf('invoice_%d', $this->id)
+            sprintf('lasku_%d', $this->invoice_nr)
         );
     }
 }

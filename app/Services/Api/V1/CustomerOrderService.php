@@ -55,7 +55,6 @@ class CustomerOrderService extends ResourceService
     {
         $order = $this->repository->with([
             'customer',
-            'user',
             'customer.billingRegion',
             'customer.shippingRegion',
             'customer.user',
@@ -156,7 +155,6 @@ class CustomerOrderService extends ResourceService
         return $customerOrders
             ->map(function ($customerOrder) {
                 return CustomerOrderTransformer::toArray($customerOrder);
-            })
-            ->sortBy('created_at');
+            });
     }
 }

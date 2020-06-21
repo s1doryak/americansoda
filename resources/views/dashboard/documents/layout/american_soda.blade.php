@@ -149,6 +149,10 @@
         .table-50p3 td:nth-child(1) {
             width: 50%;
         }
+
+        tr {
+            page-break-inside: avoid!important;
+        }
     </style>
 </head>
 <body>

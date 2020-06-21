@@ -23,8 +23,6 @@ class CustomerShipmentForm extends Form
 	{
 		$fields = [];
 
-		$fields['user'] = static::provideUserFormField();
-
 		/**
 		 * При создании отгрузки заполнять поле клиент в зависимости от того, с какой страницы происходит создание.
 		 */
@@ -86,8 +84,6 @@ class CustomerShipmentForm extends Form
 	public static function getEditFormFields($customerShipment)
 	{
 		$fields = [];
-
-		$fields['user'] = static::provideUserFormField($customerShipment);
 
 		/**
 		 * При создании отгрузки заполнять поле клиент в зависимости от того, с какой страницы происходит создание.

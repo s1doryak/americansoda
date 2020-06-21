@@ -57,7 +57,6 @@ class MatchPreOrderWithOrder
                 'number' => $this->customerOrders->getFirstAvailableNumber(),
                 'batch_number' => $attributes['reference_number'],
                 'comment' => $attributes['comment'],
-                'user_id' => Auth::id(),
                 'customer_id' => $attributes['customer_id'],
             ]);
             $items = $customerPreOrder->items->map(function ($item) {

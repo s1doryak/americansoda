@@ -3,7 +3,6 @@
     'company' => \App\Company::class,
     'role' => \App\Role::class,
     'user' => \App\User::class,
-    'administrator' => \App\Administrator::class,
     'brand' => \App\Brand::class,
     'package_type' => \App\PackageType::class,
     'product_group' => \App\ProductGroup::class,

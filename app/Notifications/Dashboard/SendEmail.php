@@ -68,6 +68,7 @@ class SendEmail extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject($this->order->getEmailSubject())
             ->cc(config('mail.from.address'), config('mail.from.name'))
+            ->line(trans('notifications/send_email.message'))
             ->attach($this->file, [
                 'as' => $this->as,
                 'mime' => 'application/pdf',
@@ -82,6 +83,8 @@ class SendEmail extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        return [];
+        return [
+            'message' => trans('notifications/send_email.message')
+        ];
     }
 }

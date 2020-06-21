@@ -3,6 +3,7 @@
 namespace App\Forms\Fields;
 
 use Crmplease\MaterialAdmin\Forms\Form;
+use Illuminate\Support\Arr;
 use Kris\LaravelFormBuilder\Fields\ChildFormType;
 
 class RelationFormType extends ChildFormType
@@ -37,9 +38,14 @@ class RelationFormType extends ChildFormType
 
     protected function getFormData()
     {
-        return $this->getOption('with_parent_data', true)
+        $withParentData = $this->getOption('with_parent_data', true);
+        $data = $withParentData
             ? array_merge($this->getOption('data'), $this->parent->getData())
             : $this->getOption('data');
+
+        return $withParentData && $this->getOption('parent_except')
+            ? Arr::except($data, $this->getOption('parent_except'))
+            : $data;
     }
 
     /**

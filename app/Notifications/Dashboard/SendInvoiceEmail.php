@@ -64,6 +64,7 @@ class SendInvoiceEmail extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject($this->invoice->getInvoiceFileName())
             ->cc(config('mail.from.address'), config('mail.from.name'))
+            ->line(trans('notifications/send_invoice_email.message'))
             ->attach($this->file, [
                 'as' => $this->as,
                 'mime' => 'application/pdf',
@@ -78,6 +79,8 @@ class SendInvoiceEmail extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        return [];
+        return [
+            'message' => trans('notifications/send_invoice_email.message')
+        ];
     }
 }

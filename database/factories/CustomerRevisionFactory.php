@@ -25,7 +25,6 @@ $factory->define(App\CustomerRevision::class, function (Faker\Generator $faker) 
 		'delivery_payer' => null,
 		'payment_conditions' => null,
 		'pays_vat' => $faker->boolean,
-		'archived' => $faker->boolean,
 		'nr' => null,
 		'country' => null,
 		'state' => null,

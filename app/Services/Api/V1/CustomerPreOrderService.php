@@ -30,29 +30,29 @@ class CustomerPreOrderService extends ResourceService
     protected $customerOrderService;
 
     /**
-     * @var AdministratorService
+     * @var UserService
      */
-    protected $administratorService;
+    protected $userService;
 
     /**
      * CustomerPreOrderService constructor.
      * @param CustomerPreOrderRepositoryEloquent $repository
      * @param CustomerPreOrderItemService $customerPreOrderItemService
      * @param CustomerOrderService $customerOrderService
-     * @param AdministratorService $administratorService
+     * @param UserService $userService
      */
     public function __construct(
         CustomerPreOrderRepositoryEloquent $repository,
         CustomerPreOrderItemService $customerPreOrderItemService,
         CustomerOrderService $customerOrderService,
-        AdministratorService $administratorService
+        UserService $userService
     )
     {
         $this->repository = $repository;
 
         $this->customerPreOrderItemsService = $customerPreOrderItemService;
         $this->customerOrderService = $customerOrderService;
-        $this->administratorService = $administratorService;
+        $this->userService = $userService;
     }
 
     /**
@@ -75,11 +75,11 @@ class CustomerPreOrderService extends ResourceService
         $attributes = ['id' => $customerPreOrder->id];
         event(new ResourceStored('api', 'customer_pre_order', 'store', $attributes, []));
 
-        /** @var Collection $administrators */
-        $administrators = $this->administratorService->all();
-        $administrators->each(function ($administrator) use ($shopId, $customerPreOrder) {
+        /** @var Collection $users */
+        $users = $this->userService->findWhere(['role_id' => 2]);
+        $users->each(function ($user) use ($shopId, $customerPreOrder) {
             $customer = Customer::find($shopId);
-            $administrator->notify(new PreOrderCreate($customer, $customerPreOrder));
+            $user->notify(new PreOrderCreate($customer, $customerPreOrder));
         });
     }
 }
