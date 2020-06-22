@@ -14,4 +14,12 @@ class UserRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Repos
     {
         return User::class;
     }
+
+    /**
+     * @return \Illuminate\Support\Collection|\App\User[]
+     */
+    public function notifiable()
+    {
+        return $this->findWhere(['role_id' => 2]);
+    }
 }

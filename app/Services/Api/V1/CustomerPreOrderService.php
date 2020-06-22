@@ -76,7 +76,7 @@ class CustomerPreOrderService extends ResourceService
         event(new ResourceStored('api', 'customer_pre_order', 'store', $attributes, []));
 
         /** @var Collection $users */
-        $users = $this->userService->findWhere(['role_id' => 2]);
+        $users = $this->userService->notifiable();
         $users->each(function ($user) use ($shopId, $customerPreOrder) {
             $customer = Customer::find($shopId);
             $user->notify(new PreOrderCreate($customer, $customerPreOrder));
