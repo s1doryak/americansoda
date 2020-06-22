@@ -310,11 +310,16 @@ class CustomerInvoicesController extends ResourceController
         $pdf = PDF::loadView('dashboard::documents.invoice', $this->getDocumentData($request))
             ->setOption('footer-center', sprintf('Sivu [page]/[toPage]'))
             ->setOption('footer-font-size', 10);
-        $filename = sprintf('%s.pdf', $customerInvoice->getInvoiceFileName());
 
         if ($inline) {
+
+            $filename = sprintf('%s.pdf', $customerInvoice->getInvoiceFileName());
+
             return $pdf->inline($filename);
         } else {
+
+            $filename = sprintf('%s/invoices/%s.pdf', storage_path('app'), $customerInvoice->getInvoiceFileName());
+
             if (file_exists($filename)) {
                 unlink($filename);
             }
@@ -381,6 +386,7 @@ class CustomerInvoicesController extends ResourceController
         );
 
         $invoice->customer->notify($notification);
+
         event(
             new CustomerInvoiceEmailSended($invoice->getAttributes(), [])
         );
