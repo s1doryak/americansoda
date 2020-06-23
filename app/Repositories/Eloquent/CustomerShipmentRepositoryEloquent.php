@@ -3,8 +3,8 @@
 namespace App\Repositories\Eloquent;
 
 use App\CustomerShipment;
-use DB;
 use App\Repositories\Contracts\CustomerShipmentRepository;
+use Illuminate\Support\Facades\DB;
 
 class CustomerShipmentRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerShipmentRepository
 {
@@ -36,7 +36,7 @@ class CustomerShipmentRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
     {
         return $this
             ->with('customerInvoice')
-            ->orderBy(DB::raw('number', 'SOUNDEX(number) $1, LENGTH(number) $1, number $1'), 'desc')
+            ->orderBy(DB::raw('Concat(Left(number, 4), Right(number, 4))'), 'desc')
             ->findWhere(['customer_id' => $shopId]);
     }
 }

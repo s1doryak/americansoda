@@ -3,9 +3,8 @@
 namespace App\Repositories\Eloquent;
 
 use App\CustomerOrder;
-use Carbon\Carbon;
-use DB;
 use App\Repositories\Contracts\CustomerOrderRepository;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CustomerOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements CustomerOrderRepository
@@ -152,7 +151,7 @@ class CustomerOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositor
     public function getByShopId($shopId)
     {
         return $this
-            ->orderBy(DB::raw('number', 'SOUNDEX(number) $1, LENGTH(number) $1, number $1'), 'desc')
+            ->orderBy(DB::raw('Concat(Left(number, 4), Right(number, 4))'), 'desc')
             ->findWhere(['customer_id' => $shopId]);
     }
 }
