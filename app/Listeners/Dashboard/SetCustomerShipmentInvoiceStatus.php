@@ -4,6 +4,7 @@ namespace App\Listeners\Dashboard;
 
 use App\CustomerInvoice;
 use App\Repositories\Contracts\CustomerInvoiceRepository;
+use App\Repositories\Contracts\CustomerOrderItemRepository;
 use App\Repositories\Contracts\CustomerShipmentRepository;
 use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesAction;
@@ -30,17 +31,25 @@ class SetCustomerShipmentInvoiceStatus
     protected $customerInvoiceRepository;
 
     /**
+     * @var CustomerOrderItemRepository
+     */
+    protected $customerOrderItemRepository;
+
+    /**
      * UpdateCustomerShipmentStatus constructor.
      * @param CustomerShipmentRepository $customerShipmentRepository
      * @param CustomerInvoiceRepository $customerInvoiceRepository
+     * @param CustomerOrderItemRepository $customerOrderItemRepository
      */
     public function __construct(
         CustomerShipmentRepository $customerShipmentRepository,
-        CustomerInvoiceRepository $customerInvoiceRepository
+        CustomerInvoiceRepository $customerInvoiceRepository,
+        CustomerOrderItemRepository $customerOrderItemRepository
     )
     {
         $this->customerShipmentRepository = $customerShipmentRepository;
         $this->customerInvoiceRepository = $customerInvoiceRepository;
+        $this->customerOrderItemRepository = $customerOrderItemRepository;
     }
 
     /**
@@ -74,8 +83,18 @@ class SetCustomerShipmentInvoiceStatus
 
         if ($customerInvoice->customer_shipment_id) {
             $this->customerShipmentRepository->update([
-                'status' => 'invoice'
+                'status' => 'invoice',
+                'invoice_number' => $customerInvoice->invoice_nr
             ], $customerInvoice->customer_shipment_id);
+
+            $this->customerOrderItemRepository->updateWhere(
+                [
+                    'customer_invoice_id' => $customerInvoice->getKey()
+                ],
+                [
+                    'status' => 'invoice'
+                ]
+            );
         }
     }
 

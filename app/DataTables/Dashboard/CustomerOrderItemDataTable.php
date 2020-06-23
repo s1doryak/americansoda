@@ -481,16 +481,19 @@ class CustomerOrderItemDataTable extends DataTable
                 'type' => 'text',
                 'name' => 'customerShipment.assembly_number',
                 'lists' => 'customerShipment.assembly_number',
+                'items' => [],
             ],
             'customerShipment.invoice_number' => [
                 'type' => 'text',
                 'name' => 'customerShipment.invoice_number',
                 'lists' => 'customerShipment.invoice_number',
+                'items' => [],
             ],
             'customerShipment.number' => [
                 'type' => 'text',
                 'name' => 'customerShipment.number',
                 'data' => 'customerShipment.number',
+                'items' => [],
             ],
 
         ];
