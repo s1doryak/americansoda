@@ -25,7 +25,6 @@ use App\Repositories\Contracts\ProductRepository;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use Illuminate\Contracts\Auth\Access\Gate;
-use Illuminate\Support\Carbon;
 use PDF;
 
 /**
@@ -335,20 +334,38 @@ class CustomerInvoicesController extends ResourceController
      */
     public function maventaPaid()
     {
-        /** @var CustomerInvoice|null $customerInvoice */
-        $result = MaventaConfirmInvoice::dispatchNow(
-            $this->getResourceId()
-        );
-        $hasErrors = strpos($result, 'ERROR');
+        $invoiceWithMaventaId = $this->repository->firstWhere([
+            ['id', '=', $this->getResourceId()],
+            ['maventa_id', '<>', null],
+        ]);
 
-        if ($hasErrors !== false) {
-            $result = [
-                'errors' => true,
-                'message' => $result
-            ];
+        if ($invoiceWithMaventaId) {
+            /** @var CustomerInvoice|null $customerInvoice */
+            $result = MaventaConfirmInvoice::dispatchNow(
+                $this->getResourceId()
+            );
+            $hasErrors = strpos($result, 'ERROR');
+
+            if ($hasErrors !== false) {
+                $result = [
+                    'errors' => true,
+                    'message' => $result
+                ];
+            }
+
+            return $result;
+        } else {
+            $this->repository->update(
+                [
+                    'maventa_paid' => 1
+                ],
+                $this->getResourceId()
+            );
         }
 
-        return $result;
+        return json([
+            'message' => 'MARKED PAID'
+        ]);
     }
 
     /**
