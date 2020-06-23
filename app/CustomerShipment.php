@@ -282,6 +282,6 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
      */
     public function hasDefaultAssemblyNumber()
     {
-        return $this->assembly_number && $this->assembly_number != self::getDefaultAssemblyNumber();
+        return $this->assembly_number && $this->assembly_number == self::getDefaultAssemblyNumber();
     }
 }
