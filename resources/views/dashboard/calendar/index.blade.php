@@ -74,7 +74,4 @@
 @section('scripts')
 
     @parent
-    <!-- Calendar Script -->
-    <script src="{{ asset('vendor/material-admin/js/fullcalendar.js') }}?ver={{ config('app.version') }}"></script>
-    <script src="{{ asset('assets/dashboard/js/calendar.js') }}?ver={{ config('app.version') }}"></script>
 @stop
