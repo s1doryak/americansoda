@@ -40,6 +40,11 @@ const path = {
             path.dashboard + '/js/american_soda/stock-movement-form.js',
 
             /**
+             * Calendar
+             */
+            path.dashboard + '/js/calendar.js',
+
+            /**
              * Dashboard
              */
             path.dashboard + '/js/dashboard.js',
