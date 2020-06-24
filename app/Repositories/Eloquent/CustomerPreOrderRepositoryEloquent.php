@@ -26,7 +26,7 @@ class CustomerPreOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
         }
 
         return $this
-            ->orderBy(DB::raw('number', 'SOUNDEX(number) $1, LENGTH(number) $1, number $1'))
+            ->orderBy(DB::raw('SOUNDEX(number) $1, LENGTH(number) $1, number $1'), 'desc')
             ->findWhere($where);
     }
 
