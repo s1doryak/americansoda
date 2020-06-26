@@ -5,7 +5,7 @@ stages:
 demo:
   stage: demo
   tags:
-    - node
+    - demo
   script:
     - |
       sudo -i -u $DEMO_USER bash <<-EOF
