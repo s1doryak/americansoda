@@ -20,7 +20,6 @@ class UserForm extends Form
 	{
         return [
 				'email' => 'text',
-				'email_verified_at' => 'timepicker',
 				'password' => 'password',
 				'name' => 'text',
 				'phone' => 'text',
@@ -38,8 +37,6 @@ class UserForm extends Form
 	{
         return [
 				'email' => 'text',
-				'email_verified_at' => 'timepicker',
-				'password' => 'password',
 				'name' => 'text',
 				'phone' => 'text',
 				'avatar' => 'image',
@@ -55,7 +52,6 @@ class UserForm extends Form
 	{
         return [
 			'email' => 'sometimes|email|unique:users',
-			'email_verified_at' => 'sometimes',
 			'password' => 'sometimes|string|min:6',
 			'name' => 'sometimes',
 			'phone' => 'sometimes',
@@ -77,8 +73,6 @@ class UserForm extends Form
 				'email',
 				Rule::unique('users')->ignore($user->id),
 			],
-			'email_verified_at' => 'sometimes',
-			'password' => 'sometimes|string|min:6',
 			'name' => 'sometimes',
 			'phone' => 'sometimes',
 			'avatar' => 'sometimes',
