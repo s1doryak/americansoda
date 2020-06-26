@@ -2,7 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use App\Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 
 /**
  * Customer
@@ -70,7 +71,7 @@ use Illuminate\Notifications\Notifiable;
  *
  * @package App
  */
-class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
+class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model implements HasLocalePreference
 {
     use Notifiable;
 

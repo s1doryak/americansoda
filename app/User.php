@@ -2,7 +2,8 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 
 /**
  * User
@@ -24,78 +25,80 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
  *
  * @package App
  */
-class User extends \Crmplease\MaterialAdmin\Foundation\Auth\User
+class User extends \Crmplease\MaterialAdmin\Foundation\Auth\User implements HasLocalePreference
 {
-	protected $fillable = [
-		'email',
-		'email_verified_at',
-		'password',
-		'name',
-		'phone',
-		'avatar',
-		'role_id',
-		'company_id',
-	];
+    use Notifiable;
 
-	protected $casts = [
+    protected $fillable = [
+        'email',
+        'email_verified_at',
+        'password',
+        'name',
+        'phone',
+        'avatar',
+        'role_id',
+        'company_id',
+    ];
 
-	];
+    protected $casts = [
 
-	protected $dates = [
-		'email_verified_at',
-	];
+    ];
 
-	protected $hidden = [
-		'password',
-		'remember_token',
-	];
+    protected $dates = [
+        'email_verified_at',
+    ];
 
-	protected $belongsTo = [
-		'role' => \App\Role::class,
-		'company' => \App\Company::class,
-	];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-	protected $belongsToMany = [
+    protected $belongsTo = [
+        'role' => \App\Role::class,
+        'company' => \App\Company::class,
+    ];
 
-	];
+    protected $belongsToMany = [
 
-	protected $belongsToManyPivot = [
+    ];
 
-	];
+    protected $belongsToManyPivot = [
 
-	protected $belongsToManyPivotTimestamps = [
+    ];
 
-	];
+    protected $belongsToManyPivotTimestamps = [
 
-	protected $hasOne = [
+    ];
 
-	];
+    protected $hasOne = [
+
+    ];
 
     protected $hasMany = [
 
     ];
 
-	protected $hasManyThrough = [
+    protected $hasManyThrough = [
 
-	];
+    ];
 
-	protected $morphTo = [
+    protected $morphTo = [
 
-	];
+    ];
 
-	protected $morphMany = [
+    protected $morphMany = [
 
-	];
+    ];
 
-	protected $with = [
+    protected $with = [
 
-	];
+    ];
 
-	protected $images = [
-		'avatar',
-	];
+    protected $images = [
+        'avatar',
+    ];
 
-	protected $files = [
+    protected $files = [
 
-	];
+    ];
 }

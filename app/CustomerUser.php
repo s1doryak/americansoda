@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -21,8 +23,10 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany customers()
  * @package App
  */
-class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User implements JWTSubject
+class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User implements JWTSubject, HasLocalePreference
 {
+    use Notifiable;
+
     protected $fillable = [
         'email',
         'email_verified_at',
