@@ -116,13 +116,11 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     {
         $statuses = array_keys(config('stock.status'));
 
-        $status = $this->customerOrderItems->map(
-            function ($customerOrderItem) use ($statuses) {
-                return array_search($customerOrderItem->status, $statuses);
-            }
-        )->max();
+        $status = $this->customerOrderItems->map(function ($customerOrderItem) use ($statuses) {
+            return array_search($customerOrderItem->status, $statuses);
+        })->max();
 
-        return isset($statuses[$status]) ? $statuses[$status] : 'open';
+        return $statuses[$status] ?? 'open';
     }
 
     public function getAmountAttribute($value)

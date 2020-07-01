@@ -244,7 +244,7 @@ function get_delivery_numbers($orderItems = null)
 function viitenumero_check_digit($number)
 {
     $number = preg_replace('/[^\d]/', '', $number);
-    $number = str_split($number);
+    $number = array_reverse(str_split($number));
     $weight = [7, 3, 1];
 
     for ($sum = 0, $i = 0; $i < count($number); $i++) {
