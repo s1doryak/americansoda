@@ -37,5 +37,5 @@ Artisan::command('viitenumero {number}', function () {
     $number = $this->argument('number');
     $check = viitenumero_check_digit($number);
 
-    $this->comment($number . ' ' . $check);
+    $this->comment($number . $check);
 })->describe('Display an inspiring quote');
