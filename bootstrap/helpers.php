@@ -236,33 +236,22 @@ function get_delivery_numbers($orderItems = null)
 }
 
 /**
+ * @see https://www.viitenumero.fi/
+ * @see https://fi.wikipedia.org/wiki/Tilisiirto
  * @param string $number
  * @return integer
  */
 function viitenumero_check_digit($number)
 {
-    $number = strrev(preg_replace('/[^\d]/', '', $number));
+    $number = preg_replace('/[^\d]/', '', $number);
+    $number = str_split($number);
+    $weight = [7, 3, 1];
 
-    for ($sum = 0, $i = 0, $len = strlen($number); $i < $len; $i++) {
-        switch ($i % 3) {
-            case 0:
-                $k = 7;
-                break;
-            case 1:
-                $k = 3;
-                break;
-            case 2:
-                $k = 1;
-                break;
-            default:
-                $k = 0;
-                break;
-        }
-
-        $sum += $k * $number[$i];
+    for ($sum = 0, $i = 0; $i < count($number); $i++) {
+        $sum += $weight[$i % 3] * $number[$i];
     }
 
-    return $sum % 10;
+    return (10 - $sum % 10) % 10;
 }
 
 /**

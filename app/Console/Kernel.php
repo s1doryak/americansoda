@@ -75,9 +75,10 @@ class Kernel extends ConsoleKernel
      */
 	protected function getMaventaDates()
     {
-        $now = Carbon::now();
-        $start = $now->copy()->startOfDay()->subDay()->format('YmdHis');
-        $end = $now->copy()->endOfDay()->subDay()->format('YmdHis');
+        $date = now()->subDay();
+
+        $start = $date->startOfDay()->format('YmdHis');
+        $end = $date->endOfDay()->format('YmdHis');
 
         return compact('start', 'end');
     }

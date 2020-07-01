@@ -21,7 +21,11 @@ class CustomerInvoiceForm extends Form
         return [
             'companyBankAccounts' => 'choice',
             'customer' => [
-                'type' => 'choice'
+                'type' => 'choice',
+                'multiple' => false,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ]
             ],
             'date' => [
                 'type' => 'datepicker',
@@ -72,7 +76,11 @@ class CustomerInvoiceForm extends Form
                 'type' => 'choice',
             ],
             'customer' => [
-                'type' => 'choice'
+                'type' => 'choice',
+                'multiple' => false,
+                'attr' => [
+                    'data-live-search' => 'true'
+                ]
             ],
             'customerShipment' => $customerInvoice->customerShipment ? [
                 'type' => 'choice',
