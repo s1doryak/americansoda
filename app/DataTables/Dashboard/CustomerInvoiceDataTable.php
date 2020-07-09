@@ -26,10 +26,14 @@ class CustomerInvoiceDataTable extends DataTable
             ],
             'date',
             'date_due',
-            'reference_nr',
+            'reference_nr' => [
+                'searchable' => true,
+            ],
             'sum',
             'sum_tax',
-            'company_reference',
+            'company_reference' => [
+                'searchable' => true,
+            ],
             'customer_nr',
             'customer_bid',
             'customer_ovt',

@@ -70,6 +70,7 @@ class CustomerShipmentForm extends Form
 			'can_remove' => function ($item = null) {
 				return false;
 			},
+            'parent_except' => ['status']
 		];
 
 		$fields['customerOrderItems[0]'] = $item;
@@ -150,6 +151,7 @@ class CustomerShipmentForm extends Form
 				}
 				return true;
 			},
+            'parent_except' => ['status']
 		];
 
 		$fields['customerOrderItems[0]'] = $item;

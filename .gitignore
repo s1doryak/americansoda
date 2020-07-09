@@ -18,3 +18,4 @@ yarn-error.log
 access.log
 error.log
 *.sync
+*.sql

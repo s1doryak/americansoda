@@ -90,6 +90,9 @@ class EventServiceProvider extends ServiceProvider
              */
             \App\Listeners\Api\GenerateUserAuthToken::class,
 
+            /**
+             * Устанавливает статус и номер счета для отгрузки при создании счёта.
+             */
             \App\Listeners\Dashboard\SetCustomerShipmentInvoiceStatus::class,
         ],
 
@@ -291,10 +294,6 @@ class EventServiceProvider extends ServiceProvider
          */
         \App\Events\Dashboard\StockProductsUpdated::class => [
 
-        ],
-
-        \App\Events\Dashboard\CustomerInvoiceEmailSended::class => [
-            \App\Listeners\Dashboard\SetCustomerShipmentInvoiceStatus::class
         ],
 
     ];

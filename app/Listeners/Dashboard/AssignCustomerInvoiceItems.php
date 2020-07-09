@@ -13,8 +13,6 @@ use App\Repositories\Contracts\CustomerOrderItemRepository;
 use App\Repositories\Contracts\ProductRepository;
 use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
 use Crmplease\MaterialAdmin\Events\ResourceDestroyed;
-use Crmplease\MaterialAdmin\Events\ResourceRestored;
-use Crmplease\MaterialAdmin\Events\ResourceStored;
 use Crmplease\MaterialAdmin\Events\ResourceTrashed;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
@@ -84,6 +82,14 @@ class AssignCustomerInvoiceItems
             return;
         }
 
+        if ($e instanceof ResourceTrashed) {
+            return;
+        }
+
+        if ($e instanceof ResourceDestroyed) {
+            return;
+        }
+
         $attributes = $e->getAttributes();
         $params = $e->getParams();
 
@@ -94,26 +100,6 @@ class AssignCustomerInvoiceItems
                 return $query->withTrashed();
             }
         )->find($attributes['id']);
-
-        if ($e instanceof ResourceTrashed) {
-
-            // ...
-        }
-
-        if ($e instanceof ResourceDestroyed) {
-
-            // ...
-        }
-
-        if ($e instanceof ResourceRestored) {
-
-            // ...
-        }
-
-        if ($e instanceof ResourceStored) {
-
-            // ...
-        }
 
         $items = Arr::get($params, 'customerInvoiceItems', []);
 

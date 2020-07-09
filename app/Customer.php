@@ -189,6 +189,14 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model implemen
     ];
 
     /**
+     * @return boolean
+     */
+    public function isNotRequiredForInvoice()
+    {
+        return '' === trim($this->nr);
+    }
+
+    /**
      * @return string
      */
     public function renderName()
@@ -212,7 +220,7 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model implemen
      */
     public function setTermsOfDeliveryAttribute($value)
     {
-        $this->attributes['terms_of_delivery'] = strip_tags($value,'<p><b><i><ul><ol><li>');
+        $this->attributes['terms_of_delivery'] = strip_tags($value, '<p><b><i><ul><ol><li>');
     }
 
     /**
@@ -220,7 +228,7 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model implemen
      */
     public function setCommentAttribute($value)
     {
-        $this->attributes['comment'] = strip_tags($value,'<p><b><i><ul><ol><li>');
+        $this->attributes['comment'] = strip_tags($value, '<p><b><i><ul><ol><li>');
     }
 
     /**
@@ -228,7 +236,7 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model implemen
      */
     public function setTermsOfCooperationAttribute($value)
     {
-        $this->attributes['terms_of_cooperation'] = strip_tags($value,'<p><b><i><ul><ol><li>');
+        $this->attributes['terms_of_cooperation'] = strip_tags($value, '<p><b><i><ul><ol><li>');
     }
 
     /**
@@ -236,6 +244,6 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model implemen
      */
     public function setTermsOfEquipmentAttribute($value)
     {
-        $this->attributes['terms_of_equipment'] = strip_tags($value,'<p><b><i><ul><ol><li>');
+        $this->attributes['terms_of_equipment'] = strip_tags($value, '<p><b><i><ul><ol><li>');
     }
 }

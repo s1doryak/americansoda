@@ -225,7 +225,7 @@ class CustomerShipmentsController extends ResourceController
         /** @var CustomerInvoice|null $customerInvoice */
         $customerInvoice = $shipment->customerInvoice;
 
-        if (empty(trim($customer->nr))) {
+        if ($customer && $customer->isNotRequiredForInvoice()) {
             return redirect(
                 route(sprintf('%s.customer.edit', $this->getPrefix()), $customer->getKey())
             )->withErrors(
@@ -233,40 +233,43 @@ class CustomerShipmentsController extends ResourceController
             );
         }
 
-        if (is_null($customerInvoice)) {
-
-            $shipment->load(['customerOrderItems', 'customerOrderItems.product']);
-
-            /** @var Collection $customerInvoiceItems */
-            $customerInvoiceItems = CustomerOrderItemTransformer::mapCustomerInvoiceItemsArray($shipment->customerOrderItems);
-
-            /** @var Collection $customerInvoicePalpaItems */
-            $customerInvoicePalpaItems = CustomerOrderItemTransformer::mapCustomerInvoicePalpaItemsArray($shipment->customerOrderItems);
-
-            /** @var CustomerInvoice $customerInvoice */
-            $customerInvoice = $this->customerInvoices->firstOrCreate([
-                'customer_id' => $customer->getKey(),
-                'customer_shipment_id' => $shipment->getKey()
-            ]);
-
-            $customerInvoice->update([
-                'date' => now()->format('Ymd'),
-                'invoice_nr' => $this->customerInvoices->getFirstAvailableNumber()
-            ]);
-
-            $customerInvoice->companyBankAccounts()->sync(
-                $this->companyBankAccounts->getDefault()->pluck('id')
+        if ($customerInvoice && $customerInvoice instanceof CustomerInvoice) {
+            return redirect(
+                route("{$this->getPrefix()}.customer_invoice.edit", $customerInvoice->getKey())
             );
-
-            $attributes = $customerInvoice->toArray();
-
-            $params = [
-                'customer' => $customer->getKey(),
-                'customerInvoiceItems' => $customerInvoiceItems->concat($customerInvoicePalpaItems)->toArray()
-            ];
-
-            event(new ResourceStored($this->getPrefix(), 'customer_invoice', 'invoice', $attributes, $params));
         }
+
+        $shipment->load(['customerOrderItems', 'customerOrderItems.product']);
+
+        /** @var Collection $customerInvoiceItems */
+        $customerInvoiceItems = CustomerOrderItemTransformer::mapCustomerInvoiceItemsArray($shipment->customerOrderItems);
+
+        /** @var Collection $customerInvoicePalpaItems */
+        $customerInvoicePalpaItems = CustomerOrderItemTransformer::mapCustomerInvoicePalpaItemsArray($shipment->customerOrderItems);
+
+        /** @var CustomerInvoice $customerInvoice */
+        $customerInvoice = $this->customerInvoices->firstOrCreate([
+            'customer_id' => $customer->getKey(),
+            'customer_shipment_id' => $shipment->getKey()
+        ]);
+
+        $customerInvoice->update([
+            'date' => now()->format('Ymd'),
+            'invoice_nr' => $this->customerInvoices->getFirstAvailableNumber()
+        ]);
+
+        $customerInvoice->companyBankAccounts()->sync(
+            $this->companyBankAccounts->getDefault()->pluck('id')
+        );
+
+        $attributes = $customerInvoice->toArray();
+
+        $params = [
+            'customer' => $customer->getKey(),
+            'customerInvoiceItems' => $customerInvoiceItems->concat($customerInvoicePalpaItems)->toArray()
+        ];
+
+        event(new ResourceStored($this->getPrefix(), 'customer_invoice', 'invoice', $attributes, $params));
 
         return redirect(route("{$this->getPrefix()}.customer_invoice.edit", $customerInvoice->getKey()));
     }

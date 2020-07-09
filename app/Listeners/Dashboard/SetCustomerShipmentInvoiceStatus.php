@@ -89,10 +89,11 @@ class SetCustomerShipmentInvoiceStatus
 
             $this->customerOrderItemRepository->updateWhere(
                 [
-                    'customer_invoice_id' => $customerInvoice->getKey()
+                    'customer_shipment_id' => $customerInvoice->customer_shipment_id
                 ],
                 [
-                    'status' => 'invoice'
+                    'status' => 'invoice',
+                    'customer_invoice_id' => $customerInvoice->getKey(),
                 ]
             );
         }
@@ -125,7 +126,6 @@ class SetCustomerShipmentInvoiceStatus
     {
         return [
             'invoice',
-            'customerInvoiceEmailSended'
         ];
     }
 }

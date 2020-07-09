@@ -6,7 +6,6 @@ use App\Company;
 use App\CompanyBankAccount;
 use App\Customer;
 use App\CustomerInvoice;
-use App\Events\Dashboard\CustomerInvoiceEmailSended;
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Jobs\MaventaConfirmInvoice;
 use App\Jobs\MaventaCreateInvoice;
@@ -403,10 +402,6 @@ class CustomerInvoicesController extends ResourceController
         );
 
         $invoice->customer->notify($notification);
-
-        event(
-            new CustomerInvoiceEmailSended($invoice->getAttributes(), [])
-        );
 
         /** @var CustomerInvoice $customerInvoice */
         $customerInvoice = $this->repository->update([

@@ -308,7 +308,7 @@
         </tr>
         <tr>
             <td colspan="8">
-                {!! $invoice->notes !!}
+                {!! nl2br($invoice->notes) !!}
             </td>
         </tr>
         </tbody>
