@@ -22,6 +22,10 @@ class CustomerShipmentsController extends Controller
 
     public function downloadWaybill(DownloadPdfRequest $request, CustomerShipmentService $service)
     {
-        return $service->downloadPdfFile($request->route('shipment_id'));
+        return response()->download(
+            $service->getPdfFile(
+                $request->route('shipment_id')
+            )
+        );
     }
 }

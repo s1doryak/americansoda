@@ -55,7 +55,7 @@ class CustomerShipmentService extends ResourceService
      * @param boolean $inline
      * @return Response
      */
-    public function downloadPdfFile($shipmentId, $inline = false)
+    public function getPdfFile($shipmentId, $inline = false)
     {
         /**
          * @var CustomerShipment $shipment
@@ -69,12 +69,12 @@ class CustomerShipmentService extends ResourceService
             'customer.stock',
             'customer.stock.region'
         ])->find($shipmentId);
+
         $pdf = PDF::loadView('dashboard::documents.package-list', $this->prepareShipmentData($shipment));
+
         $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Rahtikirja')));
 
-        return $pdf->inline($filename)
-            ->header('Access-Control-Allow-Origin', config('app.shop_url'))
-            ->send();
+        return $pdf->inline($filename);
     }
 
     /**

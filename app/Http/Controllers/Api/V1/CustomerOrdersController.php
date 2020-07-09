@@ -36,6 +36,10 @@ class CustomerOrdersController extends Controller
 
     public function downloadPdf(DownloadPdfRequest $request, CustomerOrderService $service)
     {
-        return response()->download($service->getPdfFile($request->route('order_id')));
+        return response()->download(
+            $service->getPdfFile(
+                $request->route('order_id')
+            )
+        );
     }
 }

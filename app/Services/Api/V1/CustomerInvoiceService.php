@@ -44,7 +44,7 @@ class CustomerInvoiceService extends ResourceService
      * @return Response
      * @throws RepositoryException
      */
-    public function downloadPdfFile($shipmentId, $inline = false)
+    public function getPdfFile($shipmentId, $inline = false)
     {
         /** @var CustomerInvoice $customerInvoice */
         $customerInvoice = $this
@@ -61,12 +61,11 @@ class CustomerInvoiceService extends ResourceService
                 'customer_shipment_id' => $shipmentId
             ]);
 
+        $pdf = PDF::loadView('dashboard::documents.invoice', $this->getDocumentData($customerInvoice));
+
         $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $customerInvoice->id, $customerInvoice->invoice_nr, $customerInvoice->customer->name, mb_strtoupper('Lasku')));
 
-        return PDF::loadView('dashboard::documents.invoice', $this->getDocumentData($customerInvoice))
-            ->inline($filename)
-            ->header('Access-Control-Allow-Origin', config('app.shop_url'))
-            ->send();
+        return $pdf->inline($filename);
     }
 
     /**

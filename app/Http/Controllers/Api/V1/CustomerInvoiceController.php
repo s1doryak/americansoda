@@ -13,6 +13,10 @@ class CustomerInvoiceController extends Controller
 
     public function downloadInvoice(DownloadPdfRequest $request, CustomerInvoiceService $service)
     {
-        return $service->downloadPdfFile($request->route('shipment_id'));
+        return response()->download(
+            $service->getPdfFile(
+                $request->route('shipment_id')
+            )
+        );
     }
 }
