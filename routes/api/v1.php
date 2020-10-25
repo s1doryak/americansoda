@@ -17,12 +17,14 @@ use App\Http\Controllers\Api\V1\PricingPolicyController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\ProductGroupController;
 use App\Http\Controllers\Api\V1\ProductTypeController;
+use App\Http\Controllers\Api\V1\SettingsController;
 
 Route::group(['middleware' => 'api'], function () {
 
 	Route::group(['prefix' => 'api/v1'], function () {
         Route::group(['middleware' => 'jwt.auth'], function () {
             Route::get('/profile', [CustomerUserController::class, 'profile']);
+            Route::get('/settings', [SettingsController::class, 'get']);
 
             Route::group(['prefix' => '/shop/{id}'], function () {
                 Route::get('/banners', [BannersController::class, 'get']);

@@ -29,6 +29,7 @@ class CustomerUserDataTable extends DataTable
                 'searchable' => true,
             ],
             'comment',
+            'loggable',
         ];
     }
 
@@ -43,6 +44,7 @@ class CustomerUserDataTable extends DataTable
             'phone',
             'customers.name',
             'comment',
+            'loggable',
             'action',
         ];
     }
@@ -109,5 +111,20 @@ class CustomerUserDataTable extends DataTable
         }
 
         return $customerNames ? $customerNames->implode(', ') : null;
+    }
+
+    /**
+     * @param CustomerUser $customerUser
+     * @return string
+     */
+    protected function renderLoggableColumn($customerUser)
+    {
+        $lastLog = $customerUser->getLastAuthLog();
+
+        if ($this->isDataTableRequest()) {
+            return $lastLog ? format_date($lastLog->date) : $this->renderDefaultView();
+        }
+
+        return $lastLog ? format_date($lastLog->date) : null;
     }
 }

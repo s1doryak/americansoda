@@ -34,4 +34,6 @@
     'customer_pre_order_item' => \App\CustomerPreOrderItem::class,
     'banner' => \App\Banner::class,
     'product_type' => \App\ProductType::class,
+    'setting' => \App\Setting::class,
+'auth_log' => \App\AuthLog::class,
 ];
