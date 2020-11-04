@@ -36,12 +36,9 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
         $this->scopeQuery($this->scopeQueryForProducts($shopId, Auth::id()));
         $this->scopeQuery(function ($query) {
             /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
-            return $query->where(function ($q) {
-                return $q
-                    ->where('new', true)
-                    ->orWhere('discount_price', '>', 0)
-                    ->orWhere('action', true);
-            });
+            return $query
+                ->where('action', true)
+                ->orderBy('name');
         });
 
         return $this
