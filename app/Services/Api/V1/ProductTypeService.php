@@ -60,7 +60,7 @@ class ProductTypeService extends ResourceService
         return $productGroups->map(function ($productGroup) {
             return [
                 'id' => $productGroup->id,
-                'products' => $productGroup->pluck('id')->values(),
+                'products' => $productGroup->products->pluck('id')->values(),
                 'pricingPolicies' => $productGroup->pricingPolicies->pluck('id')->values(),
             ];
         });
