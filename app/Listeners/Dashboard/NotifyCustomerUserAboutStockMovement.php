@@ -4,7 +4,7 @@ namespace App\Listeners\Dashboard;
 
 use App\CustomerUserSubscribe;
 use App\Notifications\Dashboard\SendEmailToCustomersAboutProductArrivals;
-use App\Policies\CustomerUserNotificationPolicy;
+use App\Policies\CustomerUserSubscribePolicy;
 use App\Repositories\Contracts\CustomerUserRepository;
 use App\Repositories\Contracts\CustomerUserSubscribeRepository;
 use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;

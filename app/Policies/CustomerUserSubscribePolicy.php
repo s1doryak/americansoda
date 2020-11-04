@@ -13,7 +13,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
  *
  * @package App\Policies
  */
-class CustomerUserNotificationPolicy implements DatatablePolicyContract
+class CustomerUserSubscribePolicy implements DatatablePolicyContract
 {
 	use HandlesAuthorization;
 

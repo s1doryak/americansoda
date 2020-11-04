@@ -23,7 +23,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany customers()
- * @method \Illuminate\Database\Eloquent\Relations\HasMany customerUserNotifications()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerUserSubscribes()
  * @method \Illuminate\Database\Eloquent\Relations\MorphMany authLogs()
  * @package App
  */

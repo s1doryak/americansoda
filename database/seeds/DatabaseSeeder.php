@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
 			$this->call(ProductTypesTableSeeder::class);
 			$this->call(SettingsTableSeeder::class);
 			$this->call(AuthLogsTableSeeder::class);
-			$this->call(CustomerUserNotificationsTableSeeder::class);
+			$this->call(CustomerUserSubscribesTableSeeder::class);
 			// ...seeder
         }
     }

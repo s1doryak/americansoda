@@ -53,7 +53,7 @@ class AuthServiceProvider extends ServiceProvider
 \App\ProductType::class => \App\Policies\ProductTypePolicy::class,
 \App\Setting::class => \App\Policies\SettingPolicy::class,
 \App\AuthLog::class => \App\Policies\AuthLogPolicy::class,
-\App\CustomerUserSubscribe::class => \App\Policies\CustomerUserNotificationPolicy::class,
+\App\CustomerUserSubscribe::class => \App\Policies\CustomerUserSubscribePolicy::class,
 
 
 
