@@ -79,6 +79,11 @@ return [
 		],
         'discount_price' => 'Discount price',
         'discount_price_enable' => 'Discount price enabled',
+        'new' => 'New',
+        'action' => 'Action',
+        'future_stock_movement' => 'Future Stock Movement',
+        'future_stock_movement_enable' => 'Subscribable',
+
     ],
     'placeholders' => [
 		'brand' => 'Select Brand',

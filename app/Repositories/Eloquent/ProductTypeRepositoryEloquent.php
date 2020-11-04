@@ -40,19 +40,8 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
             ->has('productGroups.pricingPolicies')
             ->has('productGroups.products')
             ->with([
-                'productGroups.products' => function ($query) use ($productGroupIds) {
-                    return $query->select('id', 'product_group_id', 'name', 'discount_price')
-                        ->whereIn('product_group_id', $productGroupIds)
-                        ->whereNull('deleted_at')
-                        ->orderBy('name');
-                },
-                'productGroups.pricingPolicies' => function ($query) use ($shopId) {
-                    return $query->select('id', 'product_group_id')
-                        ->where('customer_id', $shopId)
-                        ->where('price', '>', '0.00')
-                        ->where('products_range', '>', 0)
-                        ->whereNull('deleted_at');
-                },
+                'productGroups.products' => $this->getWithForProducts($productGroupIds),
+                'productGroups.pricingPolicies' => $this->getWithForPricingPolicies($shopId),
                 'productGroups' => function ($query) use ($withCount) {
                     return $query->select('id', 'product_type_id', 'name')->withCount($withCount);
                 }
@@ -90,5 +79,39 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
                 return $productType;
             })
             ->sortBy('name');
+    }
+
+    /**
+     * @param array $productGroupIds
+     * @return \Closure
+     */
+    protected function getWithForProducts($productGroupIds)
+    {
+        return function ($query) use ($productGroupIds) {
+            return $query->select('id', 'product_group_id', 'name', 'discount_price')
+                ->whereIn('product_group_id', $productGroupIds)
+                ->where(function ($q) {
+                    return $q
+                        ->whereNull('hidden')
+                        ->orWhere('hidden', false);
+                })
+                ->whereNull('deleted_at')
+                ->orderBy('name');
+        };
+    }
+
+    /**
+     * @param int $shopId
+     * @return \Closure
+     */
+    protected function getWithForPricingPolicies($shopId)
+    {
+        return function ($query) use ($shopId) {
+            return $query->select('id', 'product_group_id')
+                ->where('customer_id', $shopId)
+                ->where('price', '>', '0.00')
+                ->where('products_range', '>', 0)
+                ->whereNull('deleted_at');
+        };
     }
 }
