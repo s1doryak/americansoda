@@ -35,5 +35,6 @@
     'banner' => \App\Banner::class,
     'product_type' => \App\ProductType::class,
     'setting' => \App\Setting::class,
-'auth_log' => \App\AuthLog::class,
+    'auth_log' => \App\AuthLog::class,
+    'customer_user_subscribe' => \App\CustomerUserSubscribe::class,
 ];

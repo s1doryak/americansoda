@@ -51,7 +51,9 @@ return [
         'productType' => [
             'name' => 'Product Type',
         ],
-        'image' => 'Image'
+        'image' => 'Image',
+        'info' => 'Info',
+        'banner' => 'Banner',
     ],
     'placeholders' => [
 
@@ -63,6 +65,8 @@ return [
         'productType' => [
             'name' => 'Product Type',
         ],
+        'info' => 'Info',
+        'banner' => 'Banner',
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',

@@ -56,6 +56,8 @@ class AssignSettingValueItems
         foreach ($items as $key => $item) {
             if ($this->needRemove($item)) {
                 unset($items[$key]);
+            } else {
+                $items[$key] = Arr::only($item, ['key', 'value']);
             }
         }
 

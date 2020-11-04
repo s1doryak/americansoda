@@ -24,6 +24,8 @@ class ProductGroupForm extends Form
             'sales_unit_volume' => 'number',
             'productType' => 'choice',
 			'image' => 'image',
+			'banner' => 'image',
+            'info' => 'editor',
         ];
     }
 
@@ -39,6 +41,8 @@ class ProductGroupForm extends Form
             'sales_unit_volume' => 'number',
             'productType' => 'choice',
 			'image' => 'image',
+			'banner' => 'image',
+            'info' => 'editor',
         ];
     }
 
@@ -53,6 +57,8 @@ class ProductGroupForm extends Form
             'sales_unit_volume' => 'sometimes',
             'productType' => 'sometimes|exists:product_types,id',
 			'image' => 'sometimes',
+			'info' => 'sometimes',
+			'banner' => 'sometimes',
         ];
     }
 
@@ -68,6 +74,8 @@ class ProductGroupForm extends Form
             'sales_unit_volume' => 'sometimes',
             'productType' => 'sometimes|exists:product_types,id',
 			'image' => 'sometimes',
+			'banner' => 'sometimes',
+            'info' => 'sometimes',
         ];
     }
 }

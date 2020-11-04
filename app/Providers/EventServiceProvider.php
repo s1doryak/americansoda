@@ -97,6 +97,8 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Dashboard\SetCustomerShipmentInvoiceStatus::class,
 
             \App\Listeners\Dashboard\AssignSettingValueItems::class,
+
+            \App\Listeners\Dashboard\NotifyCustomerUserAboutStockMovement::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceUpdated::class => [
@@ -157,6 +159,8 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Api\GenerateUserAuthToken::class,
 
             \App\Listeners\Dashboard\AssignSettingValueItems::class,
+
+            \App\Listeners\Dashboard\NotifyCustomerUserAboutStockMovement::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceDestroyed::class => [

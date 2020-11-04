@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Requests\Api\V1\Setting\GetRequest;
 use App\Services\Api\V1\SettingService;
 use Crmplease\MaterialAdmin\Routing\Controller;
+use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
 
 class SettingsController  extends Controller
@@ -24,6 +25,6 @@ class SettingsController  extends Controller
             ? $service->firstWhere(compact('name'))
             : $service->all();
 
-        return response()->json($data, Response::HTTP_OK);
+        return response()->json(Arr::wrap($data), Response::HTTP_OK);
     }
 }

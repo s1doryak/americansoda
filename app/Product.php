@@ -115,7 +115,8 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
 	protected $hasMany = [
 		'customerOrderItems' => CustomerOrderItem::class,
-	];
+        'customerUserNotifications' => CustomerUserSubscribe::class,
+    ];
 
 	protected $hasManyThrough = [
 

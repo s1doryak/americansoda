@@ -47,6 +47,12 @@
                 'crop' => true,
                 'quality' => 90,
             ],
+            'banner' => [
+                'width' => 397,
+                'height' => 240,
+                'crop' => true,
+                'quality' => 90,
+            ],
         ],
         \App\ProductType::class => [
             'image' => [

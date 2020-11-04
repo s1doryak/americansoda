@@ -15,6 +15,8 @@ namespace App;
  * @property \App\ProductType|null $productType
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo productType()
  * @property \Crmplease\MaterialAdmin\Database\Eloquent\Traits\Image\ImageField $image
+ * @property string $info
+ * @property \Crmplease\MaterialAdmin\Database\Eloquent\Traits\Image\ImageField $banner
  * @package App
  */
 class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
@@ -25,6 +27,8 @@ class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'sales_unit_volume',
 		'product_type_id',
 		'image',
+		'info',
+		'banner',
 	];
 
 	protected $casts = [
@@ -83,6 +87,7 @@ class ProductGroup extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     protected $images = [
 		'image',
+		'banner',
 	];
 
     protected $files = [

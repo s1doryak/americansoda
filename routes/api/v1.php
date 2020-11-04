@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\CustomerOrdersController;
 use App\Http\Controllers\Api\V1\CustomerPreOrderController;
 use App\Http\Controllers\Api\V1\CustomerShipmentsController;
 use App\Http\Controllers\Api\V1\CustomerUserController;
+use App\Http\Controllers\Api\V1\CustomerUseSubscribesController;
 use App\Http\Controllers\Api\V1\PricingPolicyController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\ProductGroupController;
@@ -23,6 +24,10 @@ Route::group(['middleware' => 'api'], function () {
 
 	Route::group(['prefix' => 'api/v1'], function () {
         Route::group(['middleware' => 'jwt.auth'], function () {
+            Route::post('/customer_user_subscribe', [CustomerUseSubscribesController::class, 'create']);
+            Route::get('/customer_user_subscribes', [CustomerUseSubscribesController::class, 'search']);
+            Route::delete('/customer_user_subscribe/{customer_user_subscribe}', [CustomerUseSubscribesController::class, 'delete']);
+
             Route::get('/profile', [CustomerUserController::class, 'profile']);
             Route::get('/settings', [SettingsController::class, 'get']);
 
