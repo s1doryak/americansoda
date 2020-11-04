@@ -90,11 +90,6 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
         return function ($query) use ($productGroupIds) {
             return $query->select('id', 'product_group_id', 'name', 'discount_price')
                 ->whereIn('product_group_id', $productGroupIds)
-                ->where(function ($q) {
-                    return $q
-                        ->whereNull('hidden')
-                        ->orWhere('hidden', false);
-                })
                 ->whereNull('deleted_at')
                 ->orderBy('name');
         };
