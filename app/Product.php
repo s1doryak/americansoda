@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+
 /**
  * Product
  *
@@ -39,6 +41,9 @@ namespace App;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany productTags()
  *
  * @property float $discount_price
+ * @property boolean $new
+ * @property boolean $action
+ * @property \Illuminate\Support\Carbon|null $future_stock_movement
  * @package App
  */
 class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
@@ -68,6 +73,9 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'package_type_id',
 		'product_group_id',
 		'discount_price',
+		'new',
+		'action',
+		'future_stock_movement',
 	];
 
 	protected $casts = [
@@ -81,10 +89,12 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'deposit_vat' => 'integer',
 		'deposit_vat_price' => 'float',
 		'discount_price' => 'float',
+		'new' => 'boolean',
+		'action' => 'boolean',
 	];
 
 	protected $dates = [
-
+		'future_stock_movement',
 	];
 
 	protected $hidden = [
@@ -158,4 +168,13 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 	{
 		return transform_barcode($this->attributes['package_barcode']);
 	}
+
+	public function getFutureStockMovementWeeks()
+    {
+        /** @var Carbon  $futureStockMovement */
+        $futureStockMovement = $this->attributes['future_stock_movement'];
+        $expectedWeek = Carbon::now()->diffInWeeks($futureStockMovement);
+
+        return $futureStockMovement ? sprintf('vko %s', $expectedWeek) : null;
+    }
 }

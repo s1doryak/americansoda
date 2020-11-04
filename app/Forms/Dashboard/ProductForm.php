@@ -56,6 +56,16 @@ class ProductForm extends Form
                 ],
             ],
 			'discount_price' => 'text',
+			'new' => 'checkbox',
+			'action' => 'checkbox',
+            'future_stock_movement_enable' => [
+                'type' => 'checkbox',
+                'attr' => [
+                    'data-toggle' => 'collapse',
+                    'data-target' => '#product-form .future_stock_movement_enabled_fields',
+                ],
+            ],
+			'future_stock_movement' => 'datepicker',
         ];
     }
 
@@ -104,6 +114,17 @@ class ProductForm extends Form
                 ],
             ],
             'discount_price' => 'text',
+			'new' => 'checkbox',
+			'action' => 'checkbox',
+            'future_stock_movement_enable' => [
+                'type' => 'checkbox',
+                'value' => (bool)$product->future_stock_movement,
+                'attr' => [
+                    'data-toggle' => 'collapse',
+                    'data-target' => '#product-form .future_stock_movement_enabled_fields',
+                ],
+            ],
+            'future_stock_movement' => 'datepicker',
         ];
     }
 
@@ -137,6 +158,9 @@ class ProductForm extends Form
             'productGroup' => 'sometimes|exists:product_groups,id',
             'productTags' => 'sometimes|exists:product_tags,id',
 			'discount_price' => 'sometimes',
+			'new' => 'sometimes',
+			'action' => 'sometimes',
+			'future_stock_movement' => 'sometimes',
         ];
     }
 
@@ -171,6 +195,9 @@ class ProductForm extends Form
             'packageType' => 'sometimes|exists:package_types,id',
             'productTags' => 'sometimes|exists:product_tags,id',
 			'discount_price' => 'sometimes',
+			'new' => 'sometimes',
+			'action' => 'sometimes',
+			'future_stock_movement' => 'sometimes',
         ];
     }
 }

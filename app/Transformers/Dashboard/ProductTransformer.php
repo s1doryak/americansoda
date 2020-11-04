@@ -22,6 +22,9 @@ class ProductTransformer implements TransformerContract
      */
     public static function transformStoreRequest(Request $request)
     {
+        $discountPriceEnabled = $request->get('discount_price_enable');
+        $futureStockMovementEnabled = $request->get('future_stock_movement_enable');
+
         return [
             'name' => $request->get('name'),
             'product_barcode' => $request->get('product_barcode'),
@@ -47,7 +50,10 @@ class ProductTransformer implements TransformerContract
             'packageType' => (integer)$request->get('packageType'),
             'productGroup' => (integer)$request->get('productGroup'),
             'productTags' => (array)$request->get('productTags'),
-			'discount_price' => $request->get('discount_price'),
+            'discount_price' => $discountPriceEnabled ? $request->get('discount_price') : null,
+            'future_stock_movement' => $futureStockMovementEnabled ? $request->get('future_stock_movement') : null,
+			'new' => (boolean)$request->get('new'),
+			'action' => (boolean)$request->get('action'),
         ];
     }
 
@@ -57,7 +63,8 @@ class ProductTransformer implements TransformerContract
      */
     public static function transformUpdateRequest(Request $request)
     {
-        $discountPriceEnabled = $request->get('discount_price_enabled');
+        $discountPriceEnabled = $request->get('discount_price_enable');
+        $futureStockMovementEnabled = $request->get('future_stock_movement_enable');
 
         return [
             'name' => $request->get('name'),
@@ -84,7 +91,10 @@ class ProductTransformer implements TransformerContract
             'packageType' => (integer)$request->get('packageType'),
             'productGroup' => (integer)$request->get('productGroup'),
             'productTags' => (array)$request->get('productTags'),
-			'discount_price' => $discountPriceEnabled ? $request->get('discount_price') : null,
+            'discount_price' => $discountPriceEnabled ? $request->get('discount_price') : null,
+            'future_stock_movement' => $futureStockMovementEnabled ? $request->get('future_stock_movement') : null,
+			'new' => (boolean)$request->get('new'),
+			'action' => (boolean)$request->get('action'),
         ];
     }
 
@@ -128,6 +138,11 @@ class ProductTransformer implements TransformerContract
             'packageType' => $product->packageType ? PackageTypeTransformer::toArray($product->packageType) : null,
             'productGroup' => $product->productGroup ? ProductGroupTransformer::toArray($product->productGroup) : null,
             'productTags' => $product->productTags ? ProductTagTransformer::map($product->productTags) : [],
+
+            'discount_price' => $product->discount_price,
+            'future_stock_movement' => $product->getFutureStockMovementWeeks(),
+            'new' => (bool)$product->new,
+            'action' => (bool)$product->action,
 
             'created_at' => (string)$product->created_at,
             'updated_at' => (string)$product->updated_at,

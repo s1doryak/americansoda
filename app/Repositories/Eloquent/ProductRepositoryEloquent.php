@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Product;
 use App\Repositories\Contracts\ProductRepository;
 use App\Transformers\Api\V1\ProductTransformer;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductRepository
@@ -20,7 +21,37 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
     public function getByShopId($shopId, $customerUserId = null, $productIds = [])
     {
         $customerUserId = (is_null($customerUserId)) ? Auth::id() : $customerUserId;
-        $this->scopeQuery(function ($query) use ($shopId, $customerUserId) {
+        $this->scopeQuery($this->scopeQueryForProducts($shopId, $customerUserId));
+        $result = ($productIds) ? $this->findWhereIn('products.id', $productIds) : $this->get();
+
+        return $result
+            ->map(function ($product) {
+                return ProductTransformer::toArray($product);
+            })
+            ->sortBy('name');
+    }
+
+    public function getActionProducts($shopId)
+    {
+        $this->scopeQuery($this->scopeQueryForProducts($shopId, Auth::id()));
+        $this->scopeQuery(function ($query) {
+            /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+            return $query->where(function ($q) {
+                return $q
+                    ->where('new', true)
+                    ->orWhere('discount_price', '>', 0)
+                    ->orWhere('action', true);
+            });
+        });
+
+        return $this
+            ->all()
+            ->pluck('id');
+    }
+
+    protected function scopeQueryForProducts($shopId, $customerUserId)
+    {
+        return function ($query) use ($shopId, $customerUserId) {
             /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
             return $query
                 ->distinct()
@@ -38,18 +69,10 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
                     'customer_pricing_policies.customer_id'
                 )
                 ->where('customer_user_customer.customer_user_id', '=', $customerUserId)
-                ->where('customer_pricing_policies.customer_id', '=', $shopId)
+                ->whereIn('customer_pricing_policies.customer_id', Arr::wrap($shopId))
                 ->where('customer_pricing_policies.price', '>', '0.00')
                 ->where('customer_pricing_policies.products_range', '>', 0)
                 ->whereNull('customer_pricing_policies.deleted_at');
-        });
-
-        $result = ($productIds) ? $this->findWhereIn('id', $productIds) : $this->get();
-
-        return $result
-            ->map(function ($product) {
-                return ProductTransformer::toArray($product);
-            })
-            ->sortBy('name');
+        };
     }
 }

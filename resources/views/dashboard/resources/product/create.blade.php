@@ -37,11 +37,25 @@
     </div>
 
     {!! form_rows($form, [
+        'future_stock_movement_enable'
+    ]) !!}
+
+    <div
+        class="future_stock_movement_enabled_fields collapse {{ isset($model) && is_object($model) && $model->future_stock_movement ? 'in' : '' }}">
+        {!! form_rows($form, [
+        'future_stock_movement',
+        ]) !!}
+    </div>
+
+    {!! form_rows($form, [
+        'new',
+        'action',
         'comment',
         'brand',
         'packageType',
         'productGroup',
         'productTags',
+
     ]) !!}
 
 

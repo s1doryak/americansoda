@@ -77,6 +77,10 @@ return [
 		'productTags' => [
 			'name' => 'Теги',
 		],
+        'new' => 'Новый',
+        'action' => 'Акция',
+        'future_stock_movement' => 'Будущее движение по складу',
+        'future_stock_movement_enable' => 'Доступна подписка',
 	],
     'placeholders' => [
 		'brand' => 'Выберите Бренд',
