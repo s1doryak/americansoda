@@ -16,8 +16,6 @@ class NomenclatureActionRequest extends FormRequest
     public function rules()
     {
         return [
-            'with_count' => 'array',
-            'with_count.*' => 'in:' . $this->getRelations()
         ];
     }
 
@@ -25,13 +23,5 @@ class NomenclatureActionRequest extends FormRequest
     {
         parent::validateResolved();
         Customer::findOrFail($this->route('id'));
-    }
-
-    protected function getRelations()
-    {
-        return implode(',', [
-            'products',
-            'pricingPolicies'
-        ]);
     }
 }
