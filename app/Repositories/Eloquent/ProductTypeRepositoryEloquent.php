@@ -41,9 +41,13 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
             ->has('productGroups.products')
             ->with([
                 'productGroups.products' => function ($query) use ($productGroupIds) {
-                    return $query->select('id', 'product_group_id', 'name')
+                    return $query->select('id', 'product_group_id', 'name', 'discount_price')
                         ->whereIn('product_group_id', $productGroupIds)
-                        ->whereNull('deleted_at');
+                        ->whereNull('deleted_at')
+                        ->orderByRaw('
+                          case when (discount_price is null or discount_price = 0) then name end,
+                          case when (discount_price is not null or discount_price > 0) then discount_price end;
+                        ');
                 },
                 'productGroups.pricingPolicies' => function ($query) use ($shopId) {
                     return $query->select('id', 'product_group_id')

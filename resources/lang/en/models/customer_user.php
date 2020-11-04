@@ -78,6 +78,7 @@ return [
 		'customerUserTokens' => [
 
 		],
+        'loggable' => 'Last Visit',
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',

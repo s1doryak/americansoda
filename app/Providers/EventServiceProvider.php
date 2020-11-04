@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\Dashboard\AssignSettingValueItems;
 use App\Listeners\Dashboard\MatchPreOrderWithOrder;
 use App\Listeners\Dashboard\SetCustomerShipmentInvoiceStatus;
 use Illuminate\Auth\Events\Registered;
@@ -94,6 +95,10 @@ class EventServiceProvider extends ServiceProvider
              * Устанавливает статус и номер счета для отгрузки при создании счёта.
              */
             \App\Listeners\Dashboard\SetCustomerShipmentInvoiceStatus::class,
+
+            \App\Listeners\Dashboard\AssignSettingValueItems::class,
+
+            \App\Listeners\Dashboard\NotifyCustomerUserAboutStockMovement::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceUpdated::class => [
@@ -152,6 +157,10 @@ class EventServiceProvider extends ServiceProvider
              * Генерирует JWT токен при редактировании юзера
              */
             \App\Listeners\Api\GenerateUserAuthToken::class,
+
+            \App\Listeners\Dashboard\AssignSettingValueItems::class,
+
+            \App\Listeners\Dashboard\NotifyCustomerUserAboutStockMovement::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceDestroyed::class => [

@@ -301,3 +301,14 @@ function formatDateForForm($attributes, $key)
 
     return Carbon::parse($attributes[$key])->format('d/m/Y');
 }
+
+/**
+ * @return array
+ */
+function loggable_type_list()
+{
+    return [
+        '' => trans("models/auth_log.placeholders.loggable"),
+        'customer_user' => trans('models/customer_user.labels.singular'),
+    ];
+}

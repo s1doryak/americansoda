@@ -38,6 +38,7 @@ namespace App;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo productGroup()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany productTags()
  *
+ * @property float $discount_price
  * @package App
  */
 class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
@@ -66,6 +67,7 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'brand_id',
 		'package_type_id',
 		'product_group_id',
+		'discount_price',
 	];
 
 	protected $casts = [
@@ -78,6 +80,7 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'deposit_price' => 'float',
 		'deposit_vat' => 'integer',
 		'deposit_vat_price' => 'float',
+		'discount_price' => 'float',
 	];
 
 	protected $dates = [
@@ -112,7 +115,8 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
 	protected $hasMany = [
 		'customerOrderItems' => CustomerOrderItem::class,
-	];
+        'customerUserSubscribes' => CustomerUserSubscribe::class,
+    ];
 
 	protected $hasManyThrough = [
 

@@ -48,6 +48,14 @@ class ProductForm extends Form
                     'multiple' => true,
                 ],
             ],
+            'discount_price_enable' => [
+                'type' => 'checkbox',
+                'attr' => [
+                    'data-toggle' => 'collapse',
+                    'data-target' => '#product-form .discount_price_enabled_fields',
+                ],
+            ],
+			'discount_price' => 'text',
         ];
     }
 
@@ -87,6 +95,15 @@ class ProductForm extends Form
                     'multiple' => true,
                 ],
             ],
+            'discount_price_enable' => [
+                'type' => 'checkbox',
+                'value' => (bool)$product->discount_price,
+                'attr' => [
+                    'data-toggle' => 'collapse',
+                    'data-target' => '#product-form .discount_price_enabled_fields',
+                ],
+            ],
+            'discount_price' => 'text',
         ];
     }
 
@@ -119,6 +136,7 @@ class ProductForm extends Form
             'packageType' => 'sometimes|exists:package_types,id',
             'productGroup' => 'sometimes|exists:product_groups,id',
             'productTags' => 'sometimes|exists:product_tags,id',
+			'discount_price' => 'sometimes',
         ];
     }
 
@@ -152,6 +170,7 @@ class ProductForm extends Form
             'brand' => 'sometimes|exists:brands,id',
             'packageType' => 'sometimes|exists:package_types,id',
             'productTags' => 'sometimes|exists:product_tags,id',
+			'discount_price' => 'sometimes',
         ];
     }
 }

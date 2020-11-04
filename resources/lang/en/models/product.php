@@ -77,7 +77,9 @@ return [
 		'productTags' => [
 			'name' => 'Product Tags',
 		],
-	],
+        'discount_price' => 'Discount price',
+        'discount_price_enable' => 'Discount price enabled',
+    ],
     'placeholders' => [
 		'brand' => 'Select Brand',
 		'packageType' => 'Select Package Type',
@@ -117,6 +119,7 @@ return [
 		'productTags' => [
 			'name' => 'Product Tags',
 		],
+        'discount_price' => 'Discount price',
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',

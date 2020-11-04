@@ -23,5 +23,6 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
 		'deposit_vat' => null,
 		'deposit_vat_price' => null,
 		'comment' => null,
+		'discount_price' => null,
 ];
 });

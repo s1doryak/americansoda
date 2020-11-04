@@ -51,6 +51,7 @@ return [
 		'stock' => [
 			'name' => 'Stock',
 		],
+        'shouldNotify' => 'Should Notify'
 	],
     'movement_types' => [
         'receipt' => 'Receipt',

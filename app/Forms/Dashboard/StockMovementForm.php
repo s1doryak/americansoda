@@ -41,6 +41,7 @@ class StockMovementForm extends Form
 				'form_title' => trans('models/stock_movement_product.labels.plural'),
 				'resource' => 'stock_movement_product',
 			],
+            'shouldNotify' => 'checkbox'
 		];
 	}
 
@@ -74,7 +75,8 @@ class StockMovementForm extends Form
                 'items' => $stockMovement->stockMovementProducts,
 				'resource' => 'stock_movement_product',
 			],
-		];
+            'shouldNotify' => 'checkbox'
+        ];
 	}
 
     /**

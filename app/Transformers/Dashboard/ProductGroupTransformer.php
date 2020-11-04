@@ -28,6 +28,8 @@ class ProductGroupTransformer implements TransformerContract
             'sales_unit_volume' => (integer)$request->get('sales_unit_volume'),
             'productType' => (integer)$request->get('productType'),
 			'image' => $request->file('image'),
+			'info' => $request->get('info'),
+			'banner' => $request->file('banner'),
         ];
     }
 
@@ -43,6 +45,8 @@ class ProductGroupTransformer implements TransformerContract
             'sales_unit_volume' => (integer)$request->get('sales_unit_volume'),
             'productType' => (integer)$request->get('productType'),
 			'image' => $request->file('image'),
+			'info' => $request->get('info'),
+			'banner' => $request->file('banner'),
         ];
     }
 
@@ -62,6 +66,8 @@ class ProductGroupTransformer implements TransformerContract
             'updated_at' => (string)$productGroup->updated_at,
             'deleted_at' => (string)$productGroup->deleted_at,
 			'image' => (string)$productGroup->image ? asset((string)$productGroup->image) : null,
+			'info' => $productGroup->info,
+			'banner' => (string)$productGroup->banner ? asset((string)$productGroup->banner) : null,
         ];
     }
 }

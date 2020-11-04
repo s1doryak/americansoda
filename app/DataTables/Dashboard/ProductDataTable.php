@@ -65,7 +65,7 @@ class ProductDataTable extends DataTable
             'comment',
             'created_at',
             'updated_at',
-            'action'
+            'action',
         ];
     }
 

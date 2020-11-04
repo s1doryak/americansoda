@@ -7,5 +7,7 @@ $factory->define(App\ProductGroup::class, function (Faker\Generator $faker) {
 		'vat' => null,
 		'sales_unit_volume' => null,
 		'image' => null,
+		'info' => null,
+		'banner' => null,
     ];
 });

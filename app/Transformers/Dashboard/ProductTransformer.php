@@ -47,6 +47,7 @@ class ProductTransformer implements TransformerContract
             'packageType' => (integer)$request->get('packageType'),
             'productGroup' => (integer)$request->get('productGroup'),
             'productTags' => (array)$request->get('productTags'),
+			'discount_price' => $request->get('discount_price'),
         ];
     }
 
@@ -56,6 +57,8 @@ class ProductTransformer implements TransformerContract
      */
     public static function transformUpdateRequest(Request $request)
     {
+        $discountPriceEnabled = $request->get('discount_price_enabled');
+
         return [
             'name' => $request->get('name'),
             'product_barcode' => $request->get('product_barcode'),
@@ -81,6 +84,7 @@ class ProductTransformer implements TransformerContract
             'packageType' => (integer)$request->get('packageType'),
             'productGroup' => (integer)$request->get('productGroup'),
             'productTags' => (array)$request->get('productTags'),
+			'discount_price' => $discountPriceEnabled ? $request->get('discount_price') : null,
         ];
     }
 

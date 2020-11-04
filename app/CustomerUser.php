@@ -16,11 +16,15 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $name
  * @property string $phone
  * @property string $comment
+ * @property \Illuminate\Support\Collection|CustomerUserSubscribe[] $customerUserSubscribes
  * @property \Illuminate\Support\Collection|\App\Customer[] $customers
+ * @property \Illuminate\Support\Collection|\App\AuthLog[] $authLogs
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @method \Illuminate\Database\Eloquent\Relations\BelongsToMany customers()
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany customerUserSubscribes()
+ * @method \Illuminate\Database\Eloquent\Relations\MorphMany authLogs()
  * @package App
  */
 class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User implements JWTSubject, HasLocalePreference
@@ -72,9 +76,11 @@ class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User impleme
     ];
 
     protected $hasOne = [
+
     ];
 
     protected $hasMany = [
+        'customerUserSubscribes' => CustomerUserSubscribe::class,
     ];
 
     protected $hasManyThrough = [
@@ -86,7 +92,7 @@ class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User impleme
     ];
 
     protected $morphMany = [
-
+        'authLogs' => [AuthLog::class, 'loggable']
     ];
 
     protected $with = [
@@ -109,5 +115,10 @@ class CustomerUser extends \Crmplease\MaterialAdmin\Foundation\Auth\User impleme
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function getLastAuthLog()
+    {
+        return $this->authLogs->last();
     }
 }

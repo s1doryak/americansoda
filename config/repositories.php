@@ -37,4 +37,7 @@
     App\Repositories\Contracts\CustomerPreOrderItemRepository::class => App\Repositories\Eloquent\CustomerPreOrderItemRepositoryEloquent::class,
     App\Repositories\Contracts\BannerRepository::class => App\Repositories\Eloquent\BannerRepositoryEloquent::class,
     App\Repositories\Contracts\ProductTypeRepository::class => App\Repositories\Eloquent\ProductTypeRepositoryEloquent::class,
+    App\Repositories\Contracts\SettingRepository::class => App\Repositories\Eloquent\SettingRepositoryEloquent::class,
+App\Repositories\Contracts\AuthLogRepository::class => App\Repositories\Eloquent\AuthLogRepositoryEloquent::class,
+App\Repositories\Contracts\CustomerUserSubscribeRepository::class => App\Repositories\Eloquent\CustomerUserSubscribeRepositoryEloquent::class,
 ];

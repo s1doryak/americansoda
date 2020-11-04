@@ -51,7 +51,8 @@ return [
 		'stock' => [
 			'name' => 'Склад',
 		],
-	],
+        'shouldNotify' => 'Уведомить'
+    ],
     'movement_types' => [
         'receipt' => 'Чек',
         'cancellation' => 'Отмена',
