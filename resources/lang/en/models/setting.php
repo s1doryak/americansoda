@@ -56,6 +56,7 @@ return [
         'setting_value' => [
             'key' => 'Key',
             'value' => 'Value',
+            'additional' => 'Additional',
             'labels' => [
                 'plural' => 'Values'
             ]
