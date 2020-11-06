@@ -21,6 +21,10 @@ class SettingValueForm extends Form
                 'type' => 'text',
                 'label' => trans('models/setting.fields.setting_value.value')
             ],
+            'additional' => [
+                'type' => 'text',
+                'label' => trans('models/setting.fields.setting_value.additional')
+            ],
             '_remove' => [
                 'type' => 'hidden',
                 'value' => 0,
@@ -45,6 +49,10 @@ class SettingValueForm extends Form
             'value' => [
                 'type' => 'text',
                 'label' => trans('models/setting.fields.setting_value.value')
+            ],
+            'additional' => [
+                'type' => 'text',
+                'label' => trans('models/setting.fields.setting_value.additional')
             ],
         ];
     }

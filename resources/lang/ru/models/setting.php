@@ -56,6 +56,7 @@ return [
         'setting_value' => [
             'key' => 'Ключи',
             'value' => 'Значение',
+            'additional' => 'Дополнительные данные',
             'labels' => [
                 'plural' => 'Значения'
             ]
