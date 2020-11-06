@@ -56,7 +56,7 @@ class SendEmailToCustomersAboutProductArrivals extends Notification implements S
 
         foreach ($this->products as $product) {
             $image = asset($product->product_image->getByDimension('product_image'));
-            $mail->line("- <img src='{$image}' style='width: 112px; height: 112px; object-fit: contain' alt='{$product->name}'/> {$product->name}");
+            $mail->line("<img src='{$image}' style='width: 28px; height: 28px; object-fit: contain' alt='{$product->name}'/> {$product->name}");
         }
 
         return $mail->action(
