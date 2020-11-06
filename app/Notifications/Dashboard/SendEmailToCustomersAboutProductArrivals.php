@@ -55,11 +55,8 @@ class SendEmailToCustomersAboutProductArrivals extends Notification implements S
             ->line(trans('notifications/send_email_to_customers_about_product_arrivals.message'));
 
         foreach ($this->products as $product) {
-            $mail->line("- {$product->name}");
-            $mail->attach(public_path() . $product->product_image, [
-                'mime' => 'image/png',
-                'as' => "{$product->name}.png"
-            ]);
+            $image = asset($product->product_image->getByDimension('product_image'));
+            $mail->line("- <img src='{$image}'  alt='{$product->name}'/> {$product->name}");
         }
 
         return $mail->action(
