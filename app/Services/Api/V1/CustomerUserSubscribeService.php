@@ -37,7 +37,7 @@ class CustomerUserSubscribeService extends ResourceService
                 return [
                     'id' => $subscribe->getKey(),
                     'product' => $subscribe->product->name,
-                    'subscribed' => $subscribe->created_at,
+                    'subscribed' => $subscribe->created_at->format('y/m/d H:i'),
                     'status' => $subscribe->product->getFutureStockMovementWeeks()
                 ];
             });
