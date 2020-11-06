@@ -2,6 +2,7 @@
 
 namespace App\Services\Api\V1;
 
+use App\CustomerUserSubscribe;
 use App\Repositories\Contracts\CustomerUserSubscribeRepository;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,13 @@ class CustomerUserSubscribeService extends ResourceService
         return $this
             ->repository
             ->findWhere($where)
-            ->pluck('product_id');
+            ->map(function (CustomerUserSubscribe $subscribe) {
+                return [
+                    'id' => $subscribe->getKey(),
+                    'product' => $subscribe->product->name,
+                    'subscribed' => $subscribe->created_at,
+                    'status' => $subscribe->product->getFutureStockMovementWeeks()
+                ];
+            });
     }
 }
