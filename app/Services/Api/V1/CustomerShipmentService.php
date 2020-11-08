@@ -53,7 +53,7 @@ class CustomerShipmentService extends ResourceService
     /**
      * @param integer $shipmentId
      * @param boolean $inline
-     * @return Response|string
+     * @return Response
      */
     public function getPdfFile($shipmentId, $inline = false)
     {
@@ -72,24 +72,9 @@ class CustomerShipmentService extends ResourceService
 
         $pdf = PDF::loadView('dashboard::documents.package-list', $this->prepareShipmentData($shipment));
 
-        if ($inline) {
+        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Rahtikirja')));
 
-            $filename = sprintf('%s.pdf', $shipment->getCustomerShipmentStorageFilename());
-
-            return $pdf->inline($filename);
-
-        } else {
-
-            $filename = sprintf('%s/customer_shipments/%s.pdf', storage_path('app'), $shipment->getCustomerShipmentStorageFilename());
-
-            if (file_exists($filename)) {
-                unlink($filename);
-            }
-
-            $pdf->save($filename);
-
-            return $filename;
-        }
+        return $pdf->inline($filename);
     }
 
     /**

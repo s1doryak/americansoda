@@ -222,12 +222,4 @@ class CustomerInvoice extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
             sprintf('lasku_%d', $this->invoice_nr)
         );
     }
-
-    /**
-     * @return string
-     */
-    public function getInvoiceStorageFileName()
-    {
-        return preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s', $this->id, $this->invoice_nr, $this->customer->name, mb_strtoupper('Lasku')));
-    }
 }

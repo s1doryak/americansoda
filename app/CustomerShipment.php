@@ -151,7 +151,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public function getAmountAttribute($value)
     {
         return number_format(
-            $this->customerOrderItems->sum('total_price') + $this->customerOrderItems->sum('deposit_total_price'),
+                $this->customerOrderItems->sum('total_price') + $this->customerOrderItems->sum('deposit_total_price'),
             2,
             '.',
             ''
@@ -267,14 +267,6 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public static function getDefaultAssemblyNumber()
     {
         return sprintf('%04d-KERÄYS-TEMP', Carbon::now()->year);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomerShipmentStorageFilename()
-    {
-        return preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s', $this->id, $this->number, $this->customer->name, mb_strtoupper('Rahtikirja')));
     }
 
     /**
