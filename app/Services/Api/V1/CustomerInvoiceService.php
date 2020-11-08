@@ -41,8 +41,7 @@ class CustomerInvoiceService extends ResourceService
     /**
      * @param integer $shipmentId
      * @param boolean $inline
-     * @return Response
-     * @throws RepositoryException
+     * @return Response|string
      */
     public function getPdfFile($shipmentId, $inline = false)
     {
@@ -63,9 +62,24 @@ class CustomerInvoiceService extends ResourceService
 
         $pdf = PDF::loadView('dashboard::documents.invoice', $this->getDocumentData($customerInvoice));
 
-        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $customerInvoice->id, $customerInvoice->invoice_nr, $customerInvoice->customer->name, mb_strtoupper('Lasku')));
+        if ($inline) {
 
-        return $pdf->inline($filename);
+            $filename = sprintf('%s.pdf', $customerInvoice->getInvoiceStorageFileName());
+
+            return $pdf->inline($filename);
+
+        } else {
+
+            $filename = sprintf('%s/customer_invoices/%s.pdf', storage_path('app'), $customerInvoice->getInvoiceStorageFileName());
+
+            if (file_exists($filename)) {
+                unlink($filename);
+            }
+
+            $pdf->save($filename);
+
+            return $filename;
+        }
     }
 
     /**
