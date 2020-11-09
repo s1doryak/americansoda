@@ -44,14 +44,7 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
 
         return $this
             ->all()
-            ->map(function (CustomerUserSubscribe $subscribe) {
-                return [
-                    'id' => $subscribe->getKey(),
-                    'product' => $subscribe->product->name,
-                    'subscribed' => $subscribe->created_at,
-                    'status' => $subscribe->product->getFutureStockMovementWeeks()
-                ];
-            });
+            ->pluck('id');
 
     }
 
