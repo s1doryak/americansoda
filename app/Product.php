@@ -88,7 +88,6 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'deposit_price' => 'float',
 		'deposit_vat' => 'integer',
 		'deposit_vat_price' => 'float',
-		'discount_price' => 'float',
 		'new' => 'boolean',
 		'action' => 'boolean',
 	];

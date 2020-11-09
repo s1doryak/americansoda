@@ -2,6 +2,7 @@
 
 namespace App\Services\Api\V1;
 
+use App\Product;
 use App\Repositories\Contracts\CustomerPreOrderItemRepository;
 use App\Repositories\Eloquent\CustomerPreOrderItemRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerPricingPolicyRepositoryEloquent;
@@ -94,9 +95,12 @@ class CustomerPreOrderItemService extends ResourceService
      */
     protected function getCalculatedFields($preOrderItem, $customerId, $preOrderItemsQuantity)
     {
+        /** @var Product $product */
         $product = $this->productService->with('productGroup')->find($preOrderItem['product_id']);
         $productGroup = $product->productGroup;
-        $price = $this->customerPricingPolicyService->getPriceBySalesUnitQuantity($preOrderItemsQuantity, $customerId, $productGroup->id);
+        $price = $product->discount_price
+            ? $product->discount_price
+            : $this->customerPricingPolicyService->getPriceBySalesUnitQuantity($preOrderItemsQuantity, $customerId, $productGroup->id);
         $packagesQuantity = $preOrderItem['quantity'] * $productGroup->sales_unit_volume / $product->number_in_package;
         $productsQuantity = $packagesQuantity * $product->number_in_package;
         $totalPrice = $price * $productsQuantity;
