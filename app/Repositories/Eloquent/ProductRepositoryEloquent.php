@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\CustomerUserSubscribe;
 use App\Product;
 use App\Repositories\Contracts\ProductRepository;
 use App\Transformers\Api\V1\ProductTransformer;
@@ -43,7 +44,15 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
 
         return $this
             ->all()
-            ->pluck('id');
+            ->map(function (CustomerUserSubscribe $subscribe) {
+                return [
+                    'id' => $subscribe->getKey(),
+                    'product' => $subscribe->product->name,
+                    'subscribed' => $subscribe->created_at,
+                    'status' => $subscribe->product->getFutureStockMovementWeeks()
+                ];
+            });
+
     }
 
     protected function scopeQueryForProducts($shopId, $customerUserId)
