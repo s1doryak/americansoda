@@ -6,6 +6,7 @@ $.trumbowygDefaultOptions = {
     lang: $('html').attr('lang'),
     autogrow: true,
     btns: [
+        ['link'],
         ['formatting'],
         ['justifyLeft', 'justifyCenter', 'justifyRight'],
         ['unorderedList', 'orderedList'],
