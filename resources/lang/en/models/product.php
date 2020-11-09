@@ -80,7 +80,7 @@ return [
         'discount_price' => 'Discount price',
         'discount_price_enable' => 'Discount price enabled',
         'new' => 'New',
-        'action' => 'Action',
+        'action' => 'On shelf',
         'future_stock_movement' => 'Future Stock Movement',
         'future_stock_movement_enable' => 'Subscribable',
 

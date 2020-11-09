@@ -78,7 +78,7 @@ return [
 			'name' => 'Теги',
 		],
         'new' => 'Новый',
-        'action' => 'Акция',
+        'action' => 'На полку',
         'future_stock_movement' => 'Будущее движение по складу',
         'future_stock_movement_enable' => 'Доступна подписка',
 	],
