@@ -39,7 +39,7 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
             /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
             return $query
                 ->where('action', true)
-                ->orderBy('name');
+                ->orderByRaw(' discount_price is not null desc, discount_price, new is true desc, new, name');
         });
 
         return $this
