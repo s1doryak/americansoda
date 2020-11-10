@@ -62,20 +62,22 @@ class NotifyCustomerUserAboutStockMovement
         $products = Arr::pluck($stockMovementProducts, 'product');
         $customerUserSubscribes = $this->customerUserSubscribeRepository
             ->with(['product'])
-            ->findWhereIn('product_id', $products)
-            ->groupBy('customerUser.id');
+            ->findWhereIn('product_id', $products);
+        $groupedSubscribes = $customerUserSubscribes->groupBy('customerUser.id');
 
         /**
          * @var integer $customerUser
          * @var  CustomerUserSubscribe $customerUserSubscribe
          */
-        foreach ($customerUserSubscribes as $customerUser => $customerUserSubscribe) {
+        foreach ($groupedSubscribes as $customerUser => $customerUserSubscribe) {
             $customerUser = $this->customerUserRepository->find($customerUser);
             $products = $customerUserSubscribe->pluck('product');
             $customerUser->notify(
                 new SendEmailToCustomersAboutProductArrivals($products, $customerUser->token)
             );
         }
+
+        $this->customerUserSubscribeRepository->trashWhereIn('id', $customerUserSubscribes->pluck('id'));
     }
 
     /**
