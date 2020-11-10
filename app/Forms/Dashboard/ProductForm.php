@@ -56,7 +56,8 @@ class ProductForm extends Form
                 ],
             ],
 			'discount_price' => 'text',
-			'new' => 'checkbox',
+            'displayed_text' => 'text',
+            'new' => 'checkbox',
 			'action' => 'checkbox',
             'future_stock_movement_enable' => [
                 'type' => 'checkbox',
@@ -125,6 +126,7 @@ class ProductForm extends Form
                 ],
             ],
             'future_stock_movement' => 'datepicker',
+			'displayed_text' => 'text',
         ];
     }
 
@@ -161,6 +163,7 @@ class ProductForm extends Form
 			'new' => 'sometimes',
 			'action' => 'sometimes',
 			'future_stock_movement' => 'sometimes',
+			'displayed_text' => 'sometimes',
         ];
     }
 
@@ -198,6 +201,7 @@ class ProductForm extends Form
 			'new' => 'sometimes',
 			'action' => 'sometimes',
 			'future_stock_movement' => 'sometimes',
+			'displayed_text' => 'sometimes',
         ];
     }
 }
