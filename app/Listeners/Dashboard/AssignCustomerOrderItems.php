@@ -146,7 +146,7 @@ class AssignCustomerOrderItems
 
             $product = $this->products->with('productGroup')->find($item['product']);
             $productGroup = $product->productGroup;
-            $price = $item['product_manual_price'] ? $item['product_price'] : $this->customerPricingPolicies->getPriceBySalesUnitQuantity(
+            $price = $item['product_manual_price'] || $product->discount_price ? $item['product_price'] : $this->customerPricingPolicies->getPriceBySalesUnitQuantity(
                 $totalQuantity,
                 $attributes['customer_id'],
                 $productGroup->id
