@@ -160,6 +160,7 @@ class CustomerTransformer implements TransformerContract
             'bid' => $customer->bid,
             'ovt' => $customer->ovt,
             'priceGroup' => $customer->priceGroup ? PriceGroupTransformer::toArray($customer->priceGroup) : null,
+            'zendesk_id' => $customer->zendesk_id,
         ];
     }
 
