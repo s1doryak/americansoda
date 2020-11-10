@@ -2,6 +2,7 @@
 
 namespace App\DataTables\Dashboard;
 
+use App\Repositories\Contracts\CustomerRepository;
 use Crmplease\MaterialAdmin\DataTables\DataTables;
 use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 use App\CustomerUserSubscribe;
@@ -13,68 +14,69 @@ use App\CustomerUserSubscribe;
  */
 class CustomerUserSubscribeDataTable extends DataTable
 {
-	/**
-	 * Get the query builder {@see DataTable::ajax()}.
-	 *
-	 * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder
-	 */
-	public function query()
-	{
-		//  if ($user = $this->request()->user()) {
-		//  	return parent::query()->whereHas('user', function ($query) use ($user) {
-		//		    $query->where('id', $user->getKey());
-		//	    });
-		//  }
+    /**
+     * Get the query builder {@see DataTable::ajax()}.
+     *
+     * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder
+     */
+    public function query()
+    {
+        //  if ($user = $this->request()->user()) {
+        //  	return parent::query()->whereHas('user', function ($query) use ($user) {
+        //		    $query->where('id', $user->getKey());
+        //	    });
+        //  }
 
-		return parent::query();
-	}
+        return parent::query();
+    }
 
-	/**
-	 * Get engine {@see DataTable::ajax()}.
-	 *
-	 * @param \Crmplease\MaterialAdmin\DataTables\DataTables $dataTables
-	 * @param \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query
-	 * @return \Crmplease\MaterialAdmin\DataTables\EloquentDataTable
-	 */
-	public function dataTable(DataTables $dataTables, $query)
-	{
-		//  return parent::dataTable($dataTables, $query)
-		//	    ->orderColumn('name', 'SOUNDEX(name) $1, LENGTH(name) $1, name $1');
+    /**
+     * Get engine {@see DataTable::ajax()}.
+     *
+     * @param \Crmplease\MaterialAdmin\DataTables\DataTables $dataTables
+     * @param \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query
+     * @return \Crmplease\MaterialAdmin\DataTables\EloquentDataTable
+     */
+    public function dataTable(DataTables $dataTables, $query)
+    {
+        //  return parent::dataTable($dataTables, $query)
+        //	    ->orderColumn('name', 'SOUNDEX(name) $1, LENGTH(name) $1, name $1');
 
-		return parent::dataTable($dataTables, $query);
-	}
+        return parent::dataTable($dataTables, $query);
+    }
 
-	/**
-	 * Get columns.
-	 *
-	 * @return array
-	 */
-	protected function getColumns()
-	{
-		return [
+    /**
+     * Get columns.
+     *
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
             'customerUser.name' => [
                 'data' => 'customerUser.name'
             ],
-			'product.name' => [
-				'data' => 'product.name'
-			],
+            'product.name' => [
+                'data' => 'product.name'
+            ],
+            'customer',
+        ];
+    }
 
-		];
-	}
-
-	/**
-	 * Get columns allowed unescaped HTML content.
-	 *
-	 * @return array
-	 */
-	protected function getRawColumns()
-	{
-		return [
+    /**
+     * Get columns allowed unescaped HTML content.
+     *
+     * @return array
+     */
+    protected function getRawColumns()
+    {
+        return [
             'customerUser.name',
             'product.name',
-			'action',
-		];
-	}
+            'customer',
+            'action',
+        ];
+    }
 
     /**
      * Aggregate columns configuration array.
@@ -161,48 +163,64 @@ class CustomerUserSubscribeDataTable extends DataTable
     protected function getFilterableColumns()
     {
         return [
-			'product.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'operator' => 'in',
-				'data' => 'product.id',
-				'lists' => 'product.name',
-			],
-			'customerUser.name' => [
-				'type' => 'choice',
-				'multiple' => true,
-				'operator' => 'in',
-				'data' => 'customerUser.id',
-				'lists' => 'customerUser.name',
-			],
+            'product.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'operator' => 'in',
+                'data' => 'product.id',
+                'lists' => 'product.name',
+            ],
+            'customerUser.name' => [
+                'type' => 'choice',
+                'multiple' => true,
+                'operator' => 'in',
+                'data' => 'customerUser.id',
+                'lists' => 'customerUser.name',
+            ],
+            'customer' => [
+                'type' => 'select',
+                'multiple' => true,
+                'items' => app(CustomerRepository::class)
+                    ->all()
+                    ->pluck('name', 'id')
+                    ->prepend(trans('models/customer_user_subscribe.placeholders.customer'), '0')
+                    ->toArray(),
+                'query' => function ($query, $filterColumn, $value) {
+                    if ($value) {
+                        $query->whereHas('customerUser.customers', function ($q) use ($value) {
+                            return $q->whereIn('id', $value);
+                        });
+                    }
+                },
+            ],
         ];
     }
 
-	/**
+    /**
      * Get row buttons for "action" column {@see DataTable::renderActionColumn()}.
      *
-	 * @param CustomerUserSubscribe $CustomerUserSubscribe
-	 * @return array
-	 */
-	protected function getActions($CustomerUserSubscribe)
-	{
-		//	return [
-		//		'pdf' => [
-		//          'resource' => $this->resource,
-		//			'url' => route('{{namespace_snake_case}}.customer_user_notification.pdf', $buildingApartment->getKey()),
-		//			'target' => '_blank',
-		//			'icon' => 'pdf',
-		//			'color' => 'red',
-		//			'title' => trans("{$this->translationNamespace}{$this->translationPrefix}.pdf.title"),
-		//		],
-		//	];
+     * @param CustomerUserSubscribe $CustomerUserSubscribe
+     * @return array
+     */
+    protected function getActions($CustomerUserSubscribe)
+    {
+        //	return [
+        //		'pdf' => [
+        //          'resource' => $this->resource,
+        //			'url' => route('{{namespace_snake_case}}.customer_user_notification.pdf', $buildingApartment->getKey()),
+        //			'target' => '_blank',
+        //			'icon' => 'pdf',
+        //			'color' => 'red',
+        //			'title' => trans("{$this->translationNamespace}{$this->translationPrefix}.pdf.title"),
+        //		],
+        //	];
 
-		return parent::getActions($CustomerUserSubscribe);
-	}
+        return parent::getActions($CustomerUserSubscribe);
+    }
 
     /**
-	 * Get datatable buttons.
-	 *
+     * Get datatable buttons.
+     *
      * @return array
      */
     protected function getButtons()
@@ -252,5 +270,21 @@ class CustomerUserSubscribeDataTable extends DataTable
         //	];
 
         return parent::getButtons();
+    }
+
+    /**
+     * @param CustomerUserSubscribe $customerUserSubscribe
+     * @return string|null
+     */
+    public function renderCustomerColumn(CustomerUserSubscribe $customerUserSubscribe)
+    {
+        $customers = $customerUserSubscribe->customerUser->customers ?? null;
+        $customerNames = $customers ? $customers->pluck('name') : null;
+
+        if ($this->isDataTableRequest()) {
+            return $customerNames ? $customerNames->implode('<br>') : $this->renderDefaultView();
+        }
+
+        return $customerNames ? $customerNames->implode(', ') : null;
     }
 }
