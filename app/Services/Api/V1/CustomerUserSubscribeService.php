@@ -37,7 +37,7 @@ class CustomerUserSubscribeService extends ResourceService
                 return [
                     'id' => $subscribe->getKey(),
                     'product' => $subscribe->product->name,
-                    'image' => $subscribe->product->product_image->getByDimension('product_image'),
+                    'image' => asset((string)$subscribe->product->product_image),
                     'subscribed' => $subscribe->created_at->format('y/m/d H:i'),
                     'status' => $subscribe->product->getFutureStockMovementWeeks()
                 ];
