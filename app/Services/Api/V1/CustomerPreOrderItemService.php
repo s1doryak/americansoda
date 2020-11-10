@@ -3,11 +3,8 @@
 namespace App\Services\Api\V1;
 
 use App\Product;
-use App\Repositories\Contracts\CustomerPreOrderItemRepository;
 use App\Repositories\Eloquent\CustomerPreOrderItemRepositoryEloquent;
-use App\Repositories\Eloquent\CustomerPricingPolicyRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -114,8 +111,8 @@ class CustomerPreOrderItemService extends ResourceService
         $depositTotalVatPrice = $productsQuantity * $depositVatPrice;
 
         return [
-            'price' => round($price),
-            'vat_price' => round($price + ($price * ($productGroup->vat / 100))),
+            'price' => round($price, 8),
+            'vat_price' => round($price + ($price * ($productGroup->vat / 100)), 2),
             'products_quantity' => round($productsQuantity, 2),
             'total_price' => round($totalPrice, 2),
             'total_vat_price' => round($totalVatPrice, 2),
