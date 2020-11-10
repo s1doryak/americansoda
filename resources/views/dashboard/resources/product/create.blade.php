@@ -34,6 +34,7 @@
             class="discount_price_enabled_fields collapse {{ isset($model) && is_object($model) && $model->discount_price ? 'in' : '' }}">
             {!! form_rows($form, [
             'discount_price',
+            'displayed_text'
             ]) !!}
         </div>
 

@@ -81,7 +81,8 @@ return [
         'action' => 'На полку',
         'future_stock_movement' => 'Будущее движение по складу',
         'future_stock_movement_enable' => 'Доступна подписка',
-	],
+        'displayed_text' => 'Отображаемый текст',
+    ],
     'placeholders' => [
 		'brand' => 'Выберите Бренд',
 		'packageType' => 'Выберите Тип упаковки',

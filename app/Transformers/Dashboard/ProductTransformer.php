@@ -54,6 +54,7 @@ class ProductTransformer implements TransformerContract
             'future_stock_movement' => $futureStockMovementEnabled ? $request->get('future_stock_movement') : null,
 			'new' => (boolean)$request->get('new'),
 			'action' => (boolean)$request->get('action'),
+			'displayed_text' => $request->get('displayed_text'),
         ];
     }
 
@@ -95,6 +96,7 @@ class ProductTransformer implements TransformerContract
             'future_stock_movement' => $futureStockMovementEnabled ? $request->get('future_stock_movement') : null,
 			'new' => (boolean)$request->get('new'),
 			'action' => (boolean)$request->get('action'),
+			'displayed_text' => $request->get('displayed_text'),
         ];
     }
 
@@ -143,6 +145,7 @@ class ProductTransformer implements TransformerContract
             'future_stock_movement' => $product->getFutureStockMovementWeeks(),
             'new' => (bool)$product->new,
             'action' => (bool)$product->action,
+            'displayed_text' => $product->displayed_text,
 
             'created_at' => (string)$product->created_at,
             'updated_at' => (string)$product->updated_at,
