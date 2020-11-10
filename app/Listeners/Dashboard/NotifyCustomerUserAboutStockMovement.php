@@ -71,12 +71,13 @@ class NotifyCustomerUserAboutStockMovement
          */
         foreach ($groupedSubscribes as $customerUser => $customerUserSubscribe) {
             $customerUser = $this->customerUserRepository->find($customerUser);
-            $this->customerUserSubscribeRepository->trashWhereIn('id', $customerUserSubscribes->pluck('id'));
             $products = $customerUserSubscribe->pluck('product');
             $customerUser->notify(
                 new SendEmailToCustomersAboutProductArrivals($products, $customerUser->token)
             );
         }
+
+        $this->customerUserSubscribeRepository->trashWhereIn('id', $customerUserSubscribes->pluck('id'));
     }
 
     /**
