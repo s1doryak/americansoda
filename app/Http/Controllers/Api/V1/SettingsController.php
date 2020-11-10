@@ -12,6 +12,7 @@ class SettingsController  extends Controller
 {
     protected $prefix = 'api';
     protected $defaultMiddleware = 'api';
+    protected $defaultMiddlewareOptions = ['except' => 'get'];
 
     /**
      * @param GetRequest $request

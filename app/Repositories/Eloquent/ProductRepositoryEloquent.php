@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\CustomerUserSubscribe;
 use App\Product;
 use App\Repositories\Contracts\ProductRepository;
 use App\Transformers\Api\V1\ProductTransformer;
@@ -38,12 +39,13 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
             /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
             return $query
                 ->where('action', true)
-                ->orderBy('name');
+                ->orderByRaw('discount_price is null, discount_price = 0, discount_price, new is null, new = 0, new, name');
         });
 
         return $this
             ->all()
             ->pluck('id');
+
     }
 
     protected function scopeQueryForProducts($shopId, $customerUserId)

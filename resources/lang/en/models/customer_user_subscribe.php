@@ -58,10 +58,12 @@ return [
 		'customerUser' => [
 			'name' => 'Customer User',
 		],
+        'customer' => 'Customers',
     ],
     'placeholders' => [
 		'product' => 'Select Product',
 		'customerUser' => 'Select Customer User',
+		'customer' => 'Select Customer',
     ],
     'columns' => [
 
@@ -71,6 +73,7 @@ return [
 		'customerUser' => [
 			'name' => 'Customer User',
 		],
+        'customer' => 'Customers',
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',
@@ -82,5 +85,6 @@ return [
 		'customerUser' => [
 			'name' => 'Customer User',
 		],
+        'customer' => 'Customer',
     ],
 ];

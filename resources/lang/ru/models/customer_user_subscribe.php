@@ -62,6 +62,7 @@ return [
     'placeholders' => [
 		'product' => 'Выберите %s',
 		'customerUser' => 'Выберите %s',
+        'customer' => 'Выберите ',
     ],
     'columns' => [
 

@@ -27,5 +27,6 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
 		'new' => $faker->boolean,
 		'action' => $faker->boolean,
 		'future_stock_movement' => null,
+		'displayed_text' => null,
 ];
 });

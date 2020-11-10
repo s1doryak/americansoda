@@ -44,6 +44,7 @@ use Carbon\Carbon;
  * @property boolean $new
  * @property boolean $action
  * @property \Illuminate\Support\Carbon|null $future_stock_movement
+ * @property string $displayed_text
  * @package App
  */
 class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
@@ -76,6 +77,7 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'new',
 		'action',
 		'future_stock_movement',
+		'displayed_text',
 	];
 
 	protected $casts = [
@@ -88,7 +90,6 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 		'deposit_price' => 'float',
 		'deposit_vat' => 'integer',
 		'deposit_vat_price' => 'float',
-		'discount_price' => 'float',
 		'new' => 'boolean',
 		'action' => 'boolean',
 	];

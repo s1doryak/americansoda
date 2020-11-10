@@ -4,8 +4,10 @@
  */
 $.trumbowygDefaultOptions = {
     lang: $('html').attr('lang'),
+    defaultLinkTarget: '_blank',
     autogrow: true,
     btns: [
+        ['link'],
         ['formatting'],
         ['justifyLeft', 'justifyCenter', 'justifyRight'],
         ['unorderedList', 'orderedList'],

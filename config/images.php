@@ -48,9 +48,9 @@
                 'quality' => 90,
             ],
             'banner' => [
-                'width' => 397,
-                'height' => 240,
-                'crop' => true,
+                'width' => 512,
+                'height' => 512,
+                'crop' => false,
                 'quality' => 90,
             ],
         ],

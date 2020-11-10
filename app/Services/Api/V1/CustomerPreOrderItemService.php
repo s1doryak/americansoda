@@ -2,11 +2,9 @@
 
 namespace App\Services\Api\V1;
 
-use App\Repositories\Contracts\CustomerPreOrderItemRepository;
+use App\Product;
 use App\Repositories\Eloquent\CustomerPreOrderItemRepositoryEloquent;
-use App\Repositories\Eloquent\CustomerPricingPolicyRepositoryEloquent;
 use Crmplease\MaterialAdmin\Services\ResourceService;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -94,9 +92,12 @@ class CustomerPreOrderItemService extends ResourceService
      */
     protected function getCalculatedFields($preOrderItem, $customerId, $preOrderItemsQuantity)
     {
+        /** @var Product $product */
         $product = $this->productService->with('productGroup')->find($preOrderItem['product_id']);
         $productGroup = $product->productGroup;
-        $price = $this->customerPricingPolicyService->getPriceBySalesUnitQuantity($preOrderItemsQuantity, $customerId, $productGroup->id);
+        $price = $product->discount_price
+            ? $product->discount_price
+            : $this->customerPricingPolicyService->getPriceBySalesUnitQuantity($preOrderItemsQuantity, $customerId, $productGroup->id);
         $packagesQuantity = $preOrderItem['quantity'] * $productGroup->sales_unit_volume / $product->number_in_package;
         $productsQuantity = $packagesQuantity * $product->number_in_package;
         $totalPrice = $price * $productsQuantity;
@@ -110,8 +111,8 @@ class CustomerPreOrderItemService extends ResourceService
         $depositTotalVatPrice = $productsQuantity * $depositVatPrice;
 
         return [
-            'price' => round($price),
-            'vat_price' => round($price + ($price * ($productGroup->vat / 100))),
+            'price' => round($price, 8),
+            'vat_price' => round($price + ($price * ($productGroup->vat / 100)), 2),
             'products_quantity' => round($productsQuantity, 2),
             'total_price' => round($totalPrice, 2),
             'total_vat_price' => round($totalVatPrice, 2),

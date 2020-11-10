@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\DataTables\Dashboard\SettingDataTable;
+use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Repositories\Contracts\SettingRepository;
 use Illuminate\Contracts\Auth\Access\Gate;
 
@@ -13,6 +14,8 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class SettingsController extends \Crmplease\MaterialAdmin\Routing\ResourceController
 {
+    use DashboardSidebar;
+
 	/**
 	 * @var Gate
 	 */
@@ -157,5 +160,7 @@ class SettingsController extends \Crmplease\MaterialAdmin\Routing\ResourceContro
 
 	    $this->gate = $gate;
 		$this->repository = $settingRepository;
+
+		$this->shareSidebar();
 	}
 }
