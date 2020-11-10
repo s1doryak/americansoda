@@ -110,7 +110,7 @@ class CustomerRevisionRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
             'customer_id' => $id
         ]);
 
-        $where = Arr::except($attributes, ['created_at', 'updated_at', 'deleted_at']);
+        $where = Arr::except($attributes, ['created_at', 'updated_at', 'deleted_at', 'zendesk_id']);
 
         if (!$this->firstWhere($where)) {
             $latest = $this->lastWhere(['customer_id' => $id]);
