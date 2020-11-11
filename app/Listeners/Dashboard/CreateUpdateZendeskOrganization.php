@@ -57,7 +57,7 @@ class CreateUpdateZendeskOrganization
             $this->zendeskHttpClient->createOrganization($attributes['name']);
         }
 
-        if ($e instanceof ResourceUpdated) {
+        if ($e instanceof ResourceUpdated && $attributes['zendesk_id']) {
             $this->zendeskHttpClient->updateOrganization($attributes['zendesk_id'], [
                 'name' => $attributes['name']
             ]);
