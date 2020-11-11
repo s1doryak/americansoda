@@ -20,6 +20,7 @@ use Illuminate\Contracts\Translation\HasLocalePreference;
  * @property string $email
  * @property string $phone
  * @property integer $order_interval
+ * @property integer $zendesk_id
  * @property string $comment
  * @property string $calendar_comment
  * @property string $incomterms
@@ -114,6 +115,7 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model implemen
         'bid',
         'ovt',
         'price_group_id',
+        'zendesk_id'
     ];
 
     protected $casts = [
