@@ -89,7 +89,7 @@ class CustomerUserSubscribePolicy implements DatatablePolicyContract
         switch (get_class($authenticatable)) {
 
             default:
-                return true;
+                return false;
         }
 	}
 
