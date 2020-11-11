@@ -61,7 +61,7 @@ class AssignSettingValueItems
             }
         }
 
-        return $items;
+        return $this->rebuildKeys($items);
     }
 
     /**
@@ -71,6 +71,24 @@ class AssignSettingValueItems
     protected function needRemove($item)
     {
         return Arr::get($item, '_remove', false);
+    }
+
+    /**
+     * @param array $items
+     * @return array
+     */
+    protected function rebuildKeys(array &$items)
+    {
+        $key = 1;
+
+        foreach ($items as $index => $item) {
+            if (!$item['key'] || is_numeric($item['key'])) {
+                $items[$index]['key'] = $key;
+                $key += 1;
+            }
+        }
+
+        return $items;
     }
 
     /**
