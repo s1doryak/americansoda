@@ -2,15 +2,14 @@
 
 namespace App\Listeners\Dashboard;
 
-use App\CustomerUserSubscribe;
 use App\Notifications\Dashboard\SendEmailToCustomersAboutProductArrivals;
-use App\Policies\CustomerUserSubscribePolicy;
 use App\Repositories\Contracts\CustomerUserRepository;
 use App\Repositories\Contracts\CustomerUserSubscribeRepository;
 use Crmplease\MaterialAdmin\Events\Interfaces\ResourceEventInterface;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesNamespace;
 use Crmplease\MaterialAdmin\Events\Traits\ValidatesResource;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class NotifyCustomerUserAboutStockMovement
 {
@@ -60,24 +59,25 @@ class NotifyCustomerUserAboutStockMovement
     {
         $stockMovementProducts = Arr::get($params, 'stockMovementProducts', []);
         $products = Arr::pluck($stockMovementProducts, 'product');
+        /** @var Collection $customerUserSubscribes */
         $customerUserSubscribes = $this->customerUserSubscribeRepository
             ->with(['product'])
             ->findWhereIn('product_id', $products);
         $groupedSubscribes = $customerUserSubscribes->groupBy('customerUser.id');
 
         /**
-         * @var integer $customerUser
-         * @var  CustomerUserSubscribe $customerUserSubscribe
+         * @var integer $customerUserId
+         * @var  Collection $customerUserSubscribes
          */
-        foreach ($groupedSubscribes as $customerUser => $customerUserSubscribe) {
-            $customerUser = $this->customerUserRepository->find($customerUser);
-            $products = $customerUserSubscribe->pluck('product');
+        foreach ($groupedSubscribes as $customerUserId => $customerUserSubscribes) {
+            $customerUser = $this->customerUserRepository->find($customerUserId);
+            $products = $customerUserSubscribes->pluck('product');
             $customerUser->notify(
                 new SendEmailToCustomersAboutProductArrivals($products, $customerUser->token)
             );
         }
-
-        $this->customerUserSubscribeRepository->trashWhereIn('id', $customerUserSubscribes->pluck('id'));
+        $subscribeIds = $customerUserSubscribes->pluck('id')->toArray();
+        $this->customerUserSubscribeRepository->trashWhereIn('id', $subscribeIds);
     }
 
     /**
