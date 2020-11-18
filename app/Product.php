@@ -49,133 +49,133 @@ use Carbon\Carbon;
  */
 class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 {
-	protected $fillable = [
-		'name',
-		'product_barcode',
-		'product_barcode_plaintext',
-		'package_barcode',
-		'package_barcode_plaintext',
-		'product_image',
-		'package_image',
-		'description',
-		'contents',
-		'number_in_package',
-		'weight',
-		'volume',
-		'brutto_weight',
-		'brutto_volume',
+    protected $fillable = [
+        'name',
+        'product_barcode',
+        'product_barcode_plaintext',
+        'package_barcode',
+        'package_barcode_plaintext',
+        'product_image',
+        'package_image',
+        'description',
+        'contents',
+        'number_in_package',
+        'weight',
+        'volume',
+        'brutto_weight',
+        'brutto_volume',
         'unit_type',
-		'deposit_enabled',
-		'deposit_price',
-		'deposit_vat',
-		'deposit_vat_price',
-		'comment',
-		'brand_id',
-		'package_type_id',
-		'product_group_id',
-		'discount_price',
-		'new',
-		'action',
-		'future_stock_movement',
-		'displayed_text',
-	];
+        'deposit_enabled',
+        'deposit_price',
+        'deposit_vat',
+        'deposit_vat_price',
+        'comment',
+        'brand_id',
+        'package_type_id',
+        'product_group_id',
+        'discount_price',
+        'new',
+        'action',
+        'future_stock_movement',
+        'displayed_text',
+    ];
 
-	protected $casts = [
-		'number_in_package' => 'integer',
-		'weight' => 'float',
-		'volume' => 'float',
-		'brutto_weight' => 'float',
-		'brutto_volume' => 'float',
-		'deposit_enabled' => 'boolean',
-		'deposit_price' => 'float',
-		'deposit_vat' => 'integer',
-		'deposit_vat_price' => 'float',
-		'new' => 'boolean',
-		'action' => 'boolean',
-	];
+    protected $casts = [
+        'number_in_package' => 'integer',
+        'weight' => 'float',
+        'volume' => 'float',
+        'brutto_weight' => 'float',
+        'brutto_volume' => 'float',
+        'deposit_enabled' => 'boolean',
+        'deposit_price' => 'float',
+        'deposit_vat' => 'integer',
+        'deposit_vat_price' => 'float',
+        'new' => 'boolean',
+        'action' => 'boolean',
+    ];
 
-	protected $dates = [
-		'future_stock_movement',
-	];
+    protected $dates = [
+        'future_stock_movement',
+    ];
 
-	protected $hidden = [
+    protected $hidden = [
 
-	];
+    ];
 
-	protected $belongsTo = [
-		'brand' => \App\Brand::class,
-		'packageType' => \App\PackageType::class,
-		'productGroup' => \App\ProductGroup::class,
-	];
+    protected $belongsTo = [
+        'brand' => \App\Brand::class,
+        'packageType' => \App\PackageType::class,
+        'productGroup' => \App\ProductGroup::class,
+    ];
 
-	protected $belongsToMany = [
-		'productTags' => [\App\ProductTag::class, 'product_product_tag'],
-	];
+    protected $belongsToMany = [
+        'productTags' => [\App\ProductTag::class, 'product_product_tag'],
+    ];
 
-	protected $belongsToManyPivot = [
+    protected $belongsToManyPivot = [
 
-	];
+    ];
 
-	protected $belongsToManyPivotTimestamps = [
+    protected $belongsToManyPivotTimestamps = [
 
-	];
+    ];
 
-	protected $hasOne = [
+    protected $hasOne = [
 
-	];
+    ];
 
-	protected $hasMany = [
-		'customerOrderItems' => CustomerOrderItem::class,
+    protected $hasMany = [
+        'customerOrderItems' => CustomerOrderItem::class,
         'customerUserSubscribes' => CustomerUserSubscribe::class,
     ];
 
-	protected $hasManyThrough = [
+    protected $hasManyThrough = [
 
-	];
+    ];
 
-	protected $morphTo = [
+    protected $morphTo = [
 
-	];
+    ];
 
-	protected $morphMany = [
+    protected $morphMany = [
 
-	];
+    ];
 
-	protected $with = [
+    protected $with = [
 
-	];
+    ];
 
-	protected $images = [
-		'product_image',
-		'package_image',
-	];
+    protected $images = [
+        'product_image',
+        'package_image',
+    ];
 
-	protected $files = [
+    protected $files = [
 
-	];
+    ];
 
-	/**
-	 * @return string
-	 */
-	public function getProductBarcodeAttribute()
-	{
-		return transform_barcode($this->attributes['product_barcode']);
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getPackageBarcodeAttribute()
-	{
-		return transform_barcode($this->attributes['package_barcode']);
-	}
-
-	public function getFutureStockMovementWeeks()
+    /**
+     * @return string
+     */
+    public function getProductBarcodeAttribute()
     {
-        /** @var Carbon  $futureStockMovement */
-        $futureStockMovement = $this->attributes['future_stock_movement'];
-        $expectedWeek = Carbon::now()->diffInWeeks($futureStockMovement);
+        return transform_barcode($this->attributes['product_barcode']);
+    }
 
-        return $futureStockMovement ? sprintf('vko %s', $expectedWeek) : null;
+    /**
+     * @return string
+     */
+    public function getPackageBarcodeAttribute()
+    {
+        return transform_barcode($this->attributes['package_barcode']);
+    }
+
+    public function getFutureStockMovementWeeks()
+    {
+        $futureStockMovement = $this->attributes['future_stock_movement']
+            ? Carbon::parse($this->attributes['future_stock_movement'])
+            : null;
+
+        return $futureStockMovement ? sprintf('vko %s', $futureStockMovement->format('W')) : null;
     }
 }
