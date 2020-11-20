@@ -479,9 +479,12 @@ class CustomerOrderItemDataTable extends DataTable
             ],
             'customerShipment.assembly_number' => [
                 'type' => 'text',
-                'name' => 'customerShipment.assembly_number',
-                'lists' => 'customerShipment.assembly_number',
                 'items' => [],
+                'query' => function ($query, $filterColumn, $value) {
+                    return $query->whereHas('customerShipment', function ($q) use ($value) {
+                        return $q->where('assembly_number', 'like', "%{$value}%");
+                    });
+                },
             ],
             'customerShipment.invoice_number' => [
                 'type' => 'text',
