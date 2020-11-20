@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Transformers\Dashboard\CustomerOrderItemTransformer;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 
@@ -150,8 +151,10 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
      */
     public function getAmountAttribute($value)
     {
+        $palpa = CustomerOrderItemTransformer::mapCustomerInvoicePalpaItemsArray($this->customerOrderItems);
+
         return number_format(
-            $this->customerOrderItems->sum('total_price') + $this->customerOrderItems->sum('deposit_total_price'),
+            $this->customerOrderItems->sum('total_price') + $this->customerOrderItems->sum('deposit_total_price') + $palpa->sum('price'),
             2,
             '.',
             ''
