@@ -92,7 +92,7 @@ class Assembly extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         preg_match_all('/(\d{4}).*(\d{2})(\d{2})/', $this->attributes['number'], $matches);
 
         if (count($matches) && isset($matches[1]) && is_array($matches[1]) && !empty($matches[1])) {
-            $date = sprintf('%04d-%02d-%02d', $matches[1][0], $matches[3][0], $matches[2][0]);
+            $date = sprintf('%04d-%02d-%02d', $matches[1][0], $matches[2][0], $matches[3][0]);
 
             return Carbon::parse($date);
         }
