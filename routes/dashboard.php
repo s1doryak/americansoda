@@ -169,6 +169,13 @@ Route::group(['middleware' => 'web'], function () {
 
             }
 
+            if ($resource == 'customer_user') {
+                Route::get("customer_user/{customer_user}/update_token", [
+                    'as' => "dashboard.{$resource}.update_token",
+                    'uses' => "{$controller}@updateToken"
+                ]);
+            }
+
         }
 
     });

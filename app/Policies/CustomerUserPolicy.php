@@ -86,6 +86,19 @@ class CustomerUserPolicy implements DatatablePolicyContract
      *
      * @return boolean
      */
+    public function updateToken(Authenticatable $authenticatable, CustomerUser $customerUser)
+    {
+        return true;
+    }
+
+    /**
+     * Determine whether the user can view the entity.
+     *
+     * @param Authenticatable $authenticatable
+     * @param CustomerUser $customerUser
+     *
+     * @return boolean
+     */
     public function view(Authenticatable $authenticatable, CustomerUser $customerUser)
     {
         return false;

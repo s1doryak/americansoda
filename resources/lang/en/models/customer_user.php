@@ -9,6 +9,10 @@ return [
     'login' => [
         'title' => 'Login as Customer User',
     ],
+    'updateToken' => [
+        'title' => 'Refresh auth token',
+        'success' => 'Token refreshed successfully!',
+    ],
 	'index' => [
 		'title' => 'List of Customer Users',
 	],
