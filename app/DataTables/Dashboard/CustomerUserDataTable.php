@@ -85,6 +85,15 @@ class CustomerUserDataTable extends DataTable
                     'title' => trans('models/customer_user.login.title'),
                 ],
             ],
+            [
+                'updateToken' => [
+                    'url' => route(prefix_name() . ".{$this->resource}.update_token", ['customer_user' => $customerUser->getKey()]),
+                    'target' => '_self',
+                    'icon' => 'refresh',
+                    'color' => 'gray',
+                    'title' => trans('models/customer_user.updateToken.title'),
+                ],
+            ],
             parent::getActions($customerUser)
         );
     }

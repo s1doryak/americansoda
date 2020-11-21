@@ -16,6 +16,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $name
  * @property string $phone
  * @property string $comment
+ * @property string $token
  * @property \Illuminate\Support\Collection|CustomerUserSubscribe[] $customerUserSubscribes
  * @property \Illuminate\Support\Collection|\App\Customer[] $customers
  * @property \Illuminate\Support\Collection|\App\AuthLog[] $authLogs
