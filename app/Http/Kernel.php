@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\Api\V1\AuthLog;
+use App\Http\Middleware\Api\V1\TokenVerify;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -40,7 +41,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
+            'throttle:180,1',
             'bindings',
         ],
 
@@ -54,7 +55,8 @@ class Kernel extends HttpKernel
 
         'api/v1' => [
 			// \App\Http\Middleware\Api\V1\Authenticate::class,
-            AuthLog::class
+            AuthLog::class,
+            TokenVerify::class
         ],
 
 		// ...$middlewareGroups

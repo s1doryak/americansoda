@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\CustomerUser;
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
+use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use App\Repositories\Contracts\CustomerUserRepository;
 use App\Repositories\Contracts\CustomerRepository;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 /**
  * CustomerUser controller.
@@ -69,5 +72,16 @@ class CustomerUsersController extends ResourceController
 
         $this->middleware('auth:dashboard');
         $this->shareSidebar();
+    }
+
+    public function updateToken(Request $request)
+    {
+        /** @var CustomerUser $customerUser */
+        $customerUser = $this->repository->find($request->route('customer_user'));
+        $customerUser->token = JWTAuth::fromUser($customerUser);
+        $customerUser->save();
+        $message = trans('models/customer_user.updateToken.success');
+
+        return redirect()->back()->withSuccess($message);
     }
 }
