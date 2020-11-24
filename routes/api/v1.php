@@ -23,7 +23,7 @@ use App\Http\Controllers\Api\V1\SettingsController;
 Route::group(['middleware' => 'api'], function () {
 
 	Route::group(['prefix' => 'api/v1'], function () {
-        Route::get('/settings', [SettingsController::class, 'get']);
+        Route::get('/settings', [SettingsController::class, 'get'])->name('api/v1.settings');
 
         Route::group(['middleware' => 'jwt.auth'], function () {
             Route::post('/customer_user_subscribe', [CustomerUseSubscribesController::class, 'create']);
@@ -52,6 +52,6 @@ Route::group(['middleware' => 'api'], function () {
             });
         });
 
-        Route::post('/auth', [AuthController::class, 'sendToken']);
+        Route::post('/auth', [AuthController::class, 'sendToken'])->name('api/v1.auth');
     });
 });
