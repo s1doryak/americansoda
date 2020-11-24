@@ -12,6 +12,11 @@ class TokenVerify
     /** @var CustomerUserRepository */
     protected $customerUserRepository;
 
+    protected $except = [
+        'api/v1.settings',
+        'api/v1.auth'
+    ];
+
     public function __construct(CustomerUserRepository $customerUserRepository)
     {
         $this->customerUserRepository = $customerUserRepository;
@@ -22,7 +27,7 @@ class TokenVerify
         $token = $this->getTokenFromRequest($request);
         $user = $this->customerUserRepository->firstWhere(['token' => $token]);
 
-        if ($user) {
+        if ($user || $this->except($request)) {
             return $next($request);
         }
 
@@ -34,5 +39,10 @@ class TokenVerify
         $token = $request->header('Authorization');
 
         return Str::after($token, 'Bearer ');
+    }
+
+    protected function except(Request $request)
+    {
+        return in_array($request->route()->getName(), $this->except);
     }
 }
