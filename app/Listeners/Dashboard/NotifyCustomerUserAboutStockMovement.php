@@ -67,17 +67,18 @@ class NotifyCustomerUserAboutStockMovement
 
         /**
          * @var integer $customerUserId
-         * @var  Collection $customerUserSubscribes
+         * @var  Collection $subscribes
          */
-        foreach ($groupedSubscribes as $customerUserId => $customerUserSubscribes) {
+        foreach ($groupedSubscribes as $customerUserId => $subscribes) {
             $customerUser = $this->customerUserRepository->find($customerUserId);
-            $products = $customerUserSubscribes->pluck('product');
+            $products = $subscribes->pluck('product');
+            $subscribeIds = $subscribes->pluck('id')->toArray();
             $customerUser->notify(
                 new SendEmailToCustomersAboutProductArrivals($products, $customerUser->token)
             );
+            $this->customerUserSubscribeRepository->trashWhereIn('id', $subscribeIds);
         }
-        $subscribeIds = $customerUserSubscribes->pluck('id')->toArray();
-        $this->customerUserSubscribeRepository->trashWhereIn('id', $subscribeIds);
+
     }
 
     /**
