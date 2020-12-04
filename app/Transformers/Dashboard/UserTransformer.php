@@ -26,6 +26,7 @@ class UserTransformer implements TransformerContract
 			'email' => $request->get('email'),
 			'name' => $request->get('name'),
 			'phone' => $request->get('phone'),
+			'password' => $request->get('password'),
 			'avatar' => $request->file('avatar'),
 			'role' => (integer)$request->get('role'),
 			'company' => (integer)$request->get('company'),
@@ -43,7 +44,8 @@ class UserTransformer implements TransformerContract
 			'email' => $request->get('email'),
 			'name' => $request->get('name'),
 			'phone' => $request->get('phone'),
-			'avatar' => $request->file('avatar'),
+            'password' => $request->get('password'),
+            'avatar' => $request->file('avatar'),
 			'role' => (integer)$request->get('role'),
 			'company' => (integer)$request->get('company'),
 
