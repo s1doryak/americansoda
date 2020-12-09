@@ -25,6 +25,10 @@ class AuthLogTransformer implements TransformerContract
 			'date' => $request->get('date'),
 			'loggable_type' => $request->get('loggable_type'),
 			'loggable_id' => (integer)$request->get('loggable_id'),
+			'user_agent' => $request->get('user_agent'),
+			'zendesk' => $request->get('zendesk'),
+			'version' => $request->get('version'),
+			'sentry' => $request->get('sentry'),
 
 
 		];
@@ -40,6 +44,10 @@ class AuthLogTransformer implements TransformerContract
 			'date' => $request->get('date'),
 			'loggable_type' => $request->get('loggable_type'),
 			'loggable_id' => (integer)$request->get('loggable_id'),
+			'user_agent' => $request->get('user_agent'),
+			'zendesk' => $request->get('zendesk'),
+			'version' => $request->get('version'),
+			'sentry' => $request->get('sentry'),
 
 
 		];
@@ -61,6 +69,10 @@ class AuthLogTransformer implements TransformerContract
 			'created_at' => (string)$authLog->created_at,
 			'updated_at' => (string)$authLog->updated_at,
 			'deleted_at' => (string)$authLog->deleted_at,
+			'user_agent' => $authLog->user_agent,
+			'zendesk' => $authLog->zendesk,
+			'version' => $authLog->version,
+			'sentry' => $authLog->sentry,
 		];
 	}
 }

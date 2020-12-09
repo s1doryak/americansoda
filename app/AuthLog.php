@@ -15,6 +15,10 @@ namespace App;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \App\CustomerUser|null $loggable
  * @method \Illuminate\Database\Eloquent\Relations\MorphTo loggable()
+ * @property string $user_agent
+ * @property string $zendesk
+ * @property string $version
+ * @property string $sentry
  * @package App
  */
 class AuthLog extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
@@ -22,32 +26,36 @@ class AuthLog extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     /**
      * @var array
      */
-	protected $fillable = [
-		'date',
-		'loggable_type',
-		'loggable_id',
-	];
+    protected $fillable = [
+        'date',
+        'loggable_type',
+        'loggable_id',
+        'user_agent',
+        'zendesk',
+        'version',
+        'sentry',
+    ];
 
     /**
      * @var array
      */
-	protected $appends = [
+    protected $appends = [
 
-	];
-
-    /**
-     * @var array
-     */
-	protected $casts = [
-		'loggable_id' => 'integer',
-	];
+    ];
 
     /**
      * @var array
      */
-	protected $dates = [
-		'date',
-	];
+    protected $casts = [
+        'loggable_id' => 'integer',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $dates = [
+        'date',
+    ];
 
     /**
      * @var array
@@ -123,7 +131,7 @@ class AuthLog extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
      * @var array
      */
     protected $morphTo = [
-		'loggable',
+        'loggable',
     ];
 
     /**
@@ -167,4 +175,24 @@ class AuthLog extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $touches = [
 
     ];
+
+    public function renderHeadersWithIcons()
+    {
+        return $this->renderHeaderWithIcon('version') . PHP_EOL
+            . $this->renderHeaderWithIcon('user_agent') . PHP_EOL
+            . $this->renderHeaderWithIcon('zendesk', 'Zendesk') . PHP_EOL
+            . $this->renderHeaderWithIcon('sentry', 'Sentry');
+    }
+
+    public function renderHeaderWithIcon($header, $title = null)
+    {
+        $color = $this->{$header} ? 'green' : 'gray';
+        $title = $title ?: $this->{$header};
+
+        return $this->renderIconView(
+            $title,
+            'circle',
+            $color
+        );
+    }
 }

@@ -59,6 +59,7 @@ class AuthLogDataTable extends DataTable
                 'orderable' => false,
             ],
             'date',
+            'headers',
         ];
 	}
 
@@ -73,7 +74,8 @@ class AuthLogDataTable extends DataTable
 			'loggable.name',
             'date',
             'action',
-		];
+            'headers',
+        ];
 	}
 
     /**
@@ -116,6 +118,50 @@ class AuthLogDataTable extends DataTable
                     }
                 },
             ],
+            'version' => [
+                'type' => 'checkbox',
+                'default' => false,
+                'items' => [],
+                'query' => function ($query, $filterColumn, $value) {
+                    if ($value) {
+                        /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                        $query->whereNotNull($filterColumn);
+                    }
+                },
+            ],
+            'sentry' => [
+                'type' => 'checkbox',
+                'default' => false,
+                'items' => [],
+                'query' => function ($query, $filterColumn, $value) {
+                    if ($value) {
+                        /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                        $query->whereNotNull($filterColumn);
+                    }
+                },
+            ],
+            'zendesk' => [
+                'type' => 'checkbox',
+                'default' => false,
+                'items' => [],
+                'query' => function ($query, $filterColumn, $value) {
+                    if ($value) {
+                        /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                        $query->whereNotNull($filterColumn);
+                    }
+                },
+            ],
+            'user_agent' => [
+                'type' => 'checkbox',
+                'default' => false,
+                'items' => [],
+                'query' => function ($query, $filterColumn, $value) {
+                    if ($value) {
+                        /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                        $query->whereNotNull($filterColumn);
+                    }
+                },
+            ],
         ];
     }
 
@@ -151,5 +197,18 @@ class AuthLogDataTable extends DataTable
         }
 
         return $authLog->loggable ? $authLog->loggable->name : null;
+    }
+
+    /**
+     * @param AuthLog $authLog
+     * @return string
+     */
+    public function renderHeadersColumn($authLog)
+    {
+        if ($this->isDataTableRequest()) {
+            return $authLog->renderView('dashboard::resources.auth_log.columns.headers', ['model' => $authLog]);
+        }
+
+        return $authLog->version;
     }
 }
