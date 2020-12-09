@@ -57,6 +57,10 @@ return [
 		'loggable' => [
 			'name' => 'Loggable',
 		],
+        'user_agent' => 'User Agent',
+        'zendesk' => 'Zendesk',
+        'version' => 'Version',
+        'sentry' => 'Sentry',
     ],
     'placeholders' => [
 		'loggable' => 'Select Loggable',
@@ -69,6 +73,7 @@ return [
 		'loggable' => [
 			'name' => 'Loggable',
 		],
+        'headers' => 'Headers',
         'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',
@@ -78,6 +83,17 @@ return [
 			'name' => 'Loggable',
 		],
         'loggable_type' => 'Loggable Type',
-        'customer_user' => 'Customer User'
+        'customer_user' => 'Customer User',
+        'zendesk' => ' Has Zendesk',
+        'version' => 'Has Version',
+        'sentry' => 'Has Sentry',
+        'user_agent' => 'Has User Agent',
+    ],
+    'headers' => [
+        'user_agent' => 'User Agent',
+        'zendesk' => 'Zendesk',
+        'version' => 'Version',
+        'sentry' => 'Sentry',
+        'unknown' => 'Unknown'
     ],
 ];

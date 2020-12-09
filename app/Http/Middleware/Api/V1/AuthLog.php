@@ -41,7 +41,11 @@ class AuthLog extends BaseMiddleware
             $this->authLogRepository->create([
                 'date' => Carbon::now(),
                 'loggable_id' => auth()->id(),
-                'loggable_type' => 'customer_user'
+                'loggable_type' => 'customer_user',
+                'user_agent' => $request->header('User-Agent'),
+                'sentry' => $request->header('X-GTP-Sentry'),
+                'zendesk' => $request->header('X-GTP-Zendesk'),
+                'version' => $request->header('X-GTP-Version'),
             ]);
         } catch (JWTException $e) {
         }

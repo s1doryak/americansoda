@@ -22,6 +22,10 @@ class AuthLogForm extends Form
 			'date' => 'datepicker',
 			'loggable_type' => 'text',
 			'loggable_id' => 'number',
+			'user_agent' => 'editor',
+			'zendesk' => 'editor',
+			'version' => 'editor',
+			'sentry' => 'editor',
         ];
 	}
 
@@ -35,6 +39,10 @@ class AuthLogForm extends Form
 			'date' => 'datepicker',
 			'loggable_type' => 'text',
 			'loggable_id' => 'number',
+			'user_agent' => 'editor',
+			'zendesk' => 'editor',
+			'version' => 'editor',
+			'sentry' => 'editor',
         ];
 	}
 
@@ -47,6 +55,10 @@ class AuthLogForm extends Form
 			'date' => 'sometimes',
 			'loggable_type' => 'sometimes',
 			'loggable_id' => 'sometimes',
+			'user_agent' => 'sometimes',
+			'zendesk' => 'sometimes',
+			'version' => 'sometimes',
+			'sentry' => 'sometimes',
         ];
 	}
 
@@ -60,6 +72,10 @@ class AuthLogForm extends Form
 			'date' => 'sometimes',
 			'loggable_type' => 'sometimes',
 			'loggable_id' => 'sometimes',
+			'user_agent' => 'sometimes',
+			'zendesk' => 'sometimes',
+			'version' => 'sometimes',
+			'sentry' => 'sometimes',
         ];
 	}
 }
