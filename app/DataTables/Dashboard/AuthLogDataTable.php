@@ -28,7 +28,7 @@ class AuthLogDataTable extends DataTable
         //	    });
         //  }
 
-        return parent::query();
+        return parent::query()->orderBy('date', 'desc');
     }
 
     /**
