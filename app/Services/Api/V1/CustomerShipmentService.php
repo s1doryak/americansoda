@@ -6,8 +6,6 @@ use App\Company;
 use App\Customer;
 use App\CustomerOrderItem;
 use App\CustomerShipment;
-use App\Repositories\Contracts\CompanyRepository;
-use App\Repositories\Contracts\CustomerOrderItemRepository;
 use App\Repositories\Contracts\CustomerShipmentRepository;
 use App\Repositories\Eloquent\CompanyRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerOrderItemRepositoryEloquent;
