@@ -20,7 +20,7 @@ class CustomerPreOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
     public function getByShopId($shopId, $withoutOrders = false)
     {
         $query = $this->model
-            ->select('customer_orders.*')
+            ->select('customer_pre_orders.*')
             ->where('customer_id', $shopId);
 
         if ($withoutOrders) {
