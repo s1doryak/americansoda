@@ -28,7 +28,7 @@ class CustomerPreOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
         }
 
         return $query
-            ->orderByRaw(DB::raw('SOUNDEX(number) desc, LENGTH(number) desc, number desc'))
+            ->orderByRaw(DB::raw('SUBSTR(number, 6, 8) desc, SUBSTR(number, 15) desc'))
             ->get();
     }
 
