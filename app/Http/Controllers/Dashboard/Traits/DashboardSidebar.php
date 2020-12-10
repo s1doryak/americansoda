@@ -54,6 +54,7 @@ trait DashboardSidebar
 				'company',
 				'company_bank_account',
                 'setting',
+                'auth_log',
 				'job',
 				'failed_job',
 			],
