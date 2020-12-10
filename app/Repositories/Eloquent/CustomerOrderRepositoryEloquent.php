@@ -150,8 +150,10 @@ class CustomerOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositor
 
     public function getByShopId($shopId)
     {
-        return $this
-            ->orderBy(DB::raw('SOUNDEX(number), LENGTH(number), number'), 'desc')
-            ->findWhere(['customer_id' => $shopId]);
+        return $this->model
+            ->select('customer_orders.*')
+            ->where('customer_id', $shopId)
+            ->orderByRaw(DB::raw('SOUNDEX(number) desc, LENGTH(number) desc, number desc'))
+            ->get();
     }
 }
