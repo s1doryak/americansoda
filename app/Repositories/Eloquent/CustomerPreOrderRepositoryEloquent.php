@@ -19,15 +19,17 @@ class CustomerPreOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
 
     public function getByShopId($shopId, $withoutOrders = false)
     {
-        $where = ['customer_id' => $shopId];
+        $query = $this->model
+            ->select('customer_orders.*')
+            ->where('customer_id', $shopId);
 
         if ($withoutOrders) {
-            $where['customer_order_id'] = null;
+            $query->whereNull('customer_order_id');
         }
 
-        return $this
-            ->orderBy(DB::raw('SOUNDEX(number), LENGTH(number), number'), 'desc')
-            ->findWhere($where);
+        return $query
+            ->orderByRaw(DB::raw('SOUNDEX(number) desc, LENGTH(number) desc, number desc'))
+            ->get();
     }
 
     /**
