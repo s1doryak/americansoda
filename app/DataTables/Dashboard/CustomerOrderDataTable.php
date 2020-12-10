@@ -204,7 +204,7 @@ class CustomerOrderDataTable extends DataTable
     public function renderCustomer__User__NameColumn($customerOrder)
     {
         if ($this->isDataTableRequest()) {
-            return $customerOrder->customer->user ? $customerOrder->customer->user->name : $this->renderDefaultView();
+            return $customerOrder->customer && $customerOrder->customer->user ? $customerOrder->customer->user->name : $this->renderDefaultView();
         }
 
         return $customerOrder->user->name ?? null;
