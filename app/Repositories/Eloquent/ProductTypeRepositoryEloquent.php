@@ -66,6 +66,7 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
     public function getCleanByShopId($shopId, $ids = [])
     {
         $query = $this
+            ->orderBy('name')
             ->whereHas('productGroups.pricingPolicies', function ($query) use ($shopId) {
                 return $query->select('id', 'product_group_id')->where('customer_id', $shopId);
             });
@@ -74,11 +75,11 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
 
         return $result
             ->map(function ($productType) {
-                $productType['image'] = (string)$productType['image'] ? asset((string)$productType['image']) : null;
+                $item = $productType->toArray();
+                $item['image'] = (string)$productType['image'] ? asset((string)$productType['image']) : null;
 
-                return $productType;
-            })
-            ->sortBy('name');
+                return $item;
+            });
     }
 
     /**
