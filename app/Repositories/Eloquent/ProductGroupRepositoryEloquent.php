@@ -4,7 +4,6 @@ namespace App\Repositories\Eloquent;
 
 use App\ProductGroup;
 use App\Repositories\Contracts\ProductGroupRepository;
-use App\Transformers\Api\V1\ProductGroupTransformer;
 
 class ProductGroupRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductGroupRepository
 {
