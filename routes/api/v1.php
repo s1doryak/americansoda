@@ -37,7 +37,8 @@ Route::group(['middleware' => 'api'], function () {
                 Route::get('/nomenclature', [ProductTypeController::class, 'nomenclature']);
                 Route::get('/nomenclature/action', [ProductTypeController::class, 'nomenclatureAction']);
                 Route::get('/products', [ProductController::class, 'get']);
-                Route::get('/product-groups', [ProductGroupController::class, 'get']);
+                Route::get('/product-groups', [ProductGroupController::class, 'search']);
+                Route::get('/product-group/{product_group}/info', [ProductGroupController::class, 'get']);
                 Route::get('/product-types', [ProductTypeController::class, 'get']);
                 Route::get('/pricing-policies', [PricingPolicyController::class, 'get']);
 
