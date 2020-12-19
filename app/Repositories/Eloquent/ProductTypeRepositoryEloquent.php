@@ -49,17 +49,11 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
             ])
             ->orderBy('name')
             ->get('id')
-            ->map(function ($productType) {
-                $productGroups = $productType->productGroups->filter(function ($productGroup) {
+            ->filter(function ($productType) {
+                return $productType->productGroups->filter(function ($productGroup) {
                     return $productGroup->products->isNotEmpty()
                         && $productGroup->pricingPolicies->isNotEmpty();
-                });
-                $productType->productGroups = $productGroups;
-
-                return $productType;
-            })
-            ->filter(function ($productType) {
-                return $productType->productGroups->isNotEmpty() ?? false;
+                })->isNotEmpty();
             });
     }
 
