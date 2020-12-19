@@ -21,13 +21,14 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
 
     public function getByShopId($shopId, $customerUserId = null, $productIds = [])
     {
-        $customerUserId = (is_null($customerUserId)) ? Auth::id() : $customerUserId;
         $this
             ->orderBy('name')
             ->scopeQuery(function ($query) use ($shopId, $customerUserId) {
+                $customerUserId = $customerUserId ?? Auth::id();
+
                 return $this->scopeQueryForProducts($query, $shopId, $customerUserId);
             });
-        $result = ($productIds) ? $this->findWhereIn('products.id', $productIds) : $this->get();
+        $result = $productIds ? $this->findWhereIn('products.id', $productIds) : $this->get();
 
         return $result
             ->map(function ($product) {
