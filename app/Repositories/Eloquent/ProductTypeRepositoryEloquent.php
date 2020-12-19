@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\ProductType;
 use App\Repositories\Contracts\ProductTypeRepository;
+use App\Transformers\Api\V1\ProductTypeTransformer;
 use Illuminate\Foundation\Application;
 
 class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductTypeRepository
@@ -75,10 +76,7 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
 
         return $result
             ->map(function ($productType) {
-                $item = $productType->toArray();
-                $item['image'] = (string)$productType['image'] ? asset((string)$productType['image']) : null;
-
-                return $item;
+                return ProductTypeTransformer::toArray($productType);
             });
     }
 
