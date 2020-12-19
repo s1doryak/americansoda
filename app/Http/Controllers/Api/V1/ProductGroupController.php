@@ -22,7 +22,7 @@ class ProductGroupController extends Controller
 
     public function get(GetRequest $request, ProductGroupService $service)
     {
-        $data = $service->productGroupInfo($request->route('product_group'));
+        $data = $service->getProductGroupInfo($request->route('product_group'));
 
         return response()->json($data, Response::HTTP_OK);
     }

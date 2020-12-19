@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\ProductGroup;
 use App\Repositories\Contracts\ProductGroupRepository;
+use App\Transformers\Api\V1\ProductGroupTransformer;
 
 class ProductGroupRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\RepositoryEloquent implements ProductGroupRepository
 {
@@ -43,20 +44,17 @@ class ProductGroupRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositori
 
         $result = $query
             ->orderBy('name')
-            ->findWhere($where);
+            ->findWhere($where, ['id', 'name', 'vat', 'sales_unit_volume', 'created_at', 'updated_at', 'deleted_at']);
 
         return $result
-            ->map(function (ProductGroup  $productGroup) {
-                return[
-                    'id' => (int)$productGroup->getKey(),
-                    'name' => $productGroup->name,
-                    'vat' => (integer)$productGroup->vat,
-                    'sales_unit_volume' => (integer)$productGroup->sales_unit_volume,
-                    'product_type_id' => $productGroup->productType->id ?? null,
-                    'created_at' => (string)$productGroup->created_at,
-                    'updated_at' => (string)$productGroup->updated_at,
-                    'deleted_at' => (string)$productGroup->deleted_at,
-                ];
+            ->map(function (ProductGroup $productGroup) {
+                return ProductGroupTransformer::toArray($productGroup);
             });
+    }
+    public function getProductGroupInfo($id)
+    {
+        $productGroup =  $this->find($id, ['info', 'banner', 'image']);
+
+        return ProductGroupTransformer::toArrayInfo($productGroup);
     }
 }
