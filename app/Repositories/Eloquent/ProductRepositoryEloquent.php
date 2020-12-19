@@ -43,11 +43,12 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
                 ->scopeQueryForProducts($query, $shopId, Auth::id())
                 ->select('products.id')
                 ->where('action', true)
-                ->orderByRaw('discount_price is null, discount_price = 0, discount_price, new is null, new = 0, new, name')
-                ->pluck('products.id');
+                ->orderByRaw('discount_price is null, discount_price = 0, discount_price, new is null, new = 0, new, name');
         });
 
-        return $this->get();
+        return $this
+            ->get()
+            ->pluck('id');
 
     }
 
@@ -69,7 +70,7 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
                 'customer_pricing_policies.customer_id'
             )
             ->where('customer_user_customer.customer_user_id', '=', $customerUserId)
-            ->whereIn('customer_pricing_policies.customer_id', Arr::wrap($shopId))
+            ->where('customer_pricing_policies.customer_id', $shopId)
             ->where('customer_pricing_policies.price', '>', '0.00')
             ->where('customer_pricing_policies.products_range', '>', 0)
             ->whereNull('customer_pricing_policies.deleted_at');
