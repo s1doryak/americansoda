@@ -37,31 +37,10 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
         $productGroupIds = $products->pluck('productGroup')->unique();
 
         return $this
-            ->whereHas('productGroups', function ($query) use ($shopId, $productGroupIds) {
-                return $query
-                    ->whereHas('pricingPolicies', function ($query) use ($shopId) {
-                        return $query
-                            ->where('customer_id', $shopId)
-                            ->where('price', '>', '0.00')
-                            ->where('products_range', '>', 0)
-                            ->whereNull('deleted_at');
-                    })
-                    ->whereHas('products', function ($query) use ($productGroupIds) {
-                        return $query
-                            ->whereIn('product_group_id', $productGroupIds)
-                            ->whereNull('deleted_at');
-                    });
-            })
             ->with([
                 'productGroups' => function ($query) use ($withCount) {
                     return $query
                         ->select('id', 'product_type_id')
-                        ->whereHas('pricingPolicies', function ($query) {
-                            return $query->whereNull('deleted_at');
-                        })
-                        ->whereHas('products', function ($query) {
-                            return $query->whereNull('deleted_at');
-                        })
                         ->orderBy('name')
                         ->withCount($withCount);
                 },
@@ -69,7 +48,19 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
                 'productGroups.pricingPolicies' => $this->getWithForPricingPolicies($shopId),
             ])
             ->orderBy('name')
-            ->get('id');
+            ->get('id')
+            ->map(function ($productType) {
+                $productGroups = $productType->productGroups->filter(function ($productGroup) {
+                    return $productGroup->products->isNotEmpty()
+                        && $productGroup->pricingPolicies->isNotEmpty();
+                });
+                $productType->productGroups = $productGroups;
+
+                return $productType;
+            })
+            ->filter(function ($productType) {
+                return $productType->productGroups->isNotEmpty() ?? false;
+            });
     }
 
     public function getCleanByShopId($shopId, $ids = [])
@@ -95,7 +86,7 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
     protected function getWithForProducts($productGroupIds)
     {
         return function ($query) use ($productGroupIds) {
-            return $query->select(['id', 'product_group_id'])
+            return $query->select('id', 'product_group_id')
                 ->whereIn('product_group_id', $productGroupIds)
                 ->whereNull('deleted_at')
                 ->orderBy('name');
@@ -109,7 +100,7 @@ class ProductTypeRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
     protected function getWithForPricingPolicies($shopId)
     {
         return function ($query) use ($shopId) {
-            return $query->select(['id', 'product_group_id'])
+            return $query->select('id', 'product_group_id')
                 ->without(['productGroup', 'customer'])
                 ->where('customer_id', $shopId)
                 ->where('price', '>', '0.00')
