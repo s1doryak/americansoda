@@ -5,6 +5,7 @@ namespace App\Services\Api\V1;
 use App\CustomerUser;
 use App\Notifications\Api\V1\AuthAttempt;
 use App\Repositories\Contracts\CustomerUserRepository;
+use App\Transformers\Api\V1\CustomerUserTransformer;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -29,20 +30,21 @@ class CustomerUserService extends ResourceService
     }
 
     /**
-     * @return Authenticatable
+     * @return array
      * @throws RepositoryException
      */
     public function getProfile()
     {
-        return $this->repository
+        $profile = $this->repository
             ->has('customers')
             ->has('customers.user')
             ->with(['customers' => function ($query) {
                 /** @var QueryBuilder|EloquentBuilder $query */
                 return $query->whereNull('deleted_at');
             }, 'customers.user'])
-            ->withCount('customerUserSubscribes')
             ->firstWhere(['id' => Auth::id()]);
+
+        return CustomerUserTransformer::toArray($profile);
     }
 
     /**
