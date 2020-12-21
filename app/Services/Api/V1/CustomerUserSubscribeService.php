@@ -32,6 +32,7 @@ class CustomerUserSubscribeService extends ResourceService
 
         $subscriptions =  $this
             ->repository
+            ->with('product')
             ->findWhere($where)
             ->map(function (CustomerUserSubscribe $subscribe) {
                 return [
