@@ -134,8 +134,6 @@ class ProductTransformer implements TransformerContract
             'deposit_vat' => (integer)$product->deposit_vat,
             'deposit_vat_price' => $product->deposit_vat_price,
             'comment' => $product->comment,
-            'brand_id' => $product->brand->getKey(),
-            'packageType' => $product->packageType->getKey(),
             'productGroup' => $product->productGroup->getKey(),
             'productTags' => $product->productTags,
 

@@ -61,10 +61,20 @@ class ProductGroupTransformer implements TransformerContract
             'name' => $productGroup->name,
             'vat' => (integer)$productGroup->vat,
             'sales_unit_volume' => (integer)$productGroup->sales_unit_volume,
-            'product_type_id' => $productGroup->productType ? $productGroup->productType->id : null,
+            'product_type_id' => $productGroup->productType->id ?? null,
             'created_at' => (string)$productGroup->created_at,
             'updated_at' => (string)$productGroup->updated_at,
             'deleted_at' => (string)$productGroup->deleted_at,
+        ];
+    }
+
+    /**
+     * @param ProductGroup $productGroup
+     * @return array
+     */
+    public static function toArrayInfo($productGroup)
+    {
+        return [
             'image' => (string)$productGroup->image ? asset($productGroup->image->getByDimension('image')) : null,
             'info' => $productGroup->info,
             'banner' => (string)$productGroup->banner ? asset($productGroup->banner->getByDimension('banner')) : null,

@@ -153,7 +153,7 @@ class CustomerOrderRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositor
         return $this->model
             ->select('customer_orders.*')
             ->where('customer_id', $shopId)
-                ->orderByRaw(DB::raw('SUBSTR(number, 6, 8) desc, SUBSTR(number, 15) desc'))
+            ->orderByRaw(DB::raw('SUBSTR(number, 6, 8) desc, SUBSTR(number, 15) desc'))
             ->get();
     }
 }

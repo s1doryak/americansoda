@@ -46,7 +46,7 @@ class ProductTypeService extends ResourceService
         return $nomenclature->map(function ($item) {
             return [
                 'id' => $item->id,
-                'productGroups' => $this->getOnlyIdsFromProductGroups($item->productGroups->sortBy('name'))->values()
+                'productGroups' => $this->getOnlyIdsFromProductGroups($item->productGroups)
             ];
         });
     }
@@ -60,8 +60,8 @@ class ProductTypeService extends ResourceService
         return $productGroups->map(function ($productGroup) {
             return [
                 'id' => $productGroup->id,
-                'products' => $productGroup->products->pluck('id')->values(),
-                'pricingPolicies' => $productGroup->pricingPolicies->pluck('id')->values(),
+                'products' => $productGroup->products->pluck('id'),
+                'pricingPolicies' => $productGroup->pricingPolicies->pluck('id'),
             ];
         });
     }

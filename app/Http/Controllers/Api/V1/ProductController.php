@@ -14,7 +14,7 @@ class ProductController
 
     public function get(GetRequest $request, ProductService $service)
     {
-        $data = $service->getByShopId($request->route('id'), Auth::id(), $request->query('ids'));
+        $data = $service->getByShopId($request->route('id'), $request->query('ids'));
 
         return response()->json($data->values(), Response::HTTP_OK);
     }

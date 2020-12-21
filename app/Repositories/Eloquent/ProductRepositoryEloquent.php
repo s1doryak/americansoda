@@ -19,37 +19,23 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
         return Product::class;
     }
 
-    public function getByShopId($shopId, $customerUserId = null, $productIds = [])
-    {
-        $customerUserId = (is_null($customerUserId)) ? Auth::id() : $customerUserId;
-        $this->scopeQuery(function ($query) use ($shopId, $customerUserId) {
-            return $this->scopeQueryForProducts($query, $shopId, $customerUserId);
-        });
-        $result = ($productIds) ? $this->findWhereIn('products.id', $productIds) : $this->get();
-
-        return $result
-            ->map(function ($product) {
-                return ProductTransformer::toArray($product);
-            })
-            ->sortBy('name');
-    }
-
     public function getActionProducts($shopId)
     {
         $this->scopeQuery(function ($query) use ($shopId) {
             return $this
                 ->scopeQueryForProducts($query, $shopId, Auth::id())
+                ->select('products.id')
                 ->where('action', true)
                 ->orderByRaw('discount_price is null, discount_price = 0, discount_price, new is null, new = 0, new, name');
         });
 
         return $this
-            ->all()
+            ->get()
             ->pluck('id');
 
     }
 
-    protected function scopeQueryForProducts($query, $shopId, $customerUserId)
+    public function scopeQueryForProducts($query, $shopId, $customerUserId)
     {
         return $query
             ->distinct()
@@ -67,7 +53,7 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
                 'customer_pricing_policies.customer_id'
             )
             ->where('customer_user_customer.customer_user_id', '=', $customerUserId)
-            ->whereIn('customer_pricing_policies.customer_id', Arr::wrap($shopId))
+            ->where('customer_pricing_policies.customer_id', $shopId)
             ->where('customer_pricing_policies.price', '>', '0.00')
             ->where('customer_pricing_policies.products_range', '>', 0)
             ->whereNull('customer_pricing_policies.deleted_at');

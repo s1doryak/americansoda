@@ -10,6 +10,7 @@ use App\Repositories\Contracts\CustomerShipmentRepository;
 use App\Repositories\Eloquent\CompanyRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerOrderItemRepositoryEloquent;
 use App\Repositories\Eloquent\CustomerShipmentRepositoryEloquent;
+use App\Transformers\Api\V1\CustomerShipmentTransformer;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Http\Response;
 use PDF;
@@ -46,6 +47,15 @@ class CustomerShipmentService extends ResourceService
         $this->repository = $repository;
         $this->companyService = $companyService;
         $this->customerOrderItemService = $customerOrderItemService;
+    }
+
+    public function getByShopId($shopId)
+    {
+        return $this->repository
+            ->getByShopId($shopId)
+            ->map(function (CustomerShipment $customerShipment) {
+                return CustomerShipmentTransformer::toArray($customerShipment);
+            });
     }
 
     /**

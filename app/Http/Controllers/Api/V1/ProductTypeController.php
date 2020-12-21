@@ -18,13 +18,21 @@ class ProductTypeController extends Controller
     /**
      * @param NomenclatureRequest $request
      * @param ProductTypeService $service
+     * @param ProductService $productService
      * @return \Illuminate\Http\JsonResponse
      */
-    public function nomenclature(NomenclatureRequest $request, ProductTypeService $service)
+    public function nomenclature(
+        NomenclatureRequest $request,
+        ProductTypeService $service,
+        ProductService $productService
+    )
     {
-        $data = $service->getByShopId($request->route('id'), $request->input('with_count'));
+        $nomenclature = $service->getByShopId($request->route('id'), $request->input('with_count'));
 
-        return response()->json($data, Response::HTTP_OK);
+        return response()->json([
+            'data' => $nomenclature,
+            'shelf' => $productService->getActionProducts($request->route('id'))
+        ], Response::HTTP_OK);
     }
 
     public function get(GetRequest $request, ProductTypeService $service)
@@ -32,12 +40,5 @@ class ProductTypeController extends Controller
         $data = $service->getCleanByShopId($request->route('id'), $request->query('ids'));
 
         return response()->json($data->values(), Response::HTTP_OK);
-    }
-
-    public function nomenclatureAction(NomenclatureActionRequest $request, ProductService $service)
-    {
-        $data = $service->getActionProducts($request->route('id'));
-
-        return response()->json($data, Response::HTTP_OK);
     }
 }

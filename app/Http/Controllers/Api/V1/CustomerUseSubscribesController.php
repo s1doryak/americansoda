@@ -30,7 +30,7 @@ class CustomerUseSubscribesController extends Controller
 
     public function delete(DeleteRequest $request, CustomerUserSubscribeService $service)
     {
-        $service->delete($request->route('customer_user_subscribe'));
+        $service->delete($request->route('subscription'));
 
         return response('', Response::HTTP_OK);
     }
