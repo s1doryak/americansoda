@@ -35,7 +35,7 @@ Route::group(['middleware' => 'api'], function () {
             Route::group(['prefix' => '/shop/{id}'], function () {
                 Route::get('/banners', [BannersController::class, 'get']);
                 Route::get('/nomenclature', [ProductTypeController::class, 'nomenclature']);
-                Route::get('/products', [ProductController::class, 'get']); // проверить на логично sql запросы
+                Route::get('/products', [ProductController::class, 'get']);
                 Route::get('/product-groups', [ProductGroupController::class, 'search']);
                 Route::get('/product-group/{product_group}/info', [ProductGroupController::class, 'get']);
                 Route::get('/product-types', [ProductTypeController::class, 'get']);
