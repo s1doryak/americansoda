@@ -27,15 +27,14 @@ Route::group(['middleware' => 'api'], function () {
 
         Route::group(['middleware' => 'jwt.auth'], function () {
             Route::post('/subscription', [CustomerUseSubscribesController::class, 'create']);
-            Route::get('/subscriptions', [CustomerUseSubscribesController::class, 'search']); // можно отключить, возможно ли убрать спросить у татьяны
+            Route::get('/subscriptions', [CustomerUseSubscribesController::class, 'search']);
             Route::delete('/subscription/{subscription}', [CustomerUseSubscribesController::class, 'delete']);
 
             Route::get('/profile', [CustomerUserController::class, 'profile']);
 
             Route::group(['prefix' => '/shop/{id}'], function () {
                 Route::get('/banners', [BannersController::class, 'get']);
-                Route::get('/nomenclature', [ProductTypeController::class, 'nomenclature']); // проверить на логично sql запросы
-                Route::get('/nomenclature/action', [ProductTypeController::class, 'nomenclatureAction']);  // склеить
+                Route::get('/nomenclature', [ProductTypeController::class, 'nomenclature']);
                 Route::get('/products', [ProductController::class, 'get']); // проверить на логично sql запросы
                 Route::get('/product-groups', [ProductGroupController::class, 'search']);
                 Route::get('/product-group/{product_group}/info', [ProductGroupController::class, 'get']);

@@ -41,6 +41,7 @@ class CustomerUserService extends ResourceService
                 /** @var QueryBuilder|EloquentBuilder $query */
                 return $query->whereNull('deleted_at');
             }, 'customers.user'])
+            ->withCount('customerUserSubscribes')
             ->firstWhere(['id' => Auth::id()]);
     }
 
