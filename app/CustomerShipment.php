@@ -177,7 +177,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
      */
     public function getOrderNumbersAttribute()
     {
-
+        #todo: проверить отношения
         return $this->customerOrderItems
             ->map(function (CustomerOrderItem $customerOrderItem) {
                 return !$customerOrderItem->back_order

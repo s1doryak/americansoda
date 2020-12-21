@@ -26,17 +26,17 @@ Route::group(['middleware' => 'api'], function () {
         Route::get('/settings', [SettingsController::class, 'get'])->name('api/v1.settings');
 
         Route::group(['middleware' => 'jwt.auth'], function () {
-            Route::post('/customer_user_subscribe', [CustomerUseSubscribesController::class, 'create']);
-            Route::get('/customer_user_subscribes', [CustomerUseSubscribesController::class, 'search']);
-            Route::delete('/customer_user_subscribe/{customer_user_subscribe}', [CustomerUseSubscribesController::class, 'delete']);
+            Route::post('/subscription', [CustomerUseSubscribesController::class, 'create']);
+            Route::get('/subscriptions', [CustomerUseSubscribesController::class, 'search']); // можно отключить, возможно ли убрать спросить у татьяны
+            Route::delete('/subscription/{subscription}', [CustomerUseSubscribesController::class, 'delete']);
 
             Route::get('/profile', [CustomerUserController::class, 'profile']);
 
             Route::group(['prefix' => '/shop/{id}'], function () {
                 Route::get('/banners', [BannersController::class, 'get']);
-                Route::get('/nomenclature', [ProductTypeController::class, 'nomenclature']);
-                Route::get('/nomenclature/action', [ProductTypeController::class, 'nomenclatureAction']);
-                Route::get('/products', [ProductController::class, 'get']);
+                Route::get('/nomenclature', [ProductTypeController::class, 'nomenclature']); // проверить на логично sql запросы
+                Route::get('/nomenclature/action', [ProductTypeController::class, 'nomenclatureAction']);  // склеить
+                Route::get('/products', [ProductController::class, 'get']); // проверить на логично sql запросы
                 Route::get('/product-groups', [ProductGroupController::class, 'search']);
                 Route::get('/product-group/{product_group}/info', [ProductGroupController::class, 'get']);
                 Route::get('/product-types', [ProductTypeController::class, 'get']);
