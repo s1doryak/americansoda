@@ -60,7 +60,7 @@ class CustomerUserTransformer implements TransformerContract
 			'name' => $customerUser->name,
 			'phone' => $customerUser->phone,
             'customers' => $customerUser->customers ? CustomerTransformer::map($customerUser->customers) : [],
-            'customer_user_subscribes_count' => $customerUser->customerUserSubscribes()->count(),
+            'customer_user_subscribes_count' => $customerUser->customerUserSubscribes()->whereNull('deleted_at')->count(),
 
             'created_at' => (string)$customerUser->created_at,
 			'updated_at' => (string)$customerUser->updated_at,
