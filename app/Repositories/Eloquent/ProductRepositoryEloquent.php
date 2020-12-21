@@ -19,23 +19,6 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
         return Product::class;
     }
 
-    public function getByShopId($shopId, $customerUserId = null, $productIds = [])
-    {
-        $this
-            ->orderBy('name')
-            ->scopeQuery(function ($query) use ($shopId, $customerUserId) {
-                $customerUserId = $customerUserId ?? Auth::id();
-
-                return $this->scopeQueryForProducts($query, $shopId, $customerUserId);
-            });
-        $result = $productIds ? $this->findWhereIn('products.id', $productIds) : $this->get();
-
-        return $result
-            ->map(function ($product) {
-                return ProductTransformer::toArray($product);
-            });
-    }
-
     public function getActionProducts($shopId)
     {
         $this->scopeQuery(function ($query) use ($shopId) {
@@ -52,7 +35,7 @@ class ProductRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositories\Re
 
     }
 
-    protected function scopeQueryForProducts($query, $shopId, $customerUserId)
+    public function scopeQueryForProducts($query, $shopId, $customerUserId)
     {
         return $query
             ->distinct()
