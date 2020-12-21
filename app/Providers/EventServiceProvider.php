@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use App\Listeners\Dashboard\AssignSettingValueItems;
-use App\Listeners\Dashboard\MatchPreOrderWithOrder;
-use App\Listeners\Dashboard\SetCustomerShipmentInvoiceStatus;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -289,17 +286,6 @@ class EventServiceProvider extends ServiceProvider
              * Управляет резервами и бекордерами на складе
              */
             \App\Listeners\Dashboard\ManageStockProducts::class,
-        ],
-
-        /**
-         * События, выполняемые при создании ценовый групп
-         */
-        \App\Events\Dashboard\PriceGroupBreakpointsAssigned::class => [
-
-            /**
-             * Управляет ценами клиентов, которые входят в данную ценовую группу
-             */
-            \App\Listeners\Dashboard\ManageCustomerPricingPolicies::class,
         ],
 
         /**
