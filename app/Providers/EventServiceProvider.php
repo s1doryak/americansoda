@@ -98,6 +98,8 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Dashboard\NotifyCustomerUserAboutStockMovement::class,
 
             \App\Listeners\Dashboard\CreateUpdateZendeskOrganization::class,
+
+            \App\Listeners\Dashboard\RemoveStockProductAfterInvoice::class,
         ],
 
         \Crmplease\MaterialAdmin\Events\ResourceUpdated::class => [
