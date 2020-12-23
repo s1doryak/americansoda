@@ -125,7 +125,7 @@ class CustomerOrderItemsController extends ResourceController
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return string
      */
     public function shipmentAssign(Request $request)
     {
@@ -229,7 +229,7 @@ class CustomerOrderItemsController extends ResourceController
             }
         }
 
-        return response((string)$needShipping);
+        return view('dashboard::resources.customer_order_item.columns.status', ['model' => $customerOrderItem])->render();
     }
 
     /**

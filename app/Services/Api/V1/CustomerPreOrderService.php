@@ -3,8 +3,10 @@
 namespace App\Services\Api\V1;
 
 use App\Customer;
+use App\CustomerPreOrder;
 use App\Notifications\Api\V1\PreOrderCreate;
 use App\Repositories\Eloquent\CustomerPreOrderRepositoryEloquent;
+use App\Transformers\Api\V1\CustomerPreOrderTransformer;
 use Crmplease\MaterialAdmin\Events\ResourceStored;
 use Crmplease\MaterialAdmin\Services\ResourceService;
 use Illuminate\Support\Arr;
@@ -81,5 +83,21 @@ class CustomerPreOrderService extends ResourceService
             $customer = Customer::find($shopId);
             $user->notify(new PreOrderCreate($customer, $customerPreOrder));
         });
+    }
+
+    /**
+     * @param $shopId
+     * @param bool $withoutOrders
+     * @return mixed
+     */
+    public function getByShopId($shopId, $withoutOrders = false)
+    {
+        /** @var \Illuminate\Support\Collection|CustomerPreOrder[] $customerPreOrders */
+        $customerPreOrders = $this->repository->getByShopId($shopId, $withoutOrders);
+
+        return $customerPreOrders
+            ->map(function ($customerOrder) {
+                return CustomerPreOrderTransformer::toArray($customerOrder);
+            });
     }
 }

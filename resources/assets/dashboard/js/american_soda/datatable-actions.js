@@ -157,10 +157,12 @@ jQuery(document).ready(function ($) {
             cache: false,
             async: true
         }).complete(function (response) {
-
             if (response.status === 200) {
                 $this.prop('checked', checked);
-                dt.draw(false);
+                $this
+                    .closest('tr[role=row]')
+                    .find('.column-status span')
+                    .replaceWith(response.responseText)
             } else {
                 $this.prop('checked', !checked);
             }

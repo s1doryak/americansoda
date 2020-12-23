@@ -6,21 +6,21 @@ use App\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class GetRequest extends FormRequest
+class SearchRequest extends FormRequest
 {
     public function authorize()
     {
         return Auth::user()->customers()
             ->where('customer_id', $this->route('id'))
-            ->whereHas('customerPricingPolicies', function ($query) {
-                return $query->where('product_group_id', $this->route('product_group'));
-            })
             ->exists();
     }
 
     public function rules()
     {
-        return [];
+        return [
+            'ids' => 'sometimes|array',
+            'ids.*' => 'integer|exists:product_groups,id'
+        ];
     }
 
     public function validateResolved()

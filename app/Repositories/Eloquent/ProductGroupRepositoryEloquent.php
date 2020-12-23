@@ -42,12 +42,19 @@ class ProductGroupRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositori
             $where['ids'] = $ids;
         }
 
-        $result = $query->findWhere($where);
+        $result = $query
+            ->orderBy('name')
+            ->findWhere($where, ['id', 'name', 'vat', 'sales_unit_volume', 'created_at', 'updated_at', 'deleted_at']);
 
         return $result
-            ->map(function ($productGroup) {
+            ->map(function (ProductGroup $productGroup) {
                 return ProductGroupTransformer::toArray($productGroup);
-            })
-            ->sortBy('name');
+            });
+    }
+    public function getProductGroupInfo($id)
+    {
+        $productGroup =  $this->find($id, ['info', 'banner', 'image']);
+
+        return ProductGroupTransformer::toArrayInfo($productGroup);
     }
 }

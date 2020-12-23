@@ -35,7 +35,6 @@ class CustomerShipmentRepositoryEloquent extends \Crmplease\MaterialAdmin\Reposi
     public function getByShopId($shopId)
     {
         return $this
-            ->with('customerInvoice')
             ->orderBy(DB::raw('Concat(Left(number, 4), Right(number, 4))'), 'desc')
             ->findWhere(['customer_id' => $shopId]);
     }

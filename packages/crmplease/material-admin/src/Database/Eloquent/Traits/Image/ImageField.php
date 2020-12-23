@@ -63,7 +63,7 @@ class ImageField implements FileFieldInterface
      */
     public function getByDimension($dimension, $attribute = 'url')
     {
-        $dimension = isset($this->{$dimension}) ? $this->{$dimension} : $this->original;
+        $dimension = $this->{$dimension} ?? $this->original;
 
         return $dimension->$attribute;
     }

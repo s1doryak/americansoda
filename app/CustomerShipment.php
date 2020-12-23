@@ -177,11 +177,13 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
      */
     public function getOrderNumbersAttribute()
     {
-        return $this->customerOrderItems->filter(
-            function ($item) {
-                return !($item->back_order);
-            }
-        )->pluck('customerOrder.number')
+        #todo: проверить отношения
+        return $this->customerOrderItems
+            ->map(function (CustomerOrderItem $customerOrderItem) {
+                return !$customerOrderItem->back_order
+                    ? $customerOrderItem->customerOrder->number
+                    : null;
+            })
             ->unique()
             ->implode(', ');
     }
@@ -191,11 +193,12 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
      */
     public function getOrderBatchNumbersAttribute()
     {
-        return $this->customerOrderItems->filter(
-            function ($item) {
-                return !($item->back_order);
-            }
-        )->pluck('customerOrder.batch_number')
+        return $this->customerOrderItems
+            ->map(function (CustomerOrderItem $customerOrderItem) {
+                return !$customerOrderItem->back_order
+                    ? $customerOrderItem->customerOrder->batch_number
+                    : null;
+            })
             ->unique()
             ->implode(', ');
     }

@@ -30,8 +30,9 @@ class CustomerUserSubscribeService extends ResourceService
             'customer_user_id' => Auth::id()
         ]);
 
-        return $this
+        $subscriptions =  $this
             ->repository
+            ->with('product')
             ->findWhere($where)
             ->map(function (CustomerUserSubscribe $subscribe) {
                 return [
@@ -42,5 +43,10 @@ class CustomerUserSubscribeService extends ResourceService
                     'status' => $subscribe->product->getFutureStockMovementWeeks()
                 ];
             });
+
+        return [
+            'data' => $subscriptions,
+            'count' => $subscriptions->count()
+        ];
     }
 }

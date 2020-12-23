@@ -24,9 +24,6 @@ class CustomerOrdersController extends Controller
         $shopId = $request->route('id');
         $customerOrders = $service->getByShopId($shopId);
         $customerPreOrders = $customerPreOrderService->getByShopId($shopId, true);
-        $customerPreOrders = $customerPreOrders->map(function ($customerPreOrder) {
-            return CustomerPreOrderTransformer::toArray($customerPreOrder);
-        });
         $data = collect()
             ->concat($customerPreOrders)
             ->concat($customerOrders);

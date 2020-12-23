@@ -245,12 +245,25 @@ class CustomerOrderItemDataTable extends DataTable
                 'multiple' => true,
                 'data' => 'customer.user.id',
                 'lists' => 'customer.user.name',
+                'query' => function ($query, $filterColumn, $value) {
+                    if ($value) {
+                        /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                        $query->whereHas('customer.user', function ($q) use ($value) {
+                            return $q->whereIn('id', Arr::wrap($value));
+                        });
+                    }
+                },
             ],
             'product.name' => [
                 'type' => 'select',
                 'multiple' => true,
                 'data' => 'product.id',
-                'lists' => 'product.name',
+                'query' => function ($query, $filterColumn, $value) {
+                    if ($value) {
+                        /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
+                        $query->whereIn('products.id', Arr::wrap($value));
+                    }
+                },
             ],
             'product.productGroup.name' => [
                 'type' => 'select',
