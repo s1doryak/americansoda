@@ -641,7 +641,7 @@ class Model extends \Illuminate\Database\Eloquent\Model implements Transformable
 
 			if (in_array($key, $this->getBelongsToRelations())) {
 				$this->{$key}()->associate($value);
-			}
+            }
 
 			if (in_array($key, $this->getBelongsToManyRelations())) {
 				$this->{$key}()->sync((array)$value);
@@ -650,7 +650,8 @@ class Model extends \Illuminate\Database\Eloquent\Model implements Transformable
 			continue;
 		}
 
-		$this->save();
+        $this->touch();
+        $this->save();
 
 		return $this;
 	}

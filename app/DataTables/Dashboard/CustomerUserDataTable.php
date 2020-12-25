@@ -14,6 +14,10 @@ class CustomerUserDataTable extends DataTable
 {
     protected $responsive = false;
 
+    protected $exportColumns = [
+        'name', 'email', 'phone', 'customers.name', 'comment'
+    ];
+
     /**
      * @return array
      */
