@@ -258,6 +258,7 @@ class CustomerOrderItemDataTable extends DataTable
                 'type' => 'select',
                 'multiple' => true,
                 'data' => 'product.id',
+                'lists' => 'product.name',
                 'query' => function ($query, $filterColumn, $value) {
                     if ($value) {
                         /** @var \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query */
