@@ -54,21 +54,24 @@ class AssignCustomerPricingPolicies
 
             $_changed = Arr::pull($policy, '_changed');
 
-            if (booleanize($policy['_remove'] ?? false)) {
+            if (
+                // policy removed
+                booleanize($policy['_remove'] ?? false)
+                // or products_range set to 0
+                || numerize($policy['products_range'] ?? 0) === 0) {
 
-                $deleted = $this->customerPricingPolicies->findWhere(['id' => $policy['id']]);
+                // perform actual remove only if policy exists
+                if ($policy['id']) {
+                    $deleted = $this->customerPricingPolicies->findWhere(['id' => $policy['id']]);
 
-                if ($deleted) {
+                    if ($deleted) {
 
-                    $this->customerPricingPolicies->trash($policy['id']);
+                        $this->customerPricingPolicies->destroy($policy['id']);
 
-                    $updated[] = array_merge($policy, $deleted->toArray(), compact('_changed'));
+                        $updated[] = array_merge($policy, $deleted->toArray(), compact('_changed'));
+                    }
                 }
 
-                continue;
-            }
-
-            if (numerize($policy['products_range'] ?? 0) === 0) {
                 continue;
             }
 
