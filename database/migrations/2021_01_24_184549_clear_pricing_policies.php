@@ -13,7 +13,7 @@ class ClearPricingPolicies extends Migration
     public function up()
     {
         DB::statement('DELETE FROM customer_pricing_policies WHERE deleted_at IS NOT NULL');
-        DB::statement('DELETE FROM customer_pricing_policies WHERE products_range = 0 AND price = 0');
+        DB::statement('DELETE FROM customer_pricing_policies WHERE products_range = 0');
     }
 
     /**
