@@ -169,7 +169,7 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         return preg_replace(
             '/\s+/mui',
             '_',
-            sprintf('%s_%s_%s', $this->number, $this->customer->name, mb_strtoupper('Tilausvahvistus'))
+            sprintf('%s_%s', $this->number, mb_strtoupper('Tilausvahvistus'))
         );
     }
 
