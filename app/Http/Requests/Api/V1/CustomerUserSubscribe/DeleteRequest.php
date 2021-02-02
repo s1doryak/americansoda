@@ -12,7 +12,7 @@ class DeleteRequest extends FormRequest
         return Auth::user()
             ->customerUserSubscribes
             ->filter(function ($CustomerUserSubscribe) {
-                return $CustomerUserSubscribe->id == $this->route('customer_user_subscribe');
+                return $CustomerUserSubscribe->id == $this->route('subscription');
             })
             ->isNotEmpty();
     }
