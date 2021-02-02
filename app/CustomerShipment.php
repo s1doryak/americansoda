@@ -280,7 +280,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
      */
     public function getCustomerShipmentStorageFilename()
     {
-        return preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s', $this->id, $this->number, $this->customer->name, mb_strtoupper('Rahtikirja')));
+        return preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s', $this->id, $this->number, mb_strtoupper('Rahtikirja')));
     }
 
     /**

@@ -275,9 +275,6 @@ class CustomerForm extends Form
             'groups' => app(ProductGroupRepository::class)->all(),
             'fields' => CustomerPricingPolicyForm::getCreateFormFields(),
             'items' => $customer->customerPricingPolicies
-                ->filter(function (CustomerPricingPolicy $customerPricingPolicy) {
-                    return false === $customerPricingPolicy->trashed();
-                })
                 ->sortBy('products_range')
                 ->groupBy(function (CustomerPricingPolicy $customerPricingPolicy) {
                     return $customerPricingPolicy->productGroup ? $customerPricingPolicy->productGroup->getKey() : null;
