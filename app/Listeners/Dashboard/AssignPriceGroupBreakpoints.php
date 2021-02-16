@@ -158,7 +158,7 @@ class AssignPriceGroupBreakpoints
     protected function updateCustomerPricingPolicies(PriceGroup $priceGroup, array $policies)
     {
         $ids = $priceGroup->customers->pluck('id');
-        $this->customerPricingPolicies->trashWhereIn('customer_id', $ids->toArray());
+        $this->customerPricingPolicies->destroyWhereIn('customer_id', $ids->toArray());
 
         foreach ($ids as $customer) {
             $this->insertCustomerPricingPolicies($policies, $customer);
