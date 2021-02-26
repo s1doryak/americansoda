@@ -48,7 +48,7 @@ class CustomerService extends ResourceService
 
         /** @var PriceGroupBreakpoint[] $priceGroupBreakpoints * */
         $priceGroupBreakpoints = $priceGroup->priceGroupBreakpoints;
-        $this->customerPricingPolicyService->deleteWhere(['customer_id' => $customer->id]);
+        $this->customerPricingPolicyService->destroyWhere(['customer_id' => $customer->id]);
 
         foreach ($priceGroupBreakpoints as $priceGroupBreakpoint) {
             /** @var ProductGroup[] $productGroups */

@@ -52,6 +52,11 @@ class AssignCustomerPricingPolicies
 
         foreach ($policies as $policy) {
 
+            // malformed softdeleted policies can't be processed
+            if (!array_key_exists('id', $policy)) {
+                continue;
+            }
+
             $_changed = Arr::pull($policy, '_changed');
 
             if (
