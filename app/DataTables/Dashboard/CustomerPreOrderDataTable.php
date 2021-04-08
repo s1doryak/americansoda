@@ -3,7 +3,10 @@
 namespace App\DataTables\Dashboard;
 
 use App\CustomerPreOrder;
+use App\Repositories\Contracts\ProductRepository;
+use App\Repositories\Eloquent\CustomerPreOrderRepositoryEloquent;
 use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
+use Illuminate\Support\Arr;
 
 /**
  * CustomerPreOrder datatable.
@@ -91,12 +94,6 @@ class CustomerPreOrderDataTable extends DataTable
                 'multiple' => true,
                 'data' => 'customer.id',
                 'lists' => 'customer.name',
-            ],
-            'items.name' => [
-                'type' => 'choice',
-                'multiple' => true,
-                'data' => 'items.id',
-                'lists' => 'items.name',
             ],
         ];
     }
