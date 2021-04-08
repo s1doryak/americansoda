@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Customer Invoice Attachment'
     ],
 	'index' => [
-		'title' => 'List of Customer Invoice Attachments',
+		'title' => 'Customer Invoice Attachments',
 	],
     'trashed' => [
-        'title' => 'List of trashed Customer Invoice Attachments',
+        'title' => 'Trashed Customer Invoice Attachments',
     ],
 	'create' => [
 		'title' => 'Create Customer Invoice Attachment',

@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Assembly'
     ],
 	'index' => [
-		'title' => 'List of Assembly',
+		'title' => 'Assemblies',
 	],
     'trashed' => [
-        'title' => 'List of trashed Assembly',
+        'title' => 'Trashed Assemblies',
     ],
 	'create' => [
 		'title' => 'Create Assembly',

@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Customer Type'
     ],
 	'index' => [
-		'title' => 'List of Customer Type',
+		'title' => 'Customer Types',
 	],
     'trashed' => [
-        'title' => 'List of trashed Customer Type',
+        'title' => 'Trashed Customer Types',
     ],
 	'create' => [
 		'title' => 'Create Customer Type',

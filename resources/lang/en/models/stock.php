@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Stock'
     ],
 	'index' => [
-		'title' => 'List of Stock',
+		'title' => 'Stocks',
 	],
     'trashed' => [
-        'title' => 'List of trashed Stock',
+        'title' => 'Trashed Stocks',
     ],
 	'create' => [
 		'title' => 'Create Stock',

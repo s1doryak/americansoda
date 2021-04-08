@@ -14,10 +14,10 @@ return [
         'success' => 'Token refreshed successfully!',
     ],
 	'index' => [
-		'title' => 'List of Customer Users',
+		'title' => 'Customer Users',
 	],
     'trashed' => [
-        'title' => 'List of trashed Customer Users',
+        'title' => 'Trashed Customer Users',
     ],
 	'create' => [
 		'title' => 'Create Customer User',

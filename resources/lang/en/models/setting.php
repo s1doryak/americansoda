@@ -7,10 +7,10 @@ return [
         'create' => 'Create Setting'
     ],
     'index' => [
-        'title' => 'List of Settings',
+        'title' => 'Settings',
     ],
     'trashed' => [
-        'title' => 'List of trashed Settings',
+        'title' => 'Trashed Settings',
     ],
     'create' => [
         'title' => 'Create Setting',

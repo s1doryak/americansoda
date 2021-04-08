@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Product Tag'
     ],
 	'index' => [
-		'title' => 'List of Product Tags',
+		'title' => 'Product Tags',
 	],
     'trashed' => [
-        'title' => 'List of trashed Product Tags',
+        'title' => 'Trashed Product Tags',
     ],
 	'create' => [
 		'title' => 'Create Product Tag',

@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Banner'
     ],
 	'index' => [
-		'title' => 'List of Banners',
+		'title' => 'Banners',
 	],
     'trashed' => [
-        'title' => 'List of trashed Banners',
+        'title' => 'Trashed Banners',
     ],
 	'create' => [
 		'title' => 'Create Banner',

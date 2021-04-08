@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Customer Pre Order'
     ],
 	'index' => [
-		'title' => 'List of Customer Pre Orders',
+		'title' => 'Customer Pre Orders',
 	],
     'trashed' => [
-        'title' => 'List of trashed Customer Pre Orders',
+        'title' => 'Trashed Customer Pre Orders',
     ],
 	'create' => [
 		'title' => 'Create Customer Pre Order',

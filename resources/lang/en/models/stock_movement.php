@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Stock Movement'
     ],
 	'index' => [
-		'title' => 'List of Stock Movement',
+		'title' => 'Stock Movements',
 	],
     'trashed' => [
-        'title' => 'List of trashed Stock Movement',
+        'title' => 'Trashed Stock Movements',
     ],
 	'create' => [
 		'title' => 'Create Stock Movement',

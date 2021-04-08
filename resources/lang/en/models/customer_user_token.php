@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Customer User Token'
     ],
 	'index' => [
-		'title' => 'List of Customer User Tokens',
+		'title' => 'Customer User Tokens',
 	],
     'trashed' => [
-        'title' => 'List of trashed Customer User Tokens',
+        'title' => 'Trashed Customer User Tokens',
     ],
 	'create' => [
 		'title' => 'Create Customer User Token',

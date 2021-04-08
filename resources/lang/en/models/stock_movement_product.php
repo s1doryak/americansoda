@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Movement'
     ],
 	'index' => [
-		'title' => 'List of Movement',
+		'title' => 'Movements',
 	],
     'trashed' => [
-        'title' => 'List of trashed Movement',
+        'title' => 'Trashed Movements',
     ],
 	'create' => [
 		'title' => 'Create Movement',

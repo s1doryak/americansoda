@@ -7,10 +7,10 @@ return [
 		'create' => 'Create User'
     ],
 	'index' => [
-		'title' => 'List of User',
+		'title' => 'Users',
 	],
     'trashed' => [
-        'title' => 'List of trashed User',
+        'title' => 'Trashed Users',
     ],
 	'create' => [
 		'title' => 'Create User',

@@ -7,10 +7,10 @@ return [
         'create' => 'Create Customer User Subscribe'
     ],
     'index' => [
-        'title' => 'List of Customer User Subscribes',
+        'title' => 'Customer User Subscribes',
     ],
     'trashed' => [
-        'title' => 'List of trashed Customer User Subscribes',
+        'title' => 'Trashed Customer User Subscribes',
     ],
     'create' => [
         'title' => 'Create Customer User Subscribe',
