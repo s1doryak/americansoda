@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Company'
     ],
 	'index' => [
-		'title' => 'List of Company',
+		'title' => 'Companies',
 	],
     'trashed' => [
-        'title' => 'List of trashed Company',
+        'title' => 'Trashed Companies',
     ],
 	'create' => [
 		'title' => 'Create Company',

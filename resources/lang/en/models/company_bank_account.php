@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Company Bank Account'
     ],
 	'index' => [
-		'title' => 'List of Company Bank Accounts',
+		'title' => 'Company Bank Accounts',
 	],
     'trashed' => [
-        'title' => 'List of trashed Company Bank Accounts',
+        'title' => 'Trashed Company Bank Accounts',
     ],
 	'create' => [
 		'title' => 'Create Company Bank Account',

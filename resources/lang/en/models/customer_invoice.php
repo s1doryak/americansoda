@@ -7,10 +7,10 @@ return [
         'create' => 'Create CustomerInvoice'
     ],
     'index' => [
-        'title' => 'List of Customer Invoices',
+        'title' => 'Customer Invoices',
     ],
     'trashed' => [
-        'title' => 'List of trashed Customer Invoices',
+        'title' => 'Trashed Customer Invoices',
     ],
     'create' => [
         'title' => 'Create Customer Invoice',

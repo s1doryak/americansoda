@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Customer Pricing Policy'
     ],
 	'index' => [
-		'title' => 'List of Customer Pricing Policy',
+		'title' => 'Customer Pricing Policies',
 	],
     'trashed' => [
-        'title' => 'List of trashed Customer Pricing Policy',
+        'title' => 'Trashed Customer Pricing Policies',
     ],
 	'create' => [
 		'title' => 'Create Customer Pricing Policy',

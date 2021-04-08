@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Payment Type'
     ],
 	'index' => [
-		'title' => 'List of Payment Type',
+		'title' => 'Payment Types',
 	],
     'trashed' => [
-        'title' => 'List of trashed Payment Type',
+        'title' => 'Trashed Payment Types',
     ],
 	'create' => [
 		'title' => 'Create Payment Type',
