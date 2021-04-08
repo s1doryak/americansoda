@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Customer Revision'
     ],
 	'index' => [
-		'title' => 'List of Customer Revision',
+		'title' => 'Customer Revisions',
 	],
     'trashed' => [
-        'title' => 'List of trashed Customer Revision',
+        'title' => 'Trashed Customer Revisions',
     ],
 	'create' => [
 		'title' => 'Create Customer Revision',

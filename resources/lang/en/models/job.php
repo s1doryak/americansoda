@@ -7,10 +7,10 @@ return [
         'create' => 'Create Job'
     ],
     'index' => [
-        'title' => 'List of Job',
+        'title' => 'Jobs',
     ],
     'trashed' => [
-        'title' => 'List of trashed Job',
+        'title' => 'Trashed Jobs',
     ],
     'create' => [
         'title' => 'Create Job',

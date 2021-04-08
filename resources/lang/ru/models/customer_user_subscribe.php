@@ -7,10 +7,10 @@ return [
         'create' => 'Создать'
     ],
     'index' => [
-        'title' => 'Список Customer User Subscribe',
+        'title' => 'Подписки сотрудника клиента',
     ],
     'trashed' => [
-        'title' => 'Удаленные Customer User Subscribes',
+        'title' => 'Удаленные подписки сотрудника клиента',
     ],
     'create' => [
         'title' => 'Новый Customer User Subscribe',

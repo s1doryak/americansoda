@@ -7,10 +7,10 @@ return [
         'create' => 'Create OrderItem'
     ],
     'index' => [
-        'title' => 'List of Customer Order Item',
+        'title' => 'Customer Order Items',
     ],
     'trashed' => [
-        'title' => 'List of trashed Customer Order Item',
+        'title' => 'Trashed Customer Order Items',
     ],
     'create' => [
         'title' => 'Create Customer Order Item',

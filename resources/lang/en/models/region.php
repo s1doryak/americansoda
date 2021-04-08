@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Region'
     ],
 	'index' => [
-		'title' => 'List of Region',
+		'title' => 'Regions',
 	],
     'trashed' => [
-        'title' => 'List of trashed Region',
+        'title' => 'Trashed Regions',
     ],
 	'create' => [
 		'title' => 'Create Region',

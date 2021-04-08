@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Price Group'
     ],
 	'index' => [
-		'title' => 'List of Price Groups',
+		'title' => 'Price Groups',
 	],
     'trashed' => [
-        'title' => 'List of trashed Price Groups',
+        'title' => 'Trashed Price Groups',
     ],
 	'create' => [
 		'title' => 'Create Price Group',

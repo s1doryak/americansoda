@@ -7,10 +7,10 @@ return [
         'create' => 'Create Auth Log'
     ],
     'index' => [
-        'title' => 'List of Auth Logs',
+        'title' => 'Auth Logs',
     ],
     'trashed' => [
-        'title' => 'List of trashed Auth Logs',
+        'title' => 'Trashed Auth Logs',
     ],
     'create' => [
         'title' => 'Create Auth Log',

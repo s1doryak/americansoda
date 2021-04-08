@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Package Type'
     ],
 	'index' => [
-		'title' => 'List of Package Type',
+		'title' => 'Package Types',
 	],
     'trashed' => [
-        'title' => 'List of trashed Package Type',
+        'title' => 'Trashed Package Types',
     ],
 	'create' => [
 		'title' => 'Create Package Type',

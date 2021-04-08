@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Brand'
     ],
 	'index' => [
-		'title' => 'List of Brand',
+		'title' => 'Brands',
 	],
     'trashed' => [
-        'title' => 'List of trashed Brand',
+        'title' => 'Trashed Brands',
     ],
 	'create' => [
 		'title' => 'Create Brand',

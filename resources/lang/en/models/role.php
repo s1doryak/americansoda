@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Role'
     ],
 	'index' => [
-		'title' => 'List of Role',
+		'title' => 'Roles',
 	],
     'trashed' => [
-        'title' => 'List of trashed Role',
+        'title' => 'Trashed Roles',
     ],
 	'create' => [
 		'title' => 'Create Role',

@@ -7,10 +7,10 @@ return [
 		'create' => 'Create Price Group Breakpoint'
     ],
 	'index' => [
-		'title' => 'List of Price Group Breakpoints',
+		'title' => 'Price Group Breakpoints',
 	],
     'trashed' => [
-        'title' => 'List of trashed Price Group Breakpoints',
+        'title' => 'Trashed Price Group Breakpoints',
     ],
 	'create' => [
 		'title' => 'Create Price Group Breakpoint',

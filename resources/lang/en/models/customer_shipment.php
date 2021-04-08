@@ -7,10 +7,10 @@ return [
         'create' => 'Create CustomerShipment'
     ],
     'index' => [
-        'title' => 'List of Customer Shipment',
+        'title' => 'Customer Shipments',
     ],
     'trashed' => [
-        'title' => 'List of trashed Customer Shipment',
+        'title' => 'Trashed Customer Shipments',
     ],
     'create' => [
         'title' => 'Create Customer Shipment',
