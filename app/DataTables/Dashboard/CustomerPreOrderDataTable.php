@@ -3,10 +3,7 @@
 namespace App\DataTables\Dashboard;
 
 use App\CustomerPreOrder;
-use App\Repositories\Contracts\ProductRepository;
-use App\Repositories\Eloquent\CustomerPreOrderRepositoryEloquent;
 use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
-use Illuminate\Support\Arr;
 
 /**
  * CustomerPreOrder datatable.
