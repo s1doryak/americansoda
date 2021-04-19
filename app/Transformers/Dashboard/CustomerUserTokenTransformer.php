@@ -47,21 +47,21 @@ class CustomerUserTokenTransformer implements TransformerContract
 	}
 
 	/**
-	 * @param CustomerUserToken $customerUserToken
+	 * @param CustomerUserToken $ltpTransferToken
 	 * @return array
 	 */
-	public static function toArray($customerUserToken)
+	public static function toArray($ltpTransferToken)
 	{
 		return [
-			'id' => (int)$customerUserToken->getKey(),
-			'token' => $customerUserToken->token,
-			'ip_address' => $customerUserToken->ip_address,
-			'user_agent' => $customerUserToken->user_agent,
-			'customerUser' => $customerUserToken->customerUser ? CustomerUserTransformer::toArray($customerUserToken->customerUser) : null,
+			'id' => (int)$ltpTransferToken->getKey(),
+			'token' => $ltpTransferToken->token,
+			'ip_address' => $ltpTransferToken->ip_address,
+			'user_agent' => $ltpTransferToken->user_agent,
+			'customerUser' => $ltpTransferToken->customerUser ? CustomerUserTransformer::toArray($ltpTransferToken->customerUser) : null,
 
-			'created_at' => (string)$customerUserToken->created_at,
-			'updated_at' => (string)$customerUserToken->updated_at,
-			'deleted_at' => (string)$customerUserToken->deleted_at,
+			'created_at' => (string)$ltpTransferToken->created_at,
+			'updated_at' => (string)$ltpTransferToken->updated_at,
+			'deleted_at' => (string)$ltpTransferToken->deleted_at,
 		];
 	}
 }

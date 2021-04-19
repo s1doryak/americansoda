@@ -37,4 +37,5 @@
     'setting' => \App\Setting::class,
     'auth_log' => \App\AuthLog::class,
     'customer_user_subscribe' => \App\CustomerUserSubscribe::class,
+    'ltp_transfer' => \App\LtpTransfer::class,
 ];

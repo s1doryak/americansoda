@@ -44,20 +44,20 @@ class CustomerUserSubscribeTransformer implements TransformerContract
 	}
 
 	/**
-	 * @param \App\CustomerUserSubscribe $customerUserNotification
+	 * @param \App\CustomerUserSubscribe $ltpTransferNotification
 	 * @return array
 	 */
-	public static function toArray($customerUserNotification)
+	public static function toArray($ltpTransferNotification)
 	{
 		return [
-			'id' => (int)$customerUserNotification->getKey(),
+			'id' => (int)$ltpTransferNotification->getKey(),
 
-			'product' => $customerUserNotification->product ? ProductTransformer::toArray($customerUserNotification->product) : null,
-			'customerUser' => $customerUserNotification->customerUser ? CustomerUserTransformer::toArray($customerUserNotification->customerUser) : null,
+			'product' => $ltpTransferNotification->product ? ProductTransformer::toArray($ltpTransferNotification->product) : null,
+			'customerUser' => $ltpTransferNotification->customerUser ? CustomerUserTransformer::toArray($ltpTransferNotification->customerUser) : null,
 
-			'created_at' => (string)$customerUserNotification->created_at,
-			'updated_at' => (string)$customerUserNotification->updated_at,
-			'deleted_at' => (string)$customerUserNotification->deleted_at,
+			'created_at' => (string)$ltpTransferNotification->created_at,
+			'updated_at' => (string)$ltpTransferNotification->updated_at,
+			'deleted_at' => (string)$ltpTransferNotification->deleted_at,
 		];
 	}
 }

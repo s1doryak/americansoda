@@ -82,4 +82,25 @@ class CustomerShipmentTransformer implements TransformerContract
 			'deleted_at' => (string)$customerShipment->deleted_at,
 		];
 	}
+
+    /**
+     * @param CustomerShipment $customerShipment
+     * @return array
+     */
+	public static function toLtpTransfer(CustomerShipment $customerShipment)
+    {
+        $customer = $customerShipment->customer;
+
+        return [
+            'document_type' => 'SO',
+            'document_number' => $customerShipment->order_numbers,
+            'requested_delivery_date' => $customerShipment->delivery_date,
+            'code' => $customerShipment->order_batch_numbers,
+            'name' => $customer->name,
+            'address' => $customer->shipping_address,
+            'zip' => $customer->shipping_postcode,
+            'city' => $customer->shippingRegion->name,
+            'waybill' => $customerShipment->getKey(),
+        ];
+    }
 }
