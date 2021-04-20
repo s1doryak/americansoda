@@ -49,22 +49,22 @@ class CustomerUserTransformer implements TransformerContract
 	}
 
 	/**
-	 * @param CustomerUser $ltpTransfer
+	 * @param CustomerUser $customerUser
 	 * @return array
 	 */
-	public static function toArray($ltpTransfer)
+	public static function toArray($customerUser)
 	{
 		return [
-			'id' => (int)$ltpTransfer->getKey(),
-			'email' => $ltpTransfer->email,
-			'name' => $ltpTransfer->name,
-			'phone' => $ltpTransfer->phone,
-            'customers' => $ltpTransfer->customers ? CustomerTransformer::map($ltpTransfer->customers) : [],
-            'customer_user_subscribes_count' => $ltpTransfer->customerUserSubscribes()->whereNull('deleted_at')->count(),
+			'id' => (int)$customerUser->getKey(),
+			'email' => $customerUser->email,
+			'name' => $customerUser->name,
+			'phone' => $customerUser->phone,
+            'customers' => $customerUser->customers ? CustomerTransformer::map($customerUser->customers) : [],
+            'customer_user_subscribes_count' => $customerUser->customerUserSubscribes()->whereNull('deleted_at')->count(),
 
-            'created_at' => (string)$ltpTransfer->created_at,
-			'updated_at' => (string)$ltpTransfer->updated_at,
-			'deleted_at' => (string)$ltpTransfer->deleted_at,
+            'created_at' => (string)$customerUser->created_at,
+			'updated_at' => (string)$customerUser->updated_at,
+			'deleted_at' => (string)$customerUser->deleted_at,
 		];
 	}
 }

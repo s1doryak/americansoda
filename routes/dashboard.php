@@ -143,11 +143,6 @@ Route::group(['middleware' => 'web'], function () {
                     'uses' => "{$controller}@invoice"
                 ]);
 
-                Route::get("customer_shipment/{customer_shipment}/send_to_ltp", [
-                    'as' => "dashboard.{$resource}.sendToLtp",
-                    'uses' => "{$controller}@sendToLtp"
-                ]);
-
             }
 
             if ($resource == 'customer_invoice') {

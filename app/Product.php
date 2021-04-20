@@ -45,7 +45,6 @@ use Carbon\Carbon;
  * @property boolean $action
  * @property \Illuminate\Support\Carbon|null $future_stock_movement
  * @property string $displayed_text
- * @property string $vendor_code
  * @package App
  */
 class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
@@ -79,7 +78,6 @@ class Product extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'action',
         'future_stock_movement',
         'displayed_text',
-		'vendor_code',
     ];
 
     protected $casts = [

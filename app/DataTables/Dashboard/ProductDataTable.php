@@ -43,7 +43,6 @@ class ProductDataTable extends DataTable
             'comment',
             'created_at',
             'updated_at',
-			'vendor_code',
         ];
     }
 
@@ -67,7 +66,6 @@ class ProductDataTable extends DataTable
             'created_at',
             'updated_at',
             'action',
-			'vendor_code',
         ];
     }
 

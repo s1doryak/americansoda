@@ -24,7 +24,6 @@ class ProductForm extends Form
             'product_barcode_plaintext' => 'text',
             'package_barcode' => 'text',
             'package_barcode_plaintext' => 'text',
-            'vendor_code' => 'text',
             'product_image' => 'image',
             'package_image' => 'image',
             'description' => 'textarea',
@@ -83,7 +82,6 @@ class ProductForm extends Form
             'product_barcode_plaintext' => 'text',
             'package_barcode' => 'text',
             'package_barcode_plaintext' => 'text',
-            'vendor_code' => 'text',
             'product_image' => 'image',
             'package_image' => 'image',
             'description' => 'textarea',
@@ -137,8 +135,7 @@ class ProductForm extends Form
      */
     public static function getStoreValidationRules()
     {
-        return [
-            'name' => 'sometimes',
+        return ['name' => 'sometimes',
             'product_barcode' => 'sometimes',
             'product_barcode_plaintext' => 'sometimes',
             'package_barcode' => 'sometimes',
@@ -167,7 +164,6 @@ class ProductForm extends Form
 			'action' => 'sometimes',
 			'future_stock_movement' => 'sometimes',
 			'displayed_text' => 'sometimes',
-			'vendor_code' => 'sometimes',
         ];
     }
 
@@ -206,7 +202,6 @@ class ProductForm extends Form
 			'action' => 'sometimes',
 			'future_stock_movement' => 'sometimes',
 			'displayed_text' => 'sometimes',
-			'vendor_code' => 'sometimes',
         ];
     }
 }
