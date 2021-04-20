@@ -53,6 +53,7 @@ trait DashboardSidebar
 				'role',
 				'company',
 				'company_bank_account',
+				'ltp_transfer',
                 'setting',
                 'auth_log',
 				'job',
