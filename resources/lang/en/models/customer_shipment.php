@@ -53,6 +53,9 @@ return [
     'invoice' => [
         'title' => 'Create Invoice',
     ],
+    'sendToLtp' => [
+        'title' => 'Send to LTP',
+    ],
     'fields' => [
         'number' => 'Number',
         'assembly_number' => 'Assembly Number',

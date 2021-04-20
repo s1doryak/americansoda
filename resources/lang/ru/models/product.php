@@ -82,6 +82,7 @@ return [
         'future_stock_movement' => 'Будущее движение по складу',
         'future_stock_movement_enable' => 'Доступна подписка',
         'displayed_text' => 'Отображаемый текст',
+        'vendor_code' => 'Артикул',
     ],
     'placeholders' => [
 		'brand' => 'Выберите Бренд',
@@ -122,6 +123,7 @@ return [
 		'productTags' => [
 			'name' => 'Теги',
 		],
+        'vendor_code' => 'Артикул',
         'created_at' => 'Создан',
         'updated_at' => 'Изменён',
         'deleted_at' => 'Удалён',
