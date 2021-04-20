@@ -26,7 +26,6 @@ class LtpTransferDataTable extends DataTable
             'created_at',
             'waybill',
             'assembly',
-            '',
             'document_type',
         ];
     }
@@ -37,10 +36,13 @@ class LtpTransferDataTable extends DataTable
     protected function getRawColumns()
     {
         return [
-            'document_type',
-            'document_number',
             'requested_delivery_date',
+            'name',
+            'document_number',
             'created_at',
+            'waybill',
+            'assembly',
+            'document_type',
         ];
     }
 
@@ -102,8 +104,9 @@ class LtpTransferDataTable extends DataTable
     public function renderAssemblyColumn($ltpTransfer)
     {
         if ($this->isDataTableRequest()) {
-
-            return $ltpTransfer->requested_delivery_date->format('Y-m-d H:i');
+            return $ltpTransfer->requested_delivery_date
+                ? $ltpTransfer->requested_delivery_date
+                : $this->renderDefaultView();
         }
 
         return $ltpTransfer->requested_delivery_date;
