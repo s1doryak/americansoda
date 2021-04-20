@@ -40,6 +40,4 @@
     App\Repositories\Contracts\SettingRepository::class => App\Repositories\Eloquent\SettingRepositoryEloquent::class,
 App\Repositories\Contracts\AuthLogRepository::class => App\Repositories\Eloquent\AuthLogRepositoryEloquent::class,
 App\Repositories\Contracts\CustomerUserSubscribeRepository::class => App\Repositories\Eloquent\CustomerUserSubscribeRepositoryEloquent::class,
-    App\Repositories\Contracts\LtpTransferRepository::class => App\Repositories\Eloquent\LtpTransferRepositoryEloquent::class,
-    App\Repositories\Contracts\LtpTransferItemRepository::class => App\Repositories\Eloquent\LtpTransferItemRepositoryEloquent::class,
 ];

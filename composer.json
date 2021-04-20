@@ -25,7 +25,6 @@
         "nesbot/carbon": "^2.27",
         "prettus/l5-repository": "^2.6",
         "ramsey/uuid": "^3.8",
-        "spatie/array-to-xml": "2.10.0",
         "tymon/jwt-auth": "^1.0",
         "yajra/laravel-datatables": "^1.5"
     },

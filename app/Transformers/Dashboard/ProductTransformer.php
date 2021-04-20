@@ -55,7 +55,6 @@ class ProductTransformer implements TransformerContract
 			'new' => (boolean)$request->get('new'),
 			'action' => (boolean)$request->get('action'),
 			'displayed_text' => $request->get('displayed_text'),
-			'vendor_code' => $request->get('vendor_code'),
         ];
     }
 
@@ -98,7 +97,6 @@ class ProductTransformer implements TransformerContract
 			'new' => (boolean)$request->get('new'),
 			'action' => (boolean)$request->get('action'),
 			'displayed_text' => $request->get('displayed_text'),
-			'vendor_code' => $request->get('vendor_code'),
         ];
     }
 

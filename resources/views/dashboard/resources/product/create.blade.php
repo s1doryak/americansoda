@@ -10,7 +10,6 @@
                 'product_barcode_plaintext',
                 'package_barcode',
                 'package_barcode_plaintext',
-                'vendor_code',
                 'product_image',
                 'package_image',
                 'description',
