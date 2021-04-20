@@ -13,7 +13,7 @@ namespace App;
  *
  * @package App
  */
-class FailedJob extends\Illuminate\Database\Eloquent\Model
+class FailedJob extends \Illuminate\Database\Eloquent\Model
 {
     const CREATED_AT = null;
     const UPDATED_AT = null;

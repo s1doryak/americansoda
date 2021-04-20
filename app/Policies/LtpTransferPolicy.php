@@ -2,18 +2,17 @@
 
 namespace App\Policies;
 
-use App\CustomerShipment;
-
+use App\LtpTransfer;
 use Crmplease\MaterialAdmin\Policies\Contracts\DatatablePolicyContract;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 /**
- * CustomerShipment policy.
+ * LtpTransfer policy.
  *
  * @package App\Policies
  */
-class CustomerShipmentPolicy implements DatatablePolicyContract
+class LtpTransferPolicy implements DatatablePolicyContract
 {
     use HandlesAuthorization;
 
@@ -26,7 +25,7 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      */
     public function index(Authenticatable $authenticatable)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -38,7 +37,7 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      */
     public function trashed(Authenticatable $authenticatable)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -50,7 +49,8 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      */
     public function export(Authenticatable $authenticatable)
     {
-        return true;
+
+        return false;
     }
 
     /**
@@ -62,19 +62,21 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      */
     public function action(Authenticatable $authenticatable)
     {
-        return true;
+
+        return false;
     }
 
     /**
      * Determine whether the user can view the entity.
      *
      * @param Authenticatable $authenticatable
-     * @param CustomerShipment $customerShipment
+     * @param LtpTransfer $LtpTransfer
      *
      * @return boolean
      */
-    public function view(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    public function view(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
     {
+
         return false;
     }
 
@@ -87,98 +89,63 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      */
     public function create(Authenticatable $authenticatable)
     {
-        return true;
+
+        return false;
     }
 
     /**
      * Determine whether the user can update the entity.
      *
      * @param Authenticatable $authenticatable
-     * @param CustomerShipment $customerShipment
+     * @param LtpTransfer $LtpTransfer
      *
      * @return boolean
      */
-    public function update(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    public function update(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
     {
-        return true;
+
+        return false;
     }
 
     /**
      * Determine whether the user can trash the entity.
      *
      * @param Authenticatable $authenticatable
-     * @param CustomerShipment $customerShipment
+     * @param LtpTransfer $LtpTransfer
      *
      * @return boolean
      */
-    public function trash(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    public function trash(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
     {
-        return true;
+
+        return false;
     }
 
     /**
      * Determine whether the user can restore the entity.
      *
      * @param Authenticatable $authenticatable
-     * @param CustomerShipment $customerShipment
+     * @param LtpTransfer $LtpTransfer
      *
      * @return boolean
      */
-    public function restore(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    public function restore(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
     {
-        return true;
+
+        return false;
     }
 
     /**
      * Determine whether the user can destroy the entity.
      *
      * @param Authenticatable $authenticatable
-     * @param CustomerShipment $customerShipment
+     * @param LtpTransfer $LtpTransfer
      *
      * @return boolean
      */
-    public function destroy(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    public function destroy(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
     {
-        return true;
-    }
 
-    /**
-     * @param Authenticatable $authenticatable
-     * @param CustomerShipment $customerShipment
-     * @return boolean
-     */
-    public function package_list(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-    {
-        return true;
-    }
-
-    /**
-     * @param Authenticatable $authenticatable
-     * @param CustomerShipment $customerShipment
-     * @return boolean
-     */
-    public function waybill(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-    {
-        return true;
-    }
-
-    /**
-     * @param Authenticatable $authenticatable
-     * @param CustomerShipment $customerShipment
-     * @return boolean
-     */
-    public function invoice(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-    {
-        return true;
-    }
-
-    /**
-     * @param Authenticatable $authenticatable
-     * @param CustomerShipment $customerShipment
-     * @return boolean
-     */
-    public function sendToLtp(Authenticatable $authenticatable, CustomerShipment $customerShipment)
-    {
-        return true;
+        return false;
     }
 }

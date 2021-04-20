@@ -70,7 +70,6 @@ class ZendeskHttpClient extends HttpClient
         }
     }
 
-
     protected function prepareUrl($path)
     {
         $base = sprintf($this->config['base'], $this->config['subdomain']);

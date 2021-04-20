@@ -6,11 +6,16 @@ use App\Company;
 use App\Customer;
 use App\CustomerInvoice;
 use App\CustomerOrderItem;
+use App\LtpTransfer;
 use App\Repositories\Contracts\CompanyBankAccountRepository;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\CustomerInvoiceItemRepository;
 use App\Repositories\Contracts\CustomerInvoiceRepository;
+use App\Repositories\Contracts\LtpTransferItemRepository;
+use App\Repositories\Contracts\LtpTransferRepository;
 use App\Transformers\Dashboard\CustomerOrderItemTransformer;
+use App\Transformers\Dashboard\CustomerShipmentTransformer;
+use App\Transformers\Dashboard\LtpTransferTransformer;
 use Crmplease\MaterialAdmin\Events\ResourceStored;
 use Illuminate\Support\Collection;
 use PDF;
@@ -24,6 +29,7 @@ use App\Repositories\Contracts\CustomerShipmentRepository;
 use App\Repositories\Contracts\PackageTypeRepository;
 use App\Repositories\Contracts\CustomerRepository;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Spatie\ArrayToXml\ArrayToXml;
 
 /**
  * CustomerShipment controller.
@@ -102,6 +108,16 @@ class CustomerShipmentsController extends ResourceController
     private $companies;
 
     /**
+     * @var LtpTransferRepository
+     */
+    protected $ltpTransfers;
+
+    /**
+     * @var LtpTransferItemRepository
+     */
+    protected $ltpTransferItems;
+
+    /**
      * @var array
      */
     protected $editActionFormData = [
@@ -136,6 +152,8 @@ class CustomerShipmentsController extends ResourceController
      * @param CustomerOrderItemRepository $customerOrderItemRepository
      * @param CompanyRepository $companyRepository
      * @param CompanyBankAccountRepository $companyBankAccountRepository
+     * @param LtpTransferRepository $ltpTransferRepository
+     * @param LtpTransferItemRepository $ltpTransferItemRepository
      */
     public function __construct(
         Gate $gate,
@@ -147,7 +165,9 @@ class CustomerShipmentsController extends ResourceController
         CustomerInvoiceItemRepository $customerInvoiceItemRepository,
         CustomerOrderItemRepository $customerOrderItemRepository,
         CompanyRepository $companyRepository,
-        CompanyBankAccountRepository $companyBankAccountRepository
+        CompanyBankAccountRepository $companyBankAccountRepository,
+        LtpTransferRepository $ltpTransferRepository,
+        LtpTransferItemRepository $ltpTransferItemRepository
     )
     {
         $this->gate = $gate;
@@ -160,6 +180,8 @@ class CustomerShipmentsController extends ResourceController
         $this->customerOrderItems = $customerOrderItemRepository;
         $this->companies = $companyRepository;
         $this->companyBankAccounts = $companyBankAccountRepository;
+        $this->ltpTransfers = $ltpTransferRepository;
+        $this->ltpTransferItems = $ltpTransferItemRepository;
 
         $this->middleware('auth:dashboard');
         $this->shareSidebar();
@@ -272,6 +294,47 @@ class CustomerShipmentsController extends ResourceController
         event(new ResourceStored($this->getPrefix(), 'customer_invoice', 'invoice', $attributes, $params));
 
         return redirect(route("{$this->getPrefix()}.customer_invoice.edit", $customerInvoice->getKey()));
+    }
+
+    public function sendToLtp(Request $request)
+    {
+        /** @var CustomerShipment $shipment */
+        $shipment = $this->repository->with(['customer'])->find($this->getResourceId());
+        $ltpTransfer = $this->createLtpTransfer($shipment);
+        $ltpXml = LtpTransferTransformer::toLtpXml($ltpTransfer);
+        $xml = ArrayToXml::convert($ltpXml, 'Documents', true, 'UTF-8');
+
+        #todo: заглушка перед отправкой в ltp
+        return response($xml, 200, [
+            'Content-Type' => 'application/xml'
+        ]);
+    }
+
+    /**
+     * @param CustomerShipment $customerShipment
+     * @return LtpTransfer
+     */
+    protected function createLtpTransfer(CustomerShipment $customerShipment)
+    {
+        $ltpTransferItems = [];
+
+        foreach ($customerShipment->customerOrderItems as $index => $customerOrderItem) {
+            $ltpTransferItems[] = $this->ltpTransferItems->create(
+                array_merge(
+                    CustomerOrderItemTransformer::toLtpTransferItemsArray($customerOrderItem),
+                    [
+                        'client_purchase_order_line' => $index + 1
+                    ]
+                )
+            );
+        }
+
+        /** @var LtpTransfer $ltpTransfer */
+        $ltpTransfer = $this->ltpTransfers->create(CustomerShipmentTransformer::toLtpTransfer($customerShipment));
+        $ltpTransfer->items()->saveMany($ltpTransferItems);
+        $ltpTransfer->refresh();
+
+        return $ltpTransfer;
     }
 
     /**
