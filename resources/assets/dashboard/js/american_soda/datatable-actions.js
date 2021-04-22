@@ -75,6 +75,7 @@ jQuery(document).ready(function ($) {
                     $this.replaceWith(response.responseText);
                     break;
                 case 404:
+                case 403:
                 case 500:
                     notify(response.responseJSON.message, 'danger');
                     break;
