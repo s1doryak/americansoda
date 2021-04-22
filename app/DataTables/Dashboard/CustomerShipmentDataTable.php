@@ -12,7 +12,7 @@ use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
  */
 class CustomerShipmentDataTable extends DataTable
 {
-    protected $responsive = false;
+    protected $responsive = true;
 
     /**
      * @return array
@@ -132,13 +132,14 @@ class CustomerShipmentDataTable extends DataTable
 
         $actions = [
             'sendToLtp' => [
+                'resource' => 'ltp_transfer',
                 'url' => route(
-                    sprintf('%s.%s.sendToLtp', $this->prefix, $this->resource),
+                    sprintf('%s.%s.toLtp', $this->prefix, $this->resource),
                     $customerShipment->getKey()
                 ),
                 'target' => '_blank',
-                'icon' => 'airplane',
-                'title' => trans(sprintf('models/%s.sendToLtp.title', $this->resource)),
+                'icon' => 'truck',
+                'title' => trans(sprintf('models/%s.toLtp.title', $this->resource)),
             ],
             'invoice' => [
                 'url' => route(

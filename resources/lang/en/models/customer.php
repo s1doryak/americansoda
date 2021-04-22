@@ -80,6 +80,7 @@ return [
         'y_tunnus' => 'Y-Tunnus',
         'bid' => 'BID',
         'ovt' => 'OVT',
+        'ltp_number' => 'Ltp Number',
 		'priceGroup' => [
 			'name' => 'Price Group',
 		],
@@ -145,7 +146,8 @@ return [
         'y_tunnus' => 'Y-Tunnus',
         'bid' => 'BID',
 		'ovt' => 'OVT',
-		'priceGroup' => [
+        'ltp_number' => 'Ltp Number',
+        'priceGroup' => [
 			'name' => 'Price Group',
 		],
 		'stock' => [

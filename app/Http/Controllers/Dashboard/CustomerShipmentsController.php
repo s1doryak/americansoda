@@ -137,7 +137,11 @@ class CustomerShipmentsController extends ResourceController
      */
     protected $popupActions = [
         'create' => 'fullscreen',
-        'edit' => 'fullscreen'
+        'edit' => 'fullscreen',
+        'editLtpTransfer' => [
+            'resource' => 'ltp_transfer',
+            'class' => 'large'
+        ]
     ];
 
     /**
@@ -296,18 +300,17 @@ class CustomerShipmentsController extends ResourceController
         return redirect(route("{$this->getPrefix()}.customer_invoice.edit", $customerInvoice->getKey()));
     }
 
-    public function sendToLtp(Request $request)
+    public function toLtp(Request $request)
     {
         /** @var CustomerShipment $shipment */
         $shipment = $this->repository->with(['customer'])->find($this->getResourceId());
         $ltpTransfer = $this->createLtpTransfer($shipment);
-        $ltpXml = LtpTransferTransformer::toLtpXml($ltpTransfer);
-        $xml = ArrayToXml::convert($ltpXml, 'Documents', true, 'UTF-8');
+        $attributes = $ltpTransfer->toArray();
+        event(new ResourceStored($this->getPrefix(), 'ltp_transfer', 'ltp_transfer', $attributes, []));
 
-        #todo: заглушка перед отправкой в ltp
-        return response($xml, 200, [
-            'Content-Type' => 'application/xml'
-        ]);
+        return redirect(
+            route("{$this->prefix}.ltp_transfer.edit", ['ltp_transfer' => $ltpTransfer->getKey()])
+        );
     }
 
     /**
@@ -319,14 +322,11 @@ class CustomerShipmentsController extends ResourceController
         $ltpTransferItems = [];
 
         foreach ($customerShipment->customerOrderItems as $index => $customerOrderItem) {
-            $ltpTransferItems[] = $this->ltpTransferItems->create(
-                array_merge(
-                    CustomerOrderItemTransformer::toLtpTransferItemsArray($customerOrderItem),
-                    [
-                        'client_purchase_order_line' => $index + 1
-                    ]
-                )
+            $transferItem = array_merge(
+                CustomerOrderItemTransformer::toLtpTransferItemArray($customerOrderItem),
+                ['document_line_number' => $index + 1]
             );
+            $ltpTransferItems[] = $this->ltpTransferItems->create($transferItem);
         }
 
         /** @var LtpTransfer $ltpTransfer */

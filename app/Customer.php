@@ -48,6 +48,7 @@ use Illuminate\Contracts\Translation\HasLocalePreference;
  * @property \App\Region $billingRegion
  * @property \App\Region $shippingRegion
  * @property \App\PriceGroup $priceGroup
+ * @property string $ltp_number
  * @property \Illuminate\Support\Collection|CustomerOrder[] $customerOrders
  * @property \Illuminate\Support\Collection|CustomerShipment[] $customerShipments
  * @property \Illuminate\Support\Collection|CustomerPricingPolicy[] $customerPricingPolicies
@@ -115,7 +116,8 @@ class Customer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model implemen
         'bid',
         'ovt',
         'price_group_id',
-        'zendesk_id'
+        'zendesk_id',
+        'ltp_number'
     ];
 
     protected $casts = [

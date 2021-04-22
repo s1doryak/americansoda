@@ -63,7 +63,7 @@ class LtpTransferPolicy implements DatatablePolicyContract
     public function action(Authenticatable $authenticatable)
     {
 
-        return false;
+        return true;
     }
 
     /**
@@ -104,7 +104,7 @@ class LtpTransferPolicy implements DatatablePolicyContract
     public function update(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
     {
 
-        return false;
+        return true;
     }
 
     /**
@@ -147,5 +147,29 @@ class LtpTransferPolicy implements DatatablePolicyContract
     {
 
         return false;
+    }
+
+    /**
+     * @param Authenticatable $authenticatable
+     * @param LtpTransfer $LtpTransfer
+     *
+     * @return boolean
+     */
+    public function send(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
+    {
+
+        return true;
+    }
+
+    /**
+     * @param Authenticatable $authenticatable
+     * @param LtpTransfer $LtpTransfer
+     *
+     * @return boolean
+     */
+    public function xml(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
+    {
+
+        return true;
     }
 }

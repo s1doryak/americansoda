@@ -4,8 +4,9 @@ namespace App\Support;
 
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Arr;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class LtpApiClient extends HttpClient
+class LtpHttpClient extends HttpClient
 {
     /**
      * @var array
@@ -14,16 +15,16 @@ class LtpApiClient extends HttpClient
 
     public function __construct()
     {
-        $this->config = config('');
+        $this->config = config('ltp.api');
     }
 
-    public function sendDocuments(string $xml)
+    public function sendDocuments(string $xml, string $documentName)
     {
         $headers = [
             'Content-Type' => 'text/xml; charset=UTF8'
         ];
 
-        return $this->apiCall('post', $this->getSendDocumentsQuery(), [
+        return $this->apiCall('post', $this->getSendDocumentsQuery($documentName), [
             'body' => $xml
         ], $headers);
     }
@@ -37,12 +38,12 @@ class LtpApiClient extends HttpClient
         return $this->apiCall('get', $this->getCheckDocumentsQuery(), [], $headers);
     }
 
-    protected function getSendDocumentsQuery()
+    protected function getSendDocumentsQuery(string $documentName)
     {
         return Arr::query([
             'sourceidentifier' => $this->config['private_key'],
             'targetidentifier' => $this->config['public_key'],
-            'filenamehint' => 'document.xml',
+            'filenamehint' => "{$documentName}.xml",
         ]);
     }
 
@@ -59,7 +60,13 @@ class LtpApiClient extends HttpClient
         $url = sprintf('%s?%s', $this->config['base'], $params);
 
         try {
-            return $this->parseJsonResponse($this->$type($url, $data, $headers));
+            /** @var ResponseInterface $response */
+            $response = $this->$type($url, $data, $headers);
+
+            return [
+                'code'=> $response->getStatusCode(),
+                'body' => $this->parseJsonResponse($response)
+            ];
         } catch (RequestException $e) {
             return [
                 'code' => $e->getCode(),

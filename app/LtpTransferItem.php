@@ -11,6 +11,14 @@ namespace App;
  * @property string $product_name
  * @property string $original_quantity
  * @property string $product_unit
+ * @property string $price_per_unit
+ * @property string $price_per_unit_with_tax
+ * @property string $vat_rate
+ * @property string $currency
+ * @property string $quantity_in_selling_unit
+ * @property string $selling_unit
+ * @property string $warehouse
+ * @property string $net_weight_unit
  * @property LtpTransfer $ltpTransfer
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -31,6 +39,14 @@ class LtpTransferItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'product_name',
         'original_quantity',
         'product_unit',
+        'price_per_unit',
+        'price_per_unit_with_tax',
+        'vat_rate',
+        'currency',
+        'quantity_in_selling_unit',
+        'selling_unit',
+        'warehouse',
+        'net_weight_unit',
         'ltp_transfer_id'
     ];
 
