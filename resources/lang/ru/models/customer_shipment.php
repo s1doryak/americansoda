@@ -53,8 +53,8 @@ return [
     'invoice' => [
         'title' => 'Счёт',
     ],
-    'sendToLtp' => [
-        'title' => 'Отправить в LTP',
+    'toLtp' => [
+        'title' => 'Конвертировать в LTP',
     ],
 	'fields' => [
 		'number' => 'Номер отгурзки',

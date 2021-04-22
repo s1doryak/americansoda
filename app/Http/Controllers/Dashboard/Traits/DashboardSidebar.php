@@ -44,7 +44,8 @@ trait DashboardSidebar
 				'stock',
 				'stock_movement_product',
 				'stock_product',
-			],
+                'ltp_transfer',
+            ],
 		],
 		[
 			'title' => 'sidebar.administration',
@@ -53,7 +54,6 @@ trait DashboardSidebar
 				'role',
 				'company',
 				'company_bank_account',
-				'ltp_transfer',
                 'setting',
                 'auth_log',
 				'job',

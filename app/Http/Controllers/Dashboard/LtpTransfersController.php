@@ -3,9 +3,16 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
+use App\Jobs\SendToLTP;
+use App\LtpTransfer;
 use App\Repositories\Contracts\LtpTransferRepository;
+use App\Support\LtpHttpClient;
+use App\Transformers\Dashboard\LtpTransferTransformer;
+use Carbon\Carbon;
+use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Spatie\ArrayToXml\ArrayToXml;
 
 /**
  * LtpTransfer controller.
@@ -49,20 +56,39 @@ class LtpTransfersController extends ResourceController
      * @var array
      */
     protected $popupActions = [
-//        'create' => 'fullscreen',
-//        'edit' => 'fullscreen'
+        'create' => 'large',
+        'edit' => 'large'
     ];
+
+    /**
+     * @var LtpHttpClient
+     */
+    protected $ltpHttpClient;
 
     public function __construct(
         Gate $gate,
-        LtpTransferRepository $ltpTransferRepository
+        LtpTransferRepository $ltpTransferRepository,
+        LtpHttpClient $ltpHttpClient
     )
     {
         $this->gate = $gate;
         $this->repository = $ltpTransferRepository;
+        $this->ltpHttpClient = $ltpHttpClient;
 
         $this->middleware('auth:dashboard');
         $this->shareSidebar();
         parent::__construct();
+    }
+
+    public function sendToLtp(Request $request)
+    {
+        $result = SendToLTP::dispatchNow($this->getResourceId());
+
+        return response('', $result ? 200 : 403);
+    }
+
+    public function updateStatuses(Request $request)
+    {
+        #todo: here will be request to LTP, download xml and parse it to new data
     }
 }

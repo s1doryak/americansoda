@@ -44,6 +44,9 @@ return [
         'success' => 'Ltp Transfer destroyed successfully!',
         'error' => 'Ltp Transfer destroyed unsuccessfully!'
     ],
+    'send' => [
+        'title' => 'Send to Ltp',
+    ],
     'fields' => [
         'document_type' => 'Document Type',
         'document_number' => 'Document Number',
@@ -62,7 +65,8 @@ return [
         'name'  => 'Customer',
         'waybill'  => 'Waybill',
         'assembly'  => 'Assembly Date',
-        'created_at' => 'Document Date',
+        'document_date'  => 'Document Date',
+        'created_at' => 'Created',
         'updated_at' => 'Updated',
         'deleted_at' => 'Trashed',
     ],

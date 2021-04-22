@@ -23,9 +23,7 @@ class LtpTransferDataTable extends DataTable
             'requested_delivery_date',
             'name',
             'document_number',
-            'created_at',
-            'waybill',
-            'assembly',
+            'document_date',
             'document_type',
         ];
     }
@@ -39,10 +37,9 @@ class LtpTransferDataTable extends DataTable
             'requested_delivery_date',
             'name',
             'document_number',
-            'created_at',
-            'waybill',
-            'assembly',
+            'document_date',
             'document_type',
+            'action',
         ];
     }
 
@@ -87,28 +84,44 @@ class LtpTransferDataTable extends DataTable
      * @param LtpTransfer $ltpTransfer
      * @return mixed|string
      */
-    public function renderCreatedAtColumn($ltpTransfer)
+    public function renderRequestedDeliveryDateColumn($ltpTransfer)
     {
         if ($this->isDataTableRequest()) {
 
-            return $ltpTransfer->created_at->format('Y-m-d H:i');
+            return $ltpTransfer->requested_delivery_date->format('Y-m-d');
         }
 
-        return $ltpTransfer->created_at;
+        return $ltpTransfer->requested_delivery_date;
     }
 
     /**
      * @param LtpTransfer $ltpTransfer
      * @return mixed|string
      */
-    public function renderAssemblyColumn($ltpTransfer)
+    public function renderDocumentDateColumn($ltpTransfer)
     {
         if ($this->isDataTableRequest()) {
-            return $ltpTransfer->requested_delivery_date
-                ? $ltpTransfer->requested_delivery_date
-                : $this->renderDefaultView();
+            $actionView = $this->getSendToLtpAction($ltpTransfer);
+
+            return $ltpTransfer->document_date
+                ? format_date($ltpTransfer->document_date)
+                : $actionView;
         }
 
-        return $ltpTransfer->requested_delivery_date;
+        return $ltpTransfer->document_date;
+    }
+
+    protected function getSendToLtpAction(LtpTransfer $ltpTransfer)
+    {
+        return $this->renderActionView([
+            'sendToLtp' => [
+                'target' => '_blank',
+                'url' => route(sprintf('%s.%s.sendToLtp', $this->prefix, $this->resource), $ltpTransfer->getKey()),
+                'method' => 'post',
+                'icon' => 'cloud-upload',
+                'color' => 'blue',
+                'title' => trans(sprintf('models/%s.send.title', $this->resource)),
+            ]
+        ], $ltpTransfer);
     }
 }

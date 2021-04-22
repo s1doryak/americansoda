@@ -3,6 +3,7 @@
 namespace App\Transformers\Dashboard;
 
 use App\CustomerShipment;
+use App\Repositories\Contracts\LtpTransferRepository;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Transformers\Contracts\TransformerContract;
 use Crmplease\MaterialAdmin\Transformers\Traits\Collector;
@@ -93,14 +94,20 @@ class CustomerShipmentTransformer implements TransformerContract
 
         return [
             'document_type' => 'SO',
-            'document_number' => $customerShipment->order_numbers,
+            'document_number' => app(LtpTransferRepository::class)->getFirstAvailableNumber(),
             'requested_delivery_date' => $customerShipment->delivery_date,
-            'code' => $customerShipment->order_batch_numbers,
+            'owner_reference' => $customerShipment->number,
+            'invoicing_reference' => $customerShipment->order_batch_numbers,
+            'document_party_type' => 'Delivery',
+            'code' => $customer->ltp_number ?: $customer->nr,
             'name' => $customer->name,
             'address' => $customer->shipping_address,
             'zip' => $customer->shipping_postcode,
             'city' => $customer->shippingRegion->name,
-            'waybill' => $customerShipment->getKey(),
+            'region' => $customer->shippingRegion->name,
+            'country' => $customer->country,
+            'phone' => $customer->phone,
+            'email' => $customer->email,
         ];
     }
 }

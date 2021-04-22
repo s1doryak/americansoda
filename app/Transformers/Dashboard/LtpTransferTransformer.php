@@ -27,6 +27,7 @@ class LtpTransferTransformer implements TransformerContract
             'document_type' => $request->get('document_type'),
             'document_number' => $request->get('document_number'),
             'requested_delivery_date' => $request->get('requested_delivery_date'),
+            'requested_delivery_timestamp' => $request->get('requested_delivery_timestamp'),
 
             'items' => (array)$request->get('items'),
         ];
@@ -42,6 +43,7 @@ class LtpTransferTransformer implements TransformerContract
             'document_type' => $request->get('document_type'),
             'document_number' => $request->get('document_number'),
             'requested_delivery_date' => $request->get('requested_delivery_date'),
+            'requested_delivery_timestamp' => $request->get('requested_delivery_timestamp'),
 
             'items' => (array)$request->get('items'),
         ];
@@ -72,12 +74,31 @@ class LtpTransferTransformer implements TransformerContract
      */
     public static function toLtpXml(LtpTransfer $ltpTransfer)
     {
+        $time = explode(':', $ltpTransfer->requested_delivery_timestamp);
+        $deliveryTimestamp = $ltpTransfer->requested_delivery_date
+            ->copy()
+            ->addMinutes($time[0] * 60 + $time[1])
+            ->toDateTimeString();
+
         $xmlData = [
             'Document' => [
                 'DocumentType' => $ltpTransfer->document_type,
                 'DocumentNumber' => $ltpTransfer->document_number,
                 'RequestedDeliveryDate' => $ltpTransfer->requested_delivery_date,
-                'DocumentDate' => $ltpTransfer->created_at,
+                'RequestedDeliveryTimestamp' => $deliveryTimestamp,
+                'DocumentDate' => $ltpTransfer->document_date,
+                'Warehouse' => $ltpTransfer->warehouse,
+                'Comment' => $ltpTransfer->comment,
+                'OwnerReference' => $ltpTransfer->owner_reference,
+                'InvoicingReference' => $ltpTransfer->invoicing_reference,
+                'SellerInfo' => $ltpTransfer->seller_info,
+                'DeliveryRoute' => $ltpTransfer->delivery_route,
+                'DeliveryRouteLoad' => $ltpTransfer->delivery_route_load,
+                'DeliveryDrop' => $ltpTransfer->delivery_drop,
+                'DeliveryClass' => $ltpTransfer->delivery_class,
+                'DeliveryTerminalInfo' => $ltpTransfer->delivery_terminal_info,
+                'Weight' => $ltpTransfer->weight,
+                'Volume' => $ltpTransfer->volume,
                 'DocumentParty' => [
                     'DocumentPartyType' => 'Delivery',
                     'Code' => $ltpTransfer->code,
@@ -85,6 +106,13 @@ class LtpTransferTransformer implements TransformerContract
                     'Address' => $ltpTransfer->address,
                     'Zip' => $ltpTransfer->zip,
                     'City' => $ltpTransfer->city,
+                    'Region' => $ltpTransfer->region,
+                    'Country' => $ltpTransfer->country,
+                    'Information' => $ltpTransfer->information,
+                    'ILN' => $ltpTransfer->iln,
+                    'Edi_identifier' => $ltpTransfer->edi_identifier,
+                    'Email' => $ltpTransfer->email,
+                    'Phone' => $ltpTransfer->phone,
                 ],
             ],
         ];
@@ -92,14 +120,19 @@ class LtpTransferTransformer implements TransformerContract
         /** @var LtpTransferItem $item */
         foreach ($ltpTransfer->items as $item) {
             $xmlData['Document']['DocumentLine'][] = [
-                'ClientPurchaseOrder' => $item->client_purchase_order,
-                'ClientPurchaseOrderLine' => $item->client_purchase_order_line,
                 'ProductCode' => $item->product_code,
                 'ProductEan' => $item->product_ean,
                 'ProductPackageEan' => $item->product_package_ean,
                 'ProductName' => $item->product_name,
                 'OriginalQuantity' => $item->original_quantity,
                 'ProductUnit' => $item->product_unit,
+                'PricePreUnit' => $item->price_per_unit,
+                'PricePreUnitWithTax' => $item->price_per_unit_with_tax,
+                'VatRate' => $item->vat_rate,
+                'QuantityInSellingUnit' => $item->quantity_in_selling_unit,
+                'SellingUnit' => $item->selling_unit,
+                'Warehouse' => $item->warehouse,
+                'NetWeightUnit' => $item->net_weight_unit,
             ];
         }
 

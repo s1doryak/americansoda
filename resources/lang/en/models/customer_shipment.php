@@ -53,8 +53,8 @@ return [
     'invoice' => [
         'title' => 'Create Invoice',
     ],
-    'sendToLtp' => [
-        'title' => 'Send to LTP',
+    'toLtp' => [
+        'title' => 'Conver to LTP',
     ],
     'fields' => [
         'number' => 'Number',

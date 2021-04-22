@@ -148,20 +148,26 @@ class CustomerOrderItemTransformer implements TransformerContract
      * @param CustomerOrderItem $customerOrderItem
      * @return array
      */
-    public static function toLtpTransferItemsArray(CustomerOrderItem $customerOrderItem)
+    public static function toLtpTransferItemArray(CustomerOrderItem $customerOrderItem)
     {
-        $customerOrder = $customerOrderItem->customerOrder;
         $product = $customerOrderItem->product;
         $originalQuantity = ($customerOrderItem->sales_unit_quantity * $product->productGroup->sales_unit_volume) / $product->number_in_package;
 
         return [
-            'client_purchase_order' => $customerOrder->batch_number,
             'product_code' => $product->vendor_code,
             'product_ean' => $product->product_barcode_plaintext,
             'product_package_ean' => $product->package_barcode_plaintext,
             'product_name' => $product->name,
             'original_quantity' => $originalQuantity,
             'product_unit' => 'BOX',
+            'net_weight_unit' => $product->weight * $product->number_in_package * $originalQuantity,
+            'price_per_unit' => $customerOrderItem->product_price,
+            'price_per_unit_with_tax' => $customerOrderItem->product_vat_price,
+            'vat_rate' => $customerOrderItem->vat,
+            'currency' => 'EUR',
+            'quantity_selling_unit' => $product->number_in_package,
+            'selling_unit' => 'Pallet',
+            'warehouse' => 'KT Katriinantie',
         ];
     }
 
