@@ -10,6 +10,7 @@ use Carbon\Carbon;
  * @property Carbon $requested_delivery_date
  * @property string $requested_delivery_timestamp
  * @property Carbon|null $document_date
+ * @property Carbon|null $picking_date
  * @property string $warehouse
  * @property string $comment
  * @property string $owner_reference
@@ -76,7 +77,7 @@ class LtpTransfer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'edi_identifier',
         'email',
         'phone',
-
+        'picking_date'
     ];
 
     protected $casts = [
@@ -86,6 +87,7 @@ class LtpTransfer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $dates = [
         'requested_delivery_date',
         'document_date',
+        'picking_date',
         'created_at',
         'updated_at',
     ];
