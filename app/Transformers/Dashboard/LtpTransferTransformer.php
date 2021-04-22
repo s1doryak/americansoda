@@ -74,16 +74,19 @@ class LtpTransferTransformer implements TransformerContract
      */
     public static function toLtpXml(LtpTransfer $ltpTransfer)
     {
-        $time = explode(':', $ltpTransfer->requested_delivery_timestamp);
-        $deliveryTimestamp = $ltpTransfer->requested_delivery_date
-            ->copy()
-            ->addMinutes($time[0] * 60 + $time[1])
-            ->toDateTimeString();
+        $deliveryTimestamp = null;
+
+        if ($ltpTransfer->requested_delivery_timestamp && $time = explode(':', $ltpTransfer->requested_delivery_timestamp)) {
+            $deliveryTimestamp = $ltpTransfer->requested_delivery_date
+                ->copy()
+                ->addMinutes($time[0] * 60 + $time[1])
+                ->toDateTimeString();
+        }
 
         $xmlData = [
             'Document' => [
                 'DocumentType' => $ltpTransfer->document_type,
-                'DocumentNumber' => $ltpTransfer->document_number,
+                'DocumentNumber' => "TEST-{$ltpTransfer->document_number}",  #todo: тестовая заглушка
                 'RequestedDeliveryDate' => $ltpTransfer->requested_delivery_date,
                 'RequestedDeliveryTimestamp' => $deliveryTimestamp,
                 'DocumentDate' => $ltpTransfer->document_date,
@@ -100,7 +103,7 @@ class LtpTransferTransformer implements TransformerContract
                 'Weight' => $ltpTransfer->weight,
                 'Volume' => $ltpTransfer->volume,
                 'DocumentParty' => [
-                    'DocumentPartyType' => 'Delivery',
+                    'DocumentPartyType' => $ltpTransfer->document_party_type,
                     'Code' => $ltpTransfer->code,
                     'Name' => $ltpTransfer->name,
                     'Address' => $ltpTransfer->address,

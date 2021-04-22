@@ -68,7 +68,7 @@ class LtpTransferForm extends Form
             'warehouse' => 'text',
             'comment' => 'textarea',
             'owner_reference' => 'text',
-            'invoice_reference' => 'text',
+            'invoicing_reference' => 'text',
             'seller_info' => 'text',
             'delivery_route' => 'text',
             'delivery_route_load' => 'text',

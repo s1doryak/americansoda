@@ -71,6 +71,7 @@ jQuery(document).ready(function ($) {
 
             switch (response.status) {
                 case 200:
+                case 204:
                     $this.replaceWith(response.responseText);
                     break;
                 case 404:

@@ -155,6 +155,11 @@ Route::group(['middleware' => 'web'], function () {
                     'as' => "dashboard.{$resource}.sendToLtp",
                     'uses' => "{$controller}@sendToLtp"
                 ]);
+
+                Route::get("ltp_transfer/{ltp_transfer}/xml", [
+                    'as' => "dashboard.{$resource}.xml",
+                    'uses' => "{$controller}@xml"
+                ]);
             }
 
             if ($resource == 'customer_invoice') {

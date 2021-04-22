@@ -45,7 +45,7 @@ class SendToLTP implements ShouldQueue
                     'document_date' => $documentDate
                 ], $ltpTransfer->getKey());
 
-                return true;
+                return format_date($documentDate);
             }
         }
 

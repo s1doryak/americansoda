@@ -84,11 +84,22 @@ class LtpTransfersController extends ResourceController
     {
         $result = SendToLTP::dispatchNow($this->getResourceId());
 
-        return response('', $result ? 200 : 403);
+        return response($result ?: 'Error');
     }
 
     public function updateStatuses(Request $request)
     {
         #todo: here will be request to LTP, download xml and parse it to new data
+    }
+
+    public function xml(Request $request)
+    {
+        $ltpTransfer = $this->repository->find($this->getResourceId());
+        $ltpXml = LtpTransferTransformer::toLtpXml($ltpTransfer);
+        $xml = ArrayToXml::convert($ltpXml, 'Documents', true, 'UTF-8');
+
+        return response($xml, 200, [
+            'Content-Type' => 'text/xml; charset=UTF8'
+        ]);
     }
 }

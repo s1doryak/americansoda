@@ -22,6 +22,7 @@ use Carbon\Carbon;
  * @property string $delivery_terminal_info
  * @property string $weight
  * @property string $volume
+ * @property string $document_party_type
  * @property string $code
  * @property string $name
  * @property string $address
@@ -62,6 +63,7 @@ class LtpTransfer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'delivery_terminal_info',
         'weight',
         'volume',
+        'document_party_type',
         'code',
         'name',
         'address',

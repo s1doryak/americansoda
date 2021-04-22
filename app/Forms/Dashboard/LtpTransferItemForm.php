@@ -12,7 +12,6 @@ class LtpTransferItemForm
     public static function getCreateFormFields()
     {
         return [
-            'product_identifier_class_id' => 'text',
             'product_name' => 'text',
             'product_ean' => 'text',
             'quantity_selling_unit' => 'text',

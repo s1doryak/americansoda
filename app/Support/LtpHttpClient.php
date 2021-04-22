@@ -15,7 +15,7 @@ class LtpHttpClient extends HttpClient
 
     public function __construct()
     {
-        $this->config = config('');
+        $this->config = config('ltp.api');
     }
 
     public function sendDocuments(string $xml, string $documentName)
