@@ -12,9 +12,10 @@ class LtpTransferItemForm
     public static function getCreateFormFields()
     {
         return [
+            'product_code' => 'text',
             'product_name' => 'text',
             'product_ean' => 'text',
-            'quantity_selling_unit' => 'text',
+            'original_quantity' => 'text',
             'product_unit' => 'text',
         ];
     }
@@ -26,10 +27,10 @@ class LtpTransferItemForm
     public static function getEditFormFields($ltpTransferItem)
     {
         return [
-            'product_identifier_class_id' => 'text',
+            'product_code' => 'text',
             'product_name' => 'text',
             'product_ean' => 'text',
-            'quantity_selling_unit' => 'text',
+            'original_quantity' => 'text',
             'product_unit' => 'text',
         ];
     }
@@ -40,11 +41,11 @@ class LtpTransferItemForm
     public static function getStoreValidationRules()
     {
         return [
-            'product_identifier_class_id' => 'sometimes',
+            'product_code' => 'sometimes',
             'product_name' => 'sometimes',
             'product_ean' => 'sometimes',
-            'quantity_selling_unit' => 'sometimes',
             'product_unit' => 'sometimes',
+            'original_quantity' => 'sometimes',
         ];
     }
 
@@ -55,11 +56,11 @@ class LtpTransferItemForm
     public static function getUpdateValidationRules($ltpTransferItem)
     {
         return [
-            'product_identifier_class_id' => 'sometimes',
+            'product_code' => 'sometimes',
             'product_name' => 'sometimes',
             'product_ean' => 'sometimes',
-            'quantity_selling_unit' => 'sometimes',
             'product_unit' => 'sometimes',
+            'original_quantity' => 'sometimes',
         ];
     }
 }

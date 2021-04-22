@@ -151,10 +151,15 @@ class CustomerOrderItemTransformer implements TransformerContract
     public static function toLtpTransferItemArray(CustomerOrderItem $customerOrderItem)
     {
         $product = $customerOrderItem->product;
+        $productCode = sprintf(
+            '%s-%s',
+            substr($product->product_barcode_plaintext, -4),
+            substr($product->package_barcode_plaintext, -4)
+        );
         $originalQuantity = ($customerOrderItem->sales_unit_quantity * $product->productGroup->sales_unit_volume) / $product->number_in_package;
 
         return [
-            'product_code' => $product->vendor_code,
+            'product_code' => $productCode,
             'product_ean' => $product->product_barcode_plaintext,
             'product_package_ean' => $product->package_barcode_plaintext,
             'product_name' => $product->name,

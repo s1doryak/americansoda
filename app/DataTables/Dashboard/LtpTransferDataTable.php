@@ -23,10 +23,12 @@ class LtpTransferDataTable extends DataTable
             'requested_delivery_date',
             'document_number',
             'name',
+            'invoicing_reference',
             'document_date',
             'picking_date',
-            'picked', #todo: вот тут изначально 0%, обновляется после запроса к LTP
-//            'departure',
+            'picked',
+            'departure',
+            'warehouse'
         ];
     }
 
@@ -39,11 +41,13 @@ class LtpTransferDataTable extends DataTable
             'requested_delivery_date',
             'document_number',
             'name',
+            'invoicing_reference',
             'document_date',
             'picking_date',
-            'picked', #todo: вот тут изначально 0%, обновляется после запроса к LTP
-//            'departure',
-            'action',
+            'picked',
+            'departure',
+            'warehouse',
+            'action'
         ];
     }
 
@@ -73,16 +77,16 @@ class LtpTransferDataTable extends DataTable
      */
     protected function getActions($ltpTransfer)
     {
-        return array_merge(parent::getActions($ltpTransfer), [
+        return array_merge([
             'xml' => [
                 'target' => '_blank',
                 'url' => route(sprintf('%s.%s.xml', $this->prefix, $this->resource), $ltpTransfer->getKey()),
                 'method' => 'post',
-                'icon' => 'file',
+                'icon' => 'code',
                 'color' => 'primary',
                 'title' => trans(sprintf('models/%s.send.title', $this->resource)),
             ],
-        ]);
+        ], parent::getActions($ltpTransfer));
     }
 
     /**
@@ -137,6 +141,60 @@ class LtpTransferDataTable extends DataTable
         }
 
         return 0;
+    }
+
+    /**
+     * @param LtpTransfer $ltpTransfer
+     * @return mixed|string
+     */
+    public function renderPickingDateColumn($ltpTransfer)
+    {
+        if ($this->isDataTableRequest()) {
+            return $ltpTransfer->picking_date ? format_date($ltpTransfer->picking_date) : $this->renderDefaultView();
+        }
+
+        return $ltpTransfer->picking_date;
+    }
+
+    /**
+     * @param LtpTransfer $ltpTransfer
+     * @return mixed|string
+     */
+    public function renderWarehouseColumn($ltpTransfer)
+    {
+        if ($this->isDataTableRequest()) {
+            return $ltpTransfer->warehouse ?: 'KT Katriinantie';
+        }
+
+        return $ltpTransfer->warehouse ?: 'KT Katriinantie';
+    }
+
+    /**
+     * @param LtpTransfer $ltpTransfer
+     * @return mixed|string
+     */
+    public function renderDepartureColumn($ltpTransfer)
+    {
+        if ($this->isDataTableRequest()) {
+            #todo: Предположительно это поле после ответа
+            return $this->renderDefaultView();
+        }
+
+        return null;
+    }
+
+    /**
+     * @param LtpTransfer $ltpTransfer
+     * @return mixed|string
+     */
+    public function renderinvoicingReferenceColumn($ltpTransfer)
+    {
+        if ($this->isDataTableRequest()) {
+            #todo: Не уверен что именно эта колонка нужна
+            return $ltpTransfer->invoicing_reference ?: $this->renderDefaultView();
+        }
+
+        return $ltpTransfer->invoicing_reference;
     }
 
     protected function getSendToLtpAction(LtpTransfer $ltpTransfer)

@@ -56,8 +56,8 @@ class LtpTransfersController extends ResourceController
      * @var array
      */
     protected $popupActions = [
-        'create' => 'large',
-        'edit' => 'large'
+        'create' => 'fullscreen',
+        'edit' => 'fullscreen'
     ];
 
     /**
