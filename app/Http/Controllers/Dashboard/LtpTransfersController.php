@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Jobs\SendToLTP;
+use App\LtpTransfer;
+use App\LtpTransferItem;
 use App\Repositories\Contracts\LtpMessageRepository;
 use App\Repositories\Contracts\LtpTransferRepository;
 use App\Support\LtpHttpClient;
@@ -13,7 +15,11 @@ use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use SimpleXMLElement;
 use Spatie\ArrayToXml\ArrayToXml;
+use XMLReader;
 
 /**
  * LtpTransfer controller.
@@ -120,10 +126,8 @@ class LtpTransfersController extends ResourceController
         $result = $this->ltpHttpClient->checkDocuments();
 
         if ($result['code'] === Response::HTTP_OK && !empty($result['body'])) {
-            $ltpMessage = LtpMessageTransformer::responseToLtpMessage($result['body']);
-            $this->ltpMessages->create($ltpMessage);
-            $this->handleLtpMessage($ltpMessage);
-            $content =trans("models/{$this->resource}.ltpUpdate.success");
+            $this->handleLtpMessages($result['body']);
+            $content = trans("models/{$this->resource}.ltpUpdate.success");
             $code = 200;
         } elseif ($result['code'] === Response::HTTP_OK && empty($result['body'])) {
             $content = trans("models/{$this->resource}.ltpUpdate.empty");
@@ -150,8 +154,53 @@ class LtpTransfersController extends ResourceController
         ]);
     }
 
+    protected function handleLtpMessages(array $response)
+    {
+        foreach ($response as $message) {
+            $ltpMessage = LtpMessageTransformer::responseToLtpMessage($message);
+            $this->ltpMessages->create($ltpMessage);
+            $this->handleLtpMessage($ltpMessage);
+        }
+    }
+
     protected function handleLtpMessage(array $message)
     {
+        $xml = base64_decode($message['content']);
+        $documents = new SimpleXMLElement($xml);
 
+        foreach ($documents as $document) {
+            /** @var LtpTransfer $ltpTransfer */
+            $ltpTransfer = $this->repository->findWhere([
+                // todo: временная заглушка для тестирования
+                'document_number' => Str::after($document->DocumentNumber, 'Test-')
+            ]);
+            $ltpTransfer->update(['picking_date' => $document->PickingDate]);
+            $this->handleLtpDocumentItems(
+                $document->xpath('DocumentLine'),
+                $ltpTransfer->items
+            );
+        }
+
+    }
+
+    /**
+     * @param SimpleXMLElement[] $documentLines
+     * @param Collection $transferItems
+     */
+    protected function handleLtpDocumentItems($documentLines, Collection $transferItems)
+    {
+        foreach ($documentLines as $documentLine) {
+            $transferItems
+                ->filter(function (LtpTransferItem $transferItem) use ($documentLine) {
+                    return $transferItem->product_ean === $documentLine->ProductEan
+                        && $transferItem->original_quantity === $documentLine->OriginalQuantity;
+                })
+                ->map(function (LtpTransferItem $transferItem) use ($documentLine) {
+                    $transferItem->processed_quantity = $documentLine->ProcessedQuantity;
+                    $transferItem->product_group_id = $documentLine->ProductGroupId;
+                    $transferItem->unmodified_original_quantity = $documentLine->UnmodifiedOriginalQuantity;
+                    $transferItem->save();
+                });
+        }
     }
 }

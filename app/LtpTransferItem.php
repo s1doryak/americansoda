@@ -19,6 +19,9 @@ namespace App;
  * @property string $selling_unit
  * @property string $warehouse
  * @property string $net_weight_unit
+ * @property string $processed_quantity
+ * @property string $product_group_id
+ * @property string $unmodified_original_quantity
  * @property LtpTransfer $ltpTransfer
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -47,6 +50,9 @@ class LtpTransferItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'selling_unit',
         'warehouse',
         'net_weight_unit',
+        'processed_quantity',
+        'product_group_id',
+        'unmodified_original_quantity',
         'ltp_transfer_id'
     ];
 

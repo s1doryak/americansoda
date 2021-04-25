@@ -55,6 +55,7 @@ return [
         'success' => 'Ltp updated successfully!',
         'error' => 'Ltp updated unsuccessfully!',
         'empty' => 'Ltp returned empty answer!',
+        'readError' => 'Can not read answer from Ltp!',
     ],
     'fields' => [
         'document_type' => 'Document Type',

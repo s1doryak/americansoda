@@ -27,7 +27,8 @@
         "ramsey/uuid": "^3.8",
         "spatie/array-to-xml": "2.10.0",
         "tymon/jwt-auth": "^1.0",
-        "yajra/laravel-datatables": "^1.5"
+        "yajra/laravel-datatables": "^1.5",
+        "ext-simplexml": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
