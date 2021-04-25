@@ -203,7 +203,7 @@ class LtpTransfersController extends ResourceController
                 ->map(function (LtpTransferItem $transferItem) use ($documentLine) {
                     $transferItem->processed_quantity = (string)$documentLine->ProcessedQuantity;
                     $transferItem->product_group_id = (string)$documentLine->ProductGroupId;
-                    $transferItem->picked = ceil(($documentLine->ProcessedQuantity / $documentLine->OriginalQuantity) * 100);
+                    $transferItem->picked = floor(($documentLine->ProcessedQuantity / $documentLine->OriginalQuantity) * 100);
                     $transferItem->unmodified_original_quantity = (string)$documentLine->UnmodifiedOriginalQuantity;
                     $transferItem->save();
                 });

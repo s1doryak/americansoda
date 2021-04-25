@@ -169,7 +169,7 @@ class LtpTransferDataTable extends DataTable
         $items = $ltpTransfer->items;
         $original = $items->sum('original_quantity');
         $processed = $items->sum('processed_quantity');
-        $picked = ceil($processed / $original * 100);
+        $picked = floor($processed / $original * 100);
 
         if ($this->isDataTableRequest()) {
             return sprintf('%s&nbsp;%%', $picked);
