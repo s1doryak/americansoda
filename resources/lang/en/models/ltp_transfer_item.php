@@ -74,6 +74,7 @@ return [
         'delivery_class' => 'Delivery Class',
         'required_best_before' => 'Required Best Before',
         'process_instruction' => 'Process Instruction',
+        'picked' => 'Picked',
 
         'created_at' => 'Created',
         'updated_at' => 'Updated',

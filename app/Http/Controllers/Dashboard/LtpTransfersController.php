@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Jobs\SendToLTP;
 use App\LtpTransfer;
 use App\LtpTransferItem;
+use App\Repositories\Contracts\CustomerShipmentRepository;
 use App\Repositories\Contracts\LtpMessageRepository;
 use App\Repositories\Contracts\LtpTransferRepository;
 use App\Support\LtpHttpClient;
@@ -60,6 +61,7 @@ class LtpTransfersController extends ResourceController
      */
     protected $with = [
         'items',
+        'customerShipment'
     ];
 
     /**
@@ -170,17 +172,20 @@ class LtpTransfersController extends ResourceController
 
         foreach ($documents as $document) {
             /** @var LtpTransfer $ltpTransfer */
-            $ltpTransfer = $this->repository->findWhere([
+            $ltpTransfer = $this->repository->firstWhere([
                 // todo: временная заглушка для тестирования
-                'document_number' => Str::after($document->DocumentNumber, 'Test-')
+                'document_number' => Str::after($document->DocumentNumber, 'TEST-')
             ]);
-            $ltpTransfer->update(['picking_date' => $document->PickingDate]);
-            $this->handleLtpDocumentItems(
-                $document->xpath('DocumentLine'),
-                $ltpTransfer->items
-            );
-        }
 
+            if ($ltpTransfer) {
+                $ltpTransfer->update(['picking_date' => (string)$document->PickingDate]);
+                $this->handleLtpDocumentItems(
+                    $document->xpath('DocumentLine'),
+                    $ltpTransfer->items
+                );
+            }
+
+        }
     }
 
     /**
@@ -192,13 +197,14 @@ class LtpTransfersController extends ResourceController
         foreach ($documentLines as $documentLine) {
             $transferItems
                 ->filter(function (LtpTransferItem $transferItem) use ($documentLine) {
-                    return $transferItem->product_ean === $documentLine->ProductEan
-                        && $transferItem->original_quantity === $documentLine->OriginalQuantity;
+                    return $transferItem->product_ean === (string)$documentLine->ProductEan
+                        && $transferItem->original_quantity === (string)$documentLine->OriginalQuantity;
                 })
                 ->map(function (LtpTransferItem $transferItem) use ($documentLine) {
-                    $transferItem->processed_quantity = $documentLine->ProcessedQuantity;
-                    $transferItem->product_group_id = $documentLine->ProductGroupId;
-                    $transferItem->unmodified_original_quantity = $documentLine->UnmodifiedOriginalQuantity;
+                    $transferItem->processed_quantity = (string)$documentLine->ProcessedQuantity;
+                    $transferItem->product_group_id = (string)$documentLine->ProductGroupId;
+                    $transferItem->picked = ceil(($documentLine->ProcessedQuantity / $documentLine->OriginalQuantity) * 100);
+                    $transferItem->unmodified_original_quantity = (string)$documentLine->UnmodifiedOriginalQuantity;
                     $transferItem->save();
                 });
         }

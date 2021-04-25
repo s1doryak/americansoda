@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property string $document_type
@@ -36,12 +37,16 @@ use Carbon\Carbon;
  * @property string $edi_identifier
  * @property string $email
  * @property string $phone
+ * @property string $customer_shipment_id
+ * @property string $order_numbers
  * @property \Illuminate\Support\Collection|\App\LtpTransferItem[] $items
+ * @property \App\CustomerShipment $customerShipment
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\HasMany items()
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customerShipment()
  *
  * @package App
  */
@@ -78,7 +83,9 @@ class LtpTransfer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'edi_identifier',
         'email',
         'phone',
-        'picking_date'
+        'picking_date',
+        'customer_shipment_id',
+        'order_numbers',
     ];
 
     protected $casts = [
@@ -98,7 +105,7 @@ class LtpTransfer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     ];
 
     protected $belongsTo = [
-
+        'customerShipment' => \App\CustomerShipment::class,
     ];
 
     protected $belongsToMany = [

@@ -22,6 +22,8 @@ namespace App;
  * @property string $processed_quantity
  * @property string $product_group_id
  * @property string $unmodified_original_quantity
+ * @property integer $picked
+ * @property integer $customer_order_item_id
  * @property LtpTransfer $ltpTransfer
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -53,6 +55,8 @@ class LtpTransferItem extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'processed_quantity',
         'product_group_id',
         'unmodified_original_quantity',
+        'picked',
+        'customer_order_item_id',
         'ltp_transfer_id'
     ];
 

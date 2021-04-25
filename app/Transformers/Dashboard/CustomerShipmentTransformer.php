@@ -98,6 +98,7 @@ class CustomerShipmentTransformer implements TransformerContract
             'requested_delivery_date' => $customerShipment->delivery_date,
             'owner_reference' => $customerShipment->number,
             'invoicing_reference' => $customerShipment->order_batch_numbers,
+            'order_numbers' => $customerShipment->order_numbers,
             'document_party_type' => 'Delivery',
             'code' => $customer->ltp_number ?: $customer->nr,
             'name' => $customer->name,
@@ -108,6 +109,7 @@ class CustomerShipmentTransformer implements TransformerContract
             'country' => $customer->country,
             'phone' => $customer->phone,
             'email' => $customer->email,
+            'customer_shipment_id' => $customerShipment->getKey(),
         ];
     }
 }

@@ -27,7 +27,8 @@ class LtpTransferForm extends Form
             'warehouse' => 'text',
             'comment' => 'textarea',
             'owner_reference' => 'text',
-            'invoice_reference' => 'text',
+            'invoicing_reference' => 'text',
+            'customerShipment.number' => 'text',
             'seller_info' => 'text',
             'delivery_route' => 'text',
             'delivery_route_load' => 'text',
@@ -50,6 +51,23 @@ class LtpTransferForm extends Form
             'edi_identifier' => 'text',
             'email' => 'text',
             'phone' => 'text',
+            'items' => [
+                'type' => 'relation_form',
+                'fields' => LtpTransferItemForm::getCreateFormFields(),
+                'form_title' => trans('models/ltp_transfer_item.labels.plural'),
+                'items' => [],
+                'resource' => 'ltp_transfer_item',
+                'can_add' => false,
+                'can_edit' => function ($item = null) {
+                    return false;
+                },
+                'can_select' => function ($item = null) {
+                    return false;
+                },
+                'can_remove' => function ($item = null) {
+                    return false;
+                },
+            ]
         ];
     }
 
@@ -69,6 +87,11 @@ class LtpTransferForm extends Form
             'comment' => 'textarea',
             'owner_reference' => 'text',
             'invoicing_reference' => 'text',
+            'customerShipment.number' => [
+                'type' => 'static',
+                'template' => 'dashboard::resources.ltp_transfer.fields.customerShipment',
+                'customerShipmentContent' => $ltpTransfer->customerShipment ? $ltpTransfer->customerShipment->content :null
+            ],
             'seller_info' => 'text',
             'delivery_route' => 'text',
             'delivery_route_load' => 'text',
@@ -86,13 +109,14 @@ class LtpTransferForm extends Form
             'city' => 'text',
             'region' => 'text',
             'country' => 'text',
-            'information' => 'text',
+            'information' => 'textarea',
             'iln' => 'text',
             'edi_identifier' => 'text',
             'email' => 'text',
             'phone' => 'text',
             'items' => [
                 'type' => 'relation_form',
+                'template' => 'dashboard::resources/ltp_transfer.items.relation',
                 'fields' => LtpTransferItemForm::getCreateFormFields(),
                 'form_title' => trans('models/ltp_transfer_item.labels.plural'),
                 'items' => $ltpTransfer->items,
@@ -107,6 +131,7 @@ class LtpTransferForm extends Form
                 'can_remove' => function ($item = null) {
                     return false;
                 },
+                'actions' => false,
             ]
         ];
     }
@@ -154,6 +179,7 @@ class LtpTransferForm extends Form
             'edi_identifier' => 'sometimes',
             'email' => 'sometimes',
             'phone' => 'sometimes',
+            'items' => 'sometimes',
         ];
     }
 
@@ -201,6 +227,7 @@ class LtpTransferForm extends Form
             'edi_identifier' => 'sometimes',
             'email' => 'sometimes',
             'phone' => 'sometimes',
+            'items' => 'sometimes',
         ];
     }
 }

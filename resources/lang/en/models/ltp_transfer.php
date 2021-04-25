@@ -88,6 +88,10 @@ return [
         'edi_identifier' => 'Edi Identifier',
         'email' => 'Email',
         'phone' => 'Phone',
+        'order_numbers' => 'Orders',
+        'customerShipment'  => [
+            'number' => 'Customer Shipment'
+        ],
 
         'created_at' => 'Created',
         'updated_at' => 'Updated',
@@ -107,6 +111,10 @@ return [
         'picked'  => 'Picked',
         'departure'  => 'Departure',
         'warehouse'  => 'Warehouse',
+        'customerShipment'  => [
+            'number' => 'Customer Shipment'
+        ],
+        'order_numbers' => 'Orders',
 
         'created_at' => 'Created',
         'updated_at' => 'Updated',
