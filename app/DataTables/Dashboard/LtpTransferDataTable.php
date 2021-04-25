@@ -120,11 +120,13 @@ class LtpTransferDataTable extends DataTable
      */
     public function renderCustomerShipment__NumberColumn($ltpTransfer)
     {
+        $shipment = $ltpTransfer->customerShipment;
+
         if ($this->isDataTableRequest()) {
-            return optional($ltpTransfer->customerShipment)->number ?? $this->renderDefaultView();
+            return  $shipment ? $shipment->getContentAttribute() : $this->renderDefaultView();
         }
 
-        return optional($ltpTransfer->customerShipment)->number;
+        return $shipment ? $shipment->number : null;
     }
 
     /**
