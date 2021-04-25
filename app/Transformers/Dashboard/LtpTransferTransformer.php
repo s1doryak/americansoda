@@ -83,46 +83,48 @@ class LtpTransferTransformer implements TransformerContract
                 ->toDateTimeString();
         }
 
+        $documentParty = [
+            'DocumentPartyType' => $ltpTransfer->document_party_type,
+            'Code' => $ltpTransfer->code,
+            'Name' => $ltpTransfer->name,
+            'Address' => $ltpTransfer->address,
+            'Zip' => $ltpTransfer->zip,
+            'City' => $ltpTransfer->city,
+            'Region' => $ltpTransfer->region,
+            'Country' => $ltpTransfer->country,
+            'Information' => $ltpTransfer->information,
+            'ILN' => $ltpTransfer->iln,
+            'EdiIdentifier' => $ltpTransfer->edi_identifier,
+            'Email' => $ltpTransfer->email,
+            'Phone' => $ltpTransfer->phone,
+        ];
+        $document = [
+            'DocumentType' => $ltpTransfer->document_type,
+            'DocumentNumber' => "TEST-{$ltpTransfer->document_number}",  #todo: тестовая заглушка
+            'RequestedDeliveryDate' => $ltpTransfer->requested_delivery_date->format('Y-m-d'),
+            'RequestedDeliveryTimestamp' => $deliveryTimestamp,
+            'DocumentDate' => $ltpTransfer->document_date,
+            'Warehouse' => $ltpTransfer->warehouse,
+            'Comment' => $ltpTransfer->comment,
+            'OwnerReference' => $ltpTransfer->owner_reference,
+            'InvoicingReference' => $ltpTransfer->invoicing_reference,
+            'SellerInfo' => $ltpTransfer->seller_info,
+            'DeliveryRoute' => $ltpTransfer->delivery_route,
+            'DeliveryRouteLoad' => $ltpTransfer->delivery_route_load,
+            'DeliveryDrop' => $ltpTransfer->delivery_drop,
+            'DeliveryClass' => $ltpTransfer->delivery_class,
+            'DeliveryTerminalInfo' => $ltpTransfer->delivery_terminal_info,
+            'Weight' => $ltpTransfer->weight,
+            'Volume' => $ltpTransfer->volume,
+            'DocumentParty' => array_filter($documentParty),
+        ];
         $xmlData = [
-            'Document' => [
-                'DocumentType' => $ltpTransfer->document_type,
-                'DocumentNumber' => "TEST-{$ltpTransfer->document_number}",  #todo: тестовая заглушка
-                'RequestedDeliveryDate' => $ltpTransfer->requested_delivery_date,
-                'RequestedDeliveryTimestamp' => $deliveryTimestamp,
-                'DocumentDate' => $ltpTransfer->document_date,
-                'Warehouse' => $ltpTransfer->warehouse,
-                'Comment' => $ltpTransfer->comment,
-                'OwnerReference' => $ltpTransfer->owner_reference,
-                'InvoicingReference' => $ltpTransfer->invoicing_reference,
-                'SellerInfo' => $ltpTransfer->seller_info,
-                'DeliveryRoute' => $ltpTransfer->delivery_route,
-                'DeliveryRouteLoad' => $ltpTransfer->delivery_route_load,
-                'DeliveryDrop' => $ltpTransfer->delivery_drop,
-                'DeliveryClass' => $ltpTransfer->delivery_class,
-                'DeliveryTerminalInfo' => $ltpTransfer->delivery_terminal_info,
-                'Weight' => $ltpTransfer->weight,
-                'Volume' => $ltpTransfer->volume,
-                'DocumentParty' => [
-                    'DocumentPartyType' => $ltpTransfer->document_party_type,
-                    'Code' => $ltpTransfer->code,
-                    'Name' => $ltpTransfer->name,
-                    'Address' => $ltpTransfer->address,
-                    'Zip' => $ltpTransfer->zip,
-                    'City' => $ltpTransfer->city,
-                    'Region' => $ltpTransfer->region,
-                    'Country' => $ltpTransfer->country,
-                    'Information' => $ltpTransfer->information,
-                    'ILN' => $ltpTransfer->iln,
-                    'Edi_identifier' => $ltpTransfer->edi_identifier,
-                    'Email' => $ltpTransfer->email,
-                    'Phone' => $ltpTransfer->phone,
-                ],
-            ],
+            'Document' => array_filter($document)
         ];
 
         /** @var LtpTransferItem $item */
         foreach ($ltpTransfer->items as $item) {
-            $xmlData['Document']['DocumentLine'][] = [
+            $documentLine = [
                 'ProductCode' => $item->product_code,
                 'ProductEan' => $item->product_ean,
                 'ProductPackageEan' => $item->product_package_ean,
@@ -137,6 +139,7 @@ class LtpTransferTransformer implements TransformerContract
                 'Warehouse' => $item->warehouse,
                 'NetWeightUnit' => $item->net_weight_unit,
             ];
+            $xmlData['Document']['DocumentLine'][] = array_filter($documentLine);
         }
 
         return $xmlData;

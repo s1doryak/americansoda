@@ -58,6 +58,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Zendesk\LoadOrganizations::class,
         \App\Console\Commands\Zendesk\CreateOrganization::class,
         \App\Console\Commands\Zendesk\ShowOrganizations::class,
+\App\Console\Commands\Resources\LtpMessageCreator::class,
 	];
 
 	/**

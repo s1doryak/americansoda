@@ -21,13 +21,15 @@ class LtpTransferDataTable extends DataTable
     {
         return [
             'requested_delivery_date',
+            'customerShipment.number' => [
+                'data' => 'customerShipment.number'
+            ],
             'document_number',
             'name',
-            'invoicing_reference',
+            'order_numbers',
             'document_date',
             'picking_date',
             'picked',
-            'departure',
             'warehouse'
         ];
     }
@@ -38,14 +40,14 @@ class LtpTransferDataTable extends DataTable
     protected function getRawColumns()
     {
         return [
+            'customerShipment.number',
             'requested_delivery_date',
             'document_number',
             'name',
-            'invoicing_reference',
+            'order_numbers',
             'document_date',
             'picking_date',
             'picked',
-            'departure',
             'warehouse',
             'action'
         ];
@@ -94,7 +96,35 @@ class LtpTransferDataTable extends DataTable
      */
     protected function getButtons()
     {
-        return parent::getButtons();
+        return array_merge(parent::getButtons(), [
+            [
+                'extend' => 'action',
+                'className' => 'btn-icon-text btn-primary',
+                'text' => $this->renderIconView(trans(sprintf('models/%s.ltpUpdate.title', $this->resource)), 'refresh-sync', 'c-white'),
+                'attr' => [
+                    'data-role' => 'action',
+                    'data-action' => 'ltpUpdate',
+                    'data-resource' => $this->resource,
+                    'data-url' => route("{$this->prefix}.{$this->resource}.ltpUpdate"),
+                    'data-method' => 'GET',
+                    'data-token' => csrf_token(),
+                    'data-progress-icon-class' => 'zmdi-spinner zmdi-hc-spin',
+                ]
+            ]
+        ]);
+    }
+
+    /**
+     * @param LtpTransfer $ltpTransfer
+     * @return string
+     */
+    public function renderCustomerShipment__NumberColumn($ltpTransfer)
+    {
+        if ($this->isDataTableRequest()) {
+            return optional($ltpTransfer->customerShipment)->number ?? $this->renderDefaultView();
+        }
+
+        return optional($ltpTransfer->customerShipment)->number;
     }
 
     /**
@@ -134,13 +164,16 @@ class LtpTransferDataTable extends DataTable
      */
     public function renderPickedColumn($ltpTransfer)
     {
-        if ($this->isDataTableRequest()) {
-            $picked = 0;
+        $items = $ltpTransfer->items;
+        $original = $items->sum('original_quantity');
+        $processed = $items->sum('processed_quantity');
+        $picked = ceil($processed / $original * 100);
 
+        if ($this->isDataTableRequest()) {
             return sprintf('%s&nbsp;%%', $picked);
         }
 
-        return 0;
+        return $picked;
     }
 
     /**
@@ -173,34 +206,19 @@ class LtpTransferDataTable extends DataTable
      * @param LtpTransfer $ltpTransfer
      * @return mixed|string
      */
-    public function renderDepartureColumn($ltpTransfer)
+    public function renderOrderNumbersColumn($ltpTransfer)
     {
         if ($this->isDataTableRequest()) {
-            #todo: Предположительно это поле после ответа
-            return $this->renderDefaultView();
+            return $ltpTransfer->order_numbers ?: $this->renderDefaultView();
         }
 
-        return null;
-    }
-
-    /**
-     * @param LtpTransfer $ltpTransfer
-     * @return mixed|string
-     */
-    public function renderinvoicingReferenceColumn($ltpTransfer)
-    {
-        if ($this->isDataTableRequest()) {
-            #todo: Не уверен что именно эта колонка нужна
-            return $ltpTransfer->invoicing_reference ?: $this->renderDefaultView();
-        }
-
-        return $ltpTransfer->invoicing_reference;
+        return $ltpTransfer->order_numbers;
     }
 
     protected function getSendToLtpAction(LtpTransfer $ltpTransfer)
     {
         return $this->renderActionView([
-            'send' => [
+            'sendToLtp' => [
                 'target' => '_blank',
                 'url' => route(sprintf('%s.%s.sendToLtp', $this->prefix, $this->resource), $ltpTransfer->getKey()),
                 'method' => 'post',

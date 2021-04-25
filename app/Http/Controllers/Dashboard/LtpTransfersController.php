@@ -5,14 +5,22 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Jobs\SendToLTP;
 use App\LtpTransfer;
+use App\LtpTransferItem;
+use App\Repositories\Contracts\CustomerShipmentRepository;
+use App\Repositories\Contracts\LtpMessageRepository;
 use App\Repositories\Contracts\LtpTransferRepository;
 use App\Support\LtpHttpClient;
+use App\Transformers\Dashboard\LtpMessageTransformer;
 use App\Transformers\Dashboard\LtpTransferTransformer;
-use Carbon\Carbon;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Routing\ResourceController;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use SimpleXMLElement;
 use Spatie\ArrayToXml\ArrayToXml;
+use XMLReader;
 
 /**
  * LtpTransfer controller.
@@ -31,6 +39,11 @@ class LtpTransfersController extends ResourceController
     /**
      * @var string
      */
+    protected $defaultMiddleware = 'auth:dashboard';
+
+    /**
+     * @var string
+     */
     protected $prefix = 'dashboard';
 
     /**
@@ -39,10 +52,16 @@ class LtpTransfersController extends ResourceController
     protected $resource = 'ltp_transfer';
 
     /**
+     * @var string
+     */
+    protected $translationPrefix = 'models/';
+
+    /**
      * @var array
      */
     protected $with = [
         'items',
+        'customerShipment'
     ];
 
     /**
@@ -65,15 +84,22 @@ class LtpTransfersController extends ResourceController
      */
     protected $ltpHttpClient;
 
+    /**
+     * @var LtpMessageRepository
+     */
+    protected $ltpMessages;
+
     public function __construct(
         Gate $gate,
         LtpTransferRepository $ltpTransferRepository,
-        LtpHttpClient $ltpHttpClient
+        LtpHttpClient $ltpHttpClient,
+        LtpMessageRepository $ltpMessages
     )
     {
         $this->gate = $gate;
         $this->repository = $ltpTransferRepository;
         $this->ltpHttpClient = $ltpHttpClient;
+        $this->ltpMessages = $ltpMessages;
 
         $this->middleware('auth:dashboard');
         $this->shareSidebar();
@@ -84,12 +110,39 @@ class LtpTransfersController extends ResourceController
     {
         $result = SendToLTP::dispatchNow($this->getResourceId());
 
-        return response($result ?: 'Error');
+        if ($result) {
+            $code = Response::HTTP_OK;
+            $content = $result;
+        } else {
+            $code = Response::HTTP_FORBIDDEN;
+            $content = 'Error';
+        }
+
+        return response()->json([
+            'message' => $content
+        ], $code);
     }
 
-    public function updateStatuses(Request $request)
+    public function ltpUpdate(Request $request)
     {
-        #todo: here will be request to LTP, download xml and parse it to new data
+        $result = $this->ltpHttpClient->checkDocuments();
+
+        if ($result['code'] === Response::HTTP_OK && !empty($result['body'])) {
+            $this->handleLtpMessages($result['body']);
+            $content = trans("models/{$this->resource}.ltpUpdate.success");
+            $code = 200;
+        } elseif ($result['code'] === Response::HTTP_OK && empty($result['body'])) {
+            $content = trans("models/{$this->resource}.ltpUpdate.empty");
+            $code = 204;
+        } else {
+            $content = trans("models/{$this->resource}.ltpUpdate.error");
+            $code = 500;
+        }
+
+        return response()->json([
+            'message' => $content,
+            'code' => $code
+        ]);
     }
 
     public function xml(Request $request)
@@ -101,5 +154,59 @@ class LtpTransfersController extends ResourceController
         return response($xml, 200, [
             'Content-Type' => 'text/xml; charset=UTF8'
         ]);
+    }
+
+    protected function handleLtpMessages(array $response)
+    {
+        foreach ($response as $message) {
+            $ltpMessage = LtpMessageTransformer::responseToLtpMessage($message);
+            $this->ltpMessages->create($ltpMessage);
+            $this->handleLtpMessage($ltpMessage);
+        }
+    }
+
+    protected function handleLtpMessage(array $message)
+    {
+        $xml = base64_decode($message['content']);
+        $documents = new SimpleXMLElement($xml);
+
+        foreach ($documents as $document) {
+            /** @var LtpTransfer $ltpTransfer */
+            $ltpTransfer = $this->repository->firstWhere([
+                // todo: временная заглушка для тестирования
+                'document_number' => Str::after($document->DocumentNumber, 'TEST-')
+            ]);
+
+            if ($ltpTransfer) {
+                $ltpTransfer->update(['picking_date' => (string)$document->PickingDate]);
+                $this->handleLtpDocumentItems(
+                    $document->xpath('DocumentLine'),
+                    $ltpTransfer->items
+                );
+            }
+
+        }
+    }
+
+    /**
+     * @param SimpleXMLElement[] $documentLines
+     * @param Collection $transferItems
+     */
+    protected function handleLtpDocumentItems($documentLines, Collection $transferItems)
+    {
+        foreach ($documentLines as $documentLine) {
+            $transferItems
+                ->filter(function (LtpTransferItem $transferItem) use ($documentLine) {
+                    return $transferItem->product_ean === (string)$documentLine->ProductEan
+                        && $transferItem->original_quantity === (string)$documentLine->OriginalQuantity;
+                })
+                ->map(function (LtpTransferItem $transferItem) use ($documentLine) {
+                    $transferItem->processed_quantity = (string)$documentLine->ProcessedQuantity;
+                    $transferItem->product_group_id = (string)$documentLine->ProductGroupId;
+                    $transferItem->picked = ceil(($documentLine->ProcessedQuantity / $documentLine->OriginalQuantity) * 100);
+                    $transferItem->unmodified_original_quantity = (string)$documentLine->UnmodifiedOriginalQuantity;
+                    $transferItem->save();
+                });
+        }
     }
 }

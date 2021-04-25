@@ -54,6 +54,7 @@ class AuthServiceProvider extends ServiceProvider
 \App\Setting::class => \App\Policies\SettingPolicy::class,
 \App\AuthLog::class => \App\Policies\AuthLogPolicy::class,
 \App\CustomerUserSubscribe::class => \App\Policies\CustomerUserSubscribePolicy::class,
+\App\LtpMessage::class => \App\Policies\LtpMessagePolicy::class,
 
 
 
