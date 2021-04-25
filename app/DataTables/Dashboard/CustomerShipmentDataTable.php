@@ -12,7 +12,7 @@ use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
  */
 class CustomerShipmentDataTable extends DataTable
 {
-    protected $responsive = true;
+    protected $responsive = false;
 
     /**
      * @return array
