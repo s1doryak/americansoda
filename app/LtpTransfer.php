@@ -52,6 +52,7 @@ class LtpTransfer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'document_number',
         'requested_delivery_date',
         'requested_delivery_timestamp',
+        'document_date',
         'warehouse',
         'comment',
         'owner_reference',

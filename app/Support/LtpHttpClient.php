@@ -20,11 +20,12 @@ class LtpHttpClient extends HttpClient
 
     public function sendDocuments(string $xml, string $documentName)
     {
+        $path = sprintf('%s?%s', 'api/integration', $this->getSendDocumentsQuery($documentName));
         $headers = [
             'Content-Type' => 'text/xml; charset=UTF8'
         ];
 
-        return $this->apiCall('post', $this->getSendDocumentsQuery($documentName), [
+        return $this->apiCall('post', $path, [
             'body' => $xml
         ], $headers);
     }
@@ -35,7 +36,9 @@ class LtpHttpClient extends HttpClient
             'Accept' => 'application/json, text/json'
         ];
 
-        return $this->apiCall('get', $this->getCheckDocumentsQuery(), [], $headers);
+        return $this->apiCall('get', 'api/integration', [
+            'targetidentifier' => $this->config['private_key'],
+        ], $headers);
     }
 
     protected function getSendDocumentsQuery(string $documentName)
@@ -47,24 +50,17 @@ class LtpHttpClient extends HttpClient
         ]);
     }
 
-    protected function getCheckDocumentsQuery()
-    {
-        return Arr::query([
-            'targetidentifier' => $this->config['public_key'],
-        ]);
-    }
-
-    protected function apiCall($type, $params, $data = [], $headers = [])
+    protected function apiCall($type, $path, $data = [], $headers = [])
     {
         $type = "send{$type}";
-        $url = sprintf('%s?%s', $this->config['base'], $params);
+        $url = $this->config['base'] . $path;
 
         try {
             /** @var ResponseInterface $response */
             $response = $this->$type($url, $data, $headers);
 
             return [
-                'code'=> $response->getStatusCode(),
+                'code' => $response->getStatusCode(),
                 'body' => $this->parseJsonResponse($response)
             ];
         } catch (RequestException $e) {

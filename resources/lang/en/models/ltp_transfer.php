@@ -50,6 +50,12 @@ return [
     'xml' => [
         'title' => 'Show XML',
     ],
+    'ltpUpdate' => [
+        'title' => 'Ltp update',
+        'success' => 'Ltp updated successfully!',
+        'error' => 'Ltp updated unsuccessfully!',
+        'empty' => 'Ltp returned empty answer!',
+    ],
     'fields' => [
         'document_type' => 'Document Type',
         'document_number' => 'Document Number',

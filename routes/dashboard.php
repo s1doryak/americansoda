@@ -151,6 +151,11 @@ Route::group(['middleware' => 'web'], function () {
             }
 
             if ($resource == 'ltp_transfer') {
+                Route::get("ltp_transfer/ltp_api/update", [
+                    'as' => "dashboard.{$resource}.ltpUpdate",
+                    'uses' => "{$controller}@ltpUpdate"
+                ]);
+
                 Route::post("ltp_transfer/{ltp_transfer}/send_to_ltp", [
                     'as' => "dashboard.{$resource}.sendToLtp",
                     'uses' => "{$controller}@sendToLtp"

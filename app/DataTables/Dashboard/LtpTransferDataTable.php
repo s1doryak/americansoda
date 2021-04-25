@@ -94,7 +94,22 @@ class LtpTransferDataTable extends DataTable
      */
     protected function getButtons()
     {
-        return parent::getButtons();
+        return array_merge(parent::getButtons(), [
+            [
+                'extend' => 'action',
+                'className' => 'btn-icon-text btn-primary',
+                'text' => $this->renderIconView(trans(sprintf('models/%s.ltpUpdate.title', $this->resource)), 'refresh-sync', 'c-white'),
+                'attr' => [
+                    'data-role' => 'action',
+                    'data-action' => 'ltpUpdate',
+                    'data-resource' => $this->resource,
+                    'data-url' => route("{$this->prefix}.{$this->resource}.ltpUpdate"),
+                    'data-method' => 'GET',
+                    'data-token' => csrf_token(),
+                    'data-progress-icon-class' => 'zmdi-spinner zmdi-hc-spin',
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -200,7 +215,7 @@ class LtpTransferDataTable extends DataTable
     protected function getSendToLtpAction(LtpTransfer $ltpTransfer)
     {
         return $this->renderActionView([
-            'send' => [
+            'sendToLtp' => [
                 'target' => '_blank',
                 'url' => route(sprintf('%s.%s.sendToLtp', $this->prefix, $this->resource), $ltpTransfer->getKey()),
                 'method' => 'post',
