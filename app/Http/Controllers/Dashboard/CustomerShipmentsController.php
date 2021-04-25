@@ -300,7 +300,7 @@ class CustomerShipmentsController extends ResourceController
         return redirect(route("{$this->getPrefix()}.customer_invoice.edit", $customerInvoice->getKey()));
     }
 
-    public function toLtp(Request $request)
+    public function toLtpTransfer(Request $request)
     {
         /** @var CustomerShipment $shipment */
         $shipment = $this->repository->with(['customer'])->find($this->getResourceId());

@@ -177,7 +177,7 @@ class CustomerShipmentPolicy implements DatatablePolicyContract
      * @param CustomerShipment $customerShipment
      * @return boolean
      */
-    public function sendToLtp(Authenticatable $authenticatable, CustomerShipment $customerShipment)
+    public function toLtpTransfer(Authenticatable $authenticatable, CustomerShipment $customerShipment)
     {
         return true;
     }
