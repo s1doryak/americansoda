@@ -23,6 +23,7 @@ use Illuminate\Support\Arr;
  * @property \App\PackageType $packageType
  * @property \App\Customer $customer
  * @property \App\CustomerInvoice $customerInvoice
+ * @property \App\LtpTransfer $ltpTransfer
  * @property \Illuminate\Support\Collection|\App\CustomerOrderItem[] $customerOrderItems
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -32,6 +33,7 @@ use Illuminate\Support\Arr;
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo customer()
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo user()
  * @method \Illuminate\Database\Eloquent\Relations\HasOne customerInvoice()
+ * @method \Illuminate\Database\Eloquent\Relations\HasOne ltpTransfer()
  * @method \Illuminate\Database\Eloquent\Relations\HasMany customerOrderItems()
  *
  * @package App
@@ -81,6 +83,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
 
     protected $hasOne = [
         'customerInvoice' => \App\CustomerInvoice::class,
+        'ltpTransfer' => \App\LtpTransfer::class,
     ];
 
     protected $hasMany = [

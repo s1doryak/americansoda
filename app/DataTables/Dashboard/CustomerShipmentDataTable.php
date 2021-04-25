@@ -131,16 +131,6 @@ class CustomerShipmentDataTable extends DataTable
         $defaults = $this->getDefaultActions($customerShipment);
 
         $actions = [
-            'sendToLtp' => [
-                'resource' => 'ltp_transfer',
-                'url' => route(
-                    sprintf('%s.%s.toLtp', $this->prefix, $this->resource),
-                    $customerShipment->getKey()
-                ),
-                'target' => '_blank',
-                'icon' => 'truck',
-                'title' => trans(sprintf('models/%s.toLtp.title', $this->resource)),
-            ],
             'invoice' => [
                 'url' => route(
                     sprintf('%s.%s.invoice', $this->prefix, $this->resource),
@@ -172,6 +162,22 @@ class CustomerShipmentDataTable extends DataTable
                 'title' => trans(sprintf('models/%s.waybill.title', $this->resource)),
             ],
         ];
+
+        if (!$customerShipment->ltpTransfer) {
+            $sendToLtp = [
+                'toLtpTransfer' => [
+                    'resource' => 'ltp_transfer',
+                    'url' => route(
+                        sprintf('%s.%s.toLtpTransfer', $this->prefix, $this->resource),
+                        $customerShipment->getKey()
+                    ),
+                    'target' => '_blank',
+                    'icon' => 'truck',
+                    'title' => trans(sprintf('models/%s.toLtpTransfer.title', $this->resource)),
+                ]
+            ];
+            $actions = $sendToLtp + $actions;
+        }
 
         return array_merge($actions, $defaults);
     }

@@ -143,9 +143,9 @@ Route::group(['middleware' => 'web'], function () {
                     'uses' => "{$controller}@invoice"
                 ]);
 
-                Route::get("customer_shipment/{customer_shipment}/to_ltp", [
-                    'as' => "dashboard.{$resource}.toLtp",
-                    'uses' => "{$controller}@toLtp"
+                Route::get("customer_shipment/{customer_shipment}/to_ltp_transfer", [
+                    'as' => "dashboard.{$resource}.toLtpTransfer",
+                    'uses' => "{$controller}@toLtpTransfer"
                 ]);
 
             }

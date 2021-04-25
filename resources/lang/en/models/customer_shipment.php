@@ -53,7 +53,7 @@ return [
     'invoice' => [
         'title' => 'Create Invoice',
     ],
-    'toLtp' => [
+    'toLtpTransfer' => [
         'title' => 'Conver to LTP',
     ],
     'fields' => [
