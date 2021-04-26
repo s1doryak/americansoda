@@ -128,6 +128,11 @@ abstract class HttpClient
             return;
         }
 
+        if (Arr::has($data, 'raw')) {
+            $this->options['body'] = $data['raw'];
+            return;
+        }
+
         $this->options['form_params'] = $data;
     }
 

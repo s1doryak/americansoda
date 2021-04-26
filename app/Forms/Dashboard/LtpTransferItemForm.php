@@ -12,7 +12,10 @@ class LtpTransferItemForm
     public static function getCreateFormFields()
     {
         return [
-            'product_code' => 'text',
+            'product_code' => [
+                'type' => 'text',
+                'template' => 'dashboard::resources.ltp_transfer_item.fields.product_code'
+            ],
             'product_name' => 'text',
             'product_ean' => 'text',
             'original_quantity' => 'text',

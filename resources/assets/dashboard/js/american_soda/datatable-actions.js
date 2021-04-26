@@ -179,7 +179,9 @@ jQuery(document).ready(function ($) {
             iconClass = $this.data('icon-class'),
             colorClass = $this.data('color-class'),
             progressIconClass = $this.data('progress-icon-class'),
-            progressColorClass = $this.data('progress-color-class');
+            progressColorClass = $this.data('progress-color-class'),
+            $table = $('#' + $this.attr('aria-controls')),
+            dt = $table.DataTable();
 
         $.ajax({
             url: $this.data('url'),
@@ -191,7 +193,6 @@ jQuery(document).ready(function ($) {
             cache: false,
             async: true
         }).complete(function (response) {
-
             $this.attr('disabled', false);
             $icon.addClass(iconClass)
                 .addClass(colorClass)
@@ -210,6 +211,7 @@ jQuery(document).ready(function ($) {
                     break;
             }
 
+            dt.draw(false);
         });
 
         e.preventDefault();

@@ -80,6 +80,12 @@
                 @endif
 
                 {!! $field->render(['attr' => ['style' => sprintf('background-color: %s; border: none;', $color)]], false, true, false) !!}
+
+                @if($name == 'product_code'
+                    && $item->updated_at->diffInMinutes(now()) <= 60)
+                        <div class="badge-circle s-small bgm-green" data-toggle="tooltip" data-placement="right"
+                             title="{{ trans('material-admin::datatables.badges.recently_updated') }}"></div>
+                @endif
             </div>
         </td>
     @endforeach

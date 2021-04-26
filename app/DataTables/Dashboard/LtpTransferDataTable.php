@@ -24,13 +24,17 @@ class LtpTransferDataTable extends DataTable
             'customerShipment.number' => [
                 'data' => 'customerShipment.number'
             ],
-            'document_number',
-            'name',
+            'document_number' => [
+                'data' => 'document_number',
+                'template' => 'dashboard::resources.ltp_transfer.columns.document_number'
+            ],
+            'customer',
             'order_numbers',
             'document_date',
             'picking_date',
             'picked',
-            'warehouse'
+            'warehouse',
+            'updated_at',
         ];
     }
 
@@ -43,12 +47,13 @@ class LtpTransferDataTable extends DataTable
             'customerShipment.number',
             'requested_delivery_date',
             'document_number',
-            'name',
+            'customer',
             'order_numbers',
             'document_date',
             'picking_date',
             'picked',
             'warehouse',
+            'updated_at',
             'action'
         ];
     }
@@ -123,7 +128,7 @@ class LtpTransferDataTable extends DataTable
         $shipment = $ltpTransfer->customerShipment;
 
         if ($this->isDataTableRequest()) {
-            return  $shipment ? $shipment->getContentAttribute() : $this->renderDefaultView();
+            return $shipment ? $shipment->getContentAttribute() : $this->renderDefaultView();
         }
 
         return $shipment ? $shipment->number : null;
@@ -202,6 +207,19 @@ class LtpTransferDataTable extends DataTable
         }
 
         return $ltpTransfer->warehouse ?: 'KT Katriinantie';
+    }
+
+    /**
+     * @param LtpTransfer $ltpTransfer
+     * @return mixed|string
+     */
+    public function renderCustomerColumn($ltpTransfer)
+    {
+        if ($this->isDataTableRequest()) {
+            return $ltpTransfer->name;
+        }
+
+        return $ltpTransfer->name;
     }
 
     /**

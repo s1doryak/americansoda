@@ -132,6 +132,14 @@ class LtpTransferForm extends Form
                     return false;
                 },
                 'actions' => false,
+                'options' => [
+                    'recentlyUpdated' => $ltpTransfer->items
+                        ->map(function (LtpTransferItem $transferItem) {
+                            return [
+                                $transferItem->product_code => $transferItem->updated_at->diffInMinutes(now()) <= 60
+                            ];
+                        })
+                ]
             ]
         ];
     }
