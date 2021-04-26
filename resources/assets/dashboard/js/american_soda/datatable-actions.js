@@ -226,7 +226,8 @@ jQuery(document).ready(function ($) {
             progressIconClass = $this.data('progress-icon-class'),
             progressColorClass = $this.data('progress-color-class'),
             $row = $this.closest('tr'),
-            $table = $this.closest('table');
+            $table = $this.closest('table'),
+            dt = $table.DataTable();
 
         $this.attr('disabled', true);
         $icon.removeClass(iconClass)
@@ -262,7 +263,7 @@ jQuery(document).ready(function ($) {
                     notify(response.responseJSON.message, 'danger');
                     break;
             }
-
+            dt.draw(false);
         });
 
         e.preventDefault();
