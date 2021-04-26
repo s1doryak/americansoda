@@ -141,7 +141,7 @@ class CustomerTransformer implements TransformerContract
             'delivery_payer' => $customer->delivery_payer,
             'payment_conditions' => $customer->payment_conditions,
             'pays_vat' => (boolean)$customer->pays_vat,
-            'ltp_number' => (boolean)$customer->ltp_number,
+            'ltp_number' => $customer->ltp_number,
             'stock' => $customer->stock ? StockTransformer::toArray($customer->stock) : null,
             'customerType' => $customer->customerType ? CustomerTypeTransformer::toArray($customer->customerType) : null,
             'paymentType' => $customer->paymentType ? PaymentTypeTransformer::toArray($customer->paymentType) : null,

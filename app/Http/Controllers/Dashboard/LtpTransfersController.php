@@ -6,7 +6,6 @@ use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Jobs\SendToLTP;
 use App\LtpTransfer;
 use App\LtpTransferItem;
-use App\Repositories\Contracts\CustomerShipmentRepository;
 use App\Repositories\Contracts\LtpMessageRepository;
 use App\Repositories\Contracts\LtpTransferRepository;
 use App\Support\LtpHttpClient;
@@ -20,7 +19,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use SimpleXMLElement;
 use Spatie\ArrayToXml\ArrayToXml;
-use XMLReader;
 
 /**
  * LtpTransfer controller.
@@ -179,12 +177,12 @@ class LtpTransfersController extends ResourceController
 
             if ($ltpTransfer) {
                 $ltpTransfer->update(['picking_date' => (string)$document->PickingDate]);
+                $ltpTransfer->touch();
                 $this->handleLtpDocumentItems(
                     $document->xpath('DocumentLine'),
                     $ltpTransfer->items
                 );
             }
-
         }
     }
 
@@ -205,6 +203,7 @@ class LtpTransfersController extends ResourceController
                     $transferItem->product_group_id = (string)$documentLine->ProductGroupId;
                     $transferItem->picked = floor(($documentLine->ProcessedQuantity / $documentLine->OriginalQuantity) * 100);
                     $transferItem->unmodified_original_quantity = (string)$documentLine->UnmodifiedOriginalQuantity;
+                    $transferItem->updated_at = now();
                     $transferItem->save();
                 });
         }

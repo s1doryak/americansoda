@@ -22,11 +22,11 @@ class LtpHttpClient extends HttpClient
     {
         $path = sprintf('%s?%s', 'api/integration', $this->getSendDocumentsQuery($documentName));
         $headers = [
-            'Content-Type' => 'text/xml; charset=UTF8'
+            'Content-Type' => 'application/xml'
         ];
 
         return $this->apiCall('post', $path, [
-            'body' => $xml
+            'raw' => $xml
         ], $headers);
     }
 
