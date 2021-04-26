@@ -6,7 +6,7 @@
             @if ($showLabel && $options['label'] !== false)
                 {!! Form::label($name, $options['label'], $options['label_attr']) !!}
             @endif
-            {{ $options['value'] }}
+            {{ Form::input($type, $name, $options['value'], $options['attr']) }}
 
             @include('laravel-form-builder::help_block')
             @include('laravel-form-builder::errors')

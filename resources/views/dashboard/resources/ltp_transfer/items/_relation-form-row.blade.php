@@ -1,12 +1,12 @@
 @php
     if (is_null($item->picked)) {
-        $color = 'none'; //
+        $color = 'none';
     } elseif ($item->picked === 0) {
-        $color = '#f44336';
+        $color = 'rgb(244, 67, 54, 0.5)'; // #f44336;
     } elseif ($item->picked === 100) {
-        $color = '#4caf50';
+        $color = 'rgb(76, 175, 80, 0.5)'; // #4caf50
     } else {
-        $color = '#ffeb3b';
+        $color = 'rgb(255, 235, 59, 0.5)'; // #ffeb3b
     }
 @endphp
 @php($is_template = $is_template ?? false)
@@ -79,7 +79,7 @@
                     @php($field->setValue($value))
                 @endif
 
-                {!! $field->render(['attr' => ['style' => sprintf('background-color: %s; border: none;', $color)]], false, true, false) !!}
+                {!! $field->render(['attr' => ['style' => 'background: transparent; border: none;']], false, true, false) !!}
 
                 @if($name == 'product_code'
                     && $item->updated_at->diffInMinutes(now()) <= 60)
