@@ -75,6 +75,9 @@ class LtpTransferTransformer implements TransformerContract
     public static function toLtpXml(LtpTransfer $ltpTransfer)
     {
         $deliveryTimestamp = null;
+        $documentNumber = config('app.env') === 'production'
+            ? $ltpTransfer->document_number
+            : "TEST-{$ltpTransfer->document_number}";
 
         if ($ltpTransfer->requested_delivery_timestamp && $time = explode(':', $ltpTransfer->requested_delivery_timestamp)) {
             $deliveryTimestamp = $ltpTransfer->requested_delivery_date
@@ -100,7 +103,7 @@ class LtpTransferTransformer implements TransformerContract
         ];
         $document = [
             'DocumentType' => $ltpTransfer->document_type,
-            'DocumentNumber' => "TEST-{$ltpTransfer->document_number}",  #todo: тестовая заглушка
+            'DocumentNumber' => $documentNumber,
             'RequestedDeliveryDate' => $ltpTransfer->requested_delivery_date->format('Y-m-d'),
             'RequestedDeliveryTimestamp' => $deliveryTimestamp,
             'DocumentDate' => $ltpTransfer->document_date,

@@ -131,6 +131,17 @@ class CustomerShipmentDataTable extends DataTable
         $defaults = $this->getDefaultActions($customerShipment);
 
         $actions = [
+            'toLtpTransfer' => [
+                'resource' => 'ltp_transfer',
+                'url' => route(
+                    sprintf('%s.%s.toLtpTransfer', $this->prefix, $this->resource),
+                    $customerShipment->getKey()
+                ),
+                'target' => '_blank',
+                'icon' => 'truck',
+                'color' => $customerShipment->ltpTransfer ? 'primary' : 'green',
+                'title' => trans(sprintf('models/%s.toLtpTransfer.title', $this->resource)),
+            ],
             'invoice' => [
                 'url' => route(
                     sprintf('%s.%s.invoice', $this->prefix, $this->resource),
@@ -165,16 +176,7 @@ class CustomerShipmentDataTable extends DataTable
 
         if (!$customerShipment->ltpTransfer) {
             $sendToLtp = [
-                'toLtpTransfer' => [
-                    'resource' => 'ltp_transfer',
-                    'url' => route(
-                        sprintf('%s.%s.toLtpTransfer', $this->prefix, $this->resource),
-                        $customerShipment->getKey()
-                    ),
-                    'target' => '_blank',
-                    'icon' => 'truck',
-                    'title' => trans(sprintf('models/%s.toLtpTransfer.title', $this->resource)),
-                ]
+
             ];
             $actions = $sendToLtp + $actions;
         }

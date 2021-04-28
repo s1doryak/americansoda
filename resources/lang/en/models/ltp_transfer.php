@@ -2,67 +2,67 @@
 
 return [
     'labels' => [
-        'singular' => 'Ltp Transfer',
-        'plural' => 'Ltp Transfer',
-        'create' => 'Create Ltp Transfer'
+        'singular' => 'LTP Transfer',
+        'plural' => 'LTP Transfers',
+        'create' => 'Create LTP Transfer'
     ],
     'index' => [
-        'title' => 'Ltp Transfers',
+        'title' => 'LTP Transfers',
     ],
     'trashed' => [
-        'title' => 'Trashed Ltp Transfers',
+        'title' => 'Trashed LTP Transfers',
     ],
     'create' => [
-        'title' => 'Create Ltp Transfer',
+        'title' => 'Create LTP Transfer',
     ],
     'store' => [
-        'success' => 'Ltp Transfer created successfully!',
-        'error' => 'Ltp Transfer created unsuccessfully!'
+        'success' => 'LTP Transfer created successfully!',
+        'error' => 'LTP Transfer created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'Ltp Transfer',
+        'title' => 'LTP Transfer',
     ],
     'edit' => [
-        'title' => 'Edit Ltp Transfer',
+        'title' => 'Edit LTP Transfer',
     ],
     'update' => [
-        'success' => 'Ltp Transfer updated successfully!',
-        'error' => 'Ltp Transfer updated unsuccessfully!'
+        'success' => 'LTP Transfer updated successfully!',
+        'error' => 'LTP Transfer updated unsuccessfully!'
     ],
     'trash' => [
-        'title' => 'Move Ltp Transfer to trash',
-        'success' => 'Ltp Transfer trashed successfully!',
-        'error' => 'Ltp Transfer trashed unsuccessfully!'
+        'title' => 'Move LTP Transfer to trash',
+        'success' => 'LTP Transfer trashed successfully!',
+        'error' => 'LTP Transfer trashed unsuccessfully!'
     ],
     'restore' => [
-        'title' => 'Restore Ltp Transfer',
-        'success' => 'Ltp Transfer restored successfully!',
-        'error' => 'Ltp Transfer restored unsuccessfully!'
+        'title' => 'Restore LTP Transfer',
+        'success' => 'LTP Transfer restored successfully!',
+        'error' => 'LTP Transfer restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy Ltp Transfer',
-        'success' => 'Ltp Transfer destroyed successfully!',
-        'error' => 'Ltp Transfer destroyed unsuccessfully!'
+        'title' => 'Destroy LTP Transfer',
+        'success' => 'LTP Transfer destroyed successfully!',
+        'error' => 'LTP Transfer destroyed unsuccessfully!'
     ],
     'send' => [
-        'title' => 'Send to Ltp',
+        'title' => 'Send to LTP',
     ],
     'xml' => [
         'title' => 'Show XML',
     ],
     'ltpUpdate' => [
-        'title' => 'Ltp update',
-        'success' => 'Ltp updated successfully!',
-        'error' => 'Ltp updated unsuccessfully!',
-        'empty' => 'Ltp returned empty answer!',
-        'readError' => 'Can not read answer from Ltp!',
+        'title' => 'LTP update',
+        'success' => 'LTP updated successfully!',
+        'error' => 'LTP updated unsuccessfully!',
+        'empty' => 'LTP returned empty answer!',
+        'readError' => 'Can not read answer from LTP!',
     ],
     'fields' => [
         'document_type' => 'Document Type',
         'document_number' => 'Document Number',
         'requested_delivery_date'  => 'Requested Delivery Date',
         'requested_delivery_timestamp'  => 'Requested Delivery Timestamp',
-        'document_date' => 'Document Date',
+        'document_date' => 'LTP Send',
         'warehouse' => 'Warehouse',
         'comment' => 'Comment',
         'owner_reference' => 'Owner Reference',
@@ -106,7 +106,7 @@ return [
         'requested_delivery_date'  => 'Delivery',
         'customer'  => 'Customer',
         'invoicing_reference'  => 'Orders',
-        'document_date'  => 'Document Date',
+        'document_date'  => 'LTP Send',
         'picking_date'  => 'Picking Date',
         'picked'  => 'Picked',
         'departure'  => 'Departure',

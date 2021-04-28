@@ -169,11 +169,11 @@ class LtpTransfersController extends ResourceController
         $documents = new SimpleXMLElement($xml);
 
         foreach ($documents as $document) {
+            $documentNumber = config('app.env') === 'production'
+                ? $document->DocumentNumber
+                : Str::after($document->DocumentNumber, 'TEST-');
             /** @var LtpTransfer $ltpTransfer */
-            $ltpTransfer = $this->repository->firstWhere([
-                // todo: временная заглушка для тестирования
-                'document_number' => Str::after($document->DocumentNumber, 'TEST-')
-            ]);
+            $ltpTransfer = $this->repository->firstWhere(['document_number' => $documentNumber]);
 
             if ($ltpTransfer) {
                 $ltpTransfer->update(['picking_date' => (string)$document->PickingDate]);
@@ -196,11 +196,11 @@ class LtpTransfersController extends ResourceController
             $transferItems
                 ->filter(function (LtpTransferItem $transferItem) use ($documentLine) {
                     return $transferItem->product_ean === (string)$documentLine->ProductEan
-                        && $transferItem->original_quantity === (string)$documentLine->OriginalQuantity;
+                        && intval($transferItem->original_quantity) === intval($documentLine->OriginalQuantity);
                 })
                 ->map(function (LtpTransferItem $transferItem) use ($documentLine) {
                     $transferItem->processed_quantity = (string)$documentLine->ProcessedQuantity;
-                    $transferItem->product_group_id = (string)$documentLine->ProductGroupId;
+                    $transferItem->product_group_id = (string)$documentLine->ProductGroupId ?: null;
                     $transferItem->picked = floor(($documentLine->ProcessedQuantity / $documentLine->OriginalQuantity) * 100);
                     $transferItem->unmodified_original_quantity = (string)$documentLine->UnmodifiedOriginalQuantity;
                     $transferItem->updated_at = now();
