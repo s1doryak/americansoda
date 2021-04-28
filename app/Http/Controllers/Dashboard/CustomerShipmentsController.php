@@ -304,12 +304,16 @@ class CustomerShipmentsController extends ResourceController
     {
         /** @var CustomerShipment $shipment */
         $shipment = $this->repository->with(['customer'])->find($this->getResourceId());
-        $ltpTransfer = $this->createLtpTransfer($shipment);
-        $attributes = $ltpTransfer->toArray();
-        event(new ResourceStored($this->getPrefix(), 'ltp_transfer', 'ltp_transfer', $attributes, []));
+        $transfer = $shipment->ltpTransfer;
+
+        if (!$transfer) {
+            $transfer = $this->createLtpTransfer($shipment);
+            $attributes = $transfer->toArray();
+            event(new ResourceStored($this->getPrefix(), 'ltp_transfer', 'ltp_transfer', $attributes, []));
+        }
 
         return redirect(
-            route("{$this->prefix}.ltp_transfer.edit", ['ltp_transfer' => $ltpTransfer->getKey()])
+            route("{$this->prefix}.ltp_transfer.edit", ['ltp_transfer' => $transfer->getKey()])
         );
     }
 

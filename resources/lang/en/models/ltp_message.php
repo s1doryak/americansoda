@@ -2,53 +2,53 @@
 
 return [
     'labels' => [
-        'singular' => 'Ltp Message',
-        'plural' => 'Ltp Messages',
-        'create' => 'Create Ltp Message'
+        'singular' => 'LTP Message',
+        'plural' => 'LTP Messages',
+        'create' => 'Create LTP Message'
     ],
     'index' => [
-        'title' => 'List of Ltp Messages',
+        'title' => 'List of LTP Messages',
     ],
     'trashed' => [
-        'title' => 'List of trashed Ltp Messages',
+        'title' => 'List of trashed LTP Messages',
     ],
     'create' => [
-        'title' => 'Create Ltp Message',
+        'title' => 'Create LTP Message',
     ],
     'store' => [
-        'success' => 'Ltp Message created successfully!',
-        'error' => 'Ltp Message created unsuccessfully!'
+        'success' => 'LTP Message created successfully!',
+        'error' => 'LTP Message created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'Ltp Message',
+        'title' => 'LTP Message',
     ],
     'edit' => [
-        'title' => 'Edit Ltp Message',
+        'title' => 'Edit LTP Message',
     ],
     'update' => [
-        'success' => 'Ltp Message updated successfully!',
-        'error' => 'Ltp Message updated unsuccessfully!'
+        'success' => 'LTP Message updated successfully!',
+        'error' => 'LTP Message updated unsuccessfully!'
     ],
     'trash' => [
-        'title' => 'Move Ltp Message to trash',
-        'success' => 'Ltp Message trashed successfully!',
-        'error' => 'Ltp Message trashed unsuccessfully!'
+        'title' => 'Move LTP Message to trash',
+        'success' => 'LTP Message trashed successfully!',
+        'error' => 'LTP Message trashed unsuccessfully!'
     ],
     'restore' => [
-        'title' => 'Restore Ltp Message',
-        'success' => 'Ltp Message restored successfully!',
-        'error' => 'Ltp Message restored unsuccessfully!'
+        'title' => 'Restore LTP Message',
+        'success' => 'LTP Message restored successfully!',
+        'error' => 'LTP Message restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy Ltp Message',
-        'success' => 'Ltp Message destroyed successfully!',
-        'error' => 'Ltp Message destroyed unsuccessfully!'
+        'title' => 'Destroy LTP Message',
+        'success' => 'LTP Message destroyed successfully!',
+        'error' => 'LTP Message destroyed unsuccessfully!'
     ],
     //    'customAction' => [
-    //        'title' => 'Ltp Message custom action',
-    //        'success' => 'Ltp Message custom action completed successfully!',
-    //        'redirect' => 'Ltp Message custom action completed successfully!',
-    //        'error' => 'Ltp Message custom action completed unsuccessfully!',
+    //        'title' => 'LTP Message custom action',
+    //        'success' => 'LTP Message custom action completed successfully!',
+    //        'redirect' => 'LTP Message custom action completed successfully!',
+    //        'error' => 'LTP Message custom action completed unsuccessfully!',
     //    ],
     'fields' => [
 		'sender_identifier' => 'Senderentifier',
@@ -61,7 +61,7 @@ return [
 
     ],
     'columns' => [
-		'sender_identifier' => 'Senderentifier',
+		'sender_identifier' => 'Sender Identifier',
 		'sender_description' => 'Sender Description',
 		'filename_hint' => 'Filename Hint',
 		'content' => 'Content',

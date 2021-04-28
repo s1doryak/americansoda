@@ -2,47 +2,47 @@
 
 return [
     'labels' => [
-        'singular' => 'Ltp Transfer',
-        'plural' => 'Ltp Transfers',
-        'create' => 'Create Ltp Transfer'
+        'singular' => 'LTP Transfer',
+        'plural' => 'LTP Transfers',
+        'create' => 'Create LTP Transfer'
     ],
     'index' => [
-        'title' => 'Ltp Transfers',
+        'title' => 'LTP Transfers',
     ],
     'trashed' => [
-        'title' => 'Trashed Ltp Transfers',
+        'title' => 'Trashed LTP Transfers',
     ],
     'create' => [
-        'title' => 'Create Ltp Transfer',
+        'title' => 'Create LTP Transfer',
     ],
     'store' => [
-        'success' => 'Ltp Transfer created successfully!',
-        'error' => 'Ltp Transfer created unsuccessfully!'
+        'success' => 'LTP Transfer created successfully!',
+        'error' => 'LTP Transfer created unsuccessfully!'
     ],
     'show' => [
-        'title' => 'Ltp Transfer',
+        'title' => 'LTP Transfer',
     ],
     'edit' => [
-        'title' => 'Edit Ltp Transfer',
+        'title' => 'Edit LTP Transfer',
     ],
     'update' => [
-        'success' => 'Ltp Transfer updated successfully!',
-        'error' => 'Ltp Transfer updated unsuccessfully!'
+        'success' => 'LTP Transfer updated successfully!',
+        'error' => 'LTP Transfer updated unsuccessfully!'
     ],
     'trash' => [
-        'title' => 'Move Ltp Transfer to trash',
-        'success' => 'Ltp Transfer trashed successfully!',
-        'error' => 'Ltp Transfer trashed unsuccessfully!'
+        'title' => 'Move LTP Transfer to trash',
+        'success' => 'LTP Transfer trashed successfully!',
+        'error' => 'LTP Transfer trashed unsuccessfully!'
     ],
     'restore' => [
-        'title' => 'Restore Ltp Transfer',
-        'success' => 'Ltp Transfer restored successfully!',
-        'error' => 'Ltp Transfer restored unsuccessfully!'
+        'title' => 'Restore LTP Transfer',
+        'success' => 'LTP Transfer restored successfully!',
+        'error' => 'LTP Transfer restored unsuccessfully!'
     ],
     'destroy' => [
-        'title' => 'Destroy Ltp Transfer',
-        'success' => 'Ltp Transfer destroyed successfully!',
-        'error' => 'Ltp Transfer destroyed unsuccessfully!'
+        'title' => 'Destroy LTP Transfer',
+        'success' => 'LTP Transfer destroyed successfully!',
+        'error' => 'LTP Transfer destroyed unsuccessfully!'
     ],
     'fields' => [
         'document_type' => 'Document Type',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\DataTables\Dashboard\LtpMessageDataTable;
+use App\Http\Controllers\Dashboard\Traits\DashboardSidebar;
 use App\Repositories\Contracts\LtpMessageRepository;
 use Illuminate\Contracts\Auth\Access\Gate;
 
@@ -13,6 +14,8 @@ use Illuminate\Contracts\Auth\Access\Gate;
  */
 class LtpMessagesController extends \Crmplease\MaterialAdmin\Routing\ResourceController
 {
+    use DashboardSidebar;
+
 	/**
 	 * @var Gate
 	 */
@@ -157,5 +160,7 @@ class LtpMessagesController extends \Crmplease\MaterialAdmin\Routing\ResourceCon
 
 	    $this->gate = $gate;
 		$this->repository = $ltpMessageRepository;
+
+		$this->shareSidebar();
 	}
 }
