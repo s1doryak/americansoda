@@ -173,14 +173,7 @@ class CustomerShipmentDataTable extends DataTable
                 'title' => trans(sprintf('models/%s.waybill.title', $this->resource)),
             ],
         ];
-
-        if (!$customerShipment->ltpTransfer) {
-            $sendToLtp = [
-
-            ];
-            $actions = $sendToLtp + $actions;
-        }
-
+        
         return array_merge($actions, $defaults);
     }
 
