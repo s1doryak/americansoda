@@ -28,6 +28,7 @@ class LtpTransferRepositoryEloquent extends \Crmplease\MaterialAdmin\Repositorie
         $query = $this->model->select();
         $query->whereRaw(sprintf("`document_number` REGEXP 'LTP-%s.*'", $date));
         $transfers = $query
+            ->withTrashed()
             ->get()
             ->map(function (LtpTransfer $transfer) use ($date) {
                 return Str::replaceFirst(sprintf('LTP-%s-', $date), '', $transfer->document_number);

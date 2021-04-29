@@ -183,7 +183,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         #todo: проверить отношения
         return $this->customerOrderItems
             ->map(function (CustomerOrderItem $customerOrderItem) {
-                return !$customerOrderItem->back_order
+                return !$customerOrderItem->back_order && $customerOrderItem->customerOrder
                     ? $customerOrderItem->customerOrder->number
                     : null;
             })
@@ -198,7 +198,7 @@ class CustomerShipment extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     {
         return $this->customerOrderItems
             ->map(function (CustomerOrderItem $customerOrderItem) {
-                return !$customerOrderItem->back_order
+                return !$customerOrderItem->back_order && $customerOrderItem->customerOrder
                     ? $customerOrderItem->customerOrder->batch_number
                     : null;
             })

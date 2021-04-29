@@ -129,6 +129,15 @@ class CustomerShipmentDataTable extends DataTable
     protected function getActions($customerShipment)
     {
         $defaults = $this->getDefaultActions($customerShipment);
+        $ltpTransfer = $customerShipment->ltpTransfer;
+
+        if ($ltpTransfer && $ltpTransfer->sent_at) {
+            $ltpColor = 'gray';
+        } elseif ($ltpTransfer && !$ltpTransfer->sent_at) {
+            $ltpColor = 'primary';
+        } else {
+            $ltpColor = 'green';
+        }
 
         $actions = [
             'toLtpTransfer' => [
@@ -139,7 +148,7 @@ class CustomerShipmentDataTable extends DataTable
                 ),
                 'target' => '_blank',
                 'icon' => 'truck',
-                'color' => $customerShipment->ltpTransfer ? 'primary' : 'green',
+                'color' => $ltpColor,
                 'title' => trans(sprintf('models/%s.toLtpTransfer.title', $this->resource)),
             ],
             'invoice' => [
@@ -173,7 +182,7 @@ class CustomerShipmentDataTable extends DataTable
                 'title' => trans(sprintf('models/%s.waybill.title', $this->resource)),
             ],
         ];
-        
+
         return array_merge($actions, $defaults);
     }
 

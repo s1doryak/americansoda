@@ -25,7 +25,7 @@ class LtpTransferPolicy implements DatatablePolicyContract
      */
     public function index(Authenticatable $authenticatable)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class LtpTransferPolicy implements DatatablePolicyContract
      */
     public function trashed(Authenticatable $authenticatable)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -50,7 +50,7 @@ class LtpTransferPolicy implements DatatablePolicyContract
     public function export(Authenticatable $authenticatable)
     {
 
-        return false;
+        return true;
     }
 
     /**
@@ -118,7 +118,7 @@ class LtpTransferPolicy implements DatatablePolicyContract
     public function trash(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
     {
 
-        return false;
+        return true;
     }
 
     /**
@@ -132,7 +132,7 @@ class LtpTransferPolicy implements DatatablePolicyContract
     public function restore(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
     {
 
-        return false;
+        return true;
     }
 
     /**
@@ -146,7 +146,7 @@ class LtpTransferPolicy implements DatatablePolicyContract
     public function destroy(Authenticatable $authenticatable, LtpTransfer $LtpTransfer)
     {
 
-        return false;
+        return true;
     }
 
     /**
