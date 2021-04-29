@@ -31,6 +31,7 @@ class LtpTransferDataTable extends DataTable
             'customer',
             'order_numbers',
             'document_date',
+            'sent_at',
             'picking_date',
             'picked',
             'warehouse',
@@ -50,6 +51,7 @@ class LtpTransferDataTable extends DataTable
             'customer',
             'order_numbers',
             'document_date',
+            'sent_at',
             'picking_date',
             'picked',
             'warehouse',
@@ -155,14 +157,29 @@ class LtpTransferDataTable extends DataTable
     public function renderDocumentDateColumn($ltpTransfer)
     {
         if ($this->isDataTableRequest()) {
-            $actionView = $this->getSendToLtpAction($ltpTransfer);
-
             return $ltpTransfer->document_date
                 ? format_date($ltpTransfer->document_date)
-                : $actionView;
+                : null;
         }
 
         return $ltpTransfer->document_date;
+    }
+
+    /**
+     * @param LtpTransfer $ltpTransfer
+     * @return mixed|string
+     */
+    public function renderSentAtColumn($ltpTransfer)
+    {
+        if ($this->isDataTableRequest()) {
+            $actionView = $this->getSendToLtpAction($ltpTransfer);
+
+            return $ltpTransfer->sent_at
+                ? format_date($ltpTransfer->sent_at)
+                : $actionView;
+        }
+
+        return $ltpTransfer->sent_at;
     }
 
     /**

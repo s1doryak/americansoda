@@ -92,6 +92,7 @@ return [
         'customerShipment'  => [
             'number' => 'Customer Shipment'
         ],
+        'sent_at' => 'Sent At',
 
         'created_at' => 'Created',
         'updated_at' => 'Updated',
@@ -115,6 +116,7 @@ return [
             'number' => 'Customer Shipment'
         ],
         'order_numbers' => 'Orders',
+        'sent_at' => 'Sent At',
 
         'created_at' => 'Created',
         'updated_at' => 'Updated',

@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $phone
  * @property string $customer_shipment_id
  * @property string $order_numbers
+ * @property Carbon $sent_at
  * @property \Illuminate\Support\Collection|\App\LtpTransferItem[] $items
  * @property \App\CustomerShipment $customerShipment
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -86,6 +87,7 @@ class LtpTransfer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'picking_date',
         'customer_shipment_id',
         'order_numbers',
+        'sent_at',
     ];
 
     protected $casts = [
@@ -96,6 +98,7 @@ class LtpTransfer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'requested_delivery_date',
         'document_date',
         'picking_date',
+        'sent_at',
         'created_at',
         'updated_at',
     ];

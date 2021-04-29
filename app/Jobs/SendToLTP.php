@@ -33,19 +33,17 @@ class SendToLTP implements ShouldQueue
     )
     {
         if ($ltpTransfer = $ltpTransferRepository->find($this->id)) {
-            $documentDate = Carbon::now();
-            $ltpXml = array_merge(LtpTransferTransformer::toLtpXml($ltpTransfer), [
-                'DocumentDate' => $documentDate
-            ]);
+            $sentAt = Carbon::now();
+            $ltpXml = LtpTransferTransformer::toLtpXml($ltpTransfer);
             $xml = ArrayToXml::convert($ltpXml, 'Documents', true, 'UTF-8');
             $result = $ltpHttpClient->sendDocuments($xml, $ltpTransfer->document_number);
 
             if ($result['code'] === Response::HTTP_NO_CONTENT) {
                 $ltpTransferRepository->update([
-                    'document_date' => $documentDate
+                    'sent_at' => $sentAt
                 ], $ltpTransfer->getKey());
 
-                return format_date($documentDate);
+                return format_date($sentAt);
             }
         }
 

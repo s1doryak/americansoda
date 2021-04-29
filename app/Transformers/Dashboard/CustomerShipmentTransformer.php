@@ -4,9 +4,11 @@ namespace App\Transformers\Dashboard;
 
 use App\CustomerShipment;
 use App\Repositories\Contracts\LtpTransferRepository;
+use Carbon\Carbon;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Transformers\Contracts\TransformerContract;
 use Crmplease\MaterialAdmin\Transformers\Traits\Collector;
+use Illuminate\Support\Arr;
 
 /**
  * CustomerShipment transformer.
@@ -91,10 +93,12 @@ class CustomerShipmentTransformer implements TransformerContract
 	public static function toLtpTransfer(CustomerShipment $customerShipment)
     {
         $customer = $customerShipment->customer;
+        $documentDate = Carbon::createFromFormat('Ymd', preg_replace('/[^0-9,.]+/', '', $customerShipment->assembly_number));
 
         return [
             'document_type' => 'SO',
             'document_number' => app(LtpTransferRepository::class)->getFirstAvailableNumber(),
+            'document_date' => $documentDate,
             'requested_delivery_date' => $customerShipment->delivery_date,
             'owner_reference' => $customerShipment->number,
             'invoicing_reference' => $customerShipment->order_batch_numbers,
