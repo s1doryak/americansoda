@@ -74,6 +74,7 @@ class LtpTransferTransformer implements TransformerContract
      */
     public static function toLtpXml(LtpTransfer $ltpTransfer)
     {
+        $shipment = $ltpTransfer->customerShipment;
         $deliveryTimestamp = null;
         $documentNumber = config('app.env') === 'production'
             ? $ltpTransfer->document_number
@@ -120,6 +121,18 @@ class LtpTransferTransformer implements TransformerContract
             'Weight' => $ltpTransfer->weight,
             'Volume' => $ltpTransfer->volume,
             'DocumentParty' => array_filter($documentParty),
+        ];
+
+        if ($packageType = $shipment->packageType) {
+            $document['AdditionalHeaderReference'][] = [
+                'KeyString' => 'PackageType',
+                'ValueString' => $packageType->name,
+            ];
+        }
+
+        $document['AdditionalHeaderReference'][] = [
+            'KeyString' => 'PackagesQuantity',
+            'ValueString' => $shipment->packages_quantity,
         ];
         $xmlData = [
             'Document' => array_filter($document)
