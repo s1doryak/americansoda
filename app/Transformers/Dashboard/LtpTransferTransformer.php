@@ -76,7 +76,7 @@ class LtpTransferTransformer implements TransformerContract
     {
         $shipment = $ltpTransfer->customerShipment;
         $deliveryTimestamp = null;
-        $documentNumber = config('app.env') === 'production'
+        $documentNumber = in_array(config('app.env'), ['prod', 'production'])
             ? $ltpTransfer->document_number
             : "TEST-{$ltpTransfer->document_number}";
 

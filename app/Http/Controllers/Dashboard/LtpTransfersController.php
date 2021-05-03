@@ -169,7 +169,7 @@ class LtpTransfersController extends ResourceController
         $documents = new SimpleXMLElement($xml);
 
         foreach ($documents as $document) {
-            $documentNumber = config('app.env') === 'production'
+            $documentNumber = in_array(config('app.env'), ['prod', 'production'])
                 ? $document->DocumentNumber
                 : Str::after($document->DocumentNumber, 'TEST-');
             /** @var LtpTransfer $ltpTransfer */
