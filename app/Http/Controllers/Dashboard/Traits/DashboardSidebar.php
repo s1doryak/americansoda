@@ -44,7 +44,9 @@ trait DashboardSidebar
 				'stock',
 				'stock_movement_product',
 				'stock_product',
-			],
+                'ltp_transfer',
+                'ltp_message',
+            ],
 		],
 		[
 			'title' => 'sidebar.administration',

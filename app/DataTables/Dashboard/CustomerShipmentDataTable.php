@@ -129,8 +129,28 @@ class CustomerShipmentDataTable extends DataTable
     protected function getActions($customerShipment)
     {
         $defaults = $this->getDefaultActions($customerShipment);
+        $ltpTransfer = $customerShipment->ltpTransfer;
+
+        if ($ltpTransfer && $ltpTransfer->sent_at) {
+            $ltpColor = 'gray';
+        } elseif ($ltpTransfer && !$ltpTransfer->sent_at) {
+            $ltpColor = 'primary';
+        } else {
+            $ltpColor = 'green';
+        }
 
         $actions = [
+            'toLtpTransfer' => [
+                'resource' => 'ltp_transfer',
+                'url' => route(
+                    sprintf('%s.%s.toLtpTransfer', $this->prefix, $this->resource),
+                    $customerShipment->getKey()
+                ),
+                'target' => '_blank',
+                'icon' => 'truck',
+                'color' => $ltpColor,
+                'title' => trans(sprintf('models/%s.toLtpTransfer.title', $this->resource)),
+            ],
             'invoice' => [
                 'url' => route(
                     sprintf('%s.%s.invoice', $this->prefix, $this->resource),

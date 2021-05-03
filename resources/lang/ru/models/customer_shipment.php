@@ -53,6 +53,9 @@ return [
     'invoice' => [
         'title' => 'Счёт',
     ],
+    'toLtp' => [
+        'title' => 'Конвертировать в LTP',
+    ],
 	'fields' => [
 		'number' => 'Номер отгурзки',
 		'assembly_number' => 'Номер сборки',

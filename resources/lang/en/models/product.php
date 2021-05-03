@@ -84,6 +84,7 @@ return [
         'future_stock_movement' => 'Future Stock Movement',
         'future_stock_movement_enable' => 'Subscribable',
         'displayed_text' => 'Displayed text',
+        'vendor_code' => 'Vendor Code',
     ],
     'placeholders' => [
 		'brand' => 'Select Brand',
@@ -124,6 +125,7 @@ return [
 		'productTags' => [
 			'name' => 'Product Tags',
 		],
+        'vendor_code' => 'Vendor Code',
         'discount_price' => 'Discount price',
         'created_at' => 'Created',
         'updated_at' => 'Updated',

@@ -80,12 +80,6 @@ class CustomerPreOrderDataTable extends DataTable
                 'data' => 'customerUser.id',
                 'lists' => 'customerUser.name',
             ],
-            'customerOrder.number' => [
-                'type' => 'choice',
-                'multiple' => true,
-                'data' => 'customerOrder.id',
-                'lists' => 'customerOrder.number',
-            ],
             'customer.name' => [
                 'type' => 'choice',
                 'multiple' => true,

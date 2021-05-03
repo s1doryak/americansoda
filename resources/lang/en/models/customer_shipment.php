@@ -53,6 +53,9 @@ return [
     'invoice' => [
         'title' => 'Create Invoice',
     ],
+    'toLtpTransfer' => [
+        'title' => 'Conver to LTP',
+    ],
     'fields' => [
         'number' => 'Number',
         'assembly_number' => 'Assembly Number',

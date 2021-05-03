@@ -71,10 +71,10 @@
         </a>
     </li>
     <li class="hidden-xs">
-        <a href="{{ route('dashboard.stock_product.index') }}">
+        <a href="{{ route('dashboard.ltp_transfer.index') }}">
             <span class="him-label">
                 <i class="zmdi zmdi-chart zmdi-hc-lg"></i>
-                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/stock_product.labels.plural') }}</span>
+                <span class="hidden-xs hidden-md m-l-5">{{ trans('models/ltp_transfer.labels.plural') }}</span>
             </span>
         </a>
     </li>

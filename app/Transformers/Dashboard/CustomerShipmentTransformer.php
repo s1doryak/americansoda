@@ -3,9 +3,12 @@
 namespace App\Transformers\Dashboard;
 
 use App\CustomerShipment;
+use App\Repositories\Contracts\LtpTransferRepository;
+use Carbon\Carbon;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Transformers\Contracts\TransformerContract;
 use Crmplease\MaterialAdmin\Transformers\Traits\Collector;
+use Illuminate\Support\Arr;
 
 /**
  * CustomerShipment transformer.
@@ -82,4 +85,35 @@ class CustomerShipmentTransformer implements TransformerContract
 			'deleted_at' => (string)$customerShipment->deleted_at,
 		];
 	}
+
+    /**
+     * @param CustomerShipment $customerShipment
+     * @return array
+     */
+	public static function toLtpTransfer(CustomerShipment $customerShipment)
+    {
+        $customer = $customerShipment->customer;
+        $documentDate = Carbon::createFromFormat('Ymd', preg_replace('/[^0-9,.]+/', '', $customerShipment->assembly_number));
+
+        return [
+            'document_type' => 'SO',
+            'document_number' => app(LtpTransferRepository::class)->getFirstAvailableNumber(),
+            'document_date' => $documentDate,
+            'requested_delivery_date' => $customerShipment->delivery_date,
+            'owner_reference' => $customerShipment->number,
+            'invoicing_reference' => $customerShipment->order_batch_numbers,
+            'order_numbers' => $customerShipment->order_numbers,
+            'document_party_type' => 'Delivery',
+            'code' => $customer->ltp_number ?: $customer->nr,
+            'name' => $customer->name,
+            'address' => $customer->shipping_address,
+            'zip' => $customer->shipping_postcode,
+            'city' => $customer->shippingRegion->name,
+            'region' => $customer->shippingRegion->name,
+            'country' => $customer->country,
+            'phone' => $customer->phone,
+            'email' => $customer->email,
+            'customer_shipment_id' => $customerShipment->getKey(),
+        ];
+    }
 }

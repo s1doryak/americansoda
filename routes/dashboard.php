@@ -143,6 +143,28 @@ Route::group(['middleware' => 'web'], function () {
                     'uses' => "{$controller}@invoice"
                 ]);
 
+                Route::get("customer_shipment/{customer_shipment}/to_ltp_transfer", [
+                    'as' => "dashboard.{$resource}.toLtpTransfer",
+                    'uses' => "{$controller}@toLtpTransfer"
+                ]);
+
+            }
+
+            if ($resource == 'ltp_transfer') {
+                Route::get("ltp_transfer/ltp_api/update", [
+                    'as' => "dashboard.{$resource}.ltpUpdate",
+                    'uses' => "{$controller}@ltpUpdate"
+                ]);
+
+                Route::post("ltp_transfer/{ltp_transfer}/send_to_ltp", [
+                    'as' => "dashboard.{$resource}.sendToLtp",
+                    'uses' => "{$controller}@sendToLtp"
+                ]);
+
+                Route::get("ltp_transfer/{ltp_transfer}/xml", [
+                    'as' => "dashboard.{$resource}.xml",
+                    'uses' => "{$controller}@xml"
+                ]);
             }
 
             if ($resource == 'customer_invoice') {
