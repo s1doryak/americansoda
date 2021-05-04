@@ -3,6 +3,7 @@
 namespace App\DataTables\Dashboard;
 
 use App\LtpTransfer;
+use App\Product;
 use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 
 /**
@@ -26,7 +27,8 @@ class LtpTransferDataTable extends DataTable
             ],
             'document_number' => [
                 'data' => 'document_number',
-                'template' => 'dashboard::resources.ltp_transfer.columns.document_number'
+                'template' => 'dashboard::resources.ltp_transfer.columns.document_number',
+                'searchable' => true,
             ],
             'customer',
             'order_numbers',
@@ -121,6 +123,28 @@ class LtpTransferDataTable extends DataTable
         ]);
     }
 
+    protected function getRowAttributes()
+    {
+        return array_merge(parent::getRowAttributes(), [
+            'style' => function (LtpTransfer $model) {
+                $picked = $model->picked;
+                $sentAt = $model->sent_at;
+
+                if ($picked === 100) {
+                    $color = 'rgb(76, 175, 80, 0.5)'; // зеленый
+                } elseif ($picked >= 1 && $picked <= 99) {
+                    $color = 'rgb(255, 235, 59, 0.5)'; // желтый
+                } elseif ($sentAt && $sentAt->diffInDays(now()) > 2 || $model->picking_date) {
+                    $color = 'rgb(244, 67, 54, 0.5)'; // красный
+                } else {
+                    $color = 'none';
+                }
+
+                return "background-color: {$color}";
+            }
+        ]);
+    }
+
     /**
      * @param LtpTransfer $ltpTransfer
      * @return string
@@ -188,16 +212,11 @@ class LtpTransferDataTable extends DataTable
      */
     public function renderPickedColumn($ltpTransfer)
     {
-        $items = $ltpTransfer->items;
-        $original = $items->sum('original_quantity');
-        $processed = $items->sum('processed_quantity');
-        $picked = floor($processed / $original * 100);
-
         if ($this->isDataTableRequest()) {
-            return sprintf('%s&nbsp;%%', $picked);
+            return sprintf('%s&nbsp;%%', $ltpTransfer->picked);
         }
 
-        return $picked;
+        return $ltpTransfer->picked;
     }
 
     /**
