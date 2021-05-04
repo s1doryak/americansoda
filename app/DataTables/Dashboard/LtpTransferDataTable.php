@@ -129,7 +129,7 @@ class LtpTransferDataTable extends DataTable
                 $picked = $model->picked;
                 $sentAt = $model->sent_at;
 
-                if ($picked === 100) {
+                if ($picked == 100) {
                     $color = 'rgb(76, 175, 80, 0.5)'; // зеленый
                 } elseif ($picked >= 1 && $picked <= 99) {
                     $color = 'rgb(255, 235, 59, 0.5)'; // желтый
