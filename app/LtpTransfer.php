@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $customer_shipment_id
  * @property string $order_numbers
  * @property Carbon $sent_at
+ * @property int $picked
  * @property \Illuminate\Support\Collection|\App\LtpTransferItem[] $items
  * @property \App\CustomerShipment $customerShipment
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -88,6 +89,7 @@ class LtpTransfer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
         'customer_shipment_id',
         'order_numbers',
         'sent_at',
+        'picked',
     ];
 
     protected $casts = [
@@ -154,4 +156,13 @@ class LtpTransfer extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     protected $files = [
 
     ];
+
+    public function getPickedAttribute()
+    {
+        $items = $this->items;
+        $original = $items->sum('original_quantity');
+        $processed = $items->sum('processed_quantity');
+
+        return floor($processed / $original * 100);
+    }
 }
