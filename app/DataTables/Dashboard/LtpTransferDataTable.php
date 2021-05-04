@@ -3,7 +3,6 @@
 namespace App\DataTables\Dashboard;
 
 use App\LtpTransfer;
-use App\Product;
 use Crmplease\MaterialAdmin\DataTables\Services\DataTable;
 
 /**
