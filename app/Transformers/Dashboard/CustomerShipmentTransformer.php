@@ -114,6 +114,8 @@ class CustomerShipmentTransformer implements TransformerContract
             'phone' => $customer->phone,
             'email' => $customer->email,
             'customer_shipment_id' => $customerShipment->getKey(),
+            'comment' => $customerShipment->comment,
+            'delivery_route' => $customerShipment->number,
         ];
     }
 }
