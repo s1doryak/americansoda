@@ -105,7 +105,7 @@ return [
         'document_type' => 'Document Type',
         'document_number' => 'Delivery Nr',
         'requested_delivery_date'  => 'Delivery',
-        'customer'  => 'Customer',
+        'name'  => 'Customer',
         'invoicing_reference'  => 'Orders',
         'document_date'  => 'LTP Send',
         'picking_date'  => 'Picking Date',
