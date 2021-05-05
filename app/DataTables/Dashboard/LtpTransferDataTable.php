@@ -20,17 +20,27 @@ class LtpTransferDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'requested_delivery_date',
+            'requested_delivery_date' => [
+                'data' => 'requested_delivery_date',
+                'searchable' => true,
+            ],
             'customerShipment.number' => [
-                'data' => 'customerShipment.number'
+                'data' => 'customerShipment.number',
+                'searchable' => true,
             ],
             'document_number' => [
                 'data' => 'document_number',
                 'template' => 'dashboard::resources.ltp_transfer.columns.document_number',
                 'searchable' => true,
             ],
-            'customer',
-            'order_numbers',
+            'name' => [
+                'data' => 'name',
+                'searchable' => true,
+            ],
+            'order_numbers' => [
+                'data' => 'order_numbers',
+                'searchable' => true,
+            ],
             'document_date',
             'sent_at',
             'picking_date',
@@ -248,7 +258,7 @@ class LtpTransferDataTable extends DataTable
      * @param LtpTransfer $ltpTransfer
      * @return mixed|string
      */
-    public function renderCustomerColumn($ltpTransfer)
+    public function renderNameColumn($ltpTransfer)
     {
         if ($this->isDataTableRequest()) {
             return $ltpTransfer->name;
