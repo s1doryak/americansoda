@@ -20,8 +20,6 @@ class SendToLTP implements ShouldQueue
 
     public $id;
 
-    public $ltpHttpClient;
-
     public function __construct($id)
     {
         $this->id = $id;

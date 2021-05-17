@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Crmplease\MaterialAdmin\Http\Requests\Request;
 use Crmplease\MaterialAdmin\Transformers\Contracts\TransformerContract;
 use Crmplease\MaterialAdmin\Transformers\Traits\Collector;
-use Illuminate\Support\Arr;
 
 /**
  * CustomerShipment transformer.
@@ -99,6 +98,7 @@ class CustomerShipmentTransformer implements TransformerContract
             'document_type' => 'SO',
             'document_number' => app(LtpTransferRepository::class)->getFirstAvailableNumber(),
             'document_date' => $documentDate,
+            'warehouse' => 'KT Katriinantie',
             'requested_delivery_date' => $customerShipment->delivery_date,
             'owner_reference' => $customerShipment->number,
             'invoicing_reference' => $customerShipment->order_batch_numbers,

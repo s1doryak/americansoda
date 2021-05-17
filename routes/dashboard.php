@@ -156,7 +156,7 @@ Route::group(['middleware' => 'web'], function () {
                     'uses' => "{$controller}@ltpUpdate"
                 ]);
 
-                Route::post("ltp_transfer/{ltp_transfer}/send_to_ltp", [
+                Route::get("ltp_transfer/{ltp_transfer}/send_to_ltp", [
                     'as' => "dashboard.{$resource}.sendToLtp",
                     'uses' => "{$controller}@sendToLtp"
                 ]);

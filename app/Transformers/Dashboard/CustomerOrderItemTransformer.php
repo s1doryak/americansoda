@@ -172,7 +172,6 @@ class CustomerOrderItemTransformer implements TransformerContract
             'currency' => 'EUR',
             'quantity_selling_unit' => $product->number_in_package,
             'selling_unit' => 'Pallet',
-            'warehouse' => 'KT Katriinantie',
             'customer_order_item_id' => $customerOrderItem->getKey(),
         ];
     }
