@@ -286,7 +286,7 @@ class LtpTransferDataTable extends DataTable
             'sendToLtp' => [
                 'target' => '_blank',
                 'url' => route(sprintf('%s.%s.sendToLtp', $this->prefix, $this->resource), $ltpTransfer->getKey()),
-                'method' => 'post',
+                'method' => 'get',
                 'icon' => 'cloud-upload',
                 'color' => 'blue',
                 'title' => trans(sprintf('models/%s.send.title', $this->resource)),
