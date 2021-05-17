@@ -323,18 +323,22 @@ class CustomerShipmentsController extends ResourceController
      */
     protected function createLtpTransfer(CustomerShipment $customerShipment)
     {
+        /** @var LtpTransfer $ltpTransfer */
+        $ltpTransfer = $this->ltpTransfers->create(CustomerShipmentTransformer::toLtpTransfer($customerShipment));
+
         $ltpTransferItems = [];
 
         foreach ($customerShipment->customerOrderItems as $index => $customerOrderItem) {
             $transferItem = array_merge(
                 CustomerOrderItemTransformer::toLtpTransferItemArray($customerOrderItem),
-                ['document_line_number' => $index + 1]
+                [
+                    'document_line_number' => $index + 1,
+                    'warehouse' => $ltpTransfer->warehouse,
+                ]
             );
             $ltpTransferItems[] = $this->ltpTransferItems->create($transferItem);
         }
 
-        /** @var LtpTransfer $ltpTransfer */
-        $ltpTransfer = $this->ltpTransfers->create(CustomerShipmentTransformer::toLtpTransfer($customerShipment));
         $ltpTransfer->items()->saveMany($ltpTransferItems);
         $ltpTransfer->refresh();
 

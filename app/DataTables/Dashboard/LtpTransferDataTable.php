@@ -248,10 +248,10 @@ class LtpTransferDataTable extends DataTable
     public function renderWarehouseColumn($ltpTransfer)
     {
         if ($this->isDataTableRequest()) {
-            return $ltpTransfer->warehouse ?: 'KT Katriinantie';
+            return $ltpTransfer->warehouse;
         }
 
-        return $ltpTransfer->warehouse ?: 'KT Katriinantie';
+        return $ltpTransfer->warehouse;
     }
 
     /**

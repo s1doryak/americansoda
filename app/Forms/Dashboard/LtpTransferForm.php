@@ -22,7 +22,10 @@ class LtpTransferForm extends Form
             'document_type' => 'text',
             'document_number' => 'text',
             'requested_delivery_date' => 'datepicker',
-            'requested_delivery_timestamp' => 'time',
+            'requested_delivery_timestamp' => [
+                'type' => 'time',
+                'default_value' => '13:00'
+            ],
             'document_date' => 'datepicker',
             'warehouse' => 'text',
             'comment' => 'textarea',
@@ -81,7 +84,10 @@ class LtpTransferForm extends Form
             'document_type' => 'text',
             'document_number' => 'text',
             'requested_delivery_date' => 'datepicker',
-            'requested_delivery_timestamp' => 'time',
+            'requested_delivery_timestamp' => [
+                'type' => 'time',
+                'default_value' => '13:00'
+            ],
             'document_date' => 'datepicker',
             'warehouse' => 'text',
             'comment' => 'textarea',
