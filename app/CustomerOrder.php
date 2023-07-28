@@ -217,7 +217,7 @@ class CustomerOrder extends \Crmplease\MaterialAdmin\Database\Eloquent\Model
     public function getFcTitle()
     {
         if ($this->customer) {
-            return $this->customer->name;
+            return $this->customer->name ?? 'DELETED';
         }
 
         return $this->number;

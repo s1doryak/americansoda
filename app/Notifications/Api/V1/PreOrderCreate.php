@@ -64,7 +64,7 @@ class PreOrderCreate extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject(trans('notifications/pre_order_create.subject'))
             ->line(trans('notifications/pre_order_create.message', [
-                'customer' => $this->customer->name,
+                'customer' => $this->customer->name ?? 'DELETED',
                 'pre_order' => $this->customerPreOrder->number
             ]))
             ->action(

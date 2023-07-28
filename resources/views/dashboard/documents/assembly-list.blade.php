@@ -249,7 +249,7 @@
             <tr>
                 <td class="text-upper">{{ $item->customerShipment->number }}</td>
                 <td class="text-upper">{{ $item->customerOrder->number }}</td>
-                <td class="text-upper">{{ $item->customerOrder->customer->name }}</td>
+                <td class="text-upper">{{ $item->customerOrder->customer->name ?? 'DELETED' }}</td>
                 <td class="text-upper">{{ $item->delivery_numbers }}</td>
                 <td class="text-bold text-upper">{{ $item->product->name }}</td>
                 <td class="text-center text-bold text-upper">
