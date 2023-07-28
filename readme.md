@@ -15,26 +15,6 @@ docker-compose run npm install
 docker-compose run npm run production
 ```
 
-### Миграция БД (не требуется)
-```bash
-source .env
-
-# Удаление существующих таблиц
-docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/drop.sql
-
-# Импорт старой БД
-docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < legacy.sql
-
-# Применение миграций
-docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/diff.sql
-
-# Восстановление таблицы миграций
-docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/migrations.sql
-
-# Добавление необходимых связей
-docker-compose run database mysql --protocol=TCP --host=${DB_HOST} --user=${DB_USERNAME} --password=${DB_PASSWORD} ${DB_DATABASE} < database/dump/data.sql
-```
-
 ### Счета
 ```bash
 docker-compose run artisan maventa:import:invoices 20200101000000 --tiff --force
