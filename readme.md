@@ -1,10 +1,5 @@
 ## Проект
 
-### Модули
-```bash
-git submodule update --init --recursive
-```
-
 ### Конфигурация
 ```bash
 cp .env.example .env
@@ -46,16 +41,16 @@ docker-compose run artisan maventa:import:invoices 20200101000000 --tiff --force
 ```
 
 ### Supervisor
-Настройки `/home/demo/conf/supervisor/gtp.americansoda.demo.crmplease.me.conf`:
+Настройки `/home/admin/conf/supervisor/gtp.americansoda.fi.conf`:
 ```ini
-[program:gtp.americansoda.demo.crmplease.me-queue]
+[program:gtp.americansoda.fi-queue]
 process_name=%(program_name)s_%(process_num)02d
-command=php /home/demo/web/gtp.americansoda.demo.crmplease.me/public_html/artisan queue:listen
+command=php /home/admin/web/gtp.americansoda.fi/public_html/artisan queue:listen
 autostart=true
 autorestart=true
-user=demo
+user=admin
 redirect_stderr=true
-stdout_logfile=/home/demo/web/gtp.americansoda.demo.crmplease.me/logs/gtp.americansoda.demo.crmplease.me.supervisor.log
+stdout_logfile=/home/admin/web/gtp.americansoda.fi/logs/gtp.americansoda.fi.supervisor.log
 ```
 
 ```bash
