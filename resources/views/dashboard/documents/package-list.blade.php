@@ -123,11 +123,11 @@
         </tr>
         <tr>
             <td>
-                {{ $customer->shipping_address }},
-                {{ $customer->shipping_postcode }}
-                {{ $customer->shippingRegion->name }}
+                {{ $customer->shipping_address ?? '&mdash;' }},
+                {{ $customer->shipping_postcode ?? '&mdash;' }}
+                {{ $customer->shippingRegion->name ?? '&mdash;' }}
             </td>
-            <td class="border-left">{{ $customer->delivery_payer }}</td>
+            <td class="border-left">{{ $customer->delivery_payer ?? '&mdash;' }}</td>
         </tr>
         </tbody>
     </table>
