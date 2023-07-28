@@ -203,7 +203,7 @@ class CustomerShipmentsController extends ResourceController
         /** @var CustomerShipment $shipment */
         $shipment = $this->repository->with('customer')->find($this->getResourceId());
 
-        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Lähetysluettelo')));
+        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name ?? 'DELETED', mb_strtoupper('Lähetysluettelo')));
 
         if ($request->has('inline')) {
             return view('dashboard::documents.package-list', $this->getDocumentData($request));
@@ -224,7 +224,7 @@ class CustomerShipmentsController extends ResourceController
         /** @var CustomerShipment $shipment */
         $shipment = $this->repository->with('customer')->find($this->getResourceId());
 
-        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name, mb_strtoupper('Rahtikirja')));
+        $filename = preg_replace('/\s+/mui', '_', sprintf('%s_%s_%s_%s.pdf', $shipment->id, $shipment->number, $shipment->customer->name ?? 'DELETED', mb_strtoupper('Rahtikirja')));
 
         if ($request->has('inline')) {
             return view('dashboard::documents.waybill', $this->getDocumentData($request));

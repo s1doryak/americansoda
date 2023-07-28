@@ -7,13 +7,13 @@
     <p>Status: {{ $customerOrder->status }}</p>
 @endif
 <hr>
+@if($customerOrder->customer)
 <p>Customer: <a href="{{ generateResourceLink($customerOrder->customer->id, 'customer') }}"
                 target="_blank">{{ $customerOrder->customer->name }}</a></p>
 <p>Address: {{ sprintf('%s, %s', $customerOrder->customer->shipping_address, $customerOrder->customer->shipping_postcode) }}</p>
 <p>Phone: {{ $customerOrder->customer->phone }}</p>
-<p>E-mail: <a href="mailto:{{ $customerOrder->customer->email }}"
-              target="_blank">{{ $customerOrder->customer->email }}</a></p>
-
+<p>E-mail: <a href="mailto:{{ $customerOrder->customer->email }}" target="_blank">{{ $customerOrder->customer->email }}</a></p>
+@endif
 
 <div class="form-group">
     <div class="fg-line">

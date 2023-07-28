@@ -201,7 +201,7 @@ class CustomerShipmentDataTable extends DataTable
     public function renderCustomer__NameColumn($customerShipment)
     {
         if ($this->isDataTableRequest()) {
-            return $customerShipment->customer->renderName() ?? $this->renderDefaultView();
+            return $customerShipment->customer ? $customerShipment->customer->renderName() : $this->renderDefaultView();
         }
         return $customerShipment->customer->name ?? null;
     }
