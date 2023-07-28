@@ -1,3 +1,0 @@
-[submodule "packages/crmplease/maventa"]
-	path = packages/crmplease/maventa
-	url = git@gitlab.crmplease.me:crmplease/maventa.git
