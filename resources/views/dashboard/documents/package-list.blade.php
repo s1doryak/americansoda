@@ -60,24 +60,24 @@
             </td>
         </tr>
         <tr>
-            <td>{{ $customer->legal_name ?? '&mdash;' }}</td>
+            <td>{{ $customer->legal_name ?? null }}</td>
             <td class="border-left transporter">{{ $company->name }} / {{ $company->legal_name }}</td>
         </tr>
         <tr>
-            <td><b class="upper">{{ $customer->name ?? '&mdash;' }}</b></td>
+            <td><b class="upper">{{ $customer->name ?? null }}</b></td>
             <td class="border-left">Puh. <b>{{ $company->phone }}</b> Toimisto</td>
         </tr>
         <tr>
             <td>
-                {{ $customer->billing_address ?? '&mdash;' }},
-                {{ $customer->billing_postcode ?? '&mdash;' }}
-                {{ $customer->billingRegion->name ?? '&mdash;' }}
+                {{ $customer->billing_address ?? null }},
+                {{ $customer->billing_postcode ?? null }}
+                {{ $customer->billingRegion->name ?? null }}
             </td>
-            <td class="border-left">Puh. <b>{{ $customer->user->phone ?? '&mdash;' }}</b> Myyjä</td>
+            <td class="border-left">Puh. <b>{{ $customer->user->phone ?? null }}</b> Myyjä</td>
         </tr>
         <tr>
-            <td>Y-tunnus: {{ $customer->bid ?? '&mdash;' }}</td>
-            <td class="border-left border-bottom">S-posti: {{ $customer->user->email ?? '&mdash;' }}</td>
+            <td>Y-tunnus: {{ $customer->bid ?? null }}</td>
+            <td class="border-left border-bottom">S-posti: {{ $customer->user->email ?? null }}</td>
         </tr>
         <tr>
             <td>
@@ -89,11 +89,11 @@
         </tr>
         <tr>
             <td>
-                {{ $customer->shipping_address ?? '&mdash;' }},
-                {{ $customer->shipping_postcode ?? '&mdash;' }}
-                {{ $customer->shippingRegion->name ?? '&mdash;' }}
+                {{ $customer->shipping_address ?? null }},
+                {{ $customer->shipping_postcode ?? null }}
+                {{ $customer->shippingRegion->name ?? null }}
             </td>
-            <td class="border-left">{{ $customer->payment_conditions ?? '&mdash;' }}</td>
+            <td class="border-left">{{ $customer->payment_conditions ?? null }}</td>
         </tr>
         </tbody>
         <tbody class="divider-thin">
@@ -107,11 +107,11 @@
         </tr>
         <tr>
             <td>
-                {{ $customer->stock->address ?? '&mdash;' }},
-                {{ $customer->stock->postcode ?? '&mdash;' }}
-                {{ $customer->stock->region->name ?? '&mdash;' }}
+                {{ $customer->stock->address ?? null }},
+                {{ $customer->stock->postcode ?? null }}
+                {{ $customer->stock->region->name ?? null }}
             </td>
-            <td class="border-left incomterms">{{ $customer->incomterms ?? '&mdash;' }}</td>
+            <td class="border-left incomterms">{{ $customer->incomterms ?? null }}</td>
         </tr>
         <tr>
             <td>
@@ -123,11 +123,11 @@
         </tr>
         <tr>
             <td>
-                {{ $customer->shipping_address ?? '&mdash;' }},
-                {{ $customer->shipping_postcode ?? '&mdash;' }}
-                {{ $customer->shippingRegion->name ?? '&mdash;' }}
+                {{ $customer->shipping_address ?? null }},
+                {{ $customer->shipping_postcode ?? null }}
+                {{ $customer->shippingRegion->name ?? null }}
             </td>
-            <td class="border-left">{{ $customer->delivery_payer ?? '&mdash;' }}</td>
+            <td class="border-left">{{ $customer->delivery_payer ?? null }}</td>
         </tr>
         </tbody>
     </table>
